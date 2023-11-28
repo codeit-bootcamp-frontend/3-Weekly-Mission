@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linkbrary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="headline">
+      <a href="/" class="headline-logo">
+        <img src="./image/logo.svg" alt="logo" class="logo">
+      </a>
+      <button type="button" style="cursor: pointer;" onclick="location.href='/signin'" class="headline-button">
+        로그인
+      </button>
+    </div>
+  </header>
+  <main>
+    <section class="section-title">
+      <div class="title">
+        <span class="accent">세상의 모든 정보</span>를<br>
+        쉽게 저장하고 관리해 보세요
+      </div>
+      <button type="button" style="cursor: pointer;" onclick="location.href='/signup'">
+        링크 추가하기
+      </button>
+      <div class="img">
+        <img id="website" src="./image/website.png" alt="webimage">
+      </div>
+    </section>
+    <section class="section-explain-type1">
+      <div class="card">
+        <div class="card-explain left">
+          <span class="card1">원하는 링크</span>를<br>
+          저장하세요
+        </div>
+        <img src="./image/save.png" alt="linksaveimage" class="img1">
+      </div>
+    </section>
+    <section class="section-explain-type2">
+      <div class="card">
+        <img src="./image/rename.png" alt="folderrename" class="img2">
+        <div class="card-explain right">
+          링크를 폴더로<br>
+          <span class="card2">관리</span>하세요
+        </div>
+      </div>
+    </section>
+    <section class="section-explain-type2">
+      <div class="card">
+        <div class="card-explain left">
+          저장한 링크를<br>
+          <span class="card3">공유</span>해 보세요
+        </div>
+        <img src="./image/share.png" alt="shareimage" class="img3">
+      </div>
+    </section>
+    <section class="section-explain-type2">
+      <div class="card">
+        <img src="./image/seach.png" alt="seachimage" class="img4">
+        <div class="card-explain right">
+          저장한 링크를<br>  
+          <span class="card4">검색</span>해 보세요
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-inc">
+      <div class="etc">
+        <div class="spans">
+          <span class="inc">©codeit - 2023</span>
+          <div class="links">
+            <a href="/privacy" class="privacy">Privacy Policy</a>
+            <a href="/faq" class="faq">FAQ</a>
+          </div>
+          <div class="icons">
+            <a href="https://www.facebook.com/" target="_blank">
+              <img src="image/facebook.svg" alt="facebook.icon">
+            </a>
+            <a href="https://twitter.com/" target="_blank">
+              <img src="image/twitter.svg" alt="twitter.icon">
+            </a>
+            <a href="https://www.youtube.com/" target="_blank">
+              <img src="image/youtube.svg" alt="youtube.icon">
+            </a>
+            <a href="https://www.instagram.com/" target="_blank">
+              <img src="image/instagram.svg" alt="instagram.icon">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
