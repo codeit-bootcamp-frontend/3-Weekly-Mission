@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>회원가입</title>
+        <link 
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+        <link rel="stylesheet" href="signup.css">
+    </head>
+    <body>
+      <article>
+        <a href="index.html">
+          <img src="images/logo.svg" alt="홈으로 연결된 Linkbrary 로고" class="main-logo">
+        </a>
+        <p class="signin-ment">
+          이미 회원이신가요?
+          <a class="signup-ment" href="signin.html">
+            <span>로그인 하기</span>
+          </a>
+        </p>
+        <form>
+          <div class="form">
+            <div class="form-label">
+              <label for="username">이메일</label>
+            </div>
+            <div class="form-input">
+              <input id="username" name="username">
+            </div>
+          </div>
+          <div class="form">
+            <div class="form-label">
+              <label for="password">비밀번호</label>
+            </div>
+            <div class="form-input">
+              <input id="password" name="password" type="password">
+            </div>
+          </div>
+          <div class="form">
+            <div class="form-label">
+              <label for="password-repeat">비밀번호확인</label>
+            </div>
+            <div class="form-input">
+              <input id="password-repaet" name="password-repaet">
+            </div>
+          </div>
+          <button type="submit">
+            <span class="login-button">회원가입</span>
+          </button>
+        </form>
+        <div class="social-login">
+          <span>다른 방식으로 가입하기</span>
+          <div class="social-login-logo">
+            <a href="http://www.google.com/">
+              <img src="images/google.png" alt="구글로 연결 로고">
+            </a>
+            <a href="http://www.kakaocorp.com/page/">
+              <img src="images/kakao1.svg" alt="카카오 연결 로고">
+            </a>
+          </div>
+        </div>
+      </article>
+    </body>
+</html>
