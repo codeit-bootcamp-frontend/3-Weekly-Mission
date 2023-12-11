@@ -1,0 +1,38 @@
+:root {
+  --mainbg: #f0f6ff;
+  --bg1: #edf7ff;
+
+  --white1: #ffffff;
+  --white2: #f5f5f5;
+  --white3: #edf7ff;
+  --white4: #dbe1f8;
+  --white5: #cfcfcf;
+  --white6: #d3d4dd;
+
+  --black1: #111322;
+
+  --red1: #fe578f;
+
+  --orange1: #ff5b56;
+  --orange2: #ff9f9f;
+  --orange3: #fe8a8a;
+
+  --yellow1: #ffd88b;
+  --yellow2: #f5e14b;
+
+  --skyblue1: #6ae3fe;
+  --skyblue2: #a4ceff;
+  --skyblue3: #6fbaff;
+  --skyblue4: #68e8f9;
+
+  --blue1: #2945c7;
+
+  --purple1: #6d6afe;
+
+  --gray100: #373740;
+  --gray60: #9fa6b2;
+  --gray20: #ccd5e3;
+  --gray10: #e7effb;
+  --gray1: #6b6b6b;
+  --gray2: #676767;
+}
