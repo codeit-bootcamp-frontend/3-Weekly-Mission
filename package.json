@@ -1,8 +1,17 @@
 {
-    "devDependencies": {
-        "eslint": "^8.55.0",
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-prettier": "^5.0.1",
-        "prettier": "3.1.0"
-    }
+  "name": "jimin-linkbrary",
+  "version": "1.0.0",
+  "description": "make a web site for my portfolio",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kwon-jimin",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "3.1.0"
+}
 }
