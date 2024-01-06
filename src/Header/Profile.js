@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import logo from '../image/logo.svg';
+
 
 export default function Profile() {
  const [profileData, setProfileData] = useState('');
@@ -19,9 +21,12 @@ export default function Profile() {
   return (
     <div>
       {profileData ? ( 
-        <div className='profileBox'>
-          <img className='profileImage' src={profileData.profileImageSource} alt='myprofile' />
-          <span>{profileData.email}</span>
+        <div className='nav'>
+          <img src={logo} alt='logo' />
+          <div className='profileBox'>
+            <img className='profileImage' src={profileData.profileImageSource} alt='myprofile' />
+            <span>{profileData.email}</span>
+          </div>
         </div>
       ) : (
         <button>로그인</button>

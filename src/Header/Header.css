@@ -17,15 +17,16 @@ body{
   width: 100%;
   padding: 30px 200px;
   display: flex;
-  justify-content: space-between;
   background-color: #edf7ff;
+  justify-content: space-between;
 }
 
 .profileBox{
   display: flex;
   align-items: center;
+
   gap: 10px;
-}
+  }
 
 .profileImage{
   width: 30px;
