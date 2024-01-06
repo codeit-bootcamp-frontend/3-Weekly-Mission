@@ -19,7 +19,7 @@ export default function Bookmark(){
   })
   return (
     <div className='headerUnder'>
-    {folderData?.owner && ( // folderData가 있고, folderData 안에 owner가 있으면 // 
+    {folderData?.owner && ( // folderData.owner가 있으면 && 뒤에 있는 코드 실행
       <div className='bookmarkArea'>
         <img className='userLogo' src={folderData.owner.profileImageSource} alt='codeit' />
         <p className='userName'>@{folderData.owner.name}</p>
