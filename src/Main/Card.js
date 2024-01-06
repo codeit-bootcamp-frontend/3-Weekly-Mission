@@ -26,7 +26,7 @@ export default function Card() {
         return( 
         <div key={link.id} className='cardBox'> 
             <div className='imgBox'>
-              <a href={link.url} target='_blank' rel='noreferrer'>
+              <a href={link.url} target='_blank' rel='noopener noreferrer'>
                 {link.imageSource ? 
               <img className='linkImg' src={link.imageSource} alt='linkImg' />  
               :

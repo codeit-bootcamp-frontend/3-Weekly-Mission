@@ -12,12 +12,12 @@ export default function Header() {
   )
 }
 
-{/* <>
-<div className='nav'>
-<Profile/>
-</div>
-<div className='headerArea'>
-<Bookmark/>
-</div>
-</>
-//이런식으로 nav와 headerArea를 분리 */}
+// {/* <>
+// <div className='nav'>
+// <Profile/>
+// </div>
+// <div className='headerArea'>
+// <Bookmark/>
+// </div>
+// </>
+// //이런식으로 nav와 headerArea를 분리 */}
