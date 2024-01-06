@@ -1,10 +1,5 @@
 section {
-  padding: 40px 0;
-}
-
-.div-searchbar {
-  height: 54px;
-  margin-bottom: 40px;
+  padding-bottom: 40px;
 }
 
 .div-card {
@@ -24,13 +19,9 @@ section {
   }
 }
 
-@media (max-width: 779px) {
+@media (max-width: 770px) {
   section {
     padding: 20px 0;
-  }
-
-  .div-searchbar {
-    margin-bottom: 32px;
   }
 
   .div-card {

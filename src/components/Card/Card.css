@@ -84,7 +84,7 @@
 @media (max-width: 1123px) {
 }
 
-@media (max-width: 779px) {
+@media (max-width: 770px) {
   .card {
     width: 309px; /*패딩값 빼면 309*/
     height: 327px;

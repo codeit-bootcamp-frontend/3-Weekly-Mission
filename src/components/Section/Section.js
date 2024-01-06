@@ -1,5 +1,4 @@
 import "./Section.css";
-import Search from "../Search/Search";
 import Card from "../Card/Card";
 import { useEffect, useState } from "react";
 import timeDiffChecker from "../../utils/TimeDiffChecker/TimeDiffChecker";
@@ -28,25 +27,22 @@ function Section() {
     return null;
   }
 
-  const timeDiffs = [];
-  const dateCalculator = () => {
+  const timeDiffs = cardInfo.map((item) => {
     const today = new Date();
-    for (let i = 0; i < 9; i++) {
-      const linkedDay = new Date(cardInfo[i].createdAt);
-      const timeDiff = today - linkedDay;
-      timeDiffs.push(Math.floor(timeDiff / 1000));
-    }
-  };
-  dateCalculator();
+    const linkedDay = new Date(item.createdAt);
+    return Math.floor((today - linkedDay) / 1000);
+  });
 
   return (
     <section>
-      <div className="div-searchbar">
-        <Search />
-      </div>
       <div className="div-card">
         {cardInfo.map((cardData, index) => (
-          <a rel="noreferrer" href={cardData.url} target={"_blank"} key={index}>
+          <a
+            rel="noreferrer"
+            href={cardData.url}
+            target={"_blank"}
+            key={cardData.id}
+          >
             <Card
               style={cardData.imageSource !== undefined ? style : logoStyle}
               image={cardData.imageSource}

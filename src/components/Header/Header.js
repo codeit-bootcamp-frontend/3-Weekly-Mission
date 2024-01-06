@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
-import { SAPMLE_USER } from "../../assets/url";
+import { CODEIT_API } from "../../assets/url";
 import "./Header.css";
 import logoImg from "../../assets/logo.svg";
+import styled from "styled-components";
 
-function Header() {
+const STYLED_HEADER = styled.header`
+  position: ${(props) => (props.$notFixed ? "static" : "fixed")};
+`;
+
+function Header({ notFixed }) {
   const [userInfo, setUserInfo] = useState(); //로그인정보 유무로 각각 로그인버튼/프로필정보 출력
   const invisible = { display: "none" };
   const visible = { display: "inherit" };
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(SAPMLE_USER);
+      const response = await fetch(`${CODEIT_API}/users/1`);
       const data = await response.json();
       setUserInfo(data);
     };
@@ -24,7 +29,7 @@ function Header() {
   }
 
   return (
-    <header>
+    <STYLED_HEADER $notFixed={notFixed}>
       <div className="header-son">
         <a href="/">
           <img src={logoImg} alt="로고" />
@@ -32,19 +37,19 @@ function Header() {
         <a
           className="login-button"
           href="./signin/signin.html"
-          style={userInfo["id"] !== 1 ? visible : invisible}
+          style={userInfo["data"][0]["id"] !== 1 ? visible : invisible}
         >
           로그인
         </a>
         <div
           className="user-info"
-          style={userInfo["id"] === 1 ? visible : invisible}
+          style={userInfo["data"][0]["id"] === 1 ? visible : invisible}
         >
-          <img src={userInfo["profileImageSource"]} alt="profile" />
-          <h6>{userInfo["email"]}</h6>
+          <img src={userInfo["data"][0]["image_source"]} alt="profile" />
+          <h6>{userInfo["data"][0]["email"]}</h6>
         </div>
       </div>
-    </header>
+    </STYLED_HEADER>
   );
 }
 

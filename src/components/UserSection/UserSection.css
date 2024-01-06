@@ -1,0 +1,107 @@
+nav {
+  max-width: 1140px;
+  padding: 0 32px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.div-card {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.button-button-area {
+  display: flex;
+  gap: 5px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.button-button-area button {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #6d6afe;
+  background: #fff;
+  cursor: pointer;
+}
+
+.button-button-area button.selected {
+  color: #fff;
+  border: 1px solid #6d6afe;
+  background: #6d6afe;
+}
+
+.add-button {
+  position: absolute;
+  right: 40px;
+  top: 8px;
+}
+
+.button-text-area {
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.button-text-area p {
+  font-size: 1.5rem;
+  color: #000;
+}
+
+.button-text-area img {
+  width: 18px;
+  height: 18px;
+}
+
+.tool-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tool-box.hidden {
+  display: none;
+}
+
+.tool-box a {
+  display: flex;
+  align-items: center;
+  color: var(--Linkbrary-gray60, #9fa6b2);
+  font-family: Pretendard;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+@media (max-width: 1123px) {
+  .div-card {
+    padding: 0 32px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 20px 0;
+  }
+
+  .div-card {
+    grid-template-columns: 1fr;
+  }
+
+  .button-text-area {
+    display: grid;
+    gap: 12px;
+  }
+
+  .add-button {
+    display: none;
+  }
+}
