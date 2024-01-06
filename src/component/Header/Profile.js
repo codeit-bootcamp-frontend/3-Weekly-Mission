@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import logo from '../image/logo.svg';
+import logo from '../../image/logo.svg';
 
 
 export default function Profile() {

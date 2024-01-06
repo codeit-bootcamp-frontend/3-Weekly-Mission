@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { createDay, beforeTime } from '../shared';
-import star from '../image/star.jpg';
+import { createDay, beforeTime } from '../../shared';
+import star from '../../image/star.jpg';
 
 export default function Card() {
   const [cardData, setCardData] = useState([]);

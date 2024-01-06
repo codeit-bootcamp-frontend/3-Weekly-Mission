@@ -1,8 +1,8 @@
 import './Footer.css'
-import facebook from '../image/facebook.svg'
-import twitter from '../image/twitter.svg'
-import youtube from '../image/youtube.svg'
-import instagram from '../image/instagram.svg'  
+import facebook from '../../image/facebook.svg'
+import twitter from '../../image/twitter.svg'
+import youtube from '../../image/youtube.svg'
+import instagram from '../../image/instagram.svg'  
 
 
 export default function Footer() {

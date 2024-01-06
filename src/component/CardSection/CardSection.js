@@ -1,8 +1,8 @@
 import Search from './Search'
 import Card from './Card'
-import './Main.css'
+import './CardSection.css'
 
-export default function Main() {
+export default function CardSection() {
   return (
     <div className='mainArea'>
         <div className='mainBOX'>

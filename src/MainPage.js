@@ -1,5 +1,5 @@
 import React from 'react'
-import App from './App'
+import App from './pages/App'
 import FolderPage from './pages/FolderPage'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 

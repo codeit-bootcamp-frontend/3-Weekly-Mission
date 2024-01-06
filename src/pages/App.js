@@ -1,17 +1,13 @@
-import Header from './Header/Header'
-import Main from './Main/Main'
-import Footer from './Footer/Footer'
-import FolderPage from './pages/FolderPage'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
-
+import Header from '../component/Header/Header'
+import CardSection from '../component/CardSection/CardSection'
+import Footer from '../component/Footer/Footer'
 
 export default function App() {
   
   return (
     <>
     <Header/>
-    <Main/>
+    <CardSection/>
     <Footer/>
     </>
     
