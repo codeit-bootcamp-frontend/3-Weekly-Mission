@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 export default function Bookmark(){
   const [folderData, setfolderData] = useState('');
-
-  useEffect(()=>{
     async function folderDatas(){
       try{
         const response = await fetch('https://bootcamp-api.codeit.kr/api/sample/folder');
@@ -15,8 +13,9 @@ export default function Bookmark(){
         console.log('Error')
       }
     }
-    folderDatas()
-  })
+    useEffect(()=>{
+      folderDatas()
+    },[])
   return (
     <div className='headerUnder'>
     {folderData?.owner && ( // folderData가 있고, folderData 안에 owner가 있으면 // 

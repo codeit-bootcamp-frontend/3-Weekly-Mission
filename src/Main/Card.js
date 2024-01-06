@@ -5,17 +5,17 @@ import star from '../image/star.jpg';
 export default function Card() {
   const [cardData, setCardData] = useState([]);
   
-  useEffect(() => {
-    async function cardImgs() {
-      try {
-        const response = await fetch("https://bootcamp-api.codeit.kr/api/sample/folder");
-        const data = await response.json();
-        const link = data.folder.links; // response 안에 있는 links 데이터
-        setCardData(link); // links 데이터를 cardData에 저장
-      } catch (error) {
-        console.log('Error');
-      }
+  async function cardImgs() {
+    try {
+      const response = await fetch("https://bootcamp-api.codeit.kr/api/sample/folder");
+      const data = await response.json();
+      const link = data.folder.links; // response 안에 있는 links 데이터
+      setCardData(link); // links 데이터를 cardData에 저장
+    } catch (error) {
+      console.log('Error');
     }
+  }
+  useEffect(() => {
     cardImgs();
   }, []);
   return (
