@@ -1,65 +1,76 @@
-const Card = ({ linkData }) => {
-  const calculatePassedTime = (createdAt) => {
-    const nowTime = Date.now();
-    const uploadedTime = new Date(createdAt).getTime();
-    const passedSeconds = Math.floor((nowTime - uploadedTime) / 1000);
-    const passedMinutes = passedSeconds / 60;
-    const passedHours = passedMinutes / 60;
-    const passedDay = passedHours / 24;
-    const passedMonth = passedDay / 30;
-    const passedYear = passedMonth / 12;
-    // 큰 단위부터 하나씩 컷하기
-    if (passedYear >= 1) {
-      return `${Math.floor(passedYear)} years ago`;
-    }
-    if (passedMonth >= 1) {
-      return `${Math.floor(passedMonth)} months ago`;
-    }
-    if (passedDay >= 1) {
-      return `${Math.floor(passedDay)} days ago`;
-    }
-    if (passedHours >= 1) {
-      return `${Math.floor(passedHours)} hours ago`;
-    }
-    if (passedMinutes >= 1) {
-      return `${Math.floor(passedMinutes)}minutes ago`;
-    }
-    return '1minutes ago';
-  };
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import CardImg, { CardMainImg } from './CardImg/CardImg';
+import CardContent, { CardContentContainer } from './CardContent/CardContent';
 
-  const getFormattedDate = (createdAt) => {
-    const date = new Date(createdAt);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year}. ${month}. ${day}`;
-  };
+const CardListContainer = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(3, 340px);
+  gap: 20px;
 
+  @media (max-width: 1123px) {
+    display: grid;
+    grid-template-columns: repeat(2, 340px);
+    gap: 24px;
+  }
+
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 24px;
+  }
+`;
+
+const CardLink = styled(Link)`
+  width: 340px;
+  height: 334px;
+  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.08);
+  border-radius: 15px;
+
+  &:hover ${CardMainImg} {
+    transform: scale(1.3);
+  }
+
+  &:hover ${CardContentContainer} {
+    background: var(--gray5);
+  }
+`;
+
+const AlertNotStoredLink = styled.div`
+  display: flex;
+  width: 1060px;
+  height: 100px;
+  padding: 41px 0px 35px;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 24px;
+
+  @media (max-width: 1123px) {
+    width: 704px;
+  }
+`;
+
+const Card = ({ cardData }) => {
   return (
-    <ul className="link-list">
-      {Array.isArray(linkData.links)
-        ? linkData.links.map((link) => {
-            return (
-              <a href={link.url} target="_blank" className="link" key={link.id} rel="noreferrer">
-                <div>
-                  <div className="link__img">
-                    {link.imageSource ? (
-                      <img src={link.imageSource} alt="카드 이미지" />
-                    ) : (
-                      <img src={`${process.env.PUBLIC_URL}/images/no_image_source.svg`} alt="이미지가 없음" />
-                    )}
-                  </div>
-                  <div className="link__content">
-                    <div className="link__content--time-passed">{calculatePassedTime(link.createdAt)}</div>
-                    <div className="link__content--description">{link.description}</div>
-                    <div className="link__content--createdAt">{getFormattedDate(link.createdAt)}</div>
-                  </div>
-                </div>
-              </a>
-            );
-          })
-        : null}
-    </ul>
+    <CardListContainer>
+      {cardData.length !== 0 ? (
+        cardData.map((link) => {
+          return (
+            <CardLink to={link.url} target="_blank" key={link.id} rel="noreferrer">
+              <CardImg link={link} />
+              <CardContent link={link} />
+            </CardLink>
+          );
+        })
+      ) : (
+        <AlertNotStoredLink>저장된 링크가 없습니다</AlertNotStoredLink>
+      )}
+    </CardListContainer>
   );
 };
 
