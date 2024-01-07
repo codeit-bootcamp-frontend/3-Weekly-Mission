@@ -1,30 +1,11 @@
-/* Section() */
-section {
-  display: flex;
-  flex-direction: column;
-  max-width: 112.5rem;
-  margin: 4rem auto;
-  padding: 0 32.5px;
-  gap: 4rem;
-}
-
-input {
-  display: flex;
-  border: none;
-  border-radius: 1rem;
-  padding: 1.5rem 1.6rem;
-  background: #f5f5f5;
-}
-
-/* SectionCard() */
-ul {
+.contents {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 2rem;
 }
 
-li {
+.contents-card {
   display: flex;
   flex-direction: column;
   width: 34rem;
@@ -36,31 +17,45 @@ li {
   box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.08);
 }
 
-li:hover .card-box-image {
+.contents-card:hover .contents-card-box-image {
   transform: scale(1.3);
   transition: transform 0.3s ease;
 }
 
-li:hover .card-box-contents {
+.contents-card:hover .contents-card-box-detail {
   background-color: #f0f6ff;
 }
 
-.card-box {
+.contents-card-box {
   width: 34rem;
   height: 20rem;
   overflow: hidden;
+  position: relative;
 }
 
-.card-box-image {
+.contents-card-box-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.card-box-contents {
+.contents-card-box-bookmark {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.contents-card-box-detail {
   display: flex;
   flex-direction: column;
   padding: 1.5rem 2rem;
+}
+
+.contents-card-box-change {
+  display: flex;
+  justify-content: space-between;
+  height: 1.6rem;
+  margin-bottom: 1.1rem;
 }
 
 .current-to-created {
@@ -92,4 +87,11 @@ li:hover .card-box-contents {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.1rem 0 3.5rem 0;
 }

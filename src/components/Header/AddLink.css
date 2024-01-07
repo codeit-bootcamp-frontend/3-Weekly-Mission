@@ -1,0 +1,27 @@
+.contents {
+  width: 100%;
+  max-width: 86.5rem;
+  display: flex;
+  padding: 0 3.25rem;
+  margin: 15.3rem auto 9rem;
+}
+
+.contents-link {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem 2rem;
+  border: 1px solid #6d6afe;
+  border-radius: 1.5rem;
+  background: #fff;
+}
+
+.contents-link-box {
+  width: 100%;
+  border: none;
+}
+
+.contents-link-button-image {
+  width: 8rem;
+}

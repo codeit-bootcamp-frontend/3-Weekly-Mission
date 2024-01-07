@@ -1,16 +1,15 @@
 import React from "react";
-import Header from "./components/Header";
-import Section from "./components/Section";
-import Footer from "./components/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Folder from "./pages/Folder";
+import Shared from "./pages/Shared";
 
-function App() {
+export default function App() {
   return (
-    <>
-      <Header />
-      <Section />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Folder />} />
+        <Route path="/Shared" element={<Shared />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

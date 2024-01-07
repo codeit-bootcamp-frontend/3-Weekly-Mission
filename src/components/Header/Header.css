@@ -1,0 +1,7 @@
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 6rem;
+  background: #f0f6ff;
+}
