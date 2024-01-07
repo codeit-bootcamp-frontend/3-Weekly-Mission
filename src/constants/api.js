@@ -1,3 +1,4 @@
-export const BASE_API_HOST = 'bootcamp-api.codeit.kr';
-export const API_USER = 'api/sample/user';
-export const API_FOLDER = 'api/sample/folder';
+export const BASE_API_HOST = 'bootcamp-api.codeit.kr/api';
+export const API_USERS = 'users';
+export const API_LINKS = 'links';
+export const API_FOLDERS = 'folders';

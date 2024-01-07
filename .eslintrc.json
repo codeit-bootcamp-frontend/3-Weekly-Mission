@@ -17,6 +17,10 @@
       }
     ], // Prettier에 대한 규칙을 활성화하고, 코드 스타일이 Prettier와 일치하지 않으면 에러를 발생시킵니다.
     "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off" // react 17 이후면 불필요한 규칙이므로 off
+    "react/prop-types": "off", // react 17 이후면 불필요한 규칙이므로 off
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "indent": "off",
+    "implicit-arrow-linebreak": "off",
+    "operator-linebreak": "off"
   }
 }
