@@ -1,0 +1,32 @@
+.CardContent {
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+}
+
+.elapsedTime {
+  color: #666;
+  font-family: Pretendard;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.description {
+  color: #000;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-family: Pretendard;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem; /* 150% */
+}
+
+.createdDate {
+  overflow: hidden;
+  color: #333;
+  text-overflow: ellipsis;
+  font-family: Pretendard;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
