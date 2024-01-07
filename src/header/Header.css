@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* Header*/
 .Header{
   display: flex;
@@ -13,7 +20,7 @@
   gap: 8px;
   align-self: stretch;
 }
-.Header .box01 > div {
+.Header .box01 .item01 {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,9 +29,66 @@
 .Header .box02 {
   display: flex;
   width: 1440px;
-  padding: 20px 624px 60px 624px;
+  padding: 20px 0 60px 0;
   flex-direction: column;
+  align-items: center;
   gap: 8px;
+}
+.Header .AddInput {
+  display: flex;
+  padding: 60px 320px 90px 320px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.Header .AddInput .AddInput-input {
+  display: flex;
+  width: 800px;
+  padding: 16px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 15px;
+  border: 1px solid var(--Linkbrary-primary-color, #6D6AFE);
+  background: var(--Linkbrary-white, #FFF);
+  position: relative;
+}
+.Header .AddInput .AddInput-input input {
+  width: 100%;
+  height: 1rem;
+  margin: 0 3rem 0 1rem;
+  border-style: none;
+  outline: none;
+  text-indent: 0.5rem;
+}
+.Header .AddInput .AddInput-fnc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+.Header .AddInput .AddInput-fnc button {
+  display: flex;
+  width: 6rem;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: var(--gra-purpleblue-to-skyblue, linear-gradient(91deg, #6D6AFE 0.12%, #6AE3FE 101.84%));
+  border-style: none;
+}
+.Header .AddInput .AddInput-fnc button .text {
+  color: var(--Grey-Light, #F5F5F5);
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.Header .AddInput .AddInput-fnc img {
+  position: absolute;
+  left: 1rem;
 }
 .Header .box02 .User {
   display: flex;
@@ -32,13 +96,13 @@
   align-items: center;
   gap: 20px;
 }
-.Header .box02 .User > div {
+.Header .box02 .User .item01 {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
 }
-.Header .box02 .User > div .UserAvatar {
+.Header .box02 .User .item01 .UserAvatar {
   display: flex;
   height: 60px;
   justify-content: center;
@@ -50,7 +114,7 @@
 }
 .Header .box02 .User .UserNickName {
   color: var(--text-color-light-mode, #000);
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -60,7 +124,7 @@
   color: #000;
   text-align: center;
   font-feature-settings: 'clig' off, 'liga' off;
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-size: 40px;
   font-style: normal;
   font-weight: 600;

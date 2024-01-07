@@ -1,31 +1,133 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* Main */
 .Main{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
 }
 .Main .box {
-  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
 }
 .Main .box .item01 {
-
+  
 }
 .Main .box .item02 {
-    
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
-
+.Main .box .item02 .EmptyFile {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  padding: 41px 0px 35px 0px;
+  justify-content: center;
+  align-items: center;
+}
+.Main .box .item02 .buttons{
+  display: flex;
+  justify-content: space-between;
+}
+.Main .box .item02 .title{
+  display: flex;
+  justify-content: space-between;
+}
+.Main .box .item02 .title .fnc-btn{
+  display: flex;
+  gap: 0.5rem;
+}
+.Main .box .item02 .title .fnc-btn .Fnc{
+  display: flex;
+}
+.Main .box .item02 .files{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
 /* MainSearch */
-.MainSearch {
-
+.Main .box .item01 .MainSearch {
+  display: flex;
+  align-items: center;
+  position: relative;
 }
-.MainSearch input{
-  width: 95%;
+.Main .box .item01 .MainSearch .searchBar{
+  display: flex;
+  width: 1060px;
+  padding: 15px 16px;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-radius: 10px;
+  background: #F5F5F5;
+  outline: none;
+  border-style: none;
+  text-indent: 1.5rem;
+}
+.Main .box .item01 .MainSearch .readingGlasses{
+  position: absolute;
+  left: 1rem;
+  width: 1rem;
+  height: 1rem;
 }
 
 /* MainFiles */
 
-.Main .box .item02 .MainFiles {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+.Main .box .item02 .buttons {
+  display: flex;
+  align-items: center;
+}
+.Main .box .item02 .buttons > div{
+  display: flex;
+}
+.Main .box .item02 .buttons .onlyBtn {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+}
+.Main .box .item02 .buttons .oneBtn{
+  padding: 8px 12px;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid var(--Linkbrary-primary-color, #6D6AFE);
+  background-color: #fff;
+}
+
+.Main .box .item02 .buttons .Buttons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px; 
+}
+.Main .box .item02 .buttons .Buttons .button,
+.Main .box .item02 .buttons .oneBtn {
+  padding: 8px 12px;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid var(--Linkbrary-primary-color, #6D6AFE);
+  background-color: #fff;
+  /* background: var(--Linkbrary-primary-color, #6D6AFE); */
+}
+.Main .box .item02 .buttons .Buttons .button .text,
+.Main .box .item02 .buttons .oneBtn .text {
+  color: #000;
+  font-family: 'Pretendard-Regular';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.Main .box .item02 .MainFiles{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 .Main .box .item02 .MainFiles .File {
   display: flex;
@@ -36,11 +138,17 @@
   height: 334px;
   overflow: hidden;
   box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.08);
+  position: relative;
 }
 .Main .box .item02 .MainFiles .File .item01 img {
   width: 340px;
   height: 200px;
   flex-shrink: 0;
+}
+.Main .box .item02 .MainFiles .File .star {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
 .Main .box .item02 .MainFiles .item02 {
@@ -50,6 +158,12 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+  position: relative;
+}
+.Main .box .item02 .MainFiles .item02 .kebab {
+  color: #333236;
+  position: absolute;
+  right: 4rem;
 }
 .Main .box .item02 .MainFiles .item02 .timeAgo {
   display: flex;
@@ -59,7 +173,7 @@
 }
 .Main .box .item02 .MainFiles .item02 .timeAgo .timeDiff {
   color: #666;
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -72,7 +186,7 @@
   color: #000;
   text-overflow: ellipsis;
   /* white-space: nowrap; */
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -85,99 +199,7 @@
   color: #333;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal; 
-}/* Main */
-.Main{
-  display: flex;
-  justify-content: center;
-}
-.Main .box {
-  width: 80%;
-}
-.Main .box .item01 {
-
-}
-.Main .box .item02 {
-    
-}
-
-/* MainSearch */
-.MainSearch {
-
-}
-.MainSearch input{
-  width: 95%;
-}
-
-/* MainFiles */
-
-.Main .box .item02 .MainFiles {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.Main .box .item02 .MainFiles .File {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 15px 15px;
-  width: 340px;
-  height: 334px;
-  overflow: hidden;
-  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.08);
-}
-.Main .box .item02 .MainFiles .File .item01 img {
-  width: 340px;
-  height: 200px;
-  flex-shrink: 0;
-}
-
-.Main .box .item02 .MainFiles .item02 {
-  display: flex;
-  width: 340px;
-  padding: 15px 20px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-}
-.Main .box .item02 .MainFiles .item02 .timeAgo {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  align-self: stretch;
-}
-.Main .box .item02 .MainFiles .item02 .timeAgo .timeDiff {
-  color: #666;
-  font-family: Pretendard;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-.Main .box .item02 .MainFiles .item02 .description {
-  height: 49px;
-  align-self: stretch;
-  overflow:hidden;
-  color: #000;
-  text-overflow: ellipsis;
-  /* white-space: nowrap; */
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-}
-.Main .box .item02 .MainFiles .item02 .editTime {
-  height: 19px;
-  align-self: stretch;
-  overflow: hidden;
-  color: #333;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

@@ -5,7 +5,7 @@ import UserFiles from "./UserFiles";
 function User({profileImage, folderOwner, folderName}) {
   return (
     <div className="User">
-    <div>
+    <div className="item01">
       <UserAvatar value={profileImage}/>
       <UserNickName value={folderOwner}/>
     </div>
