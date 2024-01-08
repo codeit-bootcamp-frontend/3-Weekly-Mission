@@ -10,13 +10,37 @@ export async function getUserId() {
   return await response.json();
 }
 
-export async function getUserFolder() {
-  const response = await fetch(`${API_BASE_URL}/api/sample/folder`, {
+export async function getUserFolders(userId) {
+  const response = await fetch(`${API_BASE_URL}/api/users/${userId}/folders`, {
     method: "GET",
     headers: {
       accept: "*/*",
     },
   });
+  return await response.json();
+}
 
+export async function getUserProfile(userId) {
+  const response = await fetch(`${API_BASE_URL}/api/users/${userId}`, {
+    method: "GET",
+    headers: {
+      accept: "*/*",
+    },
+  });
+  return await response.json();
+}
+
+export async function getUserLinks(userId, folderId) {
+  const response = await fetch(
+    `${API_BASE_URL}/api/users/${userId}/links${
+      folderId ? `?folderId=${folderId}` : ""
+    }`,
+    {
+      method: "GET",
+      headers: {
+        accept: "*/*",
+      },
+    }
+  );
   return await response.json();
 }
