@@ -3,13 +3,13 @@
   top: 0;
   display: flex;
   justify-content: center;
-  z-index: 4;
+  z-index: 3;
+  background: var(--Linkbrary-bg);
 }
 
 .navbar-content {
   width: 100%;
   max-width: 192rem;
-  background: var(--Linkbrary-bg);
   display: flex;
   padding: 2rem 20rem;
   justify-content: space-between;

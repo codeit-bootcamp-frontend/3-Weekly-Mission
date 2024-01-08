@@ -39,6 +39,7 @@
 .shared-card-board {
   position: relative;
   margin: 0 auto;
+  padding-top: 4rem;
   padding-bottom: 10rem;
   background: #fff;
   display: flex;
@@ -47,44 +48,9 @@
   align-items: center;
   gap: 40px;
 }
-.shared-search-form {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  max-width: 106rem;
-  width: 100%;
-  margin-top: 4rem;
-  background: #f5f5f5;
-  border-radius: 10px;
-  padding: 15px 16px;
-}
-
-.shared-search-form input {
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  outline: none;
-}
-
-.shared-search-form img {
-  width: 16px;
-  height: 16px;
-  left: 16px;
-  text-align: center;
-}
 
 @media screen and (max-width: 1124px) {
-  .shared-search-form {
-    max-width: 704px;
-  }
   .shared-card-board {
     margin: 0 32px;
-  }
-}
-
-@media screen and (max-width: 765px) {
-  .shared-search-form {
-    max-width: 325px;
   }
 }

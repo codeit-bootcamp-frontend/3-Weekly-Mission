@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Shared from "./pages/Shared";
 import { getUser } from "./apis/api";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import SharedPage from "./pages/SharedPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import FolderPage from "./pages/FolderPage";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -22,10 +24,16 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <BrowserRouter>
       <Navbar user={user} />
-      <Shared />
+      <Routes>
+        <Route path="/">
+          <Route index />
+          <Route path="shared" element={<SharedPage />} />
+          <Route path="folder" element={<FolderPage />} />
+        </Route>
+      </Routes>
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }

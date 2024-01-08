@@ -1,0 +1,33 @@
+.container {
+  position: absolute;
+  right: 20px;
+}
+
+.kebab {
+  width: 21px;
+  height: 17px;
+}
+
+.hover-container {
+  z-index: 7;
+  position: absolute;
+  right: -2rem;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+.button {
+  width: 100px;
+  padding: 7px 12px;
+  background: #fff;
+  color: #000;
+  border: none;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.button:hover {
+  background: var(--Linkbrary-gray10, #e7effb);
+  color: var(--Linkbrary-primary-color, #6d6afe);
+}

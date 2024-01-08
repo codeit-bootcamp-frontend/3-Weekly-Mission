@@ -1,0 +1,41 @@
+.form {
+  margin: 0 auto;
+  padding: 15px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  max-width: 80rem;
+  width: 100%;
+  background: #fff;
+  border-radius: 15px;
+  border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
+}
+.form input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.form img {
+  width: 16px;
+  height: 16px;
+  left: 16px;
+  text-align: center;
+}
+
+.form button {
+  width: 80px;
+}
+@media screen and (max-width: 1124px) {
+  .form {
+    max-width: 704px;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .form {
+    max-width: 325px;
+  }
+}

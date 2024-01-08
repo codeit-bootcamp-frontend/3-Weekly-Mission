@@ -1,9 +1,7 @@
 import React from "react";
-import facebookIcon from "../../assets/images/akar-icons_facebook-fill.svg";
-import twitterIcon from "../../assets/images/akar-icons_twitter-fill.svg";
-import youtubeIcon from "../../assets/images/akar-icons_youtube-fill.svg";
-import instagramIcon from "../../assets/images/ant-design_instagram-filled.svg";
+import imageData from "../../utils/imageData";
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const SNS_URL = {
@@ -18,32 +16,36 @@ export default function Footer() {
       <span>Codeit-2023</span>
       <ul className="links">
         <li>
-          <a href="/privacy">Privacy Policy</a>
+          <Link to="/privacy">Privacy Policy</Link>
         </li>
         <li>
-          <a href="/faq">FAQ</a>
+          <Link to="/faq">FAQ</Link>
         </li>
       </ul>
       <ul className="sns">
         <li>
-          <a href={SNS_URL.FACEBOOK} rel="noreferrer noopener" target="_blank">
-            <img src={facebookIcon} alt="페이스북 이동 아이콘" />
-          </a>
+          <Link to={SNS_URL.FACEBOOK} rel="noreferrer noopener" target="_blank">
+            <img src={imageData.facebookIcon} alt="페이스북 이동 아이콘" />
+          </Link>
         </li>
         <li>
-          <a href={SNS_URL.TWITTER} rel="noreferrer noopener" target="_blank">
-            <img src={twitterIcon} alt="트위터 이동 아이콘" />
-          </a>
+          <Link to={SNS_URL.TWITTER} rel="noreferrer noopener" target="_blank">
+            <img src={imageData.twitterIcon} alt="트위터 이동 아이콘" />
+          </Link>
         </li>
         <li>
-          <a href={SNS_URL.YOUTUBE} rel="noreferrer noopener" target="_blank">
-            <img src={youtubeIcon} alt="유튜브 이동 아이콘" />
-          </a>
+          <Link to={SNS_URL.YOUTUBE} rel="noreferrer noopener" target="_blank">
+            <img src={imageData.youtubeIcon} alt="유튜브 이동 아이콘" />
+          </Link>
         </li>
         <li>
-          <a href={SNS_URL.INSTAGRAM} rel="noreferrer noopener" target="_blank">
-            <img src={instagramIcon} alt="인스타그램 이동 아이콘" />
-          </a>
+          <Link
+            to={SNS_URL.INSTAGRAM}
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            <img src={imageData.instagramIcon} alt="인스타그램 이동 아이콘" />
+          </Link>
         </li>
       </ul>
     </footer>

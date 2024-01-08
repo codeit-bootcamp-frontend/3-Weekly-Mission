@@ -1,3 +1,5 @@
+const BASE_URL = "https://bootcamp-api.codeit.kr/api/";
+
 export async function fetchJson(url) {
   const response = await fetch(url);
   if (!response.ok) {
@@ -9,13 +11,30 @@ export async function fetchJson(url) {
 }
 
 export async function getUser() {
-  const url = "https://bootcamp-api.codeit.kr/api/sample/user";
+  const url = `${BASE_URL}sample/user`;
   const response = await fetchJson(url);
   return response;
 }
 
 export async function getShredCardList() {
-  const url = "https://bootcamp-api.codeit.kr/api/sample/folder";
+  const url = `${BASE_URL}sample/folder`;
+  const response = await fetchJson(url);
+  return response;
+}
+
+export async function getFolderList() {
+  const url = `${BASE_URL}users/1/folders`;
+  const response = await fetchJson(url);
+  return response;
+}
+export async function getLinkList() {
+  const url = `${BASE_URL}users/1/links`;
+  const response = await fetchJson(url);
+  return response;
+}
+
+export async function getFolderData(id) {
+  const url = `${BASE_URL}users/1/links?folderId=${id}`;
   const response = await fetchJson(url);
   return response;
 }
