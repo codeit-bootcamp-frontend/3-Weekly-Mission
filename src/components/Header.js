@@ -1,28 +1,22 @@
 import logo from "../assets/logo.svg";
-import myProfile from "../assets/myprofile.svg";
 import "./Header.css";
 import { getUser } from "../api";
-import { useEffect, useState } from "react";
+import useGetUserAsync from "../hooks/useGetUserAsync";
 
-export default function Header() {
-  const [email, setEmail] = useState("");
-  const userInformation = async () => {
-    const { email } = await getUser();
-    setEmail(email);
-  };
-
-  useEffect(() => {
-    userInformation();
-  }, []);
+export default function Header({page}) {
+  const [profileImageSource, email] = useGetUserAsync(getUser);
+  
   return (
     <>
-      <div className="nav-bg"></div>
-      <header className="nav">
+      <div className={page==="folder" ? "nav-folder-bg": "nav-bg"}></div>
+      <header className={page==="folder" ? "nav-folder" : "nav"} >
         <img src={logo} className="logo" alt="logo" />
         <div className="profile-wrapper">
-          <div className="profile-bg">
-            <img className="profile-img" src={myProfile} alt="profile-img" />
-          </div>
+          <img
+            className="profile-img"
+            src={profileImageSource}
+            alt="profile-img"
+          />
           <span className="profile-email">{email ?? "로그인"}</span>
         </div>
       </header>

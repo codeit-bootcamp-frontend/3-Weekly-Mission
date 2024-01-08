@@ -1,19 +1,16 @@
 import "./App.css";
-import Header from "./Header";
-import Banner from "./Banner";
-import SearchBar from "./SearchBar";
-import Cards from "./Cards";
-import Footer from "./Footer";
+import Shared from "../pages/Shared";
+import Folder from "../pages/Folder";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
-      <Banner />
-      <SearchBar />
-      <Cards />
-      <Footer />
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/shared" element={<Shared />} />
+      <Route path="/folder" element={<Folder />} />
+    </Routes>
+  </BrowserRouter>
   );
 }
 

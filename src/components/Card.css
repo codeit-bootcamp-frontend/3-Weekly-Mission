@@ -4,7 +4,7 @@
   height: 100%;
   overflow: hidden;
   box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.08);
-  &:hover .mention-wrapper {
+  &:hover {
     background-color: var(--Linkbrary-bg);
   }
   &:hover .card-img {
@@ -25,11 +25,32 @@
   height: 100%;
 }
 
+.no-img{
+  object-fit: none;
+}
+
 .mention-wrapper {
   padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.time-and-kebob-wrapper{
+  display: flex;
+  justify-content: space-between;
+}
+
+.kebob-btn{
+  width: 2.1rem;
+  height: 1.7rem;
+  background-image: url("../assets/kebab.png");
+  background-color: inherit;
+  background-position: center;
+  background-repeat: none;
+  background-size: cover;
+  border-style: none;
+
 }
 
 .upload-time-ago {

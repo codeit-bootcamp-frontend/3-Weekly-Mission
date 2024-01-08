@@ -1,27 +1,15 @@
 import "./Cards.css";
 import Card from "./Card";
-
-import noImgLogo from "../assets/no-img-logo.svg";
-import { getFolders } from "../api";
-import { useState, useEffect } from "react";
+import { getFolder } from "../api";
+import useGetFolderAsync from "../hooks/useGetFolderAsync";
 
 export default function Cards() {
-  const [links, setLinks] = useState([]);
-
-  const getFolder = async () => {
-    const { folder } = await getFolders();
-    const { links } = folder;
-
-    setLinks(links);
-  };
-
-  useEffect(() => {
-    getFolder();
-  }, []);
-
+  const data = useGetFolderAsync(getFolder);
   return (
     <div className="card-container">
-      {links.map((link)=> <Card key={link.id} link={link} alt={noImgLogo}></Card>)}
+      {data?.links?.map((data) => (
+        <Card key={data.id} data={data} />
+      ))}
     </div>
   );
 }

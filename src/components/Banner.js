@@ -1,34 +1,20 @@
+import useGetFolderAsync from "../hooks/useGetFolderAsync";
 import "./Banner.css";
-import { useEffect, useState } from "react";
-import { getFolders } from "../api";
+import { getFolder } from "../api";
 
 export default function Banner() {
-  const [folder, setFolder] = useState([]);
-  const [owner, setOwner] = useState([]);
-
-  const getFolder = async () => {
-    const { folder } = await getFolders();
-    const { owner } = folder;
-    
-    setFolder(folder);
-    setOwner(owner);
-  };
-
-  useEffect(() => {
-    getFolder();
-  }, []);
-
+  const data = useGetFolderAsync(getFolder);
   return (
     <section className="banner">
       <div className="banner-wrapper">
         <img
           className="banner-img"
-          src={owner.profileImageSource}
+          src={data?.owner?.profileImageSource}
           alt="banner-img"
         ></img>
-        <span className="banner-user-name">{owner.name}</span>
+        <span className="banner-user-name">@{data?.owner?.name}</span>
       </div>
-      <div className="banner-title">{folder.name}</div>
+      <div className="banner-title">{data?.name}</div>
     </section>
   );
 }

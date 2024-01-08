@@ -32,29 +32,16 @@ html {
 
 body {
   margin: 0;
-  font-family: "Pretendard", sans-serif;
+  font-family: Pretendard, sans-serif;
   font-size: 1.6rem;
   word-break: keep-all;
 }
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 p {
   margin: 0;
 }
-
-@media(max-width: 1123px){
-  .main{
-    width: 100%;
-    padding: 0 3.2rem;
-  }
-
-  .nav{
-    margin: 0 auto;
-    max-width: 70rem;
-    padding: 3.3rem 3.25rem 3.2rem;
-  }
-}
-
