@@ -1,13 +1,21 @@
 import Profile from "../component/Header/Profile"
-import CardSection from "../component/CardSection/CardSection"
 import Footer from "../component/Footer/Footer"
 import LinkAdd from "../component/LinkAdd"
+import FolderList from "../component/FolderList"
+import Search from "../component/CardSection/Search"
+import Card from "../component/CardSection/Card"
 export default function FolderPage() {
   return (
   <>
   <Profile/>
   <LinkAdd/>
-  <CardSection/>
+  <div className='mainArea'>
+    <div className='mainBOX'>
+      <Search/>
+      <FolderList/>
+      <Card/>
+    </div>
+  </div>
   <Footer/>
   </>
   )
