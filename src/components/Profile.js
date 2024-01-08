@@ -1,17 +1,9 @@
-import { useEffect, useState } from "react";
-import { fetchUserData } from "../api/api";
+import useFetchData from "../hooks/useFetchData";
+import convertKeyToCamelCase from "../utils/convertKeyToCamelCase";
 
 function Profile() {
-  const [userData, setUserData] = useState("");
-
-  const handleLoad = async () => {
-    const user = await fetchUserData();
-    setUserData(user);
-  };
-
-  useEffect(() => {
-    handleLoad();
-  }, []);
+  const userData = useFetchData("users/1")?.data;
+  const userInfo = userData ? convertKeyToCamelCase(userData[0]) : null;
 
   return (
     <div className="user-account">
@@ -19,10 +11,10 @@ function Profile() {
         <>
           <img
             className="profile-icon"
-            src={userData.profileImageSource}
+            src={userInfo.imageSource}
             alt="profile-icon"
           />
-          <span className="user-email">{userData.email}</span>
+          <span className="user-email">{userInfo.email}</span>
         </>
       ) : (
         <a className="cta" href="/signin">
