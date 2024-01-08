@@ -8,9 +8,3 @@
   box-shadow: var(--box-shadow);
   border: solid gray;
 }
-
-.card:hover {
-  z-index: 1;
-  transition: all 0.3s;
-  transform: scale(1.3);
-}

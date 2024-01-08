@@ -1,12 +1,13 @@
 .bg {
   background-color: #f0f6ff;
   text-align: center;
+  padding-bottom: 50px;
 }
 
 .container {
   background-color: #fefefe;
   padding-top: 30px;
-  margin-bottom: 100px;
+  padding-bottom: 100px;
 }
 
 .icon {
@@ -24,5 +25,4 @@
 .folderName {
   margin: 0;
   padding-top: 20px;
-  padding-bottom: 50px;
 }

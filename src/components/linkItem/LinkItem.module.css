@@ -1,8 +1,15 @@
 .thumb {
   max-width: 650px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.thumb a {
+  width: 100%;
+  height: 100%;
 }
 
 .thumb img {
@@ -11,6 +18,17 @@
   max-height: 350px;
   background-position: center;
   object-fit: cover;
+}
+
+.thumb img:hover {
+  transition: all 0.3s;
+  transform: scale(1.3);
+}
+
+.favorite {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 .content {
@@ -23,14 +41,25 @@
   border-top: solid 1px #ebebeb;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .timeDifference,
 .createdAt {
   margin: 0;
 }
 
 .description {
-  overflow: scroll;
+  overflow: hidden;
   margin: 10px 0;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.2em;
+  height: 3.6em;
 }
 
 @media (min-width: 767px) {
@@ -39,6 +68,10 @@
   }
   .thumb img {
     max-height: 250px;
+  }
+  .favorite {
+    top: 15px;
+    right: 15px;
   }
   .content {
     height: 150px;

@@ -1,0 +1,10 @@
+.folderEditor {
+  display: flex;
+  gap: 5px;
+}
+
+.editor {
+  display: flex;
+  align-items: center;
+  color: #9fa6b2;
+}

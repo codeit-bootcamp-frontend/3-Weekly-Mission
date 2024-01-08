@@ -1,0 +1,12 @@
+.nav {
+  position: relative;
+  z-index: 1;
+  padding: 15px 0;
+  background-color: #f0f6ff;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

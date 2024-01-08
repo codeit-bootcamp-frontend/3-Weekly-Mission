@@ -1,0 +1,11 @@
+.addFolder {
+  display: none;
+  border: 0px;
+  background-color: #fefefe;
+}
+
+@media (min-width: 768px) {
+  .addFolder {
+    display: block;
+  }
+}

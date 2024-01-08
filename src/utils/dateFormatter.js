@@ -26,5 +26,5 @@ export function calculateTimeDifference(input) {
   if (hours) {
     return hours === 1 ? "1 hour ago" : `${hours} hours ago`;
   }
-  return minutes >= 1 ? `${minutes} minutes ago` : "1 minute ago";
+  return minutes > 1 ? `${minutes} minutes ago` : "1 minute ago";
 }

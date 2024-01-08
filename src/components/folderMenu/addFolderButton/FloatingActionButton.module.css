@@ -1,0 +1,15 @@
+.fab {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  outline: none;
+  background-color: #6d6afe;
+  padding: 10px 20px;
+}
+
+.text {
+  margin: 0;
+  color: #e7effb;
+}
