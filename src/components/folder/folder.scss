@@ -1,0 +1,34 @@
+.folder-top {
+  background-color: var(--linkbrarybg);
+  display: flex;
+  gap: 8px;
+  padding: 60px 320px 90px;
+  justify-content: center;
+  @media (max-width: 1123px) {
+    padding: 60px 32px 90px;
+  }
+}
+
+.folder-list {
+  width: 100%;
+  display: grid;
+  gap: 25px;
+  justify-items: center;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 1124px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (min-width: 769px) and (max-width: 1123px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.error {
+  text-align: center;
+}
+
+.emptyLinks {
+  text-align: center;
+}

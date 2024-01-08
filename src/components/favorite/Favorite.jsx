@@ -1,17 +1,23 @@
+import { SAMPLE_FOLDER_URL } from 'apis';
+import Card from 'components/card/Card';
+import SearchBar from 'components/searchBar/SearchBar';
 import useQuery from 'hooks/useQuery';
-import Card from './Card';
-import './Favorite.scss';
-import SearchBar from './SearchBar';
+import './favorite.scss';
 
 export function Favorite() {
   const {
     data: {
       folder: { links, owner, ...folder },
     },
+    error,
     isLoading,
-  } = useQuery('https://bootcamp-api.codeit.kr/api/sample/folder', {
+  } = useQuery(SAMPLE_FOLDER_URL, {
     folder: { links: [], owner: {} },
   });
+
+  if (error) {
+    return <div className="error">에러가 발생했습니다.</div>;
+  }
 
   return (
     <>

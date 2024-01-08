@@ -1,11 +1,16 @@
+import { USER_URL } from 'apis';
 import useQuery from 'hooks/useQuery';
 import logo from 'img/logo.svg';
-import './Header.scss';
+import './header.scss';
 
 export function Header() {
-  const { data: user, isLoading } = useQuery(
-    'https://bootcamp-api.codeit.kr/api/sample/user'
-  );
+  const {
+    data: {
+      data: [user],
+    },
+    error,
+    isLoading,
+  } = useQuery(USER_URL, { data: [] });
 
   return (
     <header>
@@ -14,9 +19,10 @@ export function Header() {
           <img src={logo} alt="logo" />
         </a>
         <div className="account">
+          {error && <div className="error">에러가 발생했습니다.</div>}
           {user ? (
             <>
-              <img src={user.profileImageSource} className="profile-img" />
+              <img src={user.image_source} className="profile-img" />
               <span className="account-email">{user.email}</span>
             </>
           ) : (
