@@ -1,10 +1,14 @@
-nav {
+.nav {
   display: flex;
   justify-content: center;
   position: sticky;
   top: 0;
   width: 100%;
   background: var(--linkbrary-bg);
+}
+
+.nav.shared {
+  position: relative;
 }
 
 .gnb {
@@ -46,11 +50,16 @@ nav {
 }
 
 .email {
+  display: none;
   color: var(--linkbrary-gray-100, #373740);
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  @media (min-width: 768px) {
+    display: inline;
+  }
 }
 
 .login {

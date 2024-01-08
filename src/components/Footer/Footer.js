@@ -1,9 +1,5 @@
 import React from "react";
-import facebookIcon from "../assets/icon-facebook-fill.svg";
-import twitterIcon from "../assets/icon-twitter-fill.svg";
-import youtubeIcon from "../assets/icon-youtube-fill.svg";
-import instagramIcon from "../assets/icon-instagram-fill.svg";
-import "../styles/Footer.css";
+import "./Footer.css";
 
 function Footer() {
   return (
@@ -27,28 +23,44 @@ function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img className="sns-icon" src={facebookIcon} alt="facebook" />
+              <img
+                className="sns-icon"
+                src="/assets/icon-facebook-fill.svg"
+                alt="facebook"
+              />
             </a>
             <a
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img className="sns-icon" src={twitterIcon} alt="twitter" />
+              <img
+                className="sns-icon"
+                src="/assets/icon-twitter-fill.svg"
+                alt="twitter"
+              />
             </a>
             <a
               href="https://www.youtube.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img className="sns-icon" src={youtubeIcon} alt="youtube" />
+              <img
+                className="sns-icon"
+                src="/assets/icon-youtube-fill.svg"
+                alt="youtube"
+              />
             </a>
             <a
               href="https://www.instagram.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img className="sns-icon" src={instagramIcon} alt="instagram" />
+              <img
+                className="sns-icon"
+                src="/assets/icon-instagram-fill.svg"
+                alt="instagram"
+              />
             </a>
           </div>
         </div>
