@@ -3,7 +3,7 @@
 }
 .linkAddArea{
   width: 100%;
-  padding-top: 60px;
+  padding-top: 170px;
   padding-bottom: 90px; 
   background-color: #F0F6FF;
   justify-content: center;
@@ -34,6 +34,7 @@
   color: var(--Grey-Light, #F5F5F5);
   font-family: Pretendard;
   font-size: 14px;
+  cursor: pointer
 }
 
 .link_svg{

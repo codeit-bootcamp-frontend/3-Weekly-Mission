@@ -10,7 +10,7 @@ export default function FolderPage() {
   <Profile/>
   <LinkAdd/>
   <div className='mainArea'>
-    <div className='mainBOX'>
+    <div className='mainBox'>
       <Search/>
       <FolderList/>
       <Card/>

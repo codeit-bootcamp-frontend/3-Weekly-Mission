@@ -19,12 +19,14 @@ body{
   display: flex;
   background-color: #edf7ff;
   justify-content: space-between;
+  position: sticky;
+  position : fixed;
+  z-index: 1;
 }
 
 .profileBox{
   display: flex;
   align-items: center;
-
   gap: 10px;
   }
 
@@ -38,8 +40,10 @@ body{
   }
 
 .bookmarkArea{
-  text-align: center;
+  margin-top: 100px;
   gap: 20px;
+  text-align: center;
+
 }
 
 .userLogo {

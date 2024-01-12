@@ -1,0 +1,21 @@
+.folder_list_box{
+  margin-top: 40px;
+  display: flex;
+  position: relative;
+  gap: 10px;
+}
+
+.folder_list_btn{
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--Linkbrary-primary-color, #6D6AFE);
+  background: #FFF;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.folder_list_add_img{
+  right: 20px;
+  position: absolute;
+  bottom: 6px;
+}

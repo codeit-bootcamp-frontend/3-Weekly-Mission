@@ -7,10 +7,10 @@ export default function Card() {
   
   async function cardImgs() {
     try {
-      const response = await fetch("https://bootcamp-api.codeit.kr/api/sample/folder");
+      const response = await fetch("https://bootcamp-api.codeit.kr/api/users/1/links");
       const data = await response.json();
-      const link = data.folder.links; // response 안에 있는 links 데이터
-      setCardData(link); // links 데이터를 cardData에 저장
+      const result = data.data; // response 안에 있는 links 데이터
+      setCardData(result); // links 데이터를 cardData에 저장
     } catch (error) {
       console.log('Error');
     }
@@ -20,32 +20,27 @@ export default function Card() {
   }, []);
   return (
     <div className='linkImgBox'>
-      {cardData.map((link) => { // cardData 안에 있는 데이터를 하나씩 꺼내서 link에 저장
-        const date = createDay(link.createdAt);
-        const time = beforeTime(link.createdAt);
-        return( 
-        <div key={link.id} className='cardBox'> 
-            <div className='imgBox'>
-              <a href={link.url} target='_blank' rel='noopener noreferrer'>
-                {link.imageSource ? 
-              <img className='linkImg' src={link.imageSource} alt='linkImg' />  
-              :
-              <img className='linkImg' src={star} alt='starlink'/>
-            }
-              </a>     
-            </div>
-            <div className='textBox'>
-              <span className='time'>{time}</span>
-              <p className='description'>{link.description}</p>
-              <span className='date'>{date}</span>
-            </div>
-         </div>
-        );
-      })}
+      {cardData.map((link) => (
+        <div key={link.id} className='cardBox'>
+          <div className='imgBox'>
+            <a href={link.url} target='_blank' rel='noopener noreferrer'>
+              {link.image_source ? (
+                <img className='linkImg' src={link.image_source} alt='링크 이미지' />
+              ) : (
+                <img className='linkImg' src={star} alt='별 이미지' />
+              )}
+            </a>
+          </div>
+          <div className='textBox'>
+            <span className='time'>{beforeTime(link.created_at)}</span>
+            <p className='description'>{link.description}</p>
+            <span className='date'>{createDay(link.created_at)}</span>
+          </div>
+        </div>
+      ))}
     </div>
   );
-};
-
+}
 
 
 
