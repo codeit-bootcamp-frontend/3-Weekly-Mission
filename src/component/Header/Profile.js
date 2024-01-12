@@ -2,7 +2,6 @@
 import logo from '../../image/logo.svg';
 import useUserIdData from '../../Hook/useUserIdData.js';
 
-
 export default function Profile() {
   const {userIdDatas} = useUserIdData();
   console.log(userIdDatas)

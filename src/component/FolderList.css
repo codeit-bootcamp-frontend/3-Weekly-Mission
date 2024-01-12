@@ -19,3 +19,5 @@
   position: absolute;
   bottom: 6px;
 }
+.selected{
+  background: var(--Linkbrary-primary-color, #6D6AFE);}
