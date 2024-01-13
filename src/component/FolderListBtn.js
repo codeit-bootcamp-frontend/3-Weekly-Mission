@@ -21,6 +21,7 @@ export default function FolderListBtn() {
       <button className='folder_list_btn' onClick={() => handleFolderClick(null)}>
         전체
       </button>
+      <FolderAtionBtn/>
       {folderLists.map((folderList) => (
         <button
           key={folderList.id}
@@ -32,7 +33,7 @@ export default function FolderListBtn() {
       ))}
       {selectedFolderId !== null && ( // 선택된 폴더가 존재하는지 확인 후 렌더링
         <div>
-          <FolderAtionBtn/>
+          {/* <FolderAtionBtn/> */}
           <div>
           <Card selectedFolderId={selectedFolderId}/>
           </div>
@@ -133,6 +134,45 @@ export default function FolderListBtn() {
 //           {linkData.map((link) => (//폴더 아이디가 존재하면 링크 데이터를 렌더링
 //             <FolderLinkList link={link}/>
 //           ))}
+//         </div>
+//       )}
+//       <div>
+//         <img src={add_svg} alt='폴더리스트 기능버튼' className='folder_list_add_img'/>
+//       </div>
+//     </div>  
+//   );
+// }
+
+
+
+// export default function FolderListBtn() {
+//   const { folderLists } = useUserFolderListData();
+//   const [selectedFolderId, setSelectedFolderId] = useState(null); 
+
+//   const handleFolderClick = (folderId) => {
+//     setSelectedFolderId(folderId);
+//   }
+
+//   return (
+//     <div className='folder_list_box'>
+//       <button className='folder_list_btn' onClick={() => handleFolderClick(null)}>
+//         전체
+//       </button>
+//       {folderLists.map((folderList) => (
+//         <button
+//           key={folderList.id}
+//           className={`folder_list_btn ${selectedFolderId === folderList.id ? 'selected' : ''}`}  // 선택된 폴더의 스타일 변경
+//           onClick={() => handleFolderClick(folderList.id)} // 클릭시 폴더 아이디를 받아서 폴더 아이디를 변경
+//         >
+//           {folderList.name}
+//         </button>
+//       ))}
+//       {selectedFolderId !== null && ( // 선택된 폴더가 존재하는지 확인 후 렌더링
+//         <div>
+//           <FolderAtionBtn/>
+//           <div>
+//           <Card selectedFolderId={selectedFolderId}/>
+//           </div>
 //         </div>
 //       )}
 //       <div>

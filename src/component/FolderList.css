@@ -12,6 +12,7 @@
   background: #FFF;
   gap: 8px;
   cursor: pointer;
+  flex-direction: row;
 }
 
 .folder_list_add_img{

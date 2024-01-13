@@ -13,7 +13,6 @@ export default function FolderPage() {
     <div className='mainBox'>
       <Search/>
       <FolderList/>
-      <Card/>
     </div>
   </div>
   <Footer/>
