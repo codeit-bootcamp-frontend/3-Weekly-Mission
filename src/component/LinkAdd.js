@@ -20,7 +20,7 @@ export default function LinkAdd() {
         <input  type='text' placeholder='링크를 추가해 보세요'/>
         <img className='link_svg' src={link_svg} alt='link' />  
         <button className='linkAddButton' onClick={handlePopMessage}>추가하기</button>
-        <ModalMessge modalOpen={modalOpen} message='링크 추가' onClick={close} name='추가하기'/>
+        <ModalMessge type ={'blue'}modalOpen={modalOpen} headerText='링크 추가' onClick={close} buttonText='추가하기'/>
       </form>
     </div>
   )

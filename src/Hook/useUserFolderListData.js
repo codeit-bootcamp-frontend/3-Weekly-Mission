@@ -3,7 +3,6 @@ import {useState,useEffect } from 'react';
 
 export default function useUserFolderListData() {
   const [folderLists, setFolderLists] = useState([]);
-  console.log(folderLists)
 
   useEffect(() => {
   async function fetchFolderLists() {
@@ -18,7 +17,6 @@ export default function useUserFolderListData() {
 
     fetchFolderLists();
   }, []);
-
 
   return {folderLists}
 };

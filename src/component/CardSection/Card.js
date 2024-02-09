@@ -5,7 +5,6 @@ import star from '../../image/star.jpg';
 import kebab_svg from '../../image/kebab.svg';
 import Kebab from '../Kebab';
 
-
 function CardList({link}){
   const [kebab, setKebab] = useState(false);
 
@@ -39,13 +38,12 @@ function CardList({link}){
   )
 }
 
-
 export default function Card({ selectedFolderId }) {
   const {linkData} = useUserLinkData(selectedFolderId);
   return (
     <>
       {linkData.map((link) => (
-        <CardList link={link}/>
+        <CardList key={link.id} link={link}/>
       ))}
     </>
   );

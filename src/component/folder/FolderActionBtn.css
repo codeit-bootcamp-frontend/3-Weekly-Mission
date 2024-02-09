@@ -1,9 +1,7 @@
 .FolderActionBtnArea{
   width: 100%;
-  position: absolute;
-  top: 100%;
+  padding-top: 20px;
   display: flex;
-  gap: 10px;
   justify-content: space-between;
 }
 

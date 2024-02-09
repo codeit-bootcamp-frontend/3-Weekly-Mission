@@ -16,6 +16,7 @@ export default function Bookmark(){
     useEffect(()=>{
       folderDatas()
     },[])
+    
   return (
     <div className='headerUnder'>
     {folderData?.owner && ( // folderData가 있고, folderData 안에 owner가 있으면 // 
@@ -29,19 +30,3 @@ export default function Bookmark(){
   )
 }
 
-
-// import React, { useEffect, useState } from 'react'
-
-// export default function Bookmark(folderData){// props로 받아온 folderOwner, folderName을 사용
-//   return (
-//     <div className='headerUnder'>
-//     {folderData?.owner && ( // folderData가 있고, folderData 안에 owner가 있으면 // 
-//       <div className='bookmarkArea'>
-//         <img className='userLogo' src={folderData.Owner.profileImageSource} alt='codeit' />
-//         <p className='userName'>@{folderData.Owner.name}</p>
-//         <p className='bookmarkText'>{folderData.name}</p>
-//       </div>
-//     )
-//   }
-//   </div>
-//   )

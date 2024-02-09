@@ -1,9 +1,9 @@
-.folder_name_change_modal_form{
+.modal_form{
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-.folder_name_change_modal_title{
+.modal_title{
   width: 100%;
   display: inline-block;
   text-align: center;
@@ -11,7 +11,7 @@
   font-size: 20px;
   font-weight: 700;  
 }
-.folder_name_change_modal_input{
+.modal_input{
   width: 100%;
   margin-top: 24px;
   padding: 18px 15px;
@@ -19,21 +19,29 @@
   border: 1px solid var(--Linkbrary-primary-color, #6D6AFE);
   background: var(--Linkbrary-white, #FFF);
 }
-.folder_name_change_modal_btn{
+.modal_btn{
   width: 100%;
   padding: 16px 20px;
   border-radius: 8px;
   border: none;
-  background: var(--gra-purpleblue-to-skyblue, linear-gradient(91deg, #6D6AFE 0.12%, #6AE3FE 101.84%));
   color: var(--Grey-Light, #F5F5F5);
   font-family: Pretendard;
   font-size: 16px;
   font-weight: 600;
 }
-.folder_name_change_modal_closebtn{
+.modal_closebtn{
   width: 24px;
   position: absolute;
   right: 20px;
   top: 20px;
   cursor: pointer;
+}
+
+/* 모달버튼 색 타입 */
+.modal_btn_blue{
+  background: var(--gra-purpleblue-to-skyblue, linear-gradient(91deg, #6D6AFE 0.12%, #6AE3FE 101.84%));
+}
+
+.modal_btn_red{
+  background: #FF5B56
 }
