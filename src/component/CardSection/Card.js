@@ -16,7 +16,6 @@ function CardList({link}){
   }
 
   return(
-    // <div className='linkImgBox'>
       <div key={link.id} className='cardBox'>
         <div className='imgBox'>
           <a href={link.url} target='_blank' rel='noopener noreferrer'>
@@ -37,7 +36,6 @@ function CardList({link}){
           <span className='date'>{createDay(link.created_at)}</span>
         </div>
       </div>
-    // </div>  
   )
 }
 
