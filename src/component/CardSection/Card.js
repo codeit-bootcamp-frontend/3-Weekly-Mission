@@ -1,73 +1,56 @@
 import { createDay, beforeTime } from '../../shared';
+import { useState } from 'react';
 import useUserLinkData from '../../Hook/useUserLinkData';
 import star from '../../image/star.jpg';
+import kebab_svg from '../../image/kebab.svg';
+import Kebab from '../Kebab';
+
+
+function CardList({link}){
+  const [kebab, setKebab] = useState(false);
+
+  const kebabClick = (e) => {
+    e.preventDefault();
+    setKebab(!kebab); //true
+    console.log('케밥버튼클릭!')
+  }
+
+  return(
+    // <div className='linkImgBox'>
+      <div key={link.id} className='cardBox'>
+        <div className='imgBox'>
+          <a href={link.url} target='_blank' rel='noopener noreferrer'>
+            {link.image_source ? (
+              <img className='linkImg' src={link.image_source} alt='링크 이미지' />
+            ) : (
+              <img className='linkImg' src={star} alt='별 이미지' />
+            )}
+          </a>
+        </div>
+        <div className='textBox'>
+          <span className='time'>{beforeTime(link.created_at)}</span>
+          <img src={kebab_svg} alt='더보기' className='케밥버튼'/>  
+          <img src={kebab_svg} alt='더보기' className='케밥버튼' kebab={kebab} onClick={kebabClick}/>  
+          {kebab && //kebab가 true일때만 실행/ true일때만 kebab 컴포넌트를 보여줌
+          <Kebab/>}
+          <p className='description'>{link.description}</p>
+          <span className='date'>{createDay(link.created_at)}</span>
+        </div>
+      </div>
+    // </div>  
+  )
+}
+
 
 export default function Card({ selectedFolderId }) {
   const {linkData} = useUserLinkData(selectedFolderId);
-
   return (
-    <div className='linkImgBox'>
+    <>
       {linkData.map((link) => (
-        <div key={link.id} className='cardBox'>
-          <div className='imgBox'>
-            <a href={link.url} target='_blank' rel='noopener noreferrer'>
-              {link.image_source ? (
-                <img className='linkImg' src={link.image_source} alt='링크 이미지' />
-              ) : (
-                <img className='linkImg' src={star} alt='별 이미지' />
-              )}
-            </a>
-          </div>
-          <div className='textBox'>
-            <span className='time'>{beforeTime(link.created_at)}</span>
-            <p className='description'>{link.description}</p>
-            <span className='date'>{createDay(link.created_at)}</span>
-          </div>
-        </div>
+        <CardList link={link}/>
       ))}
-    </div>
+    </>
   );
 }
 
 
-
-
-// export default function Card() {
-//   const [linkData, setlinkData] = useState([]);
-  
-//   async function cardImgs() {
-//     try {
-//       const response = await fetch("https://bootcamp-api.codeit.kr/api/users/1/links");
-//       const data = await response.json();
-//       const result = data.data; // response 안에 있는 links 데이터
-//       setCardData(result); // links 데이터를 cardData에 저장
-//     } catch (error) {
-//       console.log('Error');
-//     }
-//   }
-//   useEffect(() => {
-//     cardImgs();
-//   }, []);
-//   return (
-//     <div className='linkImgBox'>
-//       {cardData.map((link) => (
-//         <div key={link.id} className='cardBox'>
-//           <div className='imgBox'>
-//             <a href={link.url} target='_blank' rel='noopener noreferrer'>
-//               {link.image_source ? (
-//                 <img className='linkImg' src={link.image_source} alt='링크 이미지' />
-//               ) : (
-//                 <img className='linkImg' src={star} alt='별 이미지' />
-//               )}
-//             </a>
-//           </div>
-//           <div className='textBox'>
-//             <span className='time'>{beforeTime(link.created_at)}</span>
-//             <p className='description'>{link.description}</p>
-//             <span className='date'>{createDay(link.created_at)}</span>
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }

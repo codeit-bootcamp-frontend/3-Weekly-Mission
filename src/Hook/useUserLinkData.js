@@ -21,21 +21,3 @@ export default function useUserLinkData(folderId) {
 }
 
 
-// export default function useUserLinkData() {
-//   const [cardData, setCardData] = useState([]);
-  
-//   useEffect(() => {
-//   async function fetchUserLinkData() {
-//     try {
-//       const response = await UserLinkData();
-//       const result = response.data; // response 안에 있는 links 데이터
-//       setCardData(result); // links 데이터를 cardData에 저장
-//     } catch (error) {
-//       console.log('Error');
-//     }
-//   }
-//     fetchUserLinkData();
-//   }, []);
-
-//   return {cardData}
-// }

@@ -24,10 +24,10 @@ export default function ModalMessge({modalOpen, message, name, onClick}) {
       position:'relative'
     }
   }
-
+  
 return (   
     <Modal
-      isOpen={modalOpen} 
+      isOpen={modalOpen} // isopen은 모달창이 열리고 닫히는 상태를 나타내는 변수 //modalOpen은 모달창이 열려있는지 닫혀있는지를 나타내는 상태를 나타내는 변수
       style={customModalStyle}
       ariaHideApp={false}
       contentLabel="Pop up Message"
@@ -42,7 +42,6 @@ return (
     </Modal>
   )
 }
-
 
 
 
@@ -69,8 +68,6 @@ return (
 //     }
 //   }
 
-  
-  
 // return (   
 //     <Modal
 //       isOpen={modalOpen} 
@@ -79,7 +76,7 @@ return (
 //       contentLabel="Pop up Message"
 //     >
 //       <span className='folder_name_change_modal_title'>{message}
-//         <img src={close_svg} alt='모달창 닫기버튼' className='folder_name_change_modal_closebtn' onClick={() => onClick(false)}/>
+//         <img src={close_svg} alt='모달창 닫기버튼' className='folder_name_change_modal_closebtn' onClick={() => onClick()}/>
 //       </span>
 //         <form className='folder_name_change_modal_form'>
 //         <input className='folder_name_change_modal_input' type='text' placeholder='내용 입력'/>

@@ -1,9 +1,10 @@
 import Profile from "../component/Header/Profile"
 import Footer from "../component/Footer/Footer"
 import LinkAdd from "../component/LinkAdd"
-import FolderList from "../component/FolderListBtn"
+import FolderList from "../component/folder/FolderListBtn"
 import Search from "../component/CardSection/Search"
 import Card from "../component/CardSection/Card"
+
 export default function FolderPage() {
   return (
   <>
