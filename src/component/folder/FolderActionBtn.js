@@ -33,6 +33,7 @@ export default function FolderAtionBtn() {
           headerText="폴더 이름 변경"
           buttonText="변경하기"
           onClick={close}
+          type={"blue"}
         />
         <button>
           <img src={Delete_svg} alt="삭제" />
