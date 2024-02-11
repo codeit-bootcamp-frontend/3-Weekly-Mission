@@ -9,9 +9,6 @@ export default function Kebab({ onClick }) {
     e.preventDefault();
     setModalOpen(true);
   };
-  const close = () => {
-    setModalOpen();
-  };
 
   return (
     <ul className="kebab_box">
@@ -19,9 +16,10 @@ export default function Kebab({ onClick }) {
       <li>폴더에 추가</li>
       <ModalMessge
         modalOpen={modalOpen}
-        headerText="폴더 삭제"
-        buttonText="삭제하기"
-        onClick={close}
+        headerText={"링크 삭제"}
+        close={setModalOpen}
+        folderName={"링크"}
+        buttonText={"삭제하기"}
         type={"red"}
       />
     </ul>

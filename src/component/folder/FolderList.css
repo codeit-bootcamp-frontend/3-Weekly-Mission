@@ -28,3 +28,7 @@
 .selected {
   background: var(--Linkbrary-primary-color, #6d6afe);
 }
+
+.add_btn{
+  cursor: pointer;
+}

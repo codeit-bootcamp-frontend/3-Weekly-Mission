@@ -11,6 +11,8 @@ export default function ModalMessge({
   type,
   placeholder,
   icon,
+  folderName,
+  close,
 }) {
   const customModalStyle = {
     overlay: {
@@ -20,8 +22,8 @@ export default function ModalMessge({
       zIndex: "10",
     },
     content: {
-      width: "375px",
-      height: "260px",
+      width: "400px",
+      height: "280px",
       padding: "32px 40px",
       zIndex: "11",
       top: "50%",
@@ -30,7 +32,7 @@ export default function ModalMessge({
       borderRadius: "15px",
       border: "1px solid var(--Linkbrary-gray20, #CCD5E3)",
       backgroundColor: "white",
-      position: "relative",
+      position: "relative",    
     },
   };
   const styletype = ["blue", "red"].includes(type) ? type : "default";
@@ -41,17 +43,18 @@ export default function ModalMessge({
       ariaHideApp={false}
       contentLabel="Pop up Message"
     >
-      <span className="modal_title">
+      <h4 className="modal_title">
         {headerText}
         <img
           src={close_svg}
           alt="모달창 닫기버튼"
           className="modal_closebtn"
-          onClick={() => onClick()}
+          onClick={(e) => {e.preventDefault(); close(false)}}
         />
-      </span>
+      </h4>
      {placeholder ? <input className="modal_input" type="text" placeholder={placeholder} /> : null}
-     {buttonText ? <button className={["modal_btn", `modal_btn_${styletype}`].join(" ")}>{buttonText}</button> : null}
+     {folderName ? <p className="modal_folder_name">{folderName}</p> : null}
+     {buttonText ? <button className={["modal_btn", `modal_btn_${styletype}`].join(" ")} onClick={onClick}>{buttonText}</button> : null}
      {icon ? <SnsIcon/> : null}
     </Modal>
   );

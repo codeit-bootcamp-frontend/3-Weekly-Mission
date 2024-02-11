@@ -4,10 +4,17 @@ import FolderAtionBtn from "./FolderActionBtn";
 import useUserFolderListData from "../../Hook/useUserFolderListData";
 import "./FolderList.css";
 import Card from "../CardSection/Card";
+import ModalMessge from "../modal/ModalMessage";
 
 export default function FolderListBtn() {
   const { folderLists } = useUserFolderListData();
   const [selectedFolderId, setSelectedFolderId] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handlechangModal = (e) => {
+    e.preventDefault();
+    setModalOpen(true);
+  }
 
   const handleFolderClick = (folderId) => {
     setSelectedFolderId(folderId);
@@ -35,7 +42,15 @@ export default function FolderListBtn() {
           </button>
         ))}
         </div>
-        <img src={add_svg} alt="추가 버튼" className="add_btn" />
+        <img src={add_svg} alt="추가 버튼" className="add_btn" onClick={handlechangModal} />
+        <ModalMessge
+        modalOpen={modalOpen}
+        close={setModalOpen}
+        headerText={"폴더 추가"}
+        placeholder={"내용 입력"}
+        buttonText={"추가하기"}
+        type={"blue"}
+        />
       </div>
       <FolderAtionBtn />
       {selectedFolderId !== null ? ( // selectedFolderId가 null이 아닐 때
