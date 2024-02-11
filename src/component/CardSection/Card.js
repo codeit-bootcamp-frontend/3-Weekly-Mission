@@ -11,7 +11,6 @@ function CardList({link}){
   const kebabClick = (e) => {
     e.preventDefault();
     setKebab(!kebab); //true
-    console.log('케밥버튼클릭!')
   }
 
   return(
@@ -27,7 +26,6 @@ function CardList({link}){
         </div>
         <div className='textBox'>
           <span className='time'>{beforeTime(link.created_at)}</span>
-          <img src={kebab_svg} alt='더보기' className='케밥버튼'/>  
           <img src={kebab_svg} alt='더보기' className='케밥버튼' kebab={kebab} onClick={kebabClick}/>  
           {kebab && //kebab가 true일때만 실행/ true일때만 kebab 컴포넌트를 보여줌
           <Kebab/>}

@@ -10,7 +10,6 @@
 }
 
 .folder_list_btn {
-  /* 폴더 버튼 */
   padding: 8px 12px;
   border-radius: 5px;
   border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
@@ -23,7 +22,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 20px;
-  
+  min-height: 100vh; /*새롭게 추가 */
 }
 
 .selected {

@@ -1,8 +1,9 @@
 import Modal from 'react-modal';
 import './ModalMessage.css';
-import close_svg from '../image/close.svg';
+import close_svg from '../../image/close.svg';
 
-export default function ModalMessge({modalOpen, headerText, buttonText, onClick, type}) {
+export default function SnsShareModal({modalOpen,  headerText, foldername, onClick }) {
+
   const customModalStyle = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -24,7 +25,6 @@ export default function ModalMessge({modalOpen, headerText, buttonText, onClick,
       position:'relative'
     }
   }
-  const styletype = ["blue", "red"].includes(type) ? type : "default";
 return (   
     <Modal
       isOpen={modalOpen} // isopen은 모달창이 열리고 닫히는 상태를 나타내는 변수 //modalOpen은 모달창이 열려있는지 닫혀있는지를 나타내는 상태를 나타내는 변수
@@ -33,16 +33,9 @@ return (
       contentLabel="Pop up Message"
     >
       <span className='modal_title'>{headerText}
-        <img src={close_svg} alt='모달창 닫기버튼' className='modal_closebtn' onClick={() => onClick()}/>
+        <img src={close_svg} alt='모달창 닫기버튼' className='modal_closebtn' onClick={()=>onClick()}/>
       </span>
-        <form className='modal_form'>
-        <input className='modal_input' type='text' placeholder='내용 입력'/>
-        <button className={['modal_btn', `modal_btn_${styletype}`].join(' ')}>{buttonText}</button>
-      </form>
+      <span>{foldername}</span>  
     </Modal>
   )
 }
-
-ModalMessge.defaultProps = {
-  type: "default",
-};
