@@ -17,20 +17,21 @@ body{
   width: 100%;
   padding: 30px 200px;
   display: flex;
-  justify-content: space-between;
   background-color: #edf7ff;
+  justify-content: space-between;
+  position: sticky;
+  position : fixed;
+  z-index: 1;
 }
 
 .profileBox{
   display: flex;
   align-items: center;
   gap: 10px;
-}
+  }
 
 .profileImage{
-  background-color:#6D6AFE ;
   width: 30px;
-  padding: 8px;
   border-radius: 50%;
 }
 
@@ -39,8 +40,10 @@ body{
   }
 
 .bookmarkArea{
-  text-align: center;
+  margin-top: 100px;
   gap: 20px;
+  text-align: center;
+
 }
 
 .userLogo {

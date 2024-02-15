@@ -1,4 +1,4 @@
-import glass from '../image/glass.svg'
+import glass from '../../image/glass.svg'
 
 export default function Search() {
 
