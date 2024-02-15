@@ -10,7 +10,8 @@ function CardList({link}){
 
   const kebabClick = (e) => {
     e.preventDefault();
-    setKebab(!kebab); //true
+    setKebab(!kebab); //!kebab이면 true, kebab이면 false  // true일때만 kebab 컴포넌트를 보여줌
+    //!kebab과 true의 차이는 
   }
 
   return(
@@ -26,7 +27,7 @@ function CardList({link}){
         </div>
         <div className='textBox'>
           <span className='time'>{beforeTime(link.created_at)}</span>
-          <img src={kebab_svg} alt='더보기' className='케밥버튼' kebab={kebab} onClick={kebabClick}/>  
+          <img src={kebab_svg} alt='더보기' className='케밥버튼'  onClick={kebabClick}/>  
           {kebab && //kebab가 true일때만 실행/ true일때만 kebab 컴포넌트를 보여줌
           <Kebab/>}
           <p className='description'>{link.description}</p>

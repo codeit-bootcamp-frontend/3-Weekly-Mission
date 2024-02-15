@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import add_svg from "../../image/add.svg";
-import FolderAtionBtn from "./FolderActionBtn";
+import {FolderAtionBtn} from "./FolderActionBtn";
 import useUserFolderListData from "../../Hook/useUserFolderListData";
 import "./FolderList.css";
 import Card from "../CardSection/Card";
@@ -14,7 +14,7 @@ export default function FolderListBtn() {
   const handlechangModal = (e) => {
     e.preventDefault();
     setModalOpen(true);
-  }
+  };
 
   const handleFolderClick = (folderId) => {
     setSelectedFolderId(folderId);
@@ -24,32 +24,37 @@ export default function FolderListBtn() {
     <div className="folder_list_box">
       <div className="folder_list_btn_box">
         <div>
-        <button
-          className="folder_list_btn"
-          onClick={() => handleFolderClick(null)}
-        >
-          전체
-        </button>
-        {folderLists.map((folderList) => (
           <button
-            key={folderList.id}
-            className={`folder_list_btn ${
-              selectedFolderId === folderList.id ? "selected" : ""
-            }`} // 선택된 폴더의 스타일 변경
-            onClick={() => handleFolderClick(folderList.id)} // 클릭시 폴더 아이디를 받아서 폴더 아이디를 변경
+            className="folder_list_btn"
+            onClick={() => handleFolderClick(null)}
           >
-            {folderList.name}
+            전체
           </button>
-        ))}
+          {folderLists.map((folderList) => (
+            <button
+              key={folderList.id}
+              className={`folder_list_btn ${
+                selectedFolderId === folderList.id ? "selected" : ""
+              }`} // 선택된 폴더의 스타일 변경
+              onClick={() => handleFolderClick(folderList.id)} // 클릭시 폴더 아이디를 받아서 폴더 아이디를 변경
+            >
+              {folderList.name}
+            </button>
+          ))}
         </div>
-        <img src={add_svg} alt="추가 버튼" className="add_btn" onClick={handlechangModal} />
+        <img
+          src={add_svg}
+          alt="추가 버튼"
+          className="add_btn"
+          onClick={handlechangModal}
+        />
         <ModalMessge
-        modalOpen={modalOpen}
-        close={setModalOpen}
-        headerText={"폴더 추가"}
-        placeholder={"내용 입력"}
-        buttonText={"추가하기"}
-        type={"blue"}
+          modalOpen={modalOpen}
+          close={setModalOpen}
+          headerText={"폴더 추가"}
+          placeholder={"내용 입력"}
+          buttonText={"추가하기"}
+          type={"blue"}
         />
       </div>
       <FolderAtionBtn />

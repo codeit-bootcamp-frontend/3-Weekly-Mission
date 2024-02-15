@@ -3,34 +3,30 @@ import pen_svg from "../../image/pen.svg";
 import Delete_svg from "../../image/Delete.svg";
 import ModalMessge from "../modal/ModalMessage";
 import { useState } from "react";
+import useUserFolderListData from "../../Hook/useUserFolderListData";
 import "./FolderActionBtn.css";
-import SnsShareModal from "../modal/SnsShareModal";
 
-export default function FolderAtionBtn() {
+function FolderAtionBtns({folderLists}) {
   const [snsmodalOpen, setSnsModalOpen] = useState(false);
   const [namemodalOpen, setNameModalOpen] = useState(false);
   const [folderRemoveModal, setFolderRemoveModal] = useState(false);
-
-  const handleShareModal = (e) => {
-    e.preventDefault();
+  console.log(folderLists)
+  
+  const handleShareModal = (folderName) => {
     setSnsModalOpen(true);
   };
 
-  const handlechangModal = (e) => {
-    e.preventDefault();
+  const handlechangModal = (folderName) => {
     setNameModalOpen(true);
   };
 
-  const handleRemoveModal = (e) => {
-    e.preventDefault();
+  const handleRemoveModal = (folderName) => {
     setFolderRemoveModal(true);
   };
-
-
-
   return (
-    <div className="FolderActionBtnArea">
+    <div className="FolderActionBtnArea" >
       <span>유용한 글</span>
+      
       <div className="FolderActionBtnBox">
         <button onClick={handleShareModal}>
           <img src={share_svg} alt="공유 버튼" />
@@ -52,7 +48,7 @@ export default function FolderAtionBtn() {
             modalOpen={snsmodalOpen}
             close={setSnsModalOpen}
             headerText={"공유"}
-            folderName={"폴더이름"}
+            folderName={'폴더'}
             icon={true}
           />
         ) : null}
@@ -72,7 +68,7 @@ export default function FolderAtionBtn() {
           modalOpen={folderRemoveModal}
           close={setFolderRemoveModal}
           headerText={"폴더 삭제"}
-          folderName={"폴더이름"}
+          folderName={'폴더'}
           buttonText={"삭제하기"}
           type={"red"}
            />
@@ -81,3 +77,11 @@ export default function FolderAtionBtn() {
     </div>
   );
 }
+
+export const FolderAtionBtn = () => {
+  const { folderLists } = useUserFolderListData();
+  
+  return (
+    <FolderAtionBtns folderLists={folderLists} />
+  );
+};
