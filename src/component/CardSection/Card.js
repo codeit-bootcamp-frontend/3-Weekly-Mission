@@ -11,7 +11,6 @@ function CardList({link}){
   const kebabClick = (e) => {
     e.preventDefault();
     setKebab(!kebab); //!kebab이면 true, kebab이면 false  // true일때만 kebab 컴포넌트를 보여줌
-    //!kebab과 true의 차이는 
   }
 
   return(

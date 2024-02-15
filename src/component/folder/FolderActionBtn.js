@@ -10,7 +10,6 @@ function FolderAtionBtns({folderLists}) {
   const [snsmodalOpen, setSnsModalOpen] = useState(false);
   const [namemodalOpen, setNameModalOpen] = useState(false);
   const [folderRemoveModal, setFolderRemoveModal] = useState(false);
-  console.log(folderLists)
   
   const handleShareModal = (folderName) => {
     setSnsModalOpen(true);
@@ -23,6 +22,7 @@ function FolderAtionBtns({folderLists}) {
   const handleRemoveModal = (folderName) => {
     setFolderRemoveModal(true);
   };
+  
   return (
     <div className="FolderActionBtnArea" >
       <span>유용한 글</span>
