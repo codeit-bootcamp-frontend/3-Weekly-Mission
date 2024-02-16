@@ -1,0 +1,56 @@
+.shared-header {
+  margin-top: 2rem;
+  margin-bottom: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.shared-header .user-profile-img {
+  height: 60px;
+}
+
+.codeit-img-background {
+  border-radius: 47px;
+  background: var(--primary-purple-70, #8f00ff);
+  padding: 16px 17px 16px 15px;
+}
+
+.codeit-img-background img {
+  width: 28px;
+  height: 28px;
+}
+
+.shared-header span {
+  color: var(--text-color-light-mode, #000);
+  font-size: var(--small-font-size);
+  font-weight: var(--small-font-weight);
+}
+
+.shared-header h2 {
+  color: #000;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: var(--shared-header-h2-font-size);
+  font-weight: var(--basic-font-weight);
+}
+
+.shared-card-board {
+  position: relative;
+  margin: 0 auto;
+  padding-top: 4rem;
+  padding-bottom: 10rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+@media screen and (max-width: 1124px) {
+  .shared-card-board {
+    margin: 0 32px;
+  }
+}
