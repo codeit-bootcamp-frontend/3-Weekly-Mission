@@ -11,15 +11,15 @@ function FolderAtionBtns({folderLists}) {
   const [namemodalOpen, setNameModalOpen] = useState(false);
   const [folderRemoveModal, setFolderRemoveModal] = useState(false);
   
-  const handleShareModal = (folderName) => {
+  const handleShareModal = () => {
     setSnsModalOpen(true);
   };
 
-  const handlechangModal = (folderName) => {
+  const handlechangModal = () => {
     setNameModalOpen(true);
   };
 
-  const handleRemoveModal = (folderName) => {
+  const handleRemoveModal = () => {
     setFolderRemoveModal(true);
   };
   

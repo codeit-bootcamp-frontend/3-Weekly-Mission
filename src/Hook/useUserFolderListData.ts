@@ -1,8 +1,9 @@
-import {UserFolderListData} from './Api.js'
+import {UserFolderListData} from './Api'
 import {useState,useEffect } from 'react';
+import {FolderType} from './Types'
 
 export default function useUserFolderListData() {
-  const [folderLists, setFolderLists] = useState([]);
+  const [folderLists, setFolderLists] = useState<FolderType[]>([]);
 
   useEffect(() => {
   async function fetchFolderLists() {

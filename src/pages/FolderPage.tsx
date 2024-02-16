@@ -11,7 +11,6 @@ export default function FolderPage() {
       <LinkAdd />
       <div className="mainArea">
         <div className="mainBox">
-          {/* <FolderAtionBtn /> */}
           <Search />
           <FolderListBtn />
         </div>

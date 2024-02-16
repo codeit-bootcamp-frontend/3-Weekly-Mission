@@ -1,13 +1,19 @@
 import "./kebab.css";
 import ModalMessge from "./modal/ModalMessage";
 import { useState } from "react";
+// import { eventType } from "../Hook/Types";
 
-export default function Kebab({ onClick }) {
+export default function Kebab() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handlePopMessage = (e) => {
+  const handlePopMessage = (e : React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setModalOpen(true);
+  };
+
+  //onClick 빈값으로 놔두면 에러가 발생하니까 일단 막아둠 
+  const alertMessage = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -17,10 +23,10 @@ export default function Kebab({ onClick }) {
       <ModalMessge
         modalOpen={modalOpen}
         headerText={"링크 삭제"}
-        close={setModalOpen}
         folderName={"링크"}
         buttonText={"삭제하기"}
         type={"red"}
+        close={setModalOpen}
       />
     </ul>
   );

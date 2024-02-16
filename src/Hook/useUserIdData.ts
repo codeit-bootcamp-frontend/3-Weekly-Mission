@@ -1,8 +1,10 @@
 import { UserIdData } from "./Api";
 import { useEffect, useState } from "react";
+import { UserType } from "./Types";
+
 
 export default function useUserIdData() {
-  const [userIdDatas, setUserIdDatas] = useState(null);
+  const [userIdDatas, setUserIdDatas] = useState<UserType[] | null>(null);
 
   useEffect(() => {
   async function fetchUserIdData() {
@@ -21,3 +23,4 @@ export default function useUserIdData() {
 
 
 
+// :Promise<{userIdDatas: userType}>

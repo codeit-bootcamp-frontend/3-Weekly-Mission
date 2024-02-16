@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 import add_svg from "../../image/add.svg";
-import {FolderAtionBtn} from "./FolderActionBtn";
+import { FolderAtionBtn } from "./FolderActionBtn";
 import useUserFolderListData from "../../Hook/useUserFolderListData";
 import "./FolderList.css";
 import Card from "../CardSection/Card";
 import ModalMessge from "../modal/ModalMessage";
+import {eventType} from '../../Hook/Types' 
 
 export default function FolderListBtn() {
   const { folderLists } = useUserFolderListData();
-  const [selectedFolderId, setSelectedFolderId] = useState(null);
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handlechangModal = (e) => {
+  const handlechangModal:React.MouseEventHandler = (e) => {
     e.preventDefault();
     setModalOpen(true);
   };
 
-  const handleFolderClick = (folderId) => {
+  const handleFolderClick = (folderId:number | null) => {
     setSelectedFolderId(folderId);
   };
+  console.log(folderLists);
 
   return (
     <div className="folder_list_box">
@@ -66,9 +68,7 @@ export default function FolderListBtn() {
         </div>
       ) : (
         <div className="folder_card_img">
-          <Card
-            selectedFolderId={null} // selectedFolderId가 null일 때 (전체 버튼을 눌렀을 때)
-          />
+          <Card/>
         </div>
       )}
     </div>

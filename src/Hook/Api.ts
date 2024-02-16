@@ -1,3 +1,4 @@
+
 const API_BASE_URL = "https://bootcamp-api.codeit.kr";
 
 export async function UserIdData(){
@@ -12,9 +13,9 @@ export async function UserFolderListData() {
   return data;
 }
 
-export async function UserLinkData(folderId) {
-  const queryString = folderId ? `folderId=${folderId}` : '';
-  const response =await fetch(`${API_BASE_URL}/api/users/11/links?${queryString}`);
+export async function UserLinkData(folderId:number) { 
+  const queryString = folderId ? `folderId=${folderId}` : '';//
+  const response =await fetch(`${API_BASE_URL}/api/users/11/links?${queryString}`);//
   const data = await response.json();
   return data;
 }
