@@ -2,9 +2,8 @@ import glass from '../../image/glass.svg'
 import { useState } from 'react';
 export default function Search() {
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('검색하기');
   }
 
   return (

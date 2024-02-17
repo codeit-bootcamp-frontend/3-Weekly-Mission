@@ -1,4 +1,4 @@
-export interface LinkType {
+export interface UserLinkType {
   id: number;
   created_at: string | null;
   updated_at: string | null;
@@ -9,7 +9,7 @@ export interface LinkType {
   folderId: number | null;
 }
 
-export interface UserType {
+export interface UserIdType {
   id: number;
   created_at: string;
   image_source: string;
@@ -18,14 +18,40 @@ export interface UserType {
   auth_id: string;
 }
 
-export interface FolderType {
+export interface UserFolderType {
   id: number;
   created_at: string;
   name: string;
   user_id: number;
   favorite: boolean;
-  link: { count: number };
+  link: { 
+    count: number 
+  };
 }
+
+export interface UserProfileType {
+  folder:{
+    id: number;
+    name: string;
+      owner:{
+        id:number;
+        name:string;
+        profileImageSource:string;
+      }
+      links: [
+        {
+          id: string;
+          createdAt: string;
+          url: string;
+          title: string;
+          description: string;
+          imageSource:string;
+        }
+      ]
+      count: number; 
+  }
+}
+
 
 export interface ModalType {
   modalOpen: boolean;
@@ -61,4 +87,4 @@ export type ContentStyle = {
   position: string;
 };
 
-export type eventType = (e: React.MouseEvent<HTMLElement>) => void;
+export type onClickEventType = (e: React.MouseEvent<HTMLElement>) => void;

@@ -5,12 +5,14 @@ import ModalMessge from "../modal/ModalMessage";
 import { useState } from "react";
 import useUserFolderListData from "../../Hook/useUserFolderListData";
 import "./FolderActionBtn.css";
+import { UserFolderType } from "../../Hook/Types";
 
-function FolderAtionBtns({folderLists}) {
+// 모달에 폴더이름 전달해주기 위핸 props
+function FolderAtionBtns({ folderLists }: { folderLists: UserFolderType[] }) {
   const [snsmodalOpen, setSnsModalOpen] = useState(false);
   const [namemodalOpen, setNameModalOpen] = useState(false);
   const [folderRemoveModal, setFolderRemoveModal] = useState(false);
-  
+
   const handleShareModal = () => {
     setSnsModalOpen(true);
   };
@@ -22,11 +24,11 @@ function FolderAtionBtns({folderLists}) {
   const handleRemoveModal = () => {
     setFolderRemoveModal(true);
   };
-  
+
   return (
-    <div className="FolderActionBtnArea" >
+    <div className="FolderActionBtnArea">
       <span>유용한 글</span>
-      
+
       <div className="FolderActionBtnBox">
         <button onClick={handleShareModal}>
           <img src={share_svg} alt="공유 버튼" />
@@ -48,7 +50,7 @@ function FolderAtionBtns({folderLists}) {
             modalOpen={snsmodalOpen}
             close={setSnsModalOpen}
             headerText={"공유"}
-            folderName={'폴더'}
+            folderName={"폴더"}
             icon={true}
           />
         ) : null}
@@ -58,20 +60,20 @@ function FolderAtionBtns({folderLists}) {
             modalOpen={namemodalOpen}
             close={setNameModalOpen}
             headerText={"폴더 이름 변경"}
-            placeholder={'유용한 팁'}
+            placeholder={"유용한 팁"}
             buttonText={"변경하기"}
             type={"blue"}
           />
         ) : null}
         {folderRemoveModal ? (
-          <ModalMessge 
-          modalOpen={folderRemoveModal}
-          close={setFolderRemoveModal}
-          headerText={"폴더 삭제"}
-          folderName={'폴더'}
-          buttonText={"삭제하기"}
-          type={"red"}
-           />
+          <ModalMessge
+            modalOpen={folderRemoveModal}
+            close={setFolderRemoveModal}
+            headerText={"폴더 삭제"}
+            folderName={"폴더"}
+            buttonText={"삭제하기"}
+            type={"red"}
+          />
         ) : null}
       </div>
     </div>
@@ -80,8 +82,6 @@ function FolderAtionBtns({folderLists}) {
 
 export const FolderAtionBtn = () => {
   const { folderLists } = useUserFolderListData();
-  
-  return (
-    <FolderAtionBtns folderLists={folderLists} />
-  );
+
+  return <FolderAtionBtns folderLists={folderLists} />;
 };

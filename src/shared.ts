@@ -1,5 +1,5 @@
 
-export function createDay(createAt){
+export function createDay(createAt: string):string|null{
   const date = new Date(createAt);
   const year = date.getFullYear();
   const month = date.getMonth()+1;
@@ -7,10 +7,10 @@ export function createDay(createAt){
   return `${year}.${month}.${day}`;
 }
 
-export function beforeTime(createdTime) {
-  const currentDate = new Date();
-  const createdDate = new Date(createdTime);
-  const timeDifference = Math.floor((currentDate - createdDate) / (60 * 1000)); // 분 단위 //
+export function beforeTime(createdTime:string):string|null{
+  const currentDate: Date = new Date();
+  const createdDate: Date = new Date(createdTime);
+  const timeDifference: number = Math.floor((currentDate.getTime() - createdDate.getTime()) / (60 * 1000)); // 분 단위 //
 
   const minutes = Math.floor(timeDifference / (1000*60));
   const hours = Math.floor(timeDifference / 60)// 

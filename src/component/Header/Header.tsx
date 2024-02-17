@@ -20,4 +20,4 @@ export default function Header() {
 // <Bookmark/>
 // </div>
 // </>
-// //이런식으로 nav와 headerArea를 분리 */}
+// //이런식으로 nav와 headerArea를 분리해야할듯 */}

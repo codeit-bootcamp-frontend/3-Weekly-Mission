@@ -5,22 +5,19 @@ import useUserFolderListData from "../../Hook/useUserFolderListData";
 import "./FolderList.css";
 import Card from "../CardSection/Card";
 import ModalMessge from "../modal/ModalMessage";
-import {eventType} from '../../Hook/Types' 
 
 export default function FolderListBtn() {
   const { folderLists } = useUserFolderListData();
   const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handlechangModal:React.MouseEventHandler = (e) => {
-    e.preventDefault();
+  const handlechangModal = () => {
     setModalOpen(true);
   };
 
   const handleFolderClick = (folderId:number | null) => {
     setSelectedFolderId(folderId);
   };
-  console.log(folderLists);
 
   return (
     <div className="folder_list_box">

@@ -6,8 +6,7 @@ import { useState } from "react";
 export default function Kebab() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handlePopMessage = (e : React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
+  const handlePopMessage = () => {
     setModalOpen(true);
   };
 

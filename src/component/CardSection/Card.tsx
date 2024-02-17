@@ -4,14 +4,13 @@ import useUserLinkData from "../../Hook/useUserLinkData";
 import star from "../../image/star.jpg";
 import kebab_svg from "../../image/kebab.svg";
 import Kebab from "../Kebab";
-import { LinkType } from "../../Hook/Types";
+import { UserLinkType } from "../../Hook/Types";
 import { Link } from "react-router-dom";
 
-function CardList({ link }: { link: LinkType }) {
+function CardList({ link }: { link: UserLinkType }) {
   const [kebab, setKebab] = useState(false);
 
-  const kebabClick = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const kebabClick = () => {
     setKebab(!kebab); //!kebab이면 true, kebab이면 false  // true일때만 kebab 컴포넌트를 보여줌
   };
 
@@ -31,7 +30,7 @@ function CardList({ link }: { link: LinkType }) {
         </Link>
       </div>
       <div className="textBox">
-        <span className="time">{beforeTime(link.created_at)}</span>
+        <span className="time">{beforeTime(link.created_at ?? "")}</span>
         <img
           src={kebab_svg}
           alt="더보기"
@@ -42,7 +41,7 @@ function CardList({ link }: { link: LinkType }) {
           <Kebab />
         )}
         <p className="description">{link.description}</p>
-        <span className="date">{createDay(link.created_at)}</span>
+        <span className="date">{createDay(link.created_at ?? "")}</span>
       </div>
     </div>
   );
@@ -51,9 +50,9 @@ function CardList({ link }: { link: LinkType }) {
 export default function Card({
   selectedFolderId,
 }: {
-  selectedFolderId?: number
+  selectedFolderId?: number;
 }) {
-  const { linkData } = useUserLinkData(selectedFolderId!);//!인 이유는 
+  const { linkData } = useUserLinkData(selectedFolderId!); //!인 이유는
   return (
     <>
       {linkData.map((link) => (
