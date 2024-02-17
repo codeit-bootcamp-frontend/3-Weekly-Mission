@@ -8,7 +8,6 @@ function useUserProfileData() {
   async function folderDatas(){
     try{
       const response = await UserProfildData();
-      // const result = response.folder; // response 안에 있는 folder 데이터
       setfolderData(response) // folder 데이터를 folderData에 저장
     }
     catch(error){
@@ -23,4 +22,12 @@ function useUserProfileData() {
 
 export default useUserProfileData
 
+//const response = await UserProfildData();
+//setfolderData(response)
+//folderData의 response객체에는 folder로 감싸진 데이터가 있음.
+//folderData.folder.owner로 접근 가능
 
+//const response = await UserProfildData();
+//const result = response.folder
+//setfolderData(result) 로 하려면
+// UserProfileType 타입의folder{}부분을 벗겨야함 

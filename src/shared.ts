@@ -1,13 +1,14 @@
 
-export function createDay(createAt: string):string|null{
+export function createDay(createAt: string):string{
   const date = new Date(createAt);
   const year = date.getFullYear();
   const month = date.getMonth()+1;
   const day = date.getDate();
   return `${year}.${month}.${day}`;
 }
+//createAt 의 타입은 string이고 반환값은 꼭 스트링이어야 하는가? 아니면 :string|null 이런식으로 반환값이 null일수도 있다고 명시해주는게 좋은가?
 
-export function beforeTime(createdTime:string):string|null{
+export function beforeTime(createdTime:string):string{
   const currentDate: Date = new Date();
   const createdDate: Date = new Date(createdTime);
   const timeDifference: number = Math.floor((currentDate.getTime() - createdDate.getTime()) / (60 * 1000)); // 분 단위 //

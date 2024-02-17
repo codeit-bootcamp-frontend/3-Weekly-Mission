@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes /* @jsxImportSource react */>
+      <Routes>
         <Route path="/folder" element={<FolderPage />} />
         <Route path="/" element={<HomePage />} />
       </Routes>

@@ -19,7 +19,3 @@ export default function FolderPage() {
     </>
   );
 }
-///api/users/1
-///api/users/1/folders
-///api/users/1/links?folderId={해당 폴더 ID}
-//https://bootcamp-api.codeit.kr
