@@ -1,0 +1,42 @@
+.iconBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+.iconText {
+  color: var(--linkbrary-gray-100);
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15px; /* 115.385% */
+}
+
+.kakaoIcon,
+.facebookIcon,
+.linkIcon {
+  display: flex;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 37.333px;
+}
+.kakaoIcon {
+  background: #fee500;
+}
+.facebookIcon {
+  background: #1877f2;
+}
+.linkIcon {
+  background: rgba(157, 157, 157, 0.04);
+}

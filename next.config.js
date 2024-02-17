@@ -4,8 +4,8 @@ const nextConfig = {
   redirects: async function redirects() {
     return [
       {
-        source: "",
-        destination: "",
+        source: "/ㄴㄴㄴㄴ",
+        destination: "/ㄴㄴㄴ",
         permanent: true,
       },
     ];
@@ -14,9 +14,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "",
+        hostname: "jasonwatmore.com",
         port: "",
-        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "codeit-images.codeit.com",
+        port: "",
       },
     ],
   },
