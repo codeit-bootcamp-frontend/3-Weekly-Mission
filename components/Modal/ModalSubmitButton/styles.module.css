@@ -1,0 +1,25 @@
+.button {
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.delete {
+  background: #ff5b56;
+}
+
+.submit {
+  background: linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%);
+}
+
+.none {
+  background: #808080;
+}
+
+.button:hover,
+.button:active {
+  background-color: #463770;
+}

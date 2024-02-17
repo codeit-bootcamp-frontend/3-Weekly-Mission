@@ -1,0 +1,59 @@
+.modal {
+  width: 280px;
+}
+
+.folder-list {
+  margin-bottom: 24px;
+}
+
+.folder-list__button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.folder-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.folder-item-name {
+  color: #373740;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+}
+
+.folder-item-count {
+  color: #9fa6b2;
+  font-size: 1.4rem;
+}
+
+.folder-list__button img {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+}
+
+.folder-list__button:focus {
+  background: #f0f6ff;
+}
+
+.folder-list__button:focus img {
+  opacity: 1;
+}
+
+.folder-list__button:focus .folder-item-name {
+  color: #6d6afe;
+}
+
+.folder-list__button:hover {
+  background: #f0f6ff;
+}
+
+.folder-list__button:hover .folder-item-name {
+  color: #6d6afe;
+}

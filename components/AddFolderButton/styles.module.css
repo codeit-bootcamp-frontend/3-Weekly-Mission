@@ -1,0 +1,56 @@
+.add-folder__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  column-gap: 0.4rem;
+  height: 35px;
+  border-radius: 2rem;
+  border: 0.1rem solid #fff;
+  padding: 0;
+  background-color: transparent;
+  position: relative;
+  bottom: 0;
+  left: 0;
+}
+
+.add-folder__button--text {
+  font-size: 1.6rem;
+  font-weight: 500;
+  width: 65px;
+  color: var(--Linkbrary-primary-color);
+}
+
+.add-folder__button--icon {
+  width: 18px;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+}
+
+.modal__input {
+  font-size: 1.4rem;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 18px 15px;
+  border: 1px solid #ccd5e3;
+  border-radius: 8px;
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .add-folder__button {
+    display: none;
+    padding: 0 2.4rem;
+    background-color: var(--Linkbrary-primary-color);
+    position: fixed;
+    bottom: 101px;
+    left: calc(50vw - 65px);
+  }
+
+  .add-folder__button--text {
+    color: var(--Linkbrary-gray10);
+  }
+}
