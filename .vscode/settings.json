@@ -1,9 +1,0 @@
-{
-  "[javascript]": {
-    "editor.formatOnSave": true
-  },
-  // ESLint 수정 후 저장시 변경사항 바로 적용
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  }
-}
