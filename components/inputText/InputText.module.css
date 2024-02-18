@@ -1,0 +1,26 @@
+.input {
+  width: 350px;
+  height: 60px;
+  padding: 18px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccd5e3;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #6d6afe;
+}
+
+.err {
+  color: #ff5b56;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.input.err {
+  border: 1px solid #ff5b56;
+  color: black;
+}

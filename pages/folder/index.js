@@ -18,11 +18,17 @@ const Folder = () => {
     alert('아직 미구현');
   }
 
+  function search() {
+    alert(
+      '검색어를 입력하면 현재 폴더에 있는 링크들 중 “url”, “title”, “description”에 검색어가 포함된 링크들만 필터해서 보이게 해주세요. (어떻게 구현해야 할지 모르겠음, 일단 보류)',
+    );
+  }
+
   return (
     <>
       <Header notFixed />
       <AddLink />
-      <Search />
+      <Search result={search} />
       <UserSection />
       <FloatingActionButton onClick={handleAddFolder} />
       <Footer />

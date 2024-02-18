@@ -14,6 +14,8 @@ export default function Home() {
         <Link href={'/shared'}>shared페이지(6~7주차 과제)</Link>
         <br />
         <Link href={'/folder'}>folder페이지(8주차 과제)</Link>
+        <br />
+        <Link href={'/inputs'}>input 컴포넌트(13주차 과제)</Link>
       </main>
     </>
   );

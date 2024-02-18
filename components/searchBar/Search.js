@@ -2,7 +2,7 @@ import Image from 'next/image';
 import styles from './Search.module.css';
 import search from '@/public/search.svg';
 
-function Search() {
+function Search({ result }) {
   return (
     <div className={styles.searchBox}>
       <label>
@@ -11,6 +11,7 @@ function Search() {
           placeholder="링크를 검색해 보세요."
           id="search-bar"
           className={styles.searchBar}
+          onChange={result}
         />
         <Image src={search} alt="magnifier" />
       </label>
