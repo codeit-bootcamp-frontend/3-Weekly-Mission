@@ -48,17 +48,7 @@ interface Owner {
   profileImageSource: string;
 }
 
-// Types
-export interface SelectedFolder {
-  name: string;
-  id: string | number;
-}
-
-export interface FolderManagementButton {
-  iconSource: string;
-  text: string;
-}
-
+// constants types
 export interface Times {
   ONE_MINUTE_AGO: string;
   MINUTES_AGO: string;
@@ -79,4 +69,15 @@ export interface Api {
   USER: string;
   USER_LINKS: string;
   USER_FOLDERS: string;
+}
+
+// 그 외 Types
+export interface SelectedFolder {
+  name: string;
+  id: string | number;
+}
+
+export interface FolderManagementButton {
+  iconSource: string;
+  text: string;
 }
