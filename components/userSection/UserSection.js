@@ -8,7 +8,7 @@ import pen from '@/public/pen.svg';
 import share from '@/public/share.svg';
 import remove from '@/public/delete.svg';
 import add from '@/public/add.svg';
-import ModalDeletefolder from '@/components/modalDeleteFolder/ModalDeletefolder';
+import ModalDeletefolder from '@/components/modalDeleteFolder/ModalDeleteFolder';
 import ModalEditFolderName from '@/components/modalEditFolderName/ModalEditFolderName';
 import ModalSharedFolder from '@/components/modalSharedFolder/ModalSharedFolder';
 import ModalAddFolder from '@/components/modalAddFolder/ModalAddFolder';
