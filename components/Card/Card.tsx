@@ -27,7 +27,15 @@ export default function Card({ handleModalButtonClick, item, toggle }: Props) {
       <Link href={url}>
         <CardImg src={imgSource} alt={imgAlt} />
       </Link>
-      {toggle && <StarImg src={imageData.starIcon} alt="별모양 아이콘" />}
+      {toggle && (
+        <StarImg
+          width={34}
+          height={34}
+          priority
+          src={imageData.starIcon}
+          alt="별모양 아이콘"
+        />
+      )}
       <Info>
         {toggle && (
           <Kebab handleModalButtonClick={handleModalButtonClick} url={url} />

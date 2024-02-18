@@ -14,19 +14,37 @@ import { VoidFunc } from "../types/functionType";
 import SearchResult from "../components/SearchResult/SearchResult";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { GetServerSidePropsContext } from "next";
+import Spinner from "@/components/Spinner/Spinner";
 
-export default function SharedPage() {
-  const router = useRouter();
-  const userId = router.query?.id?.toString();
-  const folderId = router.query?.folder?.toString();
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const userId = context.query?.user;
+  const folderId = context.query?.folder;
+
+  return {
+    props: {
+      userId,
+      folderId,
+    },
+  };
+}
+
+interface Props {
+  userId: string;
+  folderId: string;
+}
+
+export default function SharedPage({ userId, folderId }: Props) {
   const {
     data: cardListItem,
     fetchData: setCardListItem,
     setData: filterCardList,
+    isLoading,
   }: {
     data: CardItem[] | null;
     fetchData: VoidFunc;
     setData: React.Dispatch<React.SetStateAction<CardItem[] | null>>;
+    isLoading: boolean;
   } = useFetchData(() => getFolderData(folderId, userId!));
   const folderData: FolderData[] =
     useFetchData(() => getFolderList(userId!)).data || [];
@@ -55,6 +73,14 @@ export default function SharedPage() {
     handleHeaderData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderData, ownerData]);
+
+  if (isLoading) {
+    return (
+      <div className="shared-spinner">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <main>
@@ -96,7 +122,12 @@ function SharedHeader({ folderOwner, folderName }: HeaderProps) {
         <img className="user-profile-img" src={source} alt="유저이미지" />
       ) : (
         <div className="codeit-img-background">
-          <Image src={imageData.codeitLogo.src} alt="코드잇 로고 이미지" />
+          <Image
+            fill
+            priority
+            src={imageData.codeitLogo.src}
+            alt="코드잇 로고 이미지"
+          />
         </div>
       )}
 

@@ -35,7 +35,12 @@ export default function Kebab({ handleModalButtonClick, url }: Props) {
   return (
     <Wrapper>
       <ContainerBtn type="button" onClick={handleKebabClick}>
-        <Image src={imageData.kebabIcon} alt="케밥모양 아이콘" />
+        <Image
+          width={21}
+          height={17}
+          src={imageData.kebabIcon}
+          alt="케밥모양 아이콘"
+        />
       </ContainerBtn>
       {isClicked && (
         <ToggleContainer>

@@ -8,6 +8,11 @@
   gap: 12px;
 }
 
+.shared-spinner {
+  text-align: center;
+  margin: 500px 0 500px;
+}
+
 .shared-header .user-profile-img {
   height: 60px;
 }

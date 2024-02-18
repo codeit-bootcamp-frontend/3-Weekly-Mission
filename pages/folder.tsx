@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LinkSearchForm from "@/components/LinkSearchForm/LinkSearchForm";
 import LinkAddForm from "@/components/LinkAddForm/LinkAddForm";
 import { getFolderList, getLinkList } from "@/apis/api";
