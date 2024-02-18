@@ -28,8 +28,8 @@ export const getFolderSample: () => Promise<FolderSample> = async () => {
     const formattedData: FolderItem[] = result.folder.links.map(
       (link: FolderItem) => ({
         ...link,
-        created_at: link.createdAt ? link.createdAt : null,
-        image_source: link.imageSource ? link.imageSource : null,
+        created_at: link.createdAt,
+        image_source: link.imageSource,
       }),
     );
 

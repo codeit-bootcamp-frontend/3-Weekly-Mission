@@ -23,8 +23,6 @@ const Folder = ({ initialData }: Props) => {
     id: 'all',
   });
 
-  console.log(initialData);
-
   return (
     <div>
       <Header isSticky={!isSticky} />

@@ -18,7 +18,7 @@ export interface FolderItem {
   folder_id: number | null;
   id: string | number;
   imageSource?: string | null;
-  image_source: string | null;
+  image_source: string;
   title: string | null;
   updated_at: string | null;
   url: string | null;

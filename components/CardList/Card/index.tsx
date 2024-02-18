@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FolderItem } from '@/types/Common';
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 
 interface Props {
   link: FolderItem;
@@ -19,6 +19,7 @@ export const Card = ({
   activeKebab,
   setActiveKebab,
 }: Props) => {
+  const [hasError, setHasError] = useState<boolean>(false);
   const handleKebabButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -36,7 +37,7 @@ export const Card = ({
     e.stopPropagation();
   };
 
-  const imageUrl: string | null = link.image_source;
+  const imageUrl: string = link.image_source;
   const absoluteImageUrl = imageUrl?.startsWith('//')
     ? `https:${imageUrl}`
     : imageUrl;
@@ -54,13 +55,12 @@ export const Card = ({
           <div style={{ position: 'relative', width: '100%', height: '200px' }}>
             <Image
               fill
-              src={
-                absoluteImageUrl === null
-                  ? '/images/no-image.svg'
-                  : absoluteImageUrl
-              }
+              src={hasError ? '/images/no-image.svg' : absoluteImageUrl}
               alt="카드 이미지"
               style={{ objectFit: 'cover' }}
+              onError={() => {
+                if (!hasError) setHasError(true);
+              }}
             />
           </div>
         </div>
