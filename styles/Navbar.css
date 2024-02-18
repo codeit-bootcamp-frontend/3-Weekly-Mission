@@ -81,4 +81,7 @@
     width: 8rem;
     padding: 1rem 1.6rem;
   }
+  .userName {
+    display: none;
+  }
 }

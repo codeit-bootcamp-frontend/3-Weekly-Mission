@@ -46,7 +46,12 @@ function NavProfile({ user }: Props) {
         <img className="profile-img" src={source} alt="프로필 사진" />
       ) : (
         <div className="profile-default-img">
-          <img src={imageData.defaultProfileImg.src} alt="프로필 사진" />
+          <Image
+            width={10}
+            height={10}
+            src={imageData.defaultProfileImg.src}
+            alt="프로필 사진"
+          />
         </div>
       )}
 

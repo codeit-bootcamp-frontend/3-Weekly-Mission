@@ -31,8 +31,7 @@ const Form = styled.form`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  max-width: 80rem;
+  max-width: 800px;
   width: 100%;
   background: #fff;
   border-radius: 15px;
@@ -48,15 +47,9 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
+  margin-left: 12px;
   width: 100%;
   border: none;
   background-color: transparent;
   outline: none;
-`;
-
-const Img = styled.img`
-  width: 16px;
-  height: 16px;
-  left: 16px;
-  text-align: center;
 `;

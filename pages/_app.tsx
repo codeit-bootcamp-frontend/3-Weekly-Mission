@@ -34,6 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Linkbrary</title>
+        <noscript></noscript>
       </Head>
       <Script
         src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"

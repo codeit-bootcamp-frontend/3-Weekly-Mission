@@ -18,7 +18,7 @@ export default function CtaButton({
 }
 
 export const CTAButton = styled.button`
-  width: 100px;
+  width: 126px;
   text-align: center;
   padding: 10px 16px;
   border-radius: 8px;
@@ -33,4 +33,5 @@ const ButtonText = styled.span`
   display: inline-block;
   font-size: 1.4rem;
   font-weight: 600;
+  width: 100%;
 `;
