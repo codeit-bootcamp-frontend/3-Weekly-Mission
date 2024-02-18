@@ -68,6 +68,11 @@ button {
     cursor: pointer;
 }
 
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
 `;
 
 export default GlobalStyle;

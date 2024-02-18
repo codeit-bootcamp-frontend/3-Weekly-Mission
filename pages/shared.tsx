@@ -12,7 +12,6 @@ import {
 } from "../types/dataTypes";
 import { VoidFunc } from "../types/functionType";
 import SearchResult from "../components/SearchResult/SearchResult";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import { GetServerSidePropsContext } from "next";
 import Spinner from "@/components/Spinner/Spinner";

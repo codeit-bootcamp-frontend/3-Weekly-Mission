@@ -21,6 +21,8 @@ import modalShareIcon from "@/public/img/modal-link.svg";
 import modalFacebookIcon from "@/public/img/modal-icon-facebook.svg";
 import modalCheckedIcon from "@/public/img/modal-footer-icon-check.svg";
 import spinnerImg from "@/public/img/spinner.svg";
+import eyeOn from "./img/eye-on.svg";
+import eyeOff from "./img/eye-off.svg";
 
 const imageData = {
   shareIcon,
@@ -46,6 +48,8 @@ const imageData = {
   modalFacebookIcon,
   modalCheckedIcon,
   spinnerImg,
+  eyeOn,
+  eyeOff,
 };
 
 export default imageData;
