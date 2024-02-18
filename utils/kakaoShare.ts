@@ -1,13 +1,13 @@
 export const shareKakao = (url: string, folderName: string) => {
-  if (!Kakao.isInitialized()) {
+  if (!window.Kakao.isInitialized()) {
     const key = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
     if (!key) {
       return;
     }
-    Kakao.init(key);
+    window.Kakao.init(key);
   }
 
-  Kakao.Share.sendDefault({
+  window.Kakao.Share.sendDefault({
     objectType: "feed",
     content: {
       title: "Linkbrary",
