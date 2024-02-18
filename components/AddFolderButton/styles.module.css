@@ -21,10 +21,6 @@
   color: var(--Linkbrary-primary-color);
 }
 
-.add-folder__button--icon {
-  width: 18px;
-}
-
 .modal {
   display: flex;
   flex-direction: column;

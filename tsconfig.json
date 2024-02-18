@@ -20,8 +20,13 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/_document.jsx",
-    "pages/_app.jsx"
+    "pages/_document.tsx",
+    "pages/_app.tsx",
+    "pages/folder.tsx",
+    "components/Header/index.jsx",
+    "components/Favorites/index.tsx",
+    "components/CardList/index.tsx",
+    "components/CardList/Card/index.tsx"
   ],
   "exclude": ["node_modules"]
 }
