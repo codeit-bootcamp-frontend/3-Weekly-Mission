@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -22,7 +23,12 @@ const PasswordInput = ({ type }: { type: string }) => {
         }}
       />
       <PasswordHiddenButton type="button" onClick={toggleHidden}>
-        <img src={isHidden ? "@/public/images/signin-eye-off.svg" : "@/public/images/signin-eye-on.svg"} alt="" />
+        <Image
+          src={isHidden ? "@/public/images/signin-eye-off.svg" : "@/public/images/signin-eye-on.svg"}
+          alt="눈 아이콘"
+          width={16}
+          height={16}
+        />
       </PasswordHiddenButton>
       {isError && <ErrorMessage>내용을 다시 작성해주세요.</ErrorMessage>}
     </Wrapper>
@@ -74,12 +80,6 @@ export const PasswordHiddenButton = styled.button`
   height: 16px;
   border: none;
   padding: 0;
-
-  img {
-    width: 100%;
-    height: 100%;
-  }
-
   position: absolute;
   top: 22px;
   right: 22px;
