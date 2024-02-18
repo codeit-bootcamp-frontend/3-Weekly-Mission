@@ -10,14 +10,11 @@ interface LinkCreatorProps {
     linkCreatorWrapperDom: React.RefObject<HTMLDivElement>;
 }
 
-const LinkCreator = (
-    {
-        onUpdateButtonClick,
-        linkCreatorDom,
-        linkCreatorWrapperDom,
-    }: LinkCreatorProps,
-    ref: any
-) => {
+const LinkCreator = ({
+    onUpdateButtonClick,
+    linkCreatorDom,
+    linkCreatorWrapperDom,
+}: LinkCreatorProps) => {
     return (
         <EmptySpace ref={linkCreatorWrapperDom}>
             <Background ref={linkCreatorDom}>

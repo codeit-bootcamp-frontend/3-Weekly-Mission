@@ -6,6 +6,6 @@ export type ShowModal = (modalValue: ModalInterface) => void;
 
 export type CloseModal = () => void;
 
-export type SharedUserIdType = string | null;
+export type SharedUserIdType = string | string[] | undefined | null;
 
-export type SharedFolderIdType = string | null;
+export type SharedFolderIdType = string | string[] | undefined | null;

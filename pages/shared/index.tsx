@@ -13,9 +13,8 @@ import Contents from "@/components/Contents/Contents";
 import CardSearchBar from "@/components/Contents/CardSearchBar/CardSearchBar";
 import Footer from "@/components/Footer/Footer";
 import CardList from "@/components/Contents/CardList/CardList";
-import { useRouter } from "next/router";
 
-export default function Shared() {
+export default function SharedPage() {
     const { login, userData } = useSharedPageLogin();
     const { sharedPageInfo } = useGetSharedPageInfo();
     const { sharedUserId, sharedFolderId } = useGetSharedPageIds();
