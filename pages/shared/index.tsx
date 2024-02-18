@@ -6,7 +6,7 @@ import {
     useGetSharedPageIds,
     useGetSharedPageInfo,
     useSharedPageLogin,
-} from "./Shared.hook";
+} from "@/hooks/Shared.hook";
 import Header from "@/components/Header/Header";
 import ShareDescription from "@/components/ShareDescription/ShareDescription";
 import Contents from "@/components/Contents/Contents";

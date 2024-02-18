@@ -5,7 +5,7 @@ import {
     useFolderPageLogin,
     useModal,
     useScrollingSearchBar,
-} from "./Folder.hook";
+} from "@/hooks/Folder.hook";
 import { useSearchBar } from "@/hooks/useSearchBar";
 import LinkCreator from "@/components/LinkCreator/LinkCreator";
 import Contents from "@/components/Contents/Contents";
