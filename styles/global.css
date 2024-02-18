@@ -1,0 +1,51 @@
+:root {
+  --primary-purple-70: #8f00ff;
+  --color-primary: #6d6afe;
+  --color-red: #ff5856;
+  --color-black: #111322;
+  --color-white: #ffffff;
+  --color-gray-100: #3e3e43;
+  --color-gray-60: #9fa6b2;
+  --color-gray-20: #ccd5e3;
+  --color-gray-10: #e7effb;
+  --Linkbrary-bg: #f0f6ff;
+  --Linkbrary-gray-100: #373740;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100vh;
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 16rem;
+  font-family: Pretendard, sans-serif;
+  font-size: 1.6rem;
+  word-break: keep-all;
+}
+
+button {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+p, h1, h2 {
+  margin: 0;
+}

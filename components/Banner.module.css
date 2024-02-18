@@ -1,0 +1,57 @@
+.banner {
+  width: 100%;
+  background-color: var(--Linkbrary-bg);
+  margin-top: 9.3rem;
+  padding: 2rem 0 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.banner-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.banner-img {
+  width: 6rem;
+  height: 6rem;
+}
+
+.banner-user-name {
+  font-weight: 400;
+}
+
+.banner-title {
+  color: #000;
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+@media (max-width: 1123px) {
+  .banner {
+    margin: 9.3rem auto 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .banner {
+    padding-top: 1rem;
+    padding-bottom: 4rem;
+  }
+
+  .banner-img{
+    width: 4rem;
+    height: 4rem;
+  }
+  .banner-user-name {
+    font-size: 1.4rem;
+  }
+
+  .banner-title {
+    font-size: 3.2rem;
+  }
+}
