@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { SharedPageInfoInterface } from "../../interfaces";
+import Image from "next/image";
 
 interface ShareDescriptionProps {
     sharedPageInfo: SharedPageInfoInterface | undefined;
@@ -13,9 +14,11 @@ const ShareDescription = ({
     return (
         <Background>
             <ShareDescriptionWrapper>
-                <img
-                    src={sharedPageInfo?.owner?.profileImageSource}
+                <Image
+                    src={sharedPageInfo?.owner?.profileImageSource || ""}
                     alt="코드잇 마크"
+                    width={60}
+                    height={60}
                 />
                 <span>{sharedPageInfo?.owner?.name}</span>
                 <div>{sharePageFolderName}</div>

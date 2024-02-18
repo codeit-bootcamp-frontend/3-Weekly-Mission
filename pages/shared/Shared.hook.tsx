@@ -8,6 +8,7 @@ import {
     SharedPageUserDataInterface,
 } from "@/interfaces";
 import { SharedFolderIdType, SharedUserIdType } from "@/types";
+import { useRouter } from "next/router";
 
 // Header의 유저 프로필 데이터 및 로그인 여부
 export const useSharedPageLogin = () => {
@@ -33,17 +34,17 @@ export const useSharedPageLogin = () => {
 
 // sharedPage의 id와 현재 로그인된 유저의 id를 가져오는 훅
 export const useGetSharedPageIds = () => {
-    const [searchParams, setSearchParams] = useSearchParams(); // eslint-disable-line no-unused-vars
-    //
+    const router = useRouter();
+    const { user, folder } = router.query;
+    console.log("user : ", user, "folder : ", folder);
+
     const [sharedUserId, setSharedUserId] = useState<SharedUserIdType>(null);
     const [sharedFolderId, setSharedFolderId] =
         useState<SharedFolderIdType>(null);
 
     useEffect(() => {
-        const userId = searchParams.get("user");
-        const folderId = searchParams.get("folder");
-        setSharedUserId(userId);
-        setSharedFolderId(folderId);
+        setSharedUserId(user);
+        setSharedFolderId(folder);
     }, []);
 
     return { sharedUserId, sharedFolderId };

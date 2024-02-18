@@ -9,8 +9,8 @@ export default function Home() {
                 <title>Linkbrary</title>
             </Head>
             <LinkWrapper>
-                <Link href="/FolderPage">FolderPage 이동하기</Link>
-                <Link href="/SharedPage">Sharedpage 이동하기</Link>
+                <Link href="/folder">FolderPage 이동하기</Link>
+                <Link href="/shared">Sharedpage 이동하기</Link>
             </LinkWrapper>
         </>
     );

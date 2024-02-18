@@ -5,7 +5,7 @@ import {
     useFolderPageLogin,
     useModal,
     useScrollingSearchBar,
-} from "./FolderPage.hook";
+} from "./Folder.hook";
 import { useSearchBar } from "@/hooks/useSearchBar";
 import LinkCreator from "@/components/LinkCreator/LinkCreator";
 import Contents from "@/components/Contents/Contents";
@@ -15,7 +15,7 @@ import CardList from "@/components/Contents/CardList/CardList";
 import Footer from "@/components/Footer/Footer";
 import Modal from "@/components/Modal/Modal";
 
-export default function FolderPage() {
+export default function Folder() {
     const { modal, showModal, closeModal } = useModal();
     const {
         folderData,

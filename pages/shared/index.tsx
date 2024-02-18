@@ -6,15 +6,16 @@ import {
     useGetSharedPageIds,
     useGetSharedPageInfo,
     useSharedPageLogin,
-} from "./SharedPage.hook";
+} from "./Shared.hook";
 import Header from "@/components/Header/Header";
 import ShareDescription from "@/components/ShareDescription/ShareDescription";
 import Contents from "@/components/Contents/Contents";
 import CardSearchBar from "@/components/Contents/CardSearchBar/CardSearchBar";
 import Footer from "@/components/Footer/Footer";
 import CardList from "@/components/Contents/CardList/CardList";
+import { useRouter } from "next/router";
 
-export default function SharedPage() {
+export default function Shared() {
     const { login, userData } = useSharedPageLogin();
     const { sharedPageInfo } = useGetSharedPageInfo();
     const { sharedUserId, sharedFolderId } = useGetSharedPageIds();

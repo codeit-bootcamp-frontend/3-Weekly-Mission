@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    // svg를 사용하기 위한 경로 설정
+    // url 이미지를 사용하기 위한 경로 설정
     images: {
         remotePatterns: [
             {
@@ -9,6 +9,18 @@ const nextConfig = {
                 hostname: "ca.slack-edge.com",
                 port: "",
                 pathname: "/*",
+            },
+            {
+                protocol: "https",
+                hostname: "codeit-front.s3.ap-northeast-2.amazonaws.com",
+                port: "",
+                pathname: "/**/*",
+            },
+            {
+                protocol: "https",
+                hostname: "codeit-images.codeit.com",
+                port: "",
+                pathname: "/**/*",
             },
         ],
     },
