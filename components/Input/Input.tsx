@@ -10,9 +10,9 @@ const TEST_EMAIL = "test@codeit.com";
 const TEST_PWD = "sprint101";
 
 interface Props {
-  isSignIn: boolean;
+  isSignUp?: boolean;
 }
-export default function Input({ isSignIn }: Props) {
+export default function Input({ isSignUp }: Props) {
   // 에러 핸들링
   // 1. 이메일 다른 경우-해결!
   // 2. 비밀번호 다른 경우-해결!
@@ -53,13 +53,13 @@ export default function Input({ isSignIn }: Props) {
       setPasswordErrorMsg("비밀번호를 입력해주세요.");
       return;
     }
-    if (!isSignIn && !pwdRegex.test(e.target.value)) {
+    if (isSignUp && !pwdRegex.test(e.target.value)) {
       setIsPasswordError(true);
       setPasswordErrorMsg("올바른 비밀번호 형식이 아닙니다.");
       return;
     }
 
-    if (!isSignIn && rePasswordInput !== passwordInput) {
+    if (isSignUp && rePasswordInput !== passwordInput) {
       setIsPasswordError(true);
       setPasswordErrorMsg("비밀번호가 다릅니다.");
       return;
@@ -76,7 +76,7 @@ export default function Input({ isSignIn }: Props) {
       setRePasswordErrorMsg("비밀번호를 입력해주세요.");
       return;
     }
-    if (!isSignIn && !pwdRegex.test(e.target.value)) {
+    if (isSignUp && !pwdRegex.test(e.target.value)) {
       setIsRePasswordError(true);
       setRePasswordErrorMsg("올바른 비밀번호 형식이 아닙니다.");
       return;
@@ -101,7 +101,7 @@ export default function Input({ isSignIn }: Props) {
 
   return (
     <>
-      <form id="signin-form" onSubmit={handleSubmit}>
+      <form className={styles.form} id="signin-form" onSubmit={handleSubmit}>
         <div className={styles.formBox}>
           <div className={styles.inputFrame}>
             <label className={styles.formName} htmlFor="signin-email">
@@ -155,7 +155,7 @@ export default function Input({ isSignIn }: Props) {
               onClick={() => setIsShowPassword(!isShowPassword)}
             />
           </div>
-          {!isSignIn && (
+          {isSignUp && (
             <div className={styles.inputFrame}>
               <label className={styles.formName} htmlFor="signin-password">
                 비밀번호 확인
@@ -194,7 +194,7 @@ export default function Input({ isSignIn }: Props) {
             className={styles.formBtnGradient}
             id="signin-btn"
           >
-            로그인
+            {isSignUp ? "회원가입" : "로그인"}
           </button>
         </div>
       </form>

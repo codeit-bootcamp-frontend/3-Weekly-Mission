@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import styles from "./SignUpForm.module.css";
+import styles from "../SignInForm/SignInForm.module.css";
 
 export default function SignUpForm({ children }) {
-  //아직 수정 전임
   return (
     <div className={styles.wrap}>
       <div className={styles.loginBox}>
@@ -19,9 +18,9 @@ export default function SignUpForm({ children }) {
           </Link>
 
           <div className={styles.linkBox}>
-            <span className={styles.text}>회원이 아니신가요?</span>
-            <Link className={styles.linktext} href="signup">
-              회원 가입하기
+            <span className={styles.text}>이미 회원이신가요?</span>
+            <Link className={styles.linktext} href="signin">
+              로그인 하기
             </Link>
           </div>
         </div>
@@ -30,7 +29,7 @@ export default function SignUpForm({ children }) {
       </div>
 
       <div className={styles.socialLoginBox}>
-        <span className={styles.socialLoginText}>소셜 로그인</span>
+        <span className={styles.socialLoginText}>다른 방식으로 가입하기</span>
         <div className={styles.socialIcons}>
           <a href="https://www.google.com/">
             <Image
