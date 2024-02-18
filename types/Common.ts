@@ -71,7 +71,7 @@ export interface Api {
   USER_FOLDERS: string;
 }
 
-// 그 외 Types
+// Types
 export interface SelectedFolder {
   name: string;
   id: string | number;
