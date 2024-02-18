@@ -11,7 +11,6 @@ interface Props {
 }
 function Card({ link, folderData }: Props) {
   const [pop, setPop] = useState(false);
-  console.log("link", link);
 
   return (
     <div className={styles.cardBox}>

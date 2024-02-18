@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getLinkDataByFolderId } from "../../apis/api";
+import { getLinkDataByFolderId, Folder, Link } from "@/api/api";
 import Card from "./Card/Card";
 import { ALL_LINKS_ID } from "../Folder/constants";
 import styles from "./CardList.module.css";
@@ -8,12 +8,12 @@ import { useRecoilState } from "recoil";
 import { searchKeyword } from "../Content/Content";
 
 interface Props {
-  folderData: any[];
+  folderData: Folder[];
   selectedFolderId: number | string;
   selectedFolderName: string;
 }
 function CardList({ folderData, selectedFolderId, selectedFolderName }: Props) {
-  const [cardList, setCardList] = useState<any[]>([]);
+  const [cardList, setCardList] = useState<Link[]>([]);
   const [keyword, setKeyword] = useRecoilState<string>(searchKeyword);
 
   useEffect(() => {
@@ -21,6 +21,7 @@ function CardList({ folderData, selectedFolderId, selectedFolderName }: Props) {
       // console.log("selectedFolderId", selectedFolderId);
       const { data } = await getLinkDataByFolderId(selectedFolderId);
       setCardList(data);
+      console.log(cardList);
     };
 
     handleLoadCardList();

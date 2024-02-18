@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUserData } from "@/apis/api";
+import { getUserData } from "@/api/api";
 
 export function useUserData() {
   const [userData, setUserData] = useState<any>();
