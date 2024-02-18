@@ -204,6 +204,12 @@ const nextConfig = {
         port: '',
         pathname: '/static/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.yupdduk.com',
+        port: '',
+        pathname: '/images/**',
+      },
     ],
   },
 };
