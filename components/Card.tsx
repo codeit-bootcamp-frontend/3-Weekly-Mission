@@ -1,4 +1,4 @@
-import useModal from "../hooks/useModal";
+import useModal, { IModal } from "../hooks/useModal";
 import calculateWhenItIsCreated from "../utils/calculateWhenItIsCreated";
 import formatDate from "../utils/formatDate";
 import styles from "./Card.module.css";
@@ -25,7 +25,7 @@ export default function Card({ data }: Props) {
   const timeAgo = calculateWhenItIsCreated(createdAt || created_at);
   const imageUrl = imageSource || image_source || null;
   const [popoverState, setPopoverState] = useState(false);
-  const [modalState, setModalState, handleModalCancel] = useModal();
+  const [modalState, setModalState, handleModalCancel] = useModal() as [IModal, (modal: IModal) => void, () => void];
 
   return (
     <>

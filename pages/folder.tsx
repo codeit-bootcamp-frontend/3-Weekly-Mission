@@ -28,10 +28,10 @@ export default function Folder() {
 
   return (
     <>
-      <Header isSticky={undefined}/>
+      <Header isSticky={false} />
       <AddLinkBar />
       <SearchBar handleInputChange={handleInputChange} />
-      <Content datas={searchedData}/>
+      <Content datas={searchedData} />
     </>
   );
 }

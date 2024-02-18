@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { getSampleUser, getUser } from "../api";
 
-export default function useGetUserAsync(isSticky) {
-  const [data, setData] = useState([]);
+interface IData {
+  [key: string]: any;
+}
+
+export default function useGetUserAsync(isSticky: boolean): any {
+  const [data, setData] = useState<IData>();
 
   useEffect(() => {
     (async () => {
@@ -10,9 +14,8 @@ export default function useGetUserAsync(isSticky) {
         const data = await getSampleUser();
         const { profileImageSource, email } = data;
         setData([profileImageSource, email]);
-
       } else {
-        const {data} = await getUser();
+        const { data } = await getUser();
         console.log(data);
 
         const { image_source, email } = data[0];

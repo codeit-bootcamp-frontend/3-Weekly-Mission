@@ -7,8 +7,10 @@ import Card from "./Card";
 import { useState } from "react";
 import styles from "./Content.module.css";
 import Modal from "./Modal";
-import useModal from "../hooks/useModal";
+import useModal, { IModal } from "../hooks/useModal";
 import Image from "next/image";
+import { ILinks } from "@/hooks/useGetFolderAsync";
+import { IData } from "@/hooks/useGetUserFolderAsync";
 
 export default function Content({ datas }) {
   const [targetFolder, setTargetFolder] = useState({
@@ -16,7 +18,7 @@ export default function Content({ datas }) {
     id: 0,
   });
 
-  const [modalState, setModalState, handleModalCancel] = useModal();
+  const [modalState, setModalState, handleModalCancel] = useModal()
   const folderList = useGetFolderListAsync();
 
   const handleClick = (title, id) => {
@@ -61,7 +63,7 @@ export default function Content({ datas }) {
           ))}
         </div>
         <button
-          className={`${styles['button']} ${styles["plus-btn"]} ${styles["add-folder-btn-wrapper"]}`}
+          className={`${styles["button"]} ${styles["plus-btn"]} ${styles["add-folder-btn-wrapper"]}`}
           onClick={() =>
             setModalState({
               state: true,

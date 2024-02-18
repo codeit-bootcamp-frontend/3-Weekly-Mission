@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-interface IModal {
+export interface IModal {
   state?: boolean;
   target?: string;
   folderName?: string;

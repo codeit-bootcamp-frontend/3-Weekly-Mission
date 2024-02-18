@@ -1,12 +1,14 @@
-import { useState } from "react";
-import useModal from "../hooks/useModal";
+import React, { useState } from "react";
+import useModal, { IModal } from "../hooks/useModal";
 import styles from "./AddLinkBar.module.css";
 import Modal from "./Modal";
-export default function AddLinkBar() {
-  const [modalState, setModalState, handleModalCancel] = useModal();
-  const [inputValue, setInputValue] = useState();
 
-  const handleInput = (e) => setInputValue(e.target.value);
+export default function AddLinkBar() {
+  const [modalState, setModalState, handleModalCancel] = useModal() as [IModal, (modal: IModal) => void, () => void];
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setInputValue(e.target.value);
 
   return (
     <div className={styles["form-container"]}>
@@ -19,8 +21,8 @@ export default function AddLinkBar() {
         ></input>
         <button
           className={styles["add-btn"]}
-          onClick={(e) => {
-            setModalState(() => ({ state: true, target: e.target.innerText }));
+          onClick={() => {
+            setModalState({ state: true, target: "추가하기" });
           }}
         >
           추가하기

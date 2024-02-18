@@ -3,8 +3,8 @@ import styles from "./Header.module.css";
 import useGetUserAsync from "../hooks/useGetUserAsync";
 import Image from "next/image";
 
-export default function Header({ isSticky }) {
-  const [profileImageSource, email] = useGetUserAsync(isSticky);
+export default function Header({ isSticky }: {isSticky: boolean}) {
+  const [profileImageSource, email] = useGetUserAsync(isSticky) || [];
 
   return (
     <div className={styles["nav-wrapper"]}>

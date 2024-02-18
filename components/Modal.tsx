@@ -4,21 +4,19 @@ import kakao from "../public/kakao_share.svg";
 import facebook from "../public/facebook_share.svg";
 import linkIcon from "../public/link.svg";
 import styles from "./Modal.module.css";
-import { useEffect } from "react";
 import Image from "next/image";
+import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode } from "react";
 
-export default function Modal({ state, onClick, link }) {
+export default function Modal({ state, onClick, link }: any) {
   const folderList = useGetFolderListAsync();
 
-  const cancelModal = (e) => {
+  const cancelModal = (e: any) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
     onClick();
   };
-
-  // const currentUrl = location.href;
 
   // 호스트주소/shared?user={현재 로그인 중인 유저ID}&folder={현재 열려있는 폴더ID}
   // const shareKakao = (route, title) => { // url이 id값에 따라 변경되기 때문에 route를 인자값으로 받아줌
@@ -51,25 +49,25 @@ export default function Modal({ state, onClick, link }) {
   //     });
   //   }
   // };
-  const handleCopyClipBoard = () => {
-    navigator.clipboard.writeText(currentUrl);
-    alert("클립보드에 복사되었습니다.");
-  };
+  // const handleCopyClipBoard = () => {
+  //   navigator.clipboard.writeText(currentUrl);
+  //   alert("클립보드에 복사되었습니다.");
+  // };
 
-  const handleFacebookShare = () => {
-    window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
-      "페이스북 공유하기",
-      "width=400,height=400,location=no,status=no,scrollbars=yes"
-    );
-  };
+  // const handleFacebookShare = () => {
+  //   window.open(
+  //     `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
+  //     "페이스북 공유하기",
+  //     "width=400,height=400,location=no,status=no,scrollbars=yes"
+  //   );
+  // };
 
-  const handleKakaotalkShare = () => {};
-  useEffect(() => {
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") cancelModal();
-    });
-  });
+  // const handleKakaotalkShare = () => {};
+  // useEffect(() => {
+  //   document.addEventListener("keydown", (e) => {
+  //     if (e.key === "Escape") cancelModal(e);
+  //   });
+  // });
 
   return (
     <>
@@ -97,7 +95,6 @@ export default function Modal({ state, onClick, link }) {
                 <div className={styles["share-icon-wrapper"]}>
                   <button
                     className={styles["share-icon-btn"]}
-                    onClick={handleKakaotalkShare}
                   >
                     <div
                       className={`${styles["img-container"]} ${styles["kakao"]}`}
@@ -112,7 +109,6 @@ export default function Modal({ state, onClick, link }) {
                   </button>
                   <button
                     className={styles["share-icon-btn"]}
-                    onClick={handleFacebookShare}
                   >
                     <div
                       className={`${styles["img-container"]} ${styles["facebook"]}`}
@@ -127,7 +123,6 @@ export default function Modal({ state, onClick, link }) {
                   </button>
                   <button
                     className={styles["share-icon-btn"]}
-                    onClick={handleCopyClipBoard}
                   >
                     <div
                       className={`${styles["img-container"]} ${styles["link-icon"]}`}
@@ -215,7 +210,7 @@ export default function Modal({ state, onClick, link }) {
                     {state["url"] ?? link}
                   </h3>
                   <div className={styles["folder-item-wrapper"]}>
-                    {folderList.map((folder) => (
+                    {folderList.map((folder: { id: Key | null | undefined; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; link: { count: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; }; }) => (
                       <div key={folder?.id} className={styles["folder-item"]}>
                         <span className={styles["link-name"]}>
                           {folder?.name}

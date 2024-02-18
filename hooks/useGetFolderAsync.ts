@@ -1,15 +1,5 @@
 import { useEffect, useState } from "react";
 import { getSampleFolder } from "../api";
-
-export interface ILinks {
-  id: number;
-  createdAt: string;
-  url: string;
-  title: string;
-  description: string;
-  imageSource: string;
-}
-
 export interface IFolder {
   id: number;
   name: string;
@@ -21,8 +11,17 @@ export interface IFolder {
   links: ILinks[];
 }
 
+export interface ILinks {
+  id: number;
+  createdAt: string;
+  url: string;
+  title: string;
+  description: string;
+  imageSource: string;
+}
+
 export default function useGetFolderAsync() {
-  const [data, setData] = useState<IFolder>();
+  const [data, setData] = useState<IFolder[]>();
 
   useEffect(() => {
     (async () => {
