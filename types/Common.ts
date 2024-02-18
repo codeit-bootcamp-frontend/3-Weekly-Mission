@@ -12,13 +12,13 @@ export interface Folder {
 
 // getFolderItem
 export interface FolderItem {
-  createdAt?: string;
+  createdAt?: string | undefined;
   created_at: string;
   description: string | null;
   folder_id: number | null;
   id: string | number;
-  imageSource?: string | null;
-  image_source: string;
+  imageSource?: string | null | undefined;
+  image_source: string | null;
   title: string | null;
   updated_at: string | null;
   url: string | null;

@@ -33,10 +33,15 @@ const Shared = ({ initialData }: Props) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const data = await getFolderSample();
+  const folderSampleData: FolderSample = await getFolderSample();
+  const folderSampleitemData: FolderItem[] = folderSampleData.links;
+  const processedData = folderSampleitemData.map(item => ({
+    ...item,
+    image_source: item.image_source || null,
+  }));
   return {
     props: {
-      initialData: data?.links,
+      initialData: processedData,
     },
   };
 };

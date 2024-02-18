@@ -37,7 +37,7 @@ export const Card = ({
     e.stopPropagation();
   };
 
-  const imageUrl: string = link.image_source;
+  const imageUrl: string | null = link.image_source;
   const absoluteImageUrl = imageUrl?.startsWith('//')
     ? `https:${imageUrl}`
     : imageUrl;
@@ -55,7 +55,11 @@ export const Card = ({
           <div style={{ position: 'relative', width: '100%', height: '200px' }}>
             <Image
               fill
-              src={hasError ? '/images/no-image.svg' : absoluteImageUrl}
+              src={
+                hasError || !absoluteImageUrl
+                  ? '/images/no-image.svg'
+                  : absoluteImageUrl
+              }
               alt="카드 이미지"
               style={{ objectFit: 'cover' }}
               onError={() => {
