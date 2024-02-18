@@ -31,7 +31,12 @@ export default function Modal({
     <ModalWrapper>
       <ModalContainer>
         <ModalCloseButton type="button" onClick={toggleModalClick}>
-          <Image src={imageData.closeButton} alt="모달창 닫기 버튼" />
+          <Image
+            width={24}
+            height={24}
+            src={imageData.closeButton.src}
+            alt="모달창 닫기 버튼"
+          />
         </ModalCloseButton>
         {getModalContent({ modalId, folderName, modalUrl, itemList, user })}
       </ModalContainer>

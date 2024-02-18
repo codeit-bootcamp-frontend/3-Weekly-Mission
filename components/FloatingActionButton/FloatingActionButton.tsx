@@ -1,12 +1,17 @@
 import React from "react";
 import imageData from "@/public/imageData";
 import styled from "styled-components";
+import { ModalButtonClickType } from "@/types/types";
 
-export default function FloatingActionButton() {
+interface Props {
+  modalOnClick: ModalButtonClickType;
+}
+
+export default function FloatingActionButton({ modalOnClick }: Props) {
   return (
-    <Button type="button">
+    <Button id="addFolder" type="button" onClick={modalOnClick}>
       <Span>폴더추가</Span>
-      <Img src={imageData.folderPulsIcon} alt="폴더추가하기 아이콘" />
+      <Img src={imageData.folderPulsIcon.src} alt="폴더추가하기 아이콘" />
     </Button>
   );
 }

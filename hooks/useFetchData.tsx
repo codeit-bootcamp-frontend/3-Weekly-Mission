@@ -6,7 +6,7 @@ import { getErrorMessage } from "../utils/errorMassage";
 
 export default function useFetchData(apiFunction: ApiFunc) {
   const [data, setData] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const fetchData = async (apiFunc = apiFunction) => {

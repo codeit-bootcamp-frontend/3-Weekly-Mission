@@ -111,7 +111,7 @@ export default function FolderPage({ user }: Props) {
         ) : (
           <NoLinkBlock />
         )}
-        <FloatingActionButton />
+        <FloatingActionButton modalOnClick={handleModalButtonClick} />
       </LinkBoard>
     </Main>
   );
