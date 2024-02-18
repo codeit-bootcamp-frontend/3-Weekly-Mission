@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    Kakao: any; // 또는 정확한 Kakao 타입을 찾아서 지정
+  }
+}
+
 export const shareKakao = (url: string, folderName: string) => {
   if (!window.Kakao.isInitialized()) {
     const key = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
