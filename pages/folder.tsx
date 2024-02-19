@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { getFoldersById, getLinksById } from './api/api';
+import { getFoldersById, getLinksById } from '../3-weekly-mission/pages/api/api';
 import styles from '@/styles/page.module.css';
 import Nav from '@/src/components/header/Nav/Nav';
 import Search from '@/src/components/section/Search/Search';
