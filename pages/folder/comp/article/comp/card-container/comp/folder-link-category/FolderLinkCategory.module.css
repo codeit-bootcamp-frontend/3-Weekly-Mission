@@ -1,0 +1,111 @@
+.folder-link-category-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-wrap: wrap;
+}
+
+.folder-link-category-box {
+  display: flex;
+  align-items: center;
+
+  row-gap: 1.2rem;
+  column-gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.folder-link-category-btn {
+  border-radius: 0.5rem;
+  border: 1px solid var(--linkbrary-primary-color, #6d6afe);
+  background: #fff;
+
+  color: #000;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: normal;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  padding: 0.6rem 1rem;
+
+  @media screen and (min-width: 768px) {
+    padding: 0.8rem 1.2rem;
+  }
+}
+
+.folder-link-category-btn:hover {
+  border: 1px solid var(--linkbrary-primary-color, #6d6afe);
+  background: var(--linkbrary-gray10, #e7effb);
+}
+
+.folder-link-category-btn.selected {
+  color: #fff;
+
+  border-radius: 0.5rem;
+  border: 1px solid var(--linkbrary-primary-color, #6d6afe);
+  background: var(--linkbrary-primary-color, #6d6afe);
+}
+
+.folder-link-category-add-btn {
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+
+  display: flex;
+  background-color: transparent;
+
+  display: none;
+  position: relative;
+
+  @media screen and (min-width: 786px) {
+    display: initial;
+  }
+}
+
+.folder-link-category-btn-add-img {
+  object-fit: cover;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-category-add-btn {
+  position: fixed;
+  bottom: 10.1rem;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 3;
+
+  width: 13rem;
+  height: 3.6rem;
+
+  display: flex;
+  padding: 0.8rem 2.4rem;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 0.4rem;
+
+  border-radius: 2rem;
+  border: 1px solid var(--linkbrary-white, #fff);
+  background: var(--linkbrary-primary-color, #6d6afe);
+
+  color: var(--linkbrary-gray10, #e7effb);
+  font-family: Abel;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.03rem;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+}
+
+.folder-link-category-floating-btn-add-img {
+  width: 1.6rem;
+  height: 1.6rem;
+}

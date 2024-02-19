@@ -1,0 +1,32 @@
+.contents {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* article-area 내부적으로 정해진 크기를 유지한 채 알아서 중앙으로 모아줌  */
+  flex-grow: 1;
+}
+
+.article-area {
+  /* padding-block: 2rem 6rem; */ /* footer margin-top 4rem */
+  padding-block: 2rem;
+  padding-inline: 3.2rem;
+
+  width: 100%;
+  max-width: 106rem;
+  /* max-width: fit-content; */
+  /* max-width: max-content; */
+
+  /* width: 100%; */ /* --> 이게 없어서 flex-grow는 0 인 상태의 컨테이너의 너비는 내부 컨텐츠의 너비가 곧 컨테이너의 너비가 된다.*/
+  /* 내부 요소 중 너비가 있고, 가장 큰 요소의 너비가 곧 컨테이너의 최대! 너비가 된다. */
+
+  @media screen and (min-width: 768px) {
+    /* padding-block: 4rem 10rem; */ /* footer margin-top 6rem */
+    padding-block: 4rem 4rem;
+  }
+
+  @media screen and (min-width: 1200px) {
+    padding-inline: 0;
+  }
+}

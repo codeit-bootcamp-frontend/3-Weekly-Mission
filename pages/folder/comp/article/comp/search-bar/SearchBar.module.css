@@ -1,0 +1,31 @@
+.search-bar-box {
+  position: relative;
+
+  /* ?🤔❓: search bar에 따로 width, max-width 지정하지 않아도 형제 컴포넌트인 card-container랑 너비가 맞춰지는 이유가 궁금 */
+  /* search bar랑 card container를 묶고 있는 Article에 따로 max-width가 맞춰져 있는 것도 아님. 그런데 왜 자동으로 깔끔하게 맞춰지지? */
+  /* Article.css 파일 설명 참고 */
+  width: 100%;
+}
+
+.search-bar-input {
+  width: 100%;
+  padding: 1.3rem 3.8rem 1.3rem 4.2rem;
+
+  border-radius: 1rem;
+  border-width: 0;
+  background: #f5f5f5;
+
+  @media screen and (min-width: 768px) {
+    padding: 1.5rem 1.6rem 1.5rem 4.2rem;
+  }
+}
+
+.search-bar-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+
+  position: absolute;
+  top: 50%;
+  left: 1.6rem;
+  translate: 0 -50%;
+}
