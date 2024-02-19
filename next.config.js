@@ -63,6 +63,36 @@ const nextConfig = {
         port: '',
         pathname: '/_content/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'ca.slack-edge.com',
+        port: '',
+        pathname: '/T04T2BTF4F5-U0505C4KP8Q-607dc1ebd010-512/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'yt3.googleusercontent.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'codeit.kr',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'codeit.kr',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 't1.kakaocdn.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

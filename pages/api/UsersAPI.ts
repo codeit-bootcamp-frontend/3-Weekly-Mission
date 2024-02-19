@@ -1,4 +1,4 @@
-import { CODEIT_API } from "@/public/URL";
+import { CODEIT_API } from '@/public/URL';
 
 export async function FetchUserData() {
   const response = await fetch(`${CODEIT_API}/users/1`);

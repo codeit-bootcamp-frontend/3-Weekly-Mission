@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 import emptyFolder from '@/public/empty-folder.png';
 import Image from 'next/image';
 
-function UserSection() {
+function UserSection({ searchWord }) {
   const [buttonInfo, setButtonInfo] = useState([]);
   const [cardInfo, setCardInfo] = useState([]);
   const [selectedButton, setSelectedButton] = useState('전체');
@@ -30,6 +30,7 @@ function UserSection() {
   const [folderName, setFolderName] = useState('');
   const [folderId, setFolderId] = useState('');
   const router = useRouter();
+  const [firstResult, setFirstResult] = useState(filterdData);
 
   const style = {};
   const logoStyle = {
@@ -53,6 +54,22 @@ function UserSection() {
     fetchData();
   }, [router]);
 
+  useEffect(() => {
+    if (searchWord !== '') {
+      const data = [...firstResult];
+      const filterd = data.filter(item => {
+        return (
+          (item.url && item.url.includes(searchWord)) ||
+          (item.title && item.title.includes(searchWord)) ||
+          (item.description && item.description.includes(searchWord))
+        );
+      });
+      setFilteredData(filterd);
+    } else if (searchWord === '') {
+      setFilteredData(firstResult);
+    }
+  }, [searchWord, firstResult]);
+
   if (!buttonInfo && !cardInfo) {
     return null;
   }
@@ -64,9 +81,11 @@ function UserSection() {
   const handleFilter = category => {
     if (category === '전체') {
       setFilteredData(cardInfo);
+      setFirstResult(cardInfo);
     } else {
       const filterd = cardInfo.filter(item => item['folder_id'] === category);
       setFilteredData(filterd);
+      setFirstResult(filterd);
     }
   };
 

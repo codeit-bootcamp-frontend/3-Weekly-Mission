@@ -21,7 +21,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/header/Header.js"
+    "components/header/Header.js",
+    "components/addLink/AddLink.js"
   ],
   "exclude": ["node_modules"]
 }
