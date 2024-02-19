@@ -66,8 +66,10 @@
 }
 
 .snsIcon {
-  width: 2rem;
-  height: 2rem;
+  display: block;
+  position: relative;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 

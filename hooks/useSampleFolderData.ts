@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { getFolderData, Folder } from "@/api/api";
+import { getSampleFolderData, SampleFolder } from "@/api/api";
 
-export function useFolderData() {
-  const [folderData, setFolderData] = useState<Folder[] | null>(null);
-  console.log("folderData", folderData);
+export function useSampleFolderData() {
+  const [folderData, setFolderData] = useState<SampleFolder | null>(null);
 
   useEffect(() => {
     //폴더 데이터 가져오기
     const handleLoadFolder = async () => {
       try {
-        const { data } = await getFolderData();
-        setFolderData(data);
+        const { folder } = await getSampleFolderData();
+        setFolderData(folder);
+        console.log("folderData", folderData);
       } catch (e) {
         console.error(e);
         return;

@@ -10,18 +10,17 @@ function FloatingButton() {
       <div className={styles.floatingBtn} onClick={() => setModal(true)}>
         <span className={styles.floatingText}>
           <span>폴더추가</span>
-          <Image
-            src="/svgs/add-icon-white.svg"
-            alt="add"
-            width={20}
-            height={20}
-          />
+          <span className={styles.img}>
+            <Image fill src="/svgs/add-icon-white.svg" alt="add" />
+          </span>
         </span>
       </div>
       <div className={styles.fixedBtn} onClick={() => setModal(true)}>
         <span className={styles.fixedText}>
           <span>폴더추가</span>
-          <Image src="/svgs/add-icon.svg" alt="add" width={20} height={20} />
+          <span className={styles.img}>
+            <Image fill src="/svgs/add-icon.svg" alt="add" />
+          </span>
         </span>
       </div>
 

@@ -146,14 +146,14 @@ export default function Input({ isSignUp }: Props) {
                 {passwordErrorMsg}
               </p>
             )}
-            <Image
-              src={isShowPassword ? "svgs/eye-on.svg" : "svgs/eye-off.svg"}
-              className={styles.eyeIcon}
-              width={20}
-              height={20}
-              alt="비밀번호 가리기"
-              onClick={() => setIsShowPassword(!isShowPassword)}
-            />
+            <span className={styles.eyeIcon}>
+              <Image
+                fill
+                src={isShowPassword ? "svgs/eye-on.svg" : "svgs/eye-off.svg"}
+                alt="비밀번호 가리기"
+                onClick={() => setIsShowPassword(!isShowPassword)}
+              />
+            </span>
           </div>
           {isSignUp && (
             <div className={styles.inputFrame}>
@@ -177,14 +177,14 @@ export default function Input({ isSignUp }: Props) {
                   {rePasswordErrorMsg}
                 </p>
               )}
-              <Image
-                src={isShowPassword ? "svgs/eye-on.svg" : "svgs/eye-off.svg"}
-                className={styles.eyeIcon}
-                width={20}
-                height={20}
-                alt="비밀번호 가리기"
-                onClick={() => setIsShowPassword(!isShowPassword)}
-              />
+              <span className={styles.eyeIcon}>
+                <Image
+                  fill
+                  src={isShowPassword ? "svgs/eye-on.svg" : "svgs/eye-off.svg"}
+                  alt="비밀번호 가리기"
+                  onClick={() => setIsShowPassword(!isShowPassword)}
+                />
+              </span>
             </div>
           )}
         </div>

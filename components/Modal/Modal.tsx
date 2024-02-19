@@ -32,14 +32,14 @@ function Modal({
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContainer}>
-        <Image
-          className={styles.closeBtn}
-          src="/svgs/close-icon.svg"
-          alt="close"
-          width={20}
-          height={20}
-          onClick={() => setModal(false)}
-        />
+        <span className={styles.closeBtn}>
+          <Image
+            fill
+            src="/svgs/close-icon.svg"
+            alt="close"
+            onClick={() => setModal(false)}
+          />
+        </span>
         <div className={styles.title}>{title}</div>
         <div className={styles.subTitle}>{subTitle}</div>
         {isInput && <input className={styles.input} placeholder="내용 입력" />}

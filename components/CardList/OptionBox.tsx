@@ -21,20 +21,26 @@ function OptionBox({ selectedFolderName }: Props) {
             setShareModal(true);
           }}
         >
-          <Image
-            src="/svgs/share-icon.svg"
-            alt="share"
-            width={20}
-            height={20}
-          />
+          <span className={styles.img}>
+            <Image
+              fill
+              src="/svgs/share-icon.svg"
+              alt="share"
+              objectFit="cover"
+            />
+          </span>
           <span>공유</span>
         </span>
         <span className={styles.option} onClick={() => setEditModal(true)}>
-          <Image src="/svgs/pen-icon.svg" alt="pen" width={20} height={20} />
+          <span className={styles.img}>
+            <Image fill src="/svgs/pen-icon.svg" alt="pen" />
+          </span>
           <span>이름 변경</span>
         </span>
         <span className={styles.option} onClick={() => setDeleteModal(true)}>
-          <Image src="/svgs/bin-icon.svg" alt="bin" width={20} height={20} />
+          <span className={styles.img}>
+            <Image fill src="/svgs/bin-icon.svg" alt="bin" />
+          </span>
           <span>삭제</span>
         </span>
       </span>

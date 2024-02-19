@@ -8,13 +8,9 @@ export default function SignUpForm({ children }) {
       <div className={styles.loginBox}>
         <div className={styles.logoBox}>
           <Link href="/">
-            <Image
-              src="svgs/logo.svg"
-              className={styles.logo}
-              width={20}
-              height={20}
-              alt="logo"
-            />
+            <span className={styles.logo}>
+              <Image fill src="svgs/logo.svg" alt="logo" />
+            </span>
           </Link>
 
           <div className={styles.linkBox}>
@@ -32,22 +28,14 @@ export default function SignUpForm({ children }) {
         <span className={styles.socialLoginText}>다른 방식으로 가입하기</span>
         <div className={styles.socialIcons}>
           <a href="https://www.google.com/">
-            <Image
-              src="svgs/google-icon.svg"
-              className={styles.socialIcon}
-              width={20}
-              height={20}
-              alt="logo"
-            />
+            <span className={styles.socialIcon}>
+              <Image fill src="svgs/google-icon.svg" alt="logo" />
+            </span>
           </a>
           <a href="https://www.kakaocorp.com/page/">
-            <Image
-              src="svgs/kakao-icon.svg"
-              className={styles.socialIcon}
-              width={20}
-              height={20}
-              alt="logo"
-            />
+            <span className={styles.socialIcon}>
+              <Image fill src="svgs/kakao-icon.svg" alt="logo" />
+            </span>
           </a>
         </div>
       </div>

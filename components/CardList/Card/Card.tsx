@@ -39,16 +39,16 @@ function Card({ link, folderData }: Props) {
             {calElapsedTime(link.created_at)}
           </span>
           <span className={styles.kebab}>
-            <Image
-              className={styles.kebabImg}
-              src="/svgs/kebab-icon.svg"
-              alt="kebab"
-              width={20}
-              height={20}
-              onClick={() => {
-                setPop(!pop);
-              }}
-            />
+            <span className={styles.kebabImg}>
+              <Image
+                fill
+                src="/svgs/kebab-icon.svg"
+                alt="kebab"
+                onClick={() => {
+                  setPop(!pop);
+                }}
+              />
+            </span>
             {pop && <PopOver folderData={folderData} />}
           </span>
         </div>

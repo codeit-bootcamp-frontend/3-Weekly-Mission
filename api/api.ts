@@ -39,6 +39,37 @@ export async function getFolderData(): Promise<{ data: Folder[] }> {
   return body;
 }
 
+export interface SampleFolder {
+  id: number;
+  name: string;
+  owner: {
+    id: number;
+    name: string;
+    profileImageSource: string;
+  };
+  links: [
+    {
+      id: number;
+      createdAt: string;
+      url: string;
+      title: string;
+      description: string;
+      imageSource: string;
+    }
+  ];
+  count: number;
+}
+
+export async function getSampleFolderData(): Promise<{ folder: SampleFolder }> {
+  const response = await fetch(`${BASE_URL}/sample/folder`);
+  if (!response.ok) {
+    throw new Error("폴더를 불러오는데 실패했습니다.");
+  }
+  const body = await response.json();
+
+  return body;
+}
+
 export interface Link {
   created_at: string;
   description: string;

@@ -55,22 +55,14 @@ function ShareIconBox({ folderId }: Props) {
   return (
     <div className={styles.iconBox}>
       <span className={styles.icon}>
-        <span className={styles.kakaoIcon} onClick={() => handleKakaoClick()}>
-          <Image src="/svgs/icon-kakao-fill.svg" alt="kakao" />
+        <span className={styles.img} onClick={() => handleKakaoClick()}>
+          <Image fill src="/svgs/kakao-round.svg" alt="kakao" />
         </span>
         <span className={styles.iconText}>카카오톡</span>
       </span>
       <span className={styles.icon}>
-        <span
-          className={styles.facebookIcon}
-          onClick={() => handleFacebookClick()}
-        >
-          <Image
-            src="/svgs/icon-facebook-fill.svg"
-            width={20}
-            height={20}
-            alt="facebook"
-          />
+        <span className={styles.img} onClick={() => handleFacebookClick()}>
+          <Image fill src="/svgs/facebook-round.svg" alt="facebook" />
         </span>
         <span className={styles.iconText}>페이스북</span>
       </span>
@@ -78,8 +70,8 @@ function ShareIconBox({ folderId }: Props) {
         className={styles.icon}
         onClick={() => handleCopyClipBoard(SHARE_URL_TEXT)}
       >
-        <span className={styles.linkIcon}>
-          <Image src="/svgs/link-icon.svg" alt="share" />
+        <span className={styles.img}>
+          <Image fill src="/svgs/link-round.svg" alt="share" />
         </span>
         <span className={styles.iconText}>링크 복사</span>
       </span>

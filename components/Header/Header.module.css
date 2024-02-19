@@ -24,6 +24,7 @@
 }
 
 .folderOwnerProfile {
+  position: relative;
   display: flex;
   width: 4rem;
   height: 4rem;

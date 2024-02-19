@@ -22,6 +22,8 @@
 }
 
 .logo {
+  display: block;
+  position: relative;
   width: 210.583px;
   height: 38px;
 }
@@ -184,6 +186,8 @@
 }
 
 .socialIcon {
+  display: block;
+  position: relative;
   width: 42px;
   height: 42px;
   cursor: pointer;

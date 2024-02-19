@@ -14,13 +14,10 @@ function AddLinkForm() {
         <div className={styles.wrapper}>
           <div className={styles.formBox}>
             <span className={styles.inputBox}>
-              <Image
-                className={styles.img}
-                src="/svgs/link-icon.svg"
-                alt="link"
-                width={20}
-                height={20}
-              />
+              <span className={styles.img}>
+                <Image fill src="/svgs/link-icon.svg" alt="link" />
+              </span>
+
               <input
                 className={styles.input}
                 type="text"

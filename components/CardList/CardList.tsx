@@ -18,10 +18,8 @@ function CardList({ folderData, selectedFolderId, selectedFolderName }: Props) {
 
   useEffect(() => {
     const handleLoadCardList = async () => {
-      // console.log("selectedFolderId", selectedFolderId);
       const { data } = await getLinkDataByFolderId(selectedFolderId);
       setCardList(data);
-      console.log(cardList);
     };
 
     handleLoadCardList();

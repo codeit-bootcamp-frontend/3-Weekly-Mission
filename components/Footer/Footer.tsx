@@ -24,52 +24,40 @@ function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image
-                className={styles.snsIcon}
-                src="/svgs/icon-facebook-fill.svg"
-                alt="facebook"
-                width={20}
-                height={20}
-              />
+              <span className={styles.snsIcon}>
+                <Image fill src="/svgs/icon-facebook-fill.svg" alt="facebook" />
+              </span>
             </Link>
             <Link
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image
-                className={styles.snsIcon}
-                src="/svgs/icon-twitter-fill.svg"
-                alt="twitter"
-                width={20}
-                height={20}
-              />
+              <span className={styles.snsIcon}>
+                <Image fill src="/svgs/icon-twitter-fill.svg" alt="twitter" />
+              </span>
             </Link>
             <Link
               href="https://www.youtube.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image
-                width={20}
-                height={20}
-                className={styles.snsIcon}
-                src="/svgs/icon-youtube-fill.svg"
-                alt="youtube"
-              />
+              <span className={styles.snsIcon}>
+                <Image fill src="/svgs/icon-youtube-fill.svg" alt="youtube" />
+              </span>
             </Link>
             <Link
               href="https://www.instagram.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image
-                width={20}
-                height={20}
-                className={styles.snsIcon}
-                src="/svgs/icon-instagram-fill.svg"
-                alt="instagram"
-              />
+              <span className={styles.snsIcon}>
+                <Image
+                  fill
+                  src="/svgs/icon-instagram-fill.svg"
+                  alt="instagram"
+                />
+              </span>
             </Link>
           </div>
         </div>

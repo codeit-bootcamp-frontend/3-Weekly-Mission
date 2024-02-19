@@ -11,6 +11,11 @@
   align-items: center;
   gap: 10px;
 }
+.img {
+  position: relative;
+  width: 42px;
+  height: 42px;
+}
 .iconText {
   color: var(--linkbrary-gray-100);
   text-align: center;
@@ -21,17 +26,18 @@
   line-height: 15px; /* 115.385% */
 }
 
-.kakaoIcon,
+/* .kakaoIcon,
 .facebookIcon,
 .linkIcon {
+  position: relative;
   display: flex;
   padding: 12px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   border-radius: 37.333px;
-}
-.kakaoIcon {
+} */
+/* .kakaoIcon {
   background: #fee500;
 }
 .facebookIcon {
@@ -39,4 +45,4 @@
 }
 .linkIcon {
   background: rgba(157, 157, 157, 0.04);
-}
+} */

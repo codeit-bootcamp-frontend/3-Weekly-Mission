@@ -10,13 +10,9 @@ function Account() {
     <>
       {userData ? (
         <div className={styles.accountFrame}>
-          <Image
-            className={styles.profile}
-            src={userData?.image_source}
-            width={20}
-            height={20}
-            alt="profile-img"
-          />
+          <span className={styles.profile}>
+            <Image fill src={userData?.image_source} alt="profile-img" />
+          </span>
           <span className={styles.email}>{userData?.email}</span>
         </div>
       ) : (
@@ -35,13 +31,9 @@ function Navbar({ isSticky }: Props) {
     <nav className={`${styles.nav} ${isSticky ? styles.folder : ""}`}>
       <div className={styles.gnb}>
         <Link href="/">
-          <Image
-            className={styles.logo}
-            src="/svgs/logo.svg"
-            alt="linkbrary-logo"
-            width={20}
-            height={20}
-          />
+          <span className={styles.logo}>
+            <Image fill src="/svgs/logo.svg" alt="linkbrary-logo" />
+          </span>
         </Link>
         <Account />
       </div>
