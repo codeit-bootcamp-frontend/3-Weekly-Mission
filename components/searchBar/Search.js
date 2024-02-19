@@ -14,7 +14,9 @@ function Search({ result }) {
   }
 
   function deleteValue() {
-    setValue('');
+    const text = '';
+    setValue(text);
+    result(text);
   }
 
   return (
