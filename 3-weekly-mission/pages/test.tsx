@@ -1,4 +1,4 @@
-import Input from '@/src/components/Input/Input';
+import Input from '@/src/components/input/input';
 
 export default function Test() {
   return (

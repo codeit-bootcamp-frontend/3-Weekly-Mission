@@ -1,11 +1,5 @@
-import LinkLogo from './LinkLogo';
-import styled from 'styled-components';
-
-const SnsContainer = styled.div`
-  display: flex;
-  column-gap: 1.2rem;
-  height: 2rem;
-`;
+import LinkLogo from '../LinkLogo/LinkLogo';
+import styles from './Sns.module.css';
 
 interface Props {
   className: string;
@@ -15,7 +9,7 @@ interface Props {
 
 export default function Sns({ className, target, rel }: Props) {
   return (
-    <SnsContainer>
+    <div className={styles[className]}>
       <LinkLogo
         href="https://www.facebook.com/"
         logo="facebook"
@@ -40,6 +34,6 @@ export default function Sns({ className, target, rel }: Props) {
         target={target}
         rel={rel}
       />
-    </SnsContainer>
+    </div>
   );
 }

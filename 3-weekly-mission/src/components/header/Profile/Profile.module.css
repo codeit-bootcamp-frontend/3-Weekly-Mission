@@ -1,0 +1,21 @@
+.user {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--Linkbrary-gray100);
+  font-size: 14px;
+}
+
+.user .profile {
+  width: 2.8rem;
+  height: 2.8rem;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user .email {
+  color: var(--Linkbrary-gray100, #373740);
+  font-size: 1.4rem;
+}

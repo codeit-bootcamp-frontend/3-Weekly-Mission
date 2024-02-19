@@ -1,0 +1,5 @@
+.sns {
+  display: flex;
+  column-gap: 1.2rem;
+  height: 2rem;
+}

@@ -1,108 +1,9 @@
 import { ChangeEvent, useState } from 'react';
+import styles from './AddLink.module.css';
 import BaseModal from '../../section/BaseModal/BaseModal';
 import modalStyles from '../../section/BaseModal/BaseModal.module.css';
 import Image from 'next/image';
 import { FolderList } from '@/pages/folder';
-import styled from 'styled-components';
-
-const ContainerAddLink = styled.div`
-  width: 100%;
-  display: flex;
-  padding: 6rem 19rem 9rem;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const ContainerAddLinkFixed = styled.div`
-  width: 100%;
-  padding: 2.4rem 0;
-  display: flex;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  z-index: 5;
-
-  background-color: var(--linkbrary-bg);
-`;
-
-const AddLinkWrapper = styled.div`
-  display: flex;
-  max-width: 80rem;
-  width: 100%;
-  padding: 1.6rem 2rem;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.8rem;
-
-  border-radius: 15px;
-  border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
-  background: var(--Linkbrary-white, #fff);
-`;
-
-const AddLinkInput = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  width: 80%;
-`;
-
-const LinkImage = styled.img`
-  width: 2rem;
-  height: 2rem;
-`;
-
-const LinkInput = styled.input`
-  width: 100%;
-  border: none;
-  outline: none;
-`;
-
-const LinkInputPlaceholder = styled.input`
-  color: var(--Linkbrary-gray60, #9fa6b2);
-  font-size: 1.6rem;
-  line-height: 2.4rem; /* 150% */
-`;
-
-const CtaAdd = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 8rem;
-  height: 3.7rem;
-  cursor: pointer;
-
-  background-image: linear-gradient(135deg, #6d6afe 0%, #6ae3fe 100%);
-  border-radius: 0.8rem;
-  color: #f5f5f5;
-  font-size: 1.4rem;
-  font-weight: 600;
-  border: none;
-`;
-
-const ContainerAddLinkResponsive = styled.div`
-  padding: 6rem calc((100% - 78.32rem) / 2) 9rem;
-`;
-
-const ContainerAddLinkFixedResponsive = styled.div`
-  padding: 2.4rem calc((100% - 78.32rem) / 2);
-`;
-
-const ContainerAddLinkResponsiveMedium = styled.div`
-  padding: 6rem 3.2rem 9rem;
-`;
-
-const ContainerAddLinkFixedResponsiveMedium = styled.div`
-  padding: 2.4rem 3.2rem;
-`;
-
-const ContainerAddLinkResponsiveSmall = styled.div`
-  padding: 2.4rem 3.2rem 4rem;
-`;
-
-const ContainerAddLinkFixedResponsiveSmall = styled.div`
-  padding: 1.6rem 3.2rem;
-`;
-
 
 interface Props {
   folderList: FolderList[];
@@ -128,23 +29,25 @@ export default function AddLink({ folderList, className = '' }: Props) {
   };
 
   return (
-    <ContainerAddLink >
-      <AddLinkWrapper>
-        <AddLinkInput >
-          <LinkImage
+    <div className={`${styles['container-add-link']} ${styles[className]}`}>
+      <div className={styles['add-link']}>
+        <div className={styles['add-link-input']}>
+          <Image
             width={20}
             height={20}
+            className={styles['link-icon']}
             src="/images/link.svg"
             alt="클립 아이콘"
           />
-          <LinkInput
+          <input
+            className={styles['link-input']}
             placeholder="링크를 추가해 보세요"
             onChange={handleInputValueChange}
           />
-        </AddLinkInput>
-        <CtaAdd onClick={handleOpenModal}>
+        </div>
+        <button className={styles['cta-add']} onClick={handleOpenModal}>
           추가하기
-        </CtaAdd>
+        </button>
         {openModal && (
           <BaseModal closeModal={closeModal}>
             <div className={modalStyles['modal__link-add']}>
@@ -160,7 +63,7 @@ export default function AddLink({ folderList, className = '' }: Props) {
                 const onClickFolderItem = () => {
                   setFolderItem(folder.name);
                 };
-  
+
                 return (
                   <div
                     key={folder.name}
@@ -191,8 +94,7 @@ export default function AddLink({ folderList, className = '' }: Props) {
             </button>
           </BaseModal>
         )}
-      </AddLinkWrapper>
-    </ContainerAddLink>
+      </div>
+    </div>
   );
-  
 }

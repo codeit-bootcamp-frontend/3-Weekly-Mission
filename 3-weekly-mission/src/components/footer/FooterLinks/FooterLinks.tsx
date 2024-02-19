@@ -1,5 +1,5 @@
-import Sns from './Sns';
-import LinkString from './LinkSrting';
+import Sns from '../Sns/Sns';
+import LinkString from '../LinkString/LinkString';
 
 interface Props {
   target: string;

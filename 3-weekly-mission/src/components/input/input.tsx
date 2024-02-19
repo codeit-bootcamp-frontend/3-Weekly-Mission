@@ -71,4 +71,4 @@ export default function Input({ type }: Props) {
       )}
     </div>
   );
-}s
+}

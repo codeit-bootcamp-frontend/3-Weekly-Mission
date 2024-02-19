@@ -76,4 +76,4 @@ export default function SharePage({ links }: Props) {
       </footer>
     </>
   );
-}s
+}
