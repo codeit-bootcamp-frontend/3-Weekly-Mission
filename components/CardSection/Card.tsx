@@ -44,7 +44,7 @@ function CardList({ link }: { link: UserLinkType }) {
           onClick={kebabClick}
         />
         {kebab && ( 
-          <Kebab />
+          <Kebab link={link}/>
         )}
         <p className={styles.description}>{link.description}</p>
         <span className={styles.date}>{createDay(link.created_at ?? "")}</span>
