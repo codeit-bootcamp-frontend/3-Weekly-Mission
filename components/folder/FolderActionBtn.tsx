@@ -7,7 +7,7 @@ import Image from "next/image";
 import { share_svg, pen_svg, delete_svg } from "@/public/image";
 
 // 모달에 폴더이름 전달해주기 위핸 props
-function FolderAtionBtns({ folderLists }: { folderLists: UserFolderType[] }) {
+export default function FolderAtionBtns() {
   const [snsmodalOpen, setSnsModalOpen] = useState(false);
   const [namemodalOpen, setNameModalOpen] = useState(false);
   const [folderRemoveModal, setFolderRemoveModal] = useState(false);
@@ -78,9 +78,3 @@ function FolderAtionBtns({ folderLists }: { folderLists: UserFolderType[] }) {
     </div>
   );
 }
-
-export const FolderAtionBtn = () => {
-  const { folderLists } = useUserFolderListData();
-
-  return <FolderAtionBtns folderLists={folderLists} />;
-};
