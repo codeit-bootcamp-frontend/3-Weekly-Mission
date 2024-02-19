@@ -13,15 +13,9 @@ interface Props {
   isSignUp?: boolean;
 }
 export default function Input({ isSignUp }: Props) {
-  // 에러 핸들링
-  // 1. 이메일 다른 경우-해결!
-  // 2. 비밀번호 다른 경우-해결!
-  // 3. 이메일 빈칸일 경우- 해결!
-  // 4. 이메일 형식 오류 - 해결!
-
-  const [emailInput, setEmailInput] = useState();
-  const [passwordInput, setPasswordInput] = useState();
-  const [rePasswordInput, setRePasswordInput] = useState();
+  const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [rePasswordInput, setRePasswordInput] = useState("");
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
   const [isRePasswordError, setIsRePasswordError] = useState(false);
@@ -30,8 +24,14 @@ export default function Input({ isSignUp }: Props) {
   const [rePasswordErrorMsg, setRePasswordErrorMsg] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
 
+  const handleEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setEmailInput(value);
+  };
+
   const handleEmailInputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.value) {
+      // setEmailInput(e.target.value);
       setIsEmailError(true);
       setEmailErrorMsg("이메일을 입력해주세요");
 
@@ -45,6 +45,13 @@ export default function Input({ isSignUp }: Props) {
     }
 
     setIsEmailError(false);
+  };
+
+  const handlePasswordInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = e.target;
+    setPasswordInput(value);
   };
 
   const handlePasswordInputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +73,13 @@ export default function Input({ isSignUp }: Props) {
     }
 
     setIsPasswordError(false);
+  };
+
+  const handleRePasswordInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = e.target;
+    setRePasswordInput(value);
   };
 
   const handleRePasswordInputBlur = (
@@ -92,10 +106,21 @@ export default function Input({ isSignUp }: Props) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!isEmailError && !isPasswordError) {
-      alert("로그인완료!");
+    if (
+      isEmailError ||
+      isEmailError ||
+      TEST_EMAIL !== emailInput ||
+      TEST_PWD !== passwordInput
+    ) {
+      console.log(
+        emailInput,
+        passwordInput,
+        TEST_EMAIL !== emailInput,
+        TEST_PWD !== passwordInput
+      );
+      alert("로그인 실패");
     } else {
-      alert("로그인 불가");
+      alert("로그인완료!");
     }
   };
 
@@ -117,6 +142,7 @@ export default function Input({ isSignUp }: Props) {
               placeholder="내용 입력"
               value={emailInput}
               required
+              onChange={handleEmailInputChange}
               onBlur={handleEmailInputBlur}
             />
             {isEmailError && (
@@ -138,6 +164,7 @@ export default function Input({ isSignUp }: Props) {
               type={isShowPassword ? "text" : "password"}
               placeholder="내용 입력"
               value={passwordInput}
+              onChange={handlePasswordInputChange}
               onBlur={handlePasswordInputBlur}
               required
             />
@@ -157,18 +184,19 @@ export default function Input({ isSignUp }: Props) {
           </div>
           {isSignUp && (
             <div className={styles.inputFrame}>
-              <label className={styles.formName} htmlFor="signin-password">
+              <label className={styles.formName} htmlFor="signin-repassword">
                 비밀번호 확인
               </label>
               <input
                 className={`${styles.formInput} ${
                   isRePasswordError && styles.inputError
                 }`}
-                id="signin-password"
+                id="signin-repassword"
                 name="password"
                 type={isShowPassword ? "text" : "password"}
                 placeholder="내용 입력"
                 value={passwordInput}
+                onChange={handleRePasswordInputChange}
                 onBlur={handleRePasswordInputBlur}
                 required
               />
