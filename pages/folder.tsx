@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getFolderItem } from '@/api/api';
-import useStickyState, { StickyStateHook } from '@/hooks/useStickyState';
+import useStickyState from '@/hooks/useStickyState';
 import { Header } from '@/components/Header/index';
 import { AddLinkInput } from '@/components/AddLinkInput/index';
 import { SearchInput } from '@/components/SearchInput/index';
