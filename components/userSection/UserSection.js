@@ -30,7 +30,7 @@ function UserSection({ searchWord }) {
   const [folderName, setFolderName] = useState('');
   const [folderId, setFolderId] = useState('');
   const router = useRouter();
-  const [firstResult, setFirstResult] = useState(filterdData);
+  const [firstResult, setFirstResult] = useState([]);
 
   const style = {};
   const logoStyle = {
@@ -50,6 +50,7 @@ function UserSection({ searchWord }) {
       setButtonInfo(folderData['data']);
       setCardInfo(linkData['data']);
       setFilteredData(linkData['data']);
+      setFirstResult(linkData['data']);
     };
     fetchData();
   }, [router]);
