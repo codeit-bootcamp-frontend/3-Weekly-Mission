@@ -62,7 +62,7 @@ const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName }: TFolder
           >
             <Image
               fill
-              className={styles['folder-link-category-btn-add-img']}
+              className={styles['folder-link-category-add-btn-img']}
               src={'/images/folder/folder-add.svg'}
               alt='폴더 카테고리 추가 버튼'
             />
@@ -74,7 +74,7 @@ const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName }: TFolder
             className={styles['floating-category-add-btn']}
             onClick={() => openModal({ Component: FolderAddModal })}
           >
-            <span>폴더 추가</span>
+            <span className={styles['floating-category-add-btn__text']}>폴더 추가</span>
             <Image
               width={16}
               height={16}

@@ -1,5 +1,5 @@
-/* @import url('/custom-font/pretendard/pretendard.css'); */
-@import url('/custom-font/pretendard/pretendard.css');
+/* @import url('/custom-font/pretendard/pretendard.css'); */ /* ? 절대 경로 왜 못찾지? */
+@import url('../public/custom-font/pretendard/pretendard.css');
 
 * {
   font-family: 'Pretendard', sans-serif;
