@@ -66,12 +66,6 @@ export default function Input({ isSignUp }: Props) {
       return;
     }
 
-    if (isSignUp && rePasswordInput !== passwordInput) {
-      setIsPasswordError(true);
-      setPasswordErrorMsg("비밀번호가 다릅니다.");
-      return;
-    }
-
     setIsPasswordError(false);
   };
 
@@ -139,7 +133,7 @@ export default function Input({ isSignUp }: Props) {
               id="signin-email"
               name="email"
               type="email"
-              placeholder="내용 입력"
+              placeholder="이메일을 입력하세요."
               value={emailInput}
               required
               onChange={handleEmailInputChange}
@@ -162,7 +156,7 @@ export default function Input({ isSignUp }: Props) {
               id="signin-password"
               name="password"
               type={isShowPassword ? "text" : "password"}
-              placeholder="내용 입력"
+              placeholder="비밀번호를 입력하세요."
               value={passwordInput}
               onChange={handlePasswordInputChange}
               onBlur={handlePasswordInputBlur}
@@ -194,8 +188,8 @@ export default function Input({ isSignUp }: Props) {
                 id="signin-repassword"
                 name="password"
                 type={isShowPassword ? "text" : "password"}
-                placeholder="내용 입력"
-                value={passwordInput}
+                placeholder="비밀번호를 입력하세요."
+                value={rePasswordInput}
                 onChange={handleRePasswordInputChange}
                 onBlur={handleRePasswordInputBlur}
                 required

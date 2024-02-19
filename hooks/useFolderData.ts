@@ -3,7 +3,6 @@ import { getFolderData, Folder } from "@/api/api";
 
 export function useFolderData() {
   const [folderData, setFolderData] = useState<Folder[] | null>(null);
-  console.log("folderData", folderData);
 
   useEffect(() => {
     //폴더 데이터 가져오기

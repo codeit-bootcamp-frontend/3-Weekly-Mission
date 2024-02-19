@@ -10,7 +10,6 @@ export function useSampleFolderData() {
       try {
         const { folder } = await getSampleFolderData();
         setFolderData(folder);
-        console.log("folderData", folderData);
       } catch (e) {
         console.error(e);
         return;

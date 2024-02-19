@@ -6,10 +6,6 @@ import { RecoilRoot } from "recoil";
 import Footer from "@/components/Footer/Footer";
 
 function FolderPage() {
-  useEffect(() => {
-    window.Kakao.cleanup();
-    window.Kakao.init(process.env.NEXT_PUBLIC_JavaScript_KEY);
-  }, []);
   return (
     <>
       <RecoilRoot>

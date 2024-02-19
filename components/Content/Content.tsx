@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useFolderData } from "../../hooks/useFolderData";
 import SearchBar from "../SearchBar/SearchBar";
-
 import FolderList from "../Folder/FolderList";
 import { ALL_LINKS_ID } from "../Folder/constants";
 import { ALL_LINKS_NAME } from "../Folder/constants";
@@ -10,11 +9,11 @@ import CardList from "../CardList/CardList";
 import { RecoilState, atom, useRecoilState } from "recoil";
 
 export const searchKeyword: RecoilState<string> = atom({
-  key: "keyword",
+  key: "keywordAtom",
   default: "",
 });
 
-function Content() {
+export default function Content() {
   const [keyword, setKeyword] = useRecoilState<string>(searchKeyword);
   const { folderData } = useFolderData();
   const [folderInfo, setFolderInfo] = useState<[string | number, string]>([
@@ -58,5 +57,3 @@ function Content() {
     </div>
   );
 }
-
-export default Content;

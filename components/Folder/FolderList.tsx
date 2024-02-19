@@ -27,7 +27,7 @@ function FolderList({ folderData, onClick, selectedFolderInfo }: Props) {
           {folderData &&
             folderData.map((item) => (
               <FolderButton
-                key={item.id}
+                key={String(item.id)}
                 name={item.name}
                 onClick={() => onClick([item.id, item.name])}
                 isSelected={item.id === Number(selectedFolderInfo[0])}
