@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import { searchKeyword } from "../Content/Content";
 
 interface Props {
-  folderData: Folder[];
+  folderData: Folder[] | null;
   selectedFolderId: number | string;
   selectedFolderName: string;
 }

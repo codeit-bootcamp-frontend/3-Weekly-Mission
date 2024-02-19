@@ -4,10 +4,11 @@ import styles from "./Card.module.css";
 import PopOver from "../../PopOver/PopOver";
 import { useState } from "react";
 import Image from "next/image";
+import { Folder, Link } from "@/api/api";
 
 interface Props {
-  link: any;
-  folderData: any[];
+  link: Link;
+  folderData: Folder[] | null;
 }
 function Card({ link, folderData }: Props) {
   const [pop, setPop] = useState(false);

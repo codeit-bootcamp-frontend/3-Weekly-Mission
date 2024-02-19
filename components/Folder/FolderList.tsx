@@ -1,15 +1,14 @@
-import { MouseEvent, useState } from "react";
-import FolderButton from "./FolderButton";
-// import CardList from "../CardList/CardList";
-import { ALL_LINKS_ID, ALL_LINKS_NAME } from "./constants";
-
+import React from "react";
 import styles from "./FolderList.module.css";
+import FolderButton from "./FolderButton";
 import FloatingButton from "../FloatingButton/FloatingButton";
+import { ALL_LINKS_ID, ALL_LINKS_NAME } from "./constants";
+import { Folder } from "@/api/api";
 
 interface Props {
-  folderData: any[];
-  onClick: any;
-  selectedFolderInfo: string[];
+  folderData: Folder[];
+  onClick: (folderInfo: [string | number, string]) => void;
+  selectedFolderInfo: (string | number)[];
 }
 
 function FolderList({ folderData, onClick, selectedFolderInfo }: Props) {
@@ -31,7 +30,7 @@ function FolderList({ folderData, onClick, selectedFolderInfo }: Props) {
                 key={item.id}
                 name={item.name}
                 onClick={() => onClick([item.id, item.name])}
-                isSelected={item.id === selectedFolderInfo[0]}
+                isSelected={item.id === Number(selectedFolderInfo[0])}
               />
             ))}
         </div>

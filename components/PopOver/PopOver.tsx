@@ -1,8 +1,13 @@
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import styles from "./PopOver.module.css";
+import { Folder } from "@/api/api";
 
-function PopOver({ folderData }: any) {
+interface Props {
+  folderData: Folder[] | null;
+}
+
+function PopOver({ folderData }: Props) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
   return (

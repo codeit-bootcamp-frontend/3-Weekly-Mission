@@ -17,11 +17,16 @@ export const searchKeyword: RecoilState<string> = atom({
 function Content() {
   const [keyword, setKeyword] = useRecoilState<string>(searchKeyword);
   const { folderData } = useFolderData();
-  const [folderInfo, setFolderInfo] = useState([ALL_LINKS_ID, ALL_LINKS_NAME]); //수정-id name 하나로 관리할것...
+  const [folderInfo, setFolderInfo] = useState<[string | number, string]>([
+    ALL_LINKS_ID,
+    ALL_LINKS_NAME,
+  ]); //수정-id name 하나로 관리할것...
 
-  const [selectedFolderInfo, setSelectedFolderInfo] = useState([...folderInfo]);
+  const [selectedFolderInfo, setSelectedFolderInfo] = useState<
+    [string | number, string]
+  >([...folderInfo]);
 
-  const handleFolderClick = (folderInfo: any) => {
+  const handleFolderClick = (folderInfo: [string | number, string]) => {
     setSelectedFolderInfo([...folderInfo]);
   };
 

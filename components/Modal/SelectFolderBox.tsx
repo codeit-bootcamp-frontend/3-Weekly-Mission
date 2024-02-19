@@ -1,18 +1,19 @@
 import { useState } from "react";
 import SelectFolderItem from "./SelectFolderItem";
 import styles from "./SelectFolderBox.module.css";
+import { Folder } from "@/api/api";
 
 interface Props {
-  folderData: any[];
+  folderData?: Folder[] | null;
 }
 
 function SelectFolderBox({ folderData }: Props) {
-  const [selectedItem, setSelectedItem] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<number>();
 
   return (
     <div className={styles.folderContainer}>
       {folderData &&
-        folderData.map((item: any) => (
+        folderData.map((item: Folder) => (
           <SelectFolderItem
             key={item.id}
             name={item.name}

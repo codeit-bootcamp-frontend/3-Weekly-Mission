@@ -3,6 +3,7 @@ import ShareIconBox from "./ShareIconBox";
 import styles from "./Modal.module.css";
 import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
+import { Folder } from "@/api/api";
 
 interface Props {
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -13,7 +14,7 @@ interface Props {
   isAddLink?: boolean;
   btnText?: string;
   btnColor?: string;
-  folderData?: any;
+  folderData?: Folder[] | null;
 }
 
 function Modal({

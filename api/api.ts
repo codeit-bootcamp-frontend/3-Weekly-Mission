@@ -1,7 +1,16 @@
 import { ALL_LINKS_ID } from "../components/Folder/constants";
 const BASE_URL = "https://bootcamp-api.codeit.kr/api";
 
-export async function getUserData() {
+export interface User {
+  auth_id: string;
+  created_at: string;
+  email: string;
+  id: number;
+  image_source: string;
+  name: string;
+}
+
+export async function getUserData(): Promise<{ data: User[] }> {
   // const response = await fetch(`${BASE_URL}/uses/1`);
   const response = await fetch(`${BASE_URL}/users/1`); // 로그인 테스트
   const body = await response.json();

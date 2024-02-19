@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getUserData } from "@/api/api";
+import { getUserData, User } from "@/api/api";
 
 export function useUserData() {
-  const [userData, setUserData] = useState<any>();
-  // const [loadingError, setLoadingError] = useState(null);
+  const [userData, setUserData] = useState<User | null>(null);
+  console.log(userData);
 
   //초기데이터 설정
   useEffect(() => {
@@ -11,10 +11,9 @@ export function useUserData() {
     const handleLoadUser = async () => {
       try {
         const { data } = await getUserData();
+        console.log("data", data);
         setUserData(data[0]);
-        // setLoadingError(null);
       } catch (e) {
-        // setLoadingError(e);
         console.error(e);
         return;
       } finally {
