@@ -31,22 +31,22 @@ function Header({ notFixed }) {
     <StyledHeader $notFixed={notFixed} className={styles.header}>
       <div className={styles.headerSon}>
         <Link href="/">
-          <Image src={logoImg} alt="로고" className={styles.logo} />
+          <Image src={logoImg} alt="linkbrary-logo" className={styles.logo} />
         </Link>
-        <a
+        <Link
           className={styles.loginButton}
           href="./signin/signin.html"
           style={userInfo['data'][0]['id'] !== 1 ? visible : invisible}
         >
           로그인
-        </a>
+        </Link>
         <div
           className={styles.userInfo}
           style={userInfo['data'][0]['id'] === 1 ? visible : invisible}
         >
           <Image
             src={userInfo['data'][0]['image_source']}
-            alt="profile"
+            alt="profile-image"
             width={28}
             height={28}
           />

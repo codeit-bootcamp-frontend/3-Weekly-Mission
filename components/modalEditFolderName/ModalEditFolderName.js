@@ -71,7 +71,7 @@ const ModalContainer = styled.div`
   }
 `;
 
-const ModalEditFolderName = ({ handleClose, name, handleButton }) => {
+const ModalEditFolderName = ({ handleClickClose, name, handleClickButton }) => {
   const [inputText, setInputText] = useState(name);
 
   return (
@@ -86,9 +86,9 @@ const ModalEditFolderName = ({ handleClose, name, handleButton }) => {
               setInputText(e.target.value);
             }}
           />
-          <Image onClick={handleClose} src={close} alt="close" />
+          <Image onClick={handleClickClose} src={close} alt="close-icon" />
         </div>
-        <button onClick={handleButton}>변경하기</button>
+        <button onClick={handleClickButton}>변경하기</button>
       </div>
     </ModalContainer>
   );

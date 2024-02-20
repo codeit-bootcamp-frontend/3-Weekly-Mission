@@ -8,11 +8,11 @@ const InputText = () => {
     // 포커스아웃시 실행할 이벤트
   }
 
-  function errCheck() {
+  function errorEffect() {
     setErrMsg('내용을 다시 작성해 주세요');
   }
 
-  function errOut() {
+  function removeErrorEffect() {
     setErrMsg('');
   }
 
@@ -23,10 +23,10 @@ const InputText = () => {
         placeholder="내용 입력"
         className={`${styles.input} ${errMsg !== '' ? styles.err : ''}`}
         onBlur={focusOut}
-        onChange={errOut}
+        onChange={removeErrorEffect}
       />
       <h6 className={styles.err}>{errMsg}</h6>
-      <button onClick={errCheck}>제출</button>
+      <button onClick={errorEffect}>제출</button>
     </>
   );
 };

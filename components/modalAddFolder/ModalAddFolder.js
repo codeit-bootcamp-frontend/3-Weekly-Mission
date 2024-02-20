@@ -70,16 +70,16 @@ const ModalContainer = styled.div`
   }
 `;
 
-const ModalAddFolder = ({ handleClose, handleButton }) => {
+const ModalAddFolder = ({ handleClickClose, handleClickButton }) => {
   return (
     <ModalContainer>
       <div>
         <div>
           <h1>폴더 추가</h1>
           <input placeholder="내용 입력" />
-          <Image onClick={handleClose} src={close} alt="close" />
+          <Image onClick={handleClickClose} src={close} alt="close-icon" />
         </div>
-        <button onClick={handleButton}>추가하기</button>
+        <button onClick={handleClickButton}>추가하기</button>
       </div>
     </ModalContainer>
   );

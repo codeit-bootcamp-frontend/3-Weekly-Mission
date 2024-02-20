@@ -69,10 +69,9 @@ const ModalContainer = styled.div`
 `;
 
 const ModalSharedFolder = ({
-  handleClose,
+  handleClickClose,
   name,
   buttonInfo,
-  cardInfo,
   folderName,
   folderId,
 }) => {
@@ -110,24 +109,24 @@ const ModalSharedFolder = ({
             className="oneIconArea"
             onClick={() => shareKakao(SHARING_URL, folderName)}
           >
-            <Image onClick={handleClose} src={kakao} alt="close" />
+            <Image onClick={handleClickClose} src={kakao} alt="close-icon" />
             <p>카카오톡</p>
           </div>
           <div className="oneIconArea" onClick={shareFacebook}>
-            <Image onClick={handleClose} src={facebook} alt="close" />
+            <Image onClick={handleClickClose} src={facebook} alt="close-icon" />
             <p>페이스북</p>
           </div>
           <div className="oneIconArea" onClick={copyToClipboard}>
-            <Image onClick={handleClose} src={link} alt="close" />
+            <Image onClick={handleClickClose} src={link} alt="close-icon" />
             <p>링크 복사</p>
           </div>
         </div>
 
         <Image
           className="closeButton"
-          onClick={handleClose}
+          onClick={handleClickClose}
           src={close}
-          alt="close"
+          alt="close-icon"
         />
       </div>
     </ModalContainer>

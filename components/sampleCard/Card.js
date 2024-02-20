@@ -52,17 +52,17 @@ function Card({
           width={340}
           height={254}
           src={image}
-          alt="card"
+          alt="default-card-image"
           style={style}
           className={styles.cardImage}
         />
-        <Image src={star} alt="star" className={styles.star} />
+        <Image src={star} alt="star-icon" className={styles.star} />
       </figure>
       <div className={styles.textBox}>
         <h5>{createdAt}</h5>
         <Image
           src={kebab}
-          alt="kebab"
+          alt="kebab-icon"
           className={styles.kebab}
           onClick={popOver}
         />
@@ -82,15 +82,15 @@ function Card({
 
       {isShowModalDeleteLink && (
         <ModalDeleteLink
-          handleClose={handleDeleteLink}
-          handleDelete={DeleteLink}
+          handleClickClose={handleDeleteLink}
+          handleClickDelete={DeleteLink}
           link={link}
         />
       )}
       {isShowAddLink && (
         <ModalAddLink
-          handleClose={handleAddLink}
-          handleButton={DeleteLink}
+          handleClickClose={handleAddLink}
+          handleClickButton={DeleteLink}
           link={link}
           buttonInfo={buttonInfo}
         />

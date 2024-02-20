@@ -58,16 +58,16 @@ const ModalContainer = styled.div`
   }
 `;
 
-const ModalDeletefolder = ({ handleClose, name, handleButton }) => {
+const ModalDeletefolder = ({ handleClickClose, name, handleClickButton }) => {
   return (
     <ModalContainer>
       <div>
         <div>
           <h1>폴더 삭제</h1>
           <p>{name}</p>
-          <Image onClick={handleClose} src={close} alt="close" />
+          <Image onClick={handleClickClose} src={close} alt="close-icon" />
         </div>
-        <button onClick={handleButton}>삭제하기</button>
+        <button onClick={handleClickButton}>삭제하기</button>
       </div>
     </ModalContainer>
   );

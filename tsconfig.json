@@ -22,7 +22,8 @@
     "**/*.ts",
     "**/*.tsx",
     "components/header/Header.js",
-    "components/addLink/AddLink.js"
+    "components/addLink/AddLink.js",
+    "components/sampleCard/Card.js"
   ],
   "exclude": ["node_modules"]
 }

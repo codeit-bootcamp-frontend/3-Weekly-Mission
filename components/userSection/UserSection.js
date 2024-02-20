@@ -57,15 +57,15 @@ function UserSection({ searchWord }) {
 
   useEffect(() => {
     if (searchWord !== '') {
-      const data = [...firstResult];
-      const filterd = data.filter(item => {
+      const beforeSearch = [...firstResult];
+      const afterSearch = beforeSearch.filter(item => {
         return (
           (item.url && item.url.includes(searchWord)) ||
           (item.title && item.title.includes(searchWord)) ||
           (item.description && item.description.includes(searchWord))
         );
       });
-      setFilteredData(filterd);
+      setFilteredData(afterSearch);
     } else if (searchWord === '') {
       setFilteredData(firstResult);
     }
@@ -149,7 +149,7 @@ function UserSection({ searchWord }) {
         </div>
         <Image
           src={add}
-          alt="add"
+          alt="add-icon"
           className={styles.addButton}
           onClick={handleAddFolder}
         />
@@ -159,15 +159,15 @@ function UserSection({ searchWord }) {
             className={`${styles.toolBox} ${selectedButton === '전체' ? styles.hidden : ''}`}
           >
             <div onClick={handleSharedFolder}>
-              <Image src={share} alt="share" />
+              <Image src={share} alt="share-icon" />
               공유
             </div>
             <div onClick={handleEditFolderName}>
-              <Image src={pen} alt="pen" />
+              <Image src={pen} alt="pen-icon" />
               이름 변경
             </div>
             <div onClick={handleDeleteFolder}>
-              <Image src={remove} alt="delete" />
+              <Image src={remove} alt="delete-icon" />
               삭제
             </div>
           </div>
@@ -197,7 +197,7 @@ function UserSection({ searchWord }) {
           ))}
           {filterdData.length === 0 && (
             <div className={styles.emptyFolder}>
-              <Image src={emptyFolder} alt="empty" />
+              <Image src={emptyFolder} alt="empty-image" />
               <p>이 폴더는 비어있습니다.</p>
             </div>
           )}
@@ -206,21 +206,21 @@ function UserSection({ searchWord }) {
       {isShowModalDeleteFolder && (
         <ModalDeletefolder
           name={selectedButton}
-          handleClose={handleDeleteFolder}
-          handleButton={tempActivate}
+          handleClickClose={handleDeleteFolder}
+          handleClickButton={tempActivate}
         />
       )}
       {isShowModalEditFolderName && (
         <ModalEditFolderName
           name={selectedButton}
-          handleClose={handleEditFolderName}
-          handleButton={tempActivate}
+          handleClickClose={handleEditFolderName}
+          handleClickButton={tempActivate}
         />
       )}
       {isShowModalSharedFolder && (
         <ModalSharedFolder
           name={selectedButton}
-          handleClose={handleSharedFolder}
+          handleClickClose={handleSharedFolder}
           buttonInfo={buttonInfo}
           cardInfo={cardInfo}
           folderName={folderName}
@@ -230,8 +230,8 @@ function UserSection({ searchWord }) {
       {isShowModalAddFolder && (
         <ModalAddFolder
           name={selectedButton}
-          handleClose={handleAddFolder}
-          handleButton={tempActivate}
+          handleClickClose={handleAddFolder}
+          handleClickButton={tempActivate}
         />
       )}
     </>

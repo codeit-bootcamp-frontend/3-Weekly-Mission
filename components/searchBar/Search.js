@@ -30,7 +30,7 @@ function Search({ result }) {
           onChange={handleSearchWord}
           value={value}
         />
-        <Image src={search} alt="search" className={styles.search} />
+        <Image src={search} alt="search-icon" className={styles.search} />
         <Image
           src={close}
           alt="close"

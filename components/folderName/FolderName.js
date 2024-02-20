@@ -28,7 +28,7 @@ function FolderName() {
           height={28}
           className={styles.profileImage}
           src={userInfo['folder']['owner']['profileImageSource']}
-          alt="profile"
+          alt="profile-image"
         />
         <h6 className={styles.userNickname}>
           {'@' + userInfo['folder']['owner']['name']}

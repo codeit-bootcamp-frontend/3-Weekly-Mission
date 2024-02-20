@@ -120,7 +120,12 @@ const ModalContainer = styled.div`
   }
 `;
 
-const ModalAddLink = ({ handleClose, handleButton, link, buttonInfo }) => {
+const ModalAddLink = ({
+  handleClickClose,
+  handleClickButton,
+  link,
+  buttonInfo,
+}) => {
   const [selectedFolders, setSelectedFolders] = useState([]);
 
   const handleFolderSelected = folderId => {
@@ -137,7 +142,7 @@ const ModalAddLink = ({ handleClose, handleButton, link, buttonInfo }) => {
         <div className="addlink-text">
           <h1>폴더에 추가</h1>
           <p>{link}</p>
-          <Image src={close} alt="close" onClick={handleClose} />
+          <Image src={close} alt="close-icon" onClick={handleClickClose} />
         </div>
 
         <div className="addlink-folder">
@@ -152,12 +157,12 @@ const ModalAddLink = ({ handleClose, handleButton, link, buttonInfo }) => {
               >
                 <h2>{item.name}</h2>
                 <h3>{item.link.count}개 링크</h3>
-                <Image src={check} alt="check" />
+                <Image src={check} alt="check-icon" />
               </div>
             ))}
         </div>
 
-        <button onClick={handleButton}>추가하기</button>
+        <button onClick={handleClickButton}>추가하기</button>
       </div>
     </ModalContainer>
   );

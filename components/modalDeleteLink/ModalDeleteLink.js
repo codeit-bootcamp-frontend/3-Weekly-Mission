@@ -65,16 +65,16 @@ const ModalContainer = styled.div`
   }
 `;
 
-const ModalDeleteLink = ({ handleClose, handleDelete, link }) => {
+const ModalDeleteLink = ({ handleClickClose, handleClickDelete, link }) => {
   return (
     <ModalContainer onClick={e => e.preventDefault()}>
       <div>
         <div>
           <h1>링크 삭제</h1>
           <p>{link}</p>
-          <Image onClick={handleClose} src={close} alt="close" />
+          <Image onClick={handleClickClose} src={close} alt="close-icon" />
         </div>
-        <button onClick={handleDelete}>삭제하기</button>
+        <button onClick={handleClickDelete}>삭제하기</button>
       </div>
     </ModalContainer>
   );

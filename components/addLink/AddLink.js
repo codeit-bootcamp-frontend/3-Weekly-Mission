@@ -18,10 +18,6 @@ function AddLink() {
     fetchData();
   }, []);
 
-  if (!buttonInfo) {
-    return null;
-  }
-
   function handleAddLink(e) {
     e.preventDefault();
     setIsShowAddLink(!isShowAddLink);
@@ -35,10 +31,14 @@ function AddLink() {
     alert('아직 미구현');
   }
 
+  if (!buttonInfo) {
+    return null;
+  }
+
   return (
     <div className={styles.addlinkContainer}>
       <div className={styles.addlinkInputbox}>
-        <Image src={link} alt="link" />
+        <Image src={link} alt="link-icon" />
         <div>
           <input
             className={styles.addlinkInput}
@@ -54,10 +54,10 @@ function AddLink() {
       </div>
       {isShowAddLink && (
         <ModalAddLink
-          handleClose={handleAddLink}
+          handleClickClose={handleAddLink}
           buttonInfo={buttonInfo}
           link={inputValue}
-          handleButton={tempActivate}
+          handleClickButton={tempActivate}
         />
       )}
     </div>

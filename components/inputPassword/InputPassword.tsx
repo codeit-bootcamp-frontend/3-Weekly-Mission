@@ -6,14 +6,14 @@ import Image from 'next/image';
 
 const InputPassword = () => {
   const [isText, setIsText] = useState('text');
-  const [eye, setEye] = useState(eyeOn);
+  const [eyeIcon, setEyeIcon] = useState(eyeOn);
 
-  function eyeChange() {
-    if (eye === eyeOn) {
-      setEye(eyeOff);
+  function eyeChange(): void {
+    if (eyeIcon === eyeOn) {
+      setEyeIcon(eyeOff);
       setIsText('password');
     } else {
-      setEye(eyeOn);
+      setEyeIcon(eyeOn);
       setIsText('text');
     }
   }
@@ -21,7 +21,12 @@ const InputPassword = () => {
   return (
     <label className={styles.label}>
       <input type={isText} className={`${styles.input}`} />
-      <Image src={eye} alt="eye" className={styles.eye} onClick={eyeChange} />
+      <Image
+        src={eyeIcon}
+        alt="eye-icon"
+        className={styles.eye}
+        onClick={eyeChange}
+      />
     </label>
   );
 };

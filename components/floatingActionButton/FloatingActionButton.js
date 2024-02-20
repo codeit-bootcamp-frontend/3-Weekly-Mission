@@ -11,7 +11,7 @@ const FloatingActionButton = ({ onClick }) => {
       <Image
         src={add}
         className={styles.floatingAddButton}
-        alt="add"
+        alt="add-icon"
         onClick={onClick}
       />
     </>
