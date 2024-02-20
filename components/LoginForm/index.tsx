@@ -1,16 +1,23 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import Image from "next/image";
 import styles from "./index.module.css";
-import eyeIcon from "../../images/eye-off.svg";
+import eyeOffIcon from "../../images/eye-off.svg";
+import eyeOnIcon from "../../images/eye-on.svg";
 
 const LoginForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onBlur" });
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <form
@@ -35,10 +42,11 @@ const LoginForm = () => {
       {errors.email && (
         <p className={styles.errorMessage}>{errors.email.message as string}</p>
       )}
+
       <label htmlFor="password">비밀번호</label>
       <input
         id="password"
-        type="password"
+        type={showPassword ? "text" : "password"}
         placeholder="비밀번호를 입력해 주세요."
         style={errors?.password && { borderColor: "red" }}
         className={errors?.password ? styles.error : ""}
@@ -46,7 +54,18 @@ const LoginForm = () => {
           required: "비밀번호를 입력해 주세요.",
         })}
       />
-      <Image src={eyeIcon} alt="비밀번호 보기" className={styles.eyeIcon} />
+      <button
+        type="button"
+        onClick={togglePasswordVisibility}
+        className={styles.eyeIcon}
+      >
+        <Image
+          src={showPassword ? eyeOffIcon : eyeOnIcon}
+          alt="비밀번호 보기"
+          width={16}
+          height={16}
+        />
+      </button>
       {errors.password && (
         <p className={styles.errorMessage}>
           {errors.password.message as string}

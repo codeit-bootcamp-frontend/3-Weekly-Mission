@@ -23,10 +23,12 @@
 }
 
 .eyeIcon {
+  background-color: white;
   position: absolute;
   right: 20px;
-  bottom: 114px;
+  bottom: 109px;
   cursor: pointer;
+  border: none;
 }
 
 .formButton {
