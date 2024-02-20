@@ -1,4 +1,5 @@
 import { TModalComponent, TModalComponentPropsWithoutModalRef, useModalDispatch } from '@components/provider/modal';
+import { TModalComponentHaveCloseModal, TModalComponentPropsWithoutCloseModal } from '@components/provider/modal/types';
 
 export const useModal = <MC extends TModalComponent>() => {
   const { close, open } = useModalDispatch();
@@ -7,8 +8,8 @@ export const useModal = <MC extends TModalComponent>() => {
     Component,
     props,
   }: {
-    Component: VMC;
-    props?: TModalComponentPropsWithoutModalRef<VMC>;
+    Component: TModalComponentHaveCloseModal<VMC>;
+    props?: TModalComponentPropsWithoutCloseModal<TModalComponentPropsWithoutModalRef<VMC>>;
   }) => {
     open({ ModalComponent: Component, props });
   };

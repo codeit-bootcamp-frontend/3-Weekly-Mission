@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MutableRefObject, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -16,11 +16,12 @@ type TAddToFolderModal = {
   modalName?: string;
   linkUrl?: string;
   closeModal?: (callback?: VoidFunction) => void;
+  modalRef?: MutableRefObject<HTMLElement | null> | null;
 };
 /**
  * @description 폴더에 추가 모달
  */
-const AddToFolderModal = ({ modalName = '폴더에 추가', linkUrl, closeModal }: TAddToFolderModal) => {
+const AddToFolderModal = ({ modalName = '폴더에 추가', linkUrl, closeModal, modalRef }: TAddToFolderModal) => {
   const [selectedFolder, setSelectedFolder] = useState<string[]>([]);
   const imgUrl = '/images/folder/folder-icon-check.svg';
 
@@ -34,7 +35,12 @@ const AddToFolderModal = ({ modalName = '폴더에 추가', linkUrl, closeModal 
 
   return (
     <Modal.StModalDim>
-      <Modal.StModalWrapper $rowGap={2.4}>
+      <Modal.StModalWrapper
+        ref={(node) => {
+          if (modalRef) modalRef.current = node;
+        }}
+        $rowGap={2.4}
+      >
         <Modal.StModalLabel as='div' $rowGap={0.8}>
           {modalName}
           <StModalSubText>{linkUrl}</StModalSubText>

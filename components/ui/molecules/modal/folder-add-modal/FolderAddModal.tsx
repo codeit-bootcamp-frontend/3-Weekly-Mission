@@ -9,13 +9,17 @@ import Modal from '..';
 type TFolderAddModalProps = {
   modalName?: string;
   closeModal?: (callback?: VoidFunction) => void;
-  modalRef?: MutableRefObject<HTMLDivElement>;
+  modalRef?: MutableRefObject<HTMLElement | null> | null;
 };
 
 const FolderAddModal = ({ modalName = '폴더 추가', closeModal, modalRef }: TFolderAddModalProps) => {
   return (
-    <Modal.StModalDim ref={modalRef}>
-      <Modal.StModalWrapper>
+    <Modal.StModalDim>
+      <Modal.StModalWrapper
+        ref={(node) => {
+          if (modalRef) modalRef.current = node;
+        }}
+      >
         <Modal.StModalLabel htmlFor='folder-add'>
           {modalName}
           <Modal.StModalInput placeholder='내용 입력' id='folder-add' />
