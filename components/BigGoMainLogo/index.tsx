@@ -7,7 +7,7 @@ const BigGoMainLogo = () => {
     <Link href="/">
       <Image
         src={linkbrary}
-        width={200}
+        width={250}
         height={45}
         alt="linkbrary 로고 이미지"
       />
