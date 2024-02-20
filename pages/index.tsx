@@ -4,6 +4,7 @@ import Link from "next/link";
 
 const Home = () => {
   return (
+    // 편하게 이동하기 위한 링크 및 컴포넌트 테스트 페이지
     <>
       <Head>
         <title>LinkLibrary</title>

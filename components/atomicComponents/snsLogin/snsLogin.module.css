@@ -1,0 +1,21 @@
+.sns_Login_wrapper {
+  width: 100%;
+  height: 66px;
+  margin-top: 32px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--Linkbrary-gray20, #ccd5e3);
+  background: var(--Linkbrary-gray10, #e7effb);
+}
+
+.sns_Login_text{
+  margin: 0 ;
+}
+
+.sns_Icon_wrapper{
+
+}
+
+.sns_Icon_wrapper li{
+  list-style: none;
+}

@@ -1,0 +1,16 @@
+.logo_text{
+  font-size: 14px;
+}
+
+.link_text{
+  color: #6D6AFE
+}
+
+.logo_text_wrapper{
+  width: 400px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
