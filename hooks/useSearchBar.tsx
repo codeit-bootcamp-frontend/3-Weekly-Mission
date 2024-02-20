@@ -19,21 +19,16 @@ export const useSearchBar = (originalFolderCardData: any, setCardList: any) => {
     useEffect(() => {
         const filteredCardList = originalFolderCardData.current.filter(
             (card: CardInterface) => {
-                if (
-                    card.title !== null &&
-                    card.url !== null &&
-                    card.description !== null
-                ) {
+                if (card.title && card.url && card.description) {
+                    const lowerCaseInputValue = inputValue.toLowerCase();
                     return (
                         card.title
                             .toLowerCase()
-                            .includes(inputValue.toLowerCase()) ||
-                        card.url
-                            .toLowerCase()
-                            .includes(inputValue.toLowerCase()) ||
+                            .includes(lowerCaseInputValue) ||
+                        card.url.toLowerCase().includes(lowerCaseInputValue) ||
                         card.description
                             .toLowerCase()
-                            .includes(inputValue.toLowerCase())
+                            .includes(lowerCaseInputValue)
                     );
                 }
                 return null;
