@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const SearchInput = ({ link, setLink, initialLink }: Props) => {
-  const [inputValue, setInputValue] = useState<string | undefined>(undefined);
+  const [inputValue, setInputValue] = useState<string>('');
 
   const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
