@@ -16,10 +16,11 @@ export default function SignInForm() {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
   const router = useRouter();
-  if (localStorage.getItem("accessToken")) {
-    router.push("/folder");
+  if (typeof localStorage !== "undefined") {
+    if (localStorage.getItem("accessToken")) {
+      router.push("/folder");
+    }
   }
 
   const handleEmailBlur = () => {

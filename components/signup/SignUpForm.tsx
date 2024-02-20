@@ -21,8 +21,10 @@ export default function SignUpForm() {
   const [confirmPasswordError, setConfirmPasswordError] = useState<string>("");
 
   const router = useRouter();
-  if (localStorage.getItem("accessToken")) {
-    router.push("/folder");
+  if (typeof localStorage !== "undefined") {
+    if (localStorage.getItem("accessToken")) {
+      router.push("/folder");
+    }
   }
 
   const handleEmailBlur = () => {
