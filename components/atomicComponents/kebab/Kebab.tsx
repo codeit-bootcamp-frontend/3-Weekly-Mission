@@ -1,7 +1,7 @@
 import styles from "./kebab.module.css";
 import ModalMessge from "../modal/ModalMessage";
 import { useState } from "react";
-import { UserLinkType } from "../../types/Types";
+import { UserLinkType } from "../../../types/Types";
 
 export default function Kebab({ link }: { link: UserLinkType }) {
   const [modalOpen, setModalOpen] = useState(false);

@@ -1,9 +1,8 @@
 import Modal from "react-modal";
 import "./ModalMessage.css";
 import close_svg from "../../image/close.svg";
-import { ModalType, OverlayStyle, ContentStyle } from "../../types/Types";
+import { ModalType, OverlayStyle, ContentStyle } from "../../../types/Types";
 import styles from "./ModalMessage.module.css";
-
 
 export default function SnsShareModal({
   modalOpen,

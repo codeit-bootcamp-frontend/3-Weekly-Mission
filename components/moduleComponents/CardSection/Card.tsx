@@ -1,9 +1,9 @@
-import { createDay, createTime } from "../../src/shared";
+import { createDay, createTime } from "../../../src/shared";
 import { useState } from "react";
-import useUserLinkData from "../../hook/useUserLinkData";
-import Kebab from "../kebab/Kebab";
+import useUserLinkData from "../../../hook/useUserLinkData";
+import Kebab from "../../atomicComponents/kebab/Kebab";
 import { kebab_svg } from "@/public/image";
-import { UserLinkType } from "../../types/Types";
+import { UserLinkType } from "../../../types/Types";
 import Link from "next/link";
 import styles from "./CardSection.module.css";
 import Image from "next/image";
@@ -12,10 +12,10 @@ function CardList({ link }: { link: UserLinkType }) {
   const [kebab, setKebab] = useState(false);
 
   const kebabClick = () => {
-    setKebab(!kebab); 
+    setKebab(!kebab);
   };
   return (
-    <div key={link.id} className={styles.card_Box}> 
+    <div key={link.id} className={styles.card_Box}>
       <div className={styles.imgBox}>
         <Link href={link.url as string} target="blank">
           {link.image_source ? (
@@ -43,9 +43,7 @@ function CardList({ link }: { link: UserLinkType }) {
           className={styles.케밥버튼}
           onClick={kebabClick}
         />
-        {kebab && ( 
-          <Kebab link={link}/>
-        )}
+        {kebab && <Kebab link={link} />}
         <p className={styles.description}>{link.description}</p>
         <span className={styles.date}>{createDay(link.created_at ?? "")}</span>
       </div>

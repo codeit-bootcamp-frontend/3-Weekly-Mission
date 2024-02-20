@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import styles from "./ModalMessage.module.css";
 import { SnsIcon } from "./SnsIcon";
-import { ModalType, OverlayStyle, ContentStyle } from "../../types/Types";
+import { ModalType, OverlayStyle, ContentStyle } from "../../../types/Types";
 
 export default function ModalMessge({
   modalOpen,
@@ -81,4 +81,3 @@ export default function ModalMessge({
 ModalMessge.defaultProps = {
   type: "blue",
 };
-

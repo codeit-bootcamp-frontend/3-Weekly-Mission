@@ -1,0 +1,8 @@
+.signup_back_color {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--Linkbrary-bg, #F0F6FF);;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

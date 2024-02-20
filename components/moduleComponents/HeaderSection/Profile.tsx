@@ -1,6 +1,6 @@
-import useUserIdData from "../../hook/useUserIdData";
+import useUserIdData from "../../../hook/useUserIdData";
 import Link from "next/link";
-import { UserIdType } from "../../types/Types";
+import { UserIdType } from "../../../types/Types";
 import styles from "./HeaderSection.module.css";
 import Image from "next/image";
 import { logo_svg } from "@/public/image";

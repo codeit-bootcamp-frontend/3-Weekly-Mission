@@ -1,13 +1,15 @@
-import HeaderSection from "@/components/HeaderSection/HeaderSection"
-import CardSection from "@/components/CardSection/CardSection"
-import Footer from "@/components/FooterSection/Footer"
+import Head from "next/head";
+import React from "react";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
-    <HeaderSection />
-    <CardSection />
-    <Footer />
-  </>
-  )
-}
+      <Head>
+        <title>LinkLibrary</title>
+      </Head>
+      <div>HOMEPAGE</div>
+    </>
+  );
+};
+
+export default Home;

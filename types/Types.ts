@@ -90,8 +90,12 @@ export type ContentStyle = {
 export type onClickEventType = (e: React.MouseEvent<HTMLElement>) => void;
 // 이벤트 객체의 타입을 모듈화해서 사용하는건 굳이 필요 없을것같아요 
 
-
+////////////////////test
 export interface FolderContextType {
   folderLists: UserFolderType[];
   selectedFolderId: number | null;
+}
+
+export type FolderListType ={
+  folderList:UserFolderType
 }
