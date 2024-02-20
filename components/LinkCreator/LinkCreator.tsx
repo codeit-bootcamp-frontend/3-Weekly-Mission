@@ -18,7 +18,7 @@ const LinkCreator = ({
     return (
         <EmptySpace ref={linkCreatorWrapperDom}>
             <Background ref={linkCreatorDom}>
-                <LinkCreatorWrapper>
+                <Form>
                     <div>
                         <LinkCreatorImg
                             src={link}
@@ -42,7 +42,7 @@ const LinkCreator = ({
                     >
                         추가하기
                     </CreateLinkButton>
-                </LinkCreatorWrapper>
+                </Form>
             </Background>
         </EmptySpace>
     );
@@ -76,7 +76,7 @@ const Background = styled.div`
     }
 `;
 
-const LinkCreatorWrapper = styled.div`
+const Form = styled.form`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;

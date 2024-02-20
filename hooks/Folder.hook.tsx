@@ -8,6 +8,13 @@ import {
     FolderPageUserDataInterface,
     ModalInterface,
 } from "@/interfaces";
+import { URL_DOMAIN } from "@/Constants/Constants";
+import {
+    getFilteredLinkData,
+    getFolderData,
+    getFolderPageUserData,
+    getLinkData,
+} from "@/data";
 
 // Modal을 사용하기 위한 hook
 export const useModal = () => {
@@ -38,13 +45,10 @@ export const useFolder = () => {
     // 페이지 로드시 폴더 데이터 가지오기
     useEffect(() => {
         try {
-            getFetch("bootcamp-api.codeit.kr", "api/users/11/folders").then(
-                (FolderData) => {
-                    setFolderData(() => {
-                        return getFormattedCamelCaseData(FolderData.data);
-                    });
-                }
-            );
+            (async () => {
+                const data = await getFolderData();
+                return setFolderData(() => getFormattedCamelCaseData(data));
+            })();
         } catch (error) {
             console.error(error);
         }
@@ -53,16 +57,15 @@ export const useFolder = () => {
     // 페이지 로드시 전체 링크 데이터 가져오기
     useEffect(() => {
         try {
-            getFetch("bootcamp-api.codeit.kr", "api/users/11/links").then(
-                (cardData) => {
-                    setFolderCardData(() => {
-                        return getFormattedCamelCaseData(cardData.data);
-                    });
-                    originalFolderCardData.current = getFormattedCamelCaseData([
-                        ...cardData.data,
-                    ]);
-                }
-            );
+            (async () => {
+                const data = await getLinkData();
+                setFolderCardData(() => {
+                    return getFormattedCamelCaseData(data);
+                });
+                originalFolderCardData.current = getFormattedCamelCaseData([
+                    ...data,
+                ]);
+            })();
         } catch (error) {
             console.error(error);
         }
@@ -71,13 +74,15 @@ export const useFolder = () => {
     // 폴더의 전체 버튼을 클릭했을 때 가져올 데이터
     const handleOverviewCardButtonClick = () => {
         try {
-            getFetch("bootcamp-api.codeit.kr", "api/users/11/links").then(
-                (cardData) => {
-                    setFolderCardData(() => {
-                        return getFormattedCamelCaseData(cardData.data);
-                    });
-                }
-            );
+            (async () => {
+                const data = await getLinkData();
+                setFolderCardData(() => {
+                    return getFormattedCamelCaseData(data);
+                });
+                originalFolderCardData.current = getFormattedCamelCaseData([
+                    ...data,
+                ]);
+            })();
         } catch (error) {
             console.error(error);
         }
@@ -86,14 +91,12 @@ export const useFolder = () => {
     // 폴더의 전체 버튼이 아닌 버튼을 클릭했을 때 가져올 데이터
     const handleFilteredCardButtonClick = (id: number) => {
         try {
-            getFetch(
-                "bootcamp-api.codeit.kr",
-                `api/users/11/links?folderId=${id}`
-            ).then((cardData) => {
+            (async () => {
+                const data = await getFilteredLinkData(id);
                 setFolderCardData(() => {
-                    return getFormattedCamelCaseData(cardData.data);
+                    return getFormattedCamelCaseData(data);
                 });
-            });
+            })();
         } catch (error) {
             console.error(error);
         }
@@ -118,11 +121,11 @@ export const useFolderPageLogin = () => {
     // Header의 유저 프로필 데이터
     useEffect(() => {
         try {
-            getFetch("bootcamp-api.codeit.kr", "api/users/11").then((user) => {
-                const formattedUser = getFormattedCamelCaseData(user);
-                setUserData({ ...formattedUser.data[0] });
+            (async () => {
+                const data = await getFolderPageUserData();
+                setUserData({ ...data[0] });
                 setLogin(true);
-            });
+            })();
         } catch (error) {
             console.error(error);
         }
