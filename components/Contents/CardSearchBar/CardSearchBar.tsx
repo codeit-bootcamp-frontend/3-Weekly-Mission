@@ -15,7 +15,7 @@ const CardSearchBar = ({
     resetInputValue,
 }: CardSearchBarProps) => {
     return (
-        <CardSearchBarWrapper>
+        <Form onReset={resetInputValue}>
             <Image
                 src="/images/Search.svg"
                 alt="돋보기 모양 사진"
@@ -29,7 +29,7 @@ const CardSearchBar = ({
                 placeholder="링크를 검색해 보세요."
             />
             {inputValue?.length === 0 ? null : (
-                <button type="button" onClick={resetInputValue}>
+                <button type="reset">
                     <Image
                         src="/images/_close.svg"
                         alt="리셋 버튼 이미지"
@@ -38,11 +38,11 @@ const CardSearchBar = ({
                     />
                 </button>
             )}
-        </CardSearchBarWrapper>
+        </Form>
     );
 };
 
-const CardSearchBarWrapper = styled.div`
+const Form = styled.form`
     box-sizing: border-box;
     width: 1060px;
     padding: 15px 16px;
@@ -56,6 +56,15 @@ const CardSearchBarWrapper = styled.div`
     input {
         width: 100%;
         background-color: #f5f5f5;
+
+        &[type="search"] {
+            &::-webkit-search-decoration,
+            &::-webkit-search-cancel-button,
+            &::-webkit-search-results-button,
+            &::-webkit-search-results-decoration {
+                -webkit-appearance: none;
+            }
+        }
     }
 
     button {
