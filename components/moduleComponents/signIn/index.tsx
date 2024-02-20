@@ -1,7 +1,7 @@
 import React from "react";
 import LogoText from "@/components/atomicComponents/logoText/index";
 import LoginInput from "@/components/atomicComponents/loginInput/index";
-import LoginButton from "@/components/atomicComponents/LoginButton/index";
+import LoginButton from "@/components/atomicComponents/loginButton/index";
 import SnsLogin from "@/components/atomicComponents/snsLogin/index";
 import Styles from "@/styles/signin.module.css";
 
