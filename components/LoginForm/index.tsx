@@ -23,6 +23,7 @@ const LoginForm = () => {
         id="email"
         type="email"
         placeholder="이메일을 입력해 주세요."
+        style={errors?.email && { borderColor: "red" }}
         {...register("email", {
           required: "이메일을 입력해 주세요.",
           pattern: {
@@ -39,6 +40,8 @@ const LoginForm = () => {
         id="password"
         type="password"
         placeholder="비밀번호를 입력해 주세요."
+        style={errors?.password && { borderColor: "red" }}
+        className={errors?.password ? styles.error : ""}
         {...register("password", {
           required: "비밀번호를 입력해 주세요.",
         })}
