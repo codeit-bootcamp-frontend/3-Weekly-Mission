@@ -143,64 +143,57 @@ export const useScrollingSearchBar = () => {
 
     useEffect(() => {
         // 첫 렌더링시 footerDom이 빠르게 참조돼버려서 setTimeout으로 여유를 줌
-        setTimeout(() => {
-            // 바깥에다가 linkCreatorDom.current를 해줬는데 왜 안쪽 if문에도 linkCreatorDom.current를 해줘야하는지 모르겠음
-            if (
-                linkCreatorWrapperDom.current &&
-                footerDom.current &&
-                linkCreatorDom.current
-            ) {
-                const linkCreatorWrapperIo = new IntersectionObserver(
-                    (entries) => {
-                        entries.forEach((entry) => {
-                            if (
-                                entry.isIntersecting &&
-                                linkCreatorDom.current
-                            ) {
-                                linkCreatorDom.current.style.position =
-                                    "relative";
-                                linkCreatorDom.current.style.bottom = "auto";
-                                linkCreatorDom.current.style.left = "auto";
-                                linkCreatorDom.current.style.right = "auto";
-                                linkCreatorDom.current.style.padding = "0px";
-                            }
-                        });
+
+        // 바깥에다가 linkCreatorDom.current를 해줬는데 왜 안쪽 if문에도 linkCreatorDom.current를 해줘야하는지 모르겠음
+        if (
+            linkCreatorWrapperDom.current &&
+            footerDom.current &&
+            linkCreatorDom.current
+        ) {
+            const linkCreatorWrapperIo = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && linkCreatorDom.current) {
+                        linkCreatorDom.current.style.position = "relative";
+                        linkCreatorDom.current.style.bottom = "auto";
+                        linkCreatorDom.current.style.left = "auto";
+                        linkCreatorDom.current.style.right = "auto";
+                        linkCreatorDom.current.style.padding = "0px";
                     }
-                );
-
-                const linkCreatorIo = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (!entry.isIntersecting && linkCreatorDom.current) {
-                            linkCreatorDom.current.style.position = "fixed";
-                            linkCreatorDom.current.style.bottom = "0px";
-                            linkCreatorDom.current.style.left = "0px";
-                            linkCreatorDom.current.style.right = "0px";
-                            linkCreatorDom.current.style.padding = "24px 320px";
-                        }
-                        if (entry.isIntersecting && linkCreatorDom.current) {
-                            linkCreatorIo.observe(linkCreatorDom.current);
-                        }
-                    });
                 });
+            });
 
-                const footerIo = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting && linkCreatorDom.current) {
-                            linkCreatorIo.unobserve(linkCreatorDom.current);
-                            linkCreatorDom.current.style.display = "none";
-                        }
-                        if (!entry.isIntersecting && linkCreatorDom.current) {
-                            linkCreatorIo.observe(linkCreatorDom.current);
-                            linkCreatorDom.current.style.display = "flex";
-                        }
-                    });
+            const linkCreatorIo = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting && linkCreatorDom.current) {
+                        linkCreatorDom.current.style.position = "fixed";
+                        linkCreatorDom.current.style.bottom = "0px";
+                        linkCreatorDom.current.style.left = "0px";
+                        linkCreatorDom.current.style.right = "0px";
+                        linkCreatorDom.current.style.padding = "24px 320px";
+                    }
+                    if (entry.isIntersecting && linkCreatorDom.current) {
+                        linkCreatorIo.observe(linkCreatorDom.current);
+                    }
                 });
+            });
 
-                linkCreatorWrapperIo.observe(linkCreatorWrapperDom.current);
-                footerIo.observe(footerDom.current);
-                linkCreatorIo.observe(linkCreatorDom.current);
-            }
-        }, 1000);
+            const footerIo = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && linkCreatorDom.current) {
+                        linkCreatorIo.unobserve(linkCreatorDom.current);
+                        linkCreatorDom.current.style.display = "none";
+                    }
+                    if (!entry.isIntersecting && linkCreatorDom.current) {
+                        linkCreatorIo.observe(linkCreatorDom.current);
+                        linkCreatorDom.current.style.display = "flex";
+                    }
+                });
+            });
+
+            linkCreatorWrapperIo.observe(linkCreatorWrapperDom.current);
+            footerIo.observe(footerDom.current);
+            linkCreatorIo.observe(linkCreatorDom.current);
+        }
     }, [footerDom, linkCreatorDom, linkCreatorWrapperDom]);
 
     return { linkCreatorRefs, footerDom };
