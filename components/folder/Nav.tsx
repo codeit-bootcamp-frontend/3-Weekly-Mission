@@ -1,10 +1,8 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { User, getUserProfile } from "../../api/api";
+import React from "react";
 import styles from "./Nav.module.scss";
 import classNames from "classnames/bind";
 import Link from "next/link";
+import UserProfileInHeader from "./UserProfileInHeader";
 
 const cx = classNames.bind(styles);
 
@@ -22,32 +20,5 @@ export default function Nav() {
         <UserProfileInHeader />
       </div>
     </nav>
-  );
-}
-
-function UserProfileInHeader() {
-  const [user, setUser] = useState<User>();
-  useEffect(() => {
-    async function handleLoginProfile() {
-      const user = await getUserProfile(1);
-      setUser(user);
-    }
-    handleLoginProfile();
-  }, []);
-  return (
-    <Link className={cx("userProfile-link")} href="/folder">
-      {user ? (
-        <>
-          <img
-            className={cx("userProfile-login-img")}
-            src={user.image_source}
-            alt="사용자 이미지"
-          />
-          <span className={cx("userProfile-login-email")}>{user.email}</span>
-        </>
-      ) : (
-        <img src="images/로그인.png" alt="로그인" />
-      )}
-    </Link>
   );
 }
