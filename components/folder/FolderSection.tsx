@@ -11,20 +11,16 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-export default function FolderSection() {
-  const allSee: Pick<UserFolder, "id" | "name"> = {
-    id: undefined,
-    name: "전체",
-  };
+export default function FolderSection({ initialItems }) {
   const [selectedFolder, setSelectedFolder] = useState<
     UserFolder | Pick<UserFolder, "id" | "name">
-  >(allSee);
-  const [items, setItems] = useState<UserLink[]>([]);
+  >({ id: undefined, name: "초기값" });
+  const [items, setItems] = useState<UserLink[]>(initialItems);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     async function handleload() {
-      const { id } = selectedFolder;
+      const { id, name } = selectedFolder;
       if (searchTerm) {
         const response = await getUserLinks(4, id);
         const filteredLinks = response.filter(
@@ -34,7 +30,7 @@ export default function FolderSection() {
             (link.description && link.description.includes(searchTerm))
         );
         setItems(filteredLinks);
-      } else {
+      } else if (name !== "초기값") {
         setItems(await getUserLinks(4, id));
       }
     }
