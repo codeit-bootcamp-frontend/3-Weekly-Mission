@@ -1,7 +1,9 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import Image from "next/image";
 import styles from "./index.module.css";
+import eyeIcon from "../../images/eye-off.svg";
 
 const LoginForm = () => {
   const {
@@ -41,7 +43,7 @@ const LoginForm = () => {
           required: "비밀번호를 입력해 주세요.",
         })}
       />
-      <button className={styles.eyeIcon} />
+      <Image src={eyeIcon} alt="비밀번호 보기" className={styles.eyeIcon} />
       {errors.password && (
         <p className={styles.errorMessage}>
           {errors.password.message as string}

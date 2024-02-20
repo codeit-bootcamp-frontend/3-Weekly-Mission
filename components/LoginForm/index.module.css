@@ -23,11 +23,9 @@
 }
 
 .eyeIcon {
-  background-image: url(../../images/eye-off.svg);
-  border: none;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 20px;
+  bottom: 114px;
   cursor: pointer;
 }
 
