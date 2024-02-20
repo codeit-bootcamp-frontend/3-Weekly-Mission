@@ -31,7 +31,7 @@ export const useSearchBar = (originalFolderCardData: any, setCardList: any) => {
                             .includes(lowerCaseInputValue)
                     );
                 }
-                return null;
+                return false;
             }
         );
         setCardList([...filteredCardList]);
