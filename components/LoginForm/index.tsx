@@ -2,6 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import Router from "next/router";
 import Image from "next/image";
 import styles from "./index.module.css";
 import eyeOffIcon from "../../images/eye-off.svg";
@@ -9,22 +10,51 @@ import eyeOnIcon from "../../images/eye-on.svg";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
+    setError,
   } = useForm({ mode: "onBlur" });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch(
+        "https://bootcamp-api.codeit.kr/api/sign-in",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (response.ok) {
+        Router.push("/folder");
+      } else {
+        alert("이메일 또는 비밀번호를 확인해 주세요.");
+        setError("email", {
+          type: "manual",
+          message: "이메일을 확인해 주세요.",
+        });
+        setError("password", {
+          type: "manual",
+          message: "비밀번호를 확인해 주세요.",
+        });
+      }
+    } catch (error) {
+      alert("로그인 요청 중 오류가 발생했습니다.");
+    }
+  };
+
   return (
-    <form
-      className={styles.form}
-      noValidate
-      onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}
-    >
+    <form className={styles.form} noValidate onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="email">이메일</label>
       <input
         id="email"
@@ -33,6 +63,7 @@ const LoginForm = () => {
         style={errors?.email && { borderColor: "red" }}
         {...register("email", {
           required: "이메일을 입력해 주세요.",
+
           pattern: {
             value: /\S+@\S+\.\S+/,
             message: "올바른 이메일 주소가 아닙니다.",
