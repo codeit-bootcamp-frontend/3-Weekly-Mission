@@ -1,0 +1,55 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+}
+
+.form label {
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.form input {
+  width: 100%;
+  height: 60px;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.eyeIcon {
+  background-color: white;
+  position: absolute;
+  right: 20px;
+  bottom: 109px;
+  cursor: pointer;
+  border: none;
+}
+
+.formButton {
+  width: 100%;
+  height: 53px;
+  border: none;
+  border-radius: 10px;
+  background: var(
+    --gra-purpleblue-to-skyblue,
+    linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%)
+  );
+  color: white;
+  font-size: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
