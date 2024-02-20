@@ -19,8 +19,8 @@ const Home = () => {
       <Link href="/signin">
         <p>signIn</p>
       </Link>
-      <Link href="/singup">
-        <p>singup</p>
+      <Link href="/signup">
+        <p>signup</p>
       </Link>
     </>
   );

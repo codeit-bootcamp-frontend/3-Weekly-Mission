@@ -2,7 +2,7 @@ import React from 'react'
 import styles from "@/styles/signup.module.css";
 import SingUpModule from "@/components/moduleComponents/signUp/index";
 
-const Singup = () => {
+const Signup = () => {
   return (
     <div className={styles.signup_back_color}>
       <SingUpModule />
@@ -10,4 +10,4 @@ const Singup = () => {
   )
 }
 
-export default Singup
+export default Signup

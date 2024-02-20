@@ -9,7 +9,7 @@ interface LogoTextProps {
   linkText: string;
 }
 
-const LogoText = ({text,linkText} : LogoTextProps) => {
+const LogoText = ({ text, linkText }: LogoTextProps) => {
   return (
     <div className={styles.logo_text_wrapper}>
       <Link href="/">
@@ -17,7 +17,15 @@ const LogoText = ({text,linkText} : LogoTextProps) => {
       </Link>
       <p className={styles.logo_text}>
         {text}
-        <Link href="/signup" className={styles.link_text}>{linkText}</Link>
+        {linkText === "회원 가입하기" ? (
+          <Link href="/signup" className={styles.link_text}>
+            {linkText}
+          </Link>
+        ) : (
+          <Link href="/signin" className={styles.link_text}>
+            {linkText}
+          </Link>
+        )}
       </p>
     </div>
   );
