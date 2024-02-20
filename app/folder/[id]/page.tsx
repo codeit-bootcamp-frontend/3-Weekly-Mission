@@ -1,12 +1,12 @@
-import Footer from "../../../components/common/Footer";
+import { getUserLinks } from "../../../api/api";
 import FolderSection from "../../../components/folder/FolderSection";
-import Header from "../../../components/folder/Header";
 
-export default function FolderPageDetail(props) {
+export default async function FolderPageDetail(props) {
   console.log(props);
+  const initialItems = await getUserLinks(4, undefined);
   return (
     <>
-      <FolderSection />
+      <FolderSection initialItems={initialItems} />
     </>
   );
 }
