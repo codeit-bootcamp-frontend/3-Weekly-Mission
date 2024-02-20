@@ -16,6 +16,7 @@ import star_jpg from './star.jpg';
 import twitter_svg from './twitter.svg';
 import youtube_svg from './youtube.svg';
 import google_png from './google.png';
+import kakaotalk_svg from './kakaotalk.svg';
 export{
     add_svg,
     close_svg,
@@ -34,6 +35,7 @@ export{
     star_jpg,
     twitter_svg,
     youtube_svg,
-    google_png
+    google_png,
+    kakaotalk_svg
 }
 // 이미지를 export 하는 방법은? 

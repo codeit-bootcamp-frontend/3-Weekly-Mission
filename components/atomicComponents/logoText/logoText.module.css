@@ -1,10 +1,3 @@
-.logo_text{
-  font-size: 14px;
-}
-
-.link_text{
-  color: #6D6AFE
-}
 
 .logo_text_wrapper{
   width: 400px;
@@ -13,4 +6,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.logo_text{
+  font-size: 14px;
+}
+
+.link_text{
+  color: #6D6AFE;
+  margin-left: 10px;
 }
