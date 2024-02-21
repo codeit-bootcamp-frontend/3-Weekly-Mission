@@ -12,7 +12,7 @@ const shareToKakao = (kakaoSdk: boolean, modal: ModalInterface) => {
             console.log(window.Kakao);
             const kakao = window.Kakao;
             if (!kakao.isInitialized()) {
-                kakao.init(`${process.env.REACT_APP_KAKAO_JS_KEY}`); // 카카오에서 제공받은 javascript key를 넣어줌
+                kakao.init(`${process.env.NEXT_APP_KAKAO_JS_KEY}`); // 카카오에서 제공받은 javascript key를 넣어줌
             }
 
             kakao.Link.sendDefault({

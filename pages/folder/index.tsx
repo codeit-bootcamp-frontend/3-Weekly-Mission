@@ -14,10 +14,6 @@ import FolderCollection from "@/components/Contents/FolderCollection/FolderColle
 import CardList from "@/components/Contents/CardList/CardList";
 import Footer from "@/components/Footer/Footer";
 import Modal from "@/components/Modal/Modal";
-import getFetch from "@/utils/getFetch";
-import { URL_DOMAIN } from "@/Constants/Constants";
-import getFormattedCamelCaseData from "@/utils/getFormattedCamelCaseData";
-import { getFolderPageUserData } from "@/data";
 
 export default function Folder() {
     const { modal, showModal, closeModal } = useModal();

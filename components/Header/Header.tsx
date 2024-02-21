@@ -82,6 +82,7 @@ const Header = ({ login, userData }: HeaderProps) => {
             </HeaderWrap>
         );
     }
+    return null;
 };
 
 const HeaderWrap = styled.div`

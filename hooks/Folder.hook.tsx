@@ -5,7 +5,7 @@ import getFormattedCamelCaseData from "@/utils/getFormattedCamelCaseData";
 import {
     CardInterface,
     FolderDataInterface,
-    FolderPageUserDataInterface,
+    UserDataInterface,
     ModalInterface,
 } from "@/interfaces";
 import { URL_DOMAIN } from "@/Constants/Constants";
@@ -116,7 +116,7 @@ export const useFolderPageLogin = () => {
     // login의 경우 맨처음 false가 들어오는게 명확해서 알아서 타입을 boolean으로 지정해줌
     // 반면 userData의 경우 확장의 가능성이 있으니 UserDataInterface로 지정해줌
     const [login, setLogin] = useState(false);
-    const [userData, setUserData] = useState<FolderPageUserDataInterface>();
+    const [userData, setUserData] = useState<UserDataInterface>();
 
     // Header의 유저 프로필 데이터
     useEffect(() => {
