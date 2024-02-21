@@ -8,7 +8,7 @@ import Image from "next/image";
 
 interface FolderCollectionProps {
     onButtonClick: ShowModal;
-    folderData: FolderDataInterface[] | undefined;
+    folderData?: FolderDataInterface[];
     onOverviewCardButtonClick: NoArgsNoReturnFunction;
     onFilteredCardButtonClick: (id: number) => void;
     userData: any;
