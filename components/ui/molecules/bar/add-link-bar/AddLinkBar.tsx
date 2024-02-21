@@ -15,6 +15,7 @@ const AddLinkBar = ({ handleModal, input, onChange }: TAddLinkBarProps) => {
         <Image
           width={20}
           height={20}
+          sizes='(max-width: 767px) 16px, 20px'
           className={styles['add-link-img']}
           src={'/images/folder/folder-link.svg'}
           alt='폴더 링크 추가 아이콘'
