@@ -77,28 +77,30 @@ const LoginForm = () => {
       )}
 
       <label htmlFor="password">비밀번호</label>
-      <input
-        id="password"
-        type={showPassword ? "text" : "password"}
-        placeholder="비밀번호를 입력해 주세요."
-        style={errors?.password && { borderColor: "red" }}
-        className={errors?.password ? styles.error : ""}
-        {...register("password", {
-          required: "비밀번호를 입력해 주세요.",
-        })}
-      />
-      <button
-        type="button"
-        onClick={togglePasswordVisibility}
-        className={styles.eyeIcon}
-      >
-        <Image
-          src={showPassword ? eyeOffIcon : eyeOnIcon}
-          alt="비밀번호 보기"
-          width={16}
-          height={16}
+      <div className={styles.inputWrapper}>
+        <input
+          id="password"
+          type={showPassword ? "text" : "password"}
+          placeholder="비밀번호를 입력해 주세요."
+          style={errors?.password && { borderColor: "red" }}
+          className={errors?.password ? styles.error : ""}
+          {...register("password", {
+            required: "비밀번호를 입력해 주세요.",
+          })}
         />
-      </button>
+        <button
+          type="button"
+          onClick={togglePasswordVisibility}
+          className={styles.eyeIcon}
+        >
+          <Image
+            src={showPassword ? eyeOffIcon : eyeOnIcon}
+            alt="비밀번호 보기"
+            width={16}
+            height={16}
+          />
+        </button>
+      </div>
       {errors.password && (
         <p className={styles.errorMessage}>
           {errors.password.message as string}
