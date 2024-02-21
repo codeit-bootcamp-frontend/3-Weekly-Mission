@@ -38,7 +38,7 @@ const SignupForm = () => {
     );
     const data = await response.json();
 
-    if (response.ok && !data.isUsableNickname) {
+    if (response.status === 409) {
       setError("email", {
         type: "manual",
         message: "이미 사용 중인 이메일입니다.",
@@ -58,6 +58,18 @@ const SignupForm = () => {
       router.push("/folder");
     } else {
       alert("회원가입에 실패했습니다.");
+      setError("email", {
+        type: "manual",
+        message: "이메일을 확인해 주세요.",
+      });
+      setError("password", {
+        type: "manual",
+        message: "비밀번호를 확인해 주세요.",
+      });
+      setError("passwordConfirmation", {
+        type: "manual",
+        message: "비밀번호를 확인해 주세요.",
+      });
     }
   };
 
