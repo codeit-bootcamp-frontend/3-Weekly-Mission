@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import styles from './LinkString.module.css';
+import classNames from 'classnames';
+
+const cn = classNames.bind(styles);
 
 interface Props {
   className: string;
@@ -7,11 +10,11 @@ interface Props {
 
 export default function LinkString({ className }: Props) {
   return (
-    <div className={styles[className]}>
-      <Link className={styles['footer-link']} href="privacy.html">
+    <div className={cn(className)}>
+      <Link className={cn('footer-link')} href="privacy.html">
         Privacy Policy
       </Link>
-      <Link className={styles['footer-link']} href="faq.html">
+      <Link className={cn('footer-link')} href="faq.html">
         FAQ
       </Link>
     </div>

@@ -1,6 +1,9 @@
 import { FocusEvent, MouseEvent, useState } from 'react';
 import styles from './Input.module.css';
 import Image from 'next/image';
+import classNames from 'classnames';
+
+const cn = classNames.bind(styles);
 
 interface Props {
   type: 'email' | 'password';
@@ -28,19 +31,19 @@ export default function Input({ type }: Props) {
 
   const onBlurInput = (e: FocusEvent<HTMLInputElement>) => {
     if (!CHECK[type].test(e.target.value)) {
-      e.target.classList.add(styles['error']);
+      e.target.classList.add(cn('error'));
       setIsError(true);
     } else {
-      e.target.classList.remove(styles['error']);
+      e.target.classList.remove(cn('error'));
       setIsError(false);
     }
   };
 
   return (
-    <div className={styles['input-container']}>
+    <div className={cn('input-container')}>
       <input
         type={type}
-        className={styles['input']}
+        className={cn('input')}
         placeholder="내용 입력"
         onBlur={onBlurInput}
       />
@@ -49,7 +52,7 @@ export default function Input({ type }: Props) {
           <Image
             width={16}
             height={16}
-            className={styles['password-icon']}
+            className={cn('password-icon')}
             src="/images/eye-on.svg"
             alt="눈모양 아이콘"
             onClick={onClickIcon}
@@ -58,16 +61,14 @@ export default function Input({ type }: Props) {
           <Image
             width={16}
             height={16}
-            className={styles['password-icon']}
+            className={cn('password-icon')}
             src="/images/eye-off.svg"
             alt="눈에 빗금친 아이콘"
             onClick={onClickIcon}
           />
         ))}
       {isError && (
-        <span className={styles['error-message']}>
-          내용을 다시 작성해주세요
-        </span>
+        <span className={cn('error-message')}>내용을 다시 작성해주세요</span>
       )}
     </div>
   );

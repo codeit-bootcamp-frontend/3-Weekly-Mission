@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getFolder } from '@/pages/api/api';
 import styles from './Folder.module.css';
+import classNames from 'classnames';
+
+const cn = classNames.bind(styles);
 
 interface FolderType {
   id: number;
@@ -35,21 +38,19 @@ export default function Folder() {
   }, []);
 
   return (
-    <div className={styles['information']}>
-      <div className={styles['folder-info']}>
-        <div className={styles['user-info']}>
+    <div className={cn('information')}>
+      <div className={cn('folder-info')}>
+        <div className={cn('user-info')}>
           <img
-            className={styles['owner-profile']}
+            className={cn('owner-profile')}
             src={folder?.owner.profileImageSource || '/images/logo.svg'}
             alt="소유자 프로필"
           />
-          <span className={styles['owner-name']}>
+          <span className={cn('owner-name')}>
             {folder?.owner.name || 'anonymous'}
           </span>
         </div>
-        <div className={styles['folder-name']}>
-          {folder?.name || 'Linkbrary'}
-        </div>
+        <div className={cn('folder-name')}>{folder?.name || 'Linkbrary'}</div>
       </div>
     </div>
   );

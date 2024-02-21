@@ -5,12 +5,6 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import dotenv from 'dotenv';
 
-declare global {
-  interface Window {
-    Kakao: any;
-  }
-}
-
 dotenv.config();
 
 export default function App({ Component, pageProps }: AppProps) {
