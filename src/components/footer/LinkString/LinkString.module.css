@@ -1,0 +1,11 @@
+.footer-links {
+  display: flex;
+  column-gap: 3rem;
+  padding-right: 1.8rem;
+}
+
+.footer-link {
+  color: #cfcfcf;
+  font-family: Arial;
+  font-size: 1.6rem;
+}

@@ -1,0 +1,69 @@
+.folder-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.add-list {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.add-list-input {
+  border: none;
+  outline: none;
+  width: 6.7rem;
+
+  color: #6d6afe;
+  font-family: Abel;
+  font-size: 1.6rem;
+  letter-spacing: -0.3px;
+}
+
+.add-list-button {
+  width: 1.6rem;
+  height: 1.6rem;
+  cursor: pointer;
+  background-image: url('/images/addpurple.png');
+  background-position: center;
+}
+
+@media (max-width: 767px) {
+  .add-list {
+    width: 10rem;
+    position: fixed;
+    bottom: 101px;
+    left: calc(50vw - 5rem);
+
+    display: flex;
+    padding: 0.8rem 2.4rem;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+    z-index: 9;
+
+    border-radius: 20px;
+    border: 1px solid var(--Linkbrary-white, #fff);
+    background: var(--Linkbrary-primary-color, #6d6afe);
+  }
+
+  .add-list-input {
+    width: 80%;
+    color: var(--Linkbrary-gray10, #e7effb);
+    text-align: center;
+    background-color: #6d6afe;
+  }
+
+  .add-list-button {
+    background-image: url('/images/addwhite.png');
+  }
+}

@@ -1,0 +1,28 @@
+.list-button {
+  display: flex;
+  padding: 0.8rem 1.2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 3.7rem;
+
+  border-radius: 5px;
+  border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
+  background: #fff;
+
+  color: #000;
+  font-size: 1.6rem;
+}
+
+.list-button.active,
+.list-button:hover {
+  background: var(--Linkbrary-primary-color, #6d6afe);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .list-button {
+    padding: 0.6rem 1rem;
+  }
+}
