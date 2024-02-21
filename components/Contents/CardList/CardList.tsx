@@ -9,11 +9,11 @@ import Link from "next/link";
 
 interface CardListProps {
     onDeleteButtonClick: ShowModal;
-    cardListData: CardInterface[] | undefined;
+    cardListData?: CardInterface[];
 }
 
 const CardList = ({ onDeleteButtonClick, cardListData }: CardListProps) => {
-    if (cardListData === undefined) {
+    if (!cardListData) {
         return null;
     }
 

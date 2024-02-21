@@ -1,5 +1,6 @@
 import { RefObject } from "react";
 import { CloseModal } from "../types";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export interface ModalInterface {
     type: string;
@@ -8,20 +9,14 @@ export interface ModalInterface {
     url: string;
 }
 
-export interface FolderPageUserDataInterface {
+export interface UserDataInterface {
     id: number;
     createdAt: string;
     name: string;
-    imageSource: string;
+    imageSource: string | StaticImport;
+    profileImageSource: string | StaticImport;
     email: string;
     authId: string;
-}
-
-export interface SharedPageUserDataInterface {
-    email: string;
-    id: number;
-    name: string;
-    profileImageSource: string;
 }
 
 export interface CardInterface {

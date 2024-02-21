@@ -1,53 +1,87 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
+import { UserDataInterface } from "@/interfaces";
+import { useRouter } from "next/router";
 
 // 컴포넌트의 props 타입 정의의 경우 항상 해줘야한다.
 interface HeaderProps {
     login: boolean;
     // ToDo :userData의 경우 sharedPage와 folderPage에서 사용되는데, FolderPageUserDataInterface와 SharedPageUserDataInterface를
     // 유니온 타입으로 정의했는데 자꾸 에러가 뜨는 이슈 고치기
-    userData: any;
+    userData?: UserDataInterface;
 }
 
 const Header = ({ login, userData }: HeaderProps) => {
-    // userData가 undefined인지 확인을 해야하므로 체크를 해준다
-    if (userData === undefined) {
+    const { route } = useRouter();
+
+    if (!userData) {
         return null;
     }
-    return (
-        <HeaderWrap>
-            <HeaderContainer>
-                <HeaderLogoImgBox href="/">
-                    <Image
-                        src="/images/logo.svg"
-                        alt="로고 이미지"
-                        width={133}
-                        height={24}
-                    />
-                </HeaderLogoImgBox>
-                {login ? (
-                    <HeaderProfileBox>
+    // shared 페이지
+    if (route.includes("shared")) {
+        return (
+            <HeaderWrap>
+                <HeaderContainer>
+                    <HeaderLogoImgBox href="/">
                         <Image
-                            src={
-                                userData.profileImageSource
-                                    ? userData.profileImageSource
-                                    : userData.imageSource
-                            }
-                            alt="프로필 이미지"
-                            width={28}
-                            height={28}
+                            src="/images/logo.svg"
+                            alt="로고 이미지"
+                            width={133}
+                            height={24}
                         />
-                        <div>{userData.email}</div>
-                    </HeaderProfileBox>
-                ) : (
-                    <HeaderLoginInButton type="button">
-                        <Link href="/signin">로그인</Link>
-                    </HeaderLoginInButton>
-                )}
-            </HeaderContainer>
-        </HeaderWrap>
-    );
+                    </HeaderLogoImgBox>
+                    {login ? (
+                        <HeaderProfileBox>
+                            <Image
+                                src={userData?.profileImageSource}
+                                alt="프로필 이미지"
+                                width={28}
+                                height={28}
+                            />
+                            <div>{userData?.email}</div>
+                        </HeaderProfileBox>
+                    ) : (
+                        <HeaderLoginInButton type="button">
+                            <Link href="/signin">로그인</Link>
+                        </HeaderLoginInButton>
+                    )}
+                </HeaderContainer>
+            </HeaderWrap>
+        );
+    }
+    // folder 페이지
+    if (route.includes("folder")) {
+        return (
+            <HeaderWrap>
+                <HeaderContainer>
+                    <HeaderLogoImgBox href="/">
+                        <Image
+                            src="/images/logo.svg"
+                            alt="로고 이미지"
+                            width={133}
+                            height={24}
+                        />
+                    </HeaderLogoImgBox>
+                    {login ? (
+                        <HeaderProfileBox>
+                            <Image
+                                src={userData?.imageSource}
+                                alt="프로필 이미지"
+                                width={28}
+                                height={28}
+                            />
+                            <div>{userData?.email}</div>
+                        </HeaderProfileBox>
+                    ) : (
+                        <HeaderLoginInButton type="button">
+                            <Link href="/signin">로그인</Link>
+                        </HeaderLoginInButton>
+                    )}
+                </HeaderContainer>
+            </HeaderWrap>
+        );
+    }
 };
 
 const HeaderWrap = styled.div`
