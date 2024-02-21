@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@types/kakao-js-sdk": "^1.39.5",
         "babel-plugin-styled-components": "^2.1.4",
         "next": "^14.1.0",
         "react": "^18",
