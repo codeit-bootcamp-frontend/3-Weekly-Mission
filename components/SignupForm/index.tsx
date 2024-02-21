@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./index.module.css";
@@ -55,6 +55,8 @@ const SignupForm = () => {
       body: JSON.stringify(data),
     });
     if (response.ok) {
+      const responseData = await response.json();
+      localStorage.setItem("accessToken", responseData.accessToken);
       router.push("/folder");
     } else {
       alert("회원가입에 실패했습니다.");
@@ -72,6 +74,12 @@ const SignupForm = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      router.push("/folder");
+    }
+  }, []);
 
   return (
     <form className={styles.form} noValidate onSubmit={handleSubmit(onSubmit)}>
