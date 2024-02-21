@@ -1,5 +1,7 @@
 import { useMemo, useRef } from 'react';
 
+import Head from 'next/head';
+
 import { useTargetVisibleState } from '@hooks/useTargetVisibleState';
 
 import AddLink from './comp/add-link/AddLink';
@@ -28,6 +30,9 @@ const FolderPage = <T extends HTMLElement>() => {
 
   return (
     <>
+      <Head>
+        <title>Linkbrary folder page</title>
+      </Head>
       <Header />
       <AddLink ref={addLinkRef} shouldAddLinkLocateBottom={shouldAddLinkLocateBottom} />
       <Article />
