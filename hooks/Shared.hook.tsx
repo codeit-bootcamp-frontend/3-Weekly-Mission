@@ -9,6 +9,12 @@ import {
 } from "@/interfaces";
 import { SharedFolderIdType, SharedUserIdType } from "@/types";
 import { useRouter } from "next/router";
+import {
+    getSharedPageFolderData,
+    getSharedPageInfoData,
+    getSharedPageLinkListData,
+    getSharedPageUserData,
+} from "@/data";
 
 // Header의 유저 프로필 데이터 및 로그인 여부
 export const useSharedPageLogin = () => {
@@ -17,13 +23,11 @@ export const useSharedPageLogin = () => {
 
     useEffect(() => {
         try {
-            getFetch("bootcamp-api.codeit.kr", "api/sample/user").then(
-                (user) => {
-                    const formattedUser = getFormattedCamelCaseData(user);
-                    setUserData({ ...formattedUser });
-                    setLogin(true);
-                }
-            );
+            (async () => {
+                const data = await getSharedPageUserData();
+                setUserData({ ...data });
+                setLogin(true);
+            })();
         } catch (error) {
             console.error(error);
         }
@@ -62,15 +66,12 @@ export const useGetSharedPageInfo = () => {
     useEffect(() => {
         try {
             setIsLoadingSharedPageInfo(true);
-            getFetch("bootcamp-api.codeit.kr", `api/sample/folder`)
-                .then((data) => {
-                    return data.folder;
-                })
-                .then((result) => {
-                    setSharedPageInfo(() => {
-                        return result;
-                    });
+            (async () => {
+                const data = await getSharedPageInfoData();
+                setSharedPageInfo(() => {
+                    return data;
                 });
+            })();
         } catch (err) {
             setSharedPageInfoError(err);
         } finally {
@@ -95,16 +96,10 @@ export const useGetFolderListData = (
         try {
             setIsLoadingFolderListData(true);
             if (sharedFolderId) {
-                getFetch(
-                    "bootcamp-api.codeit.kr",
-                    `api/users/${sharedUserId}/folders`
-                )
-                    .then((res) => {
-                        return res.data;
-                    })
-                    .then((result) => {
-                        return setFolderListData(result);
-                    });
+                (async (sharedUserId) => {
+                    const data = await getSharedPageFolderData(sharedUserId);
+                    setFolderListData(data);
+                })();
             }
         } catch (err) {
             setFolderListDataError(err);
@@ -150,19 +145,14 @@ export const useGetShareCardList = (
         try {
             setIsLoadingSetCardListData(true);
             if (sharedFolderId && sharedUserId) {
-                getFetch(
-                    "bootcamp-api.codeit.kr",
-                    `api/users/${sharedUserId}/links?folderId=${sharedFolderId}`
-                )
-                    .then((res) => {
-                        return res.data;
-                    })
-                    .then((result) => {
-                        // sample 데이터의 link부분의 key를 카멜 케이스에서 스네이크 케이스로 변환
-                        const formattedData = getFormattedCamelCaseData(result);
-                        setCardListData(formattedData);
-                        originalCardListData.current = formattedData;
-                    });
+                (async () => {
+                    const data = await getSharedPageLinkListData(
+                        sharedFolderId,
+                        sharedUserId
+                    );
+                    setCardListData(data);
+                    originalCardListData.current = data;
+                })();
             }
         } catch (err) {
             setCardListDataError(err);
