@@ -2,14 +2,14 @@ import { useRef, useState } from "react";
 
 import styled from "styled-components";
 import { DEFALUT_MODAL_VALUE } from "@/Constants/Constants";
-import { NoArgsNoReturnFunction, ShowModal } from "@/types";
+import { ShowModal } from "@/types";
 import { FolderDataInterface } from "@/interfaces";
 import Image from "next/image";
 
 interface FolderCollectionProps {
     onButtonClick: ShowModal;
     folderData?: FolderDataInterface[];
-    onOverviewCardButtonClick: NoArgsNoReturnFunction;
+    onOverviewCardButtonClick: () => void;
     onFilteredCardButtonClick: (id: number) => void;
     userData: any;
 }
