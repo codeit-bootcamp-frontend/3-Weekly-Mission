@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./index.module.css";
@@ -33,6 +33,8 @@ const LoginForm = () => {
     });
 
     if (response.ok) {
+      const responseData = await response.json();
+      localStorage.setItem("accessToken", responseData.accessToken);
       router.push("/folder");
     } else {
       alert("이메일 또는 비밀번호를 확인해 주세요.");
@@ -46,6 +48,12 @@ const LoginForm = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      router.push("/folder");
+    }
+  }, []);
 
   return (
     <form className={styles.form} noValidate onSubmit={handleSubmit(onSubmit)}>
