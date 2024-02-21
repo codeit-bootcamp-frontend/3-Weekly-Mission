@@ -42,9 +42,9 @@ export const useGetSharedPageIds = () => {
     const { user, folder } = router.query;
     console.log("user : ", user, "folder : ", folder);
 
-    const [sharedUserId, setSharedUserId] = useState<SharedUserIdType>(null);
+    const [sharedUserId, setSharedUserId] = useState<SharedUserIdType>("");
     const [sharedFolderId, setSharedFolderId] =
-        useState<SharedFolderIdType>(null);
+        useState<SharedFolderIdType>("");
 
     useEffect(() => {
         setSharedUserId(user);
