@@ -11,6 +11,8 @@ import eyeOnIcon from "../../images/eye-on.svg";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] =
+    useState(false);
   const router = useRouter();
   const {
     register,
@@ -23,6 +25,10 @@ const SignupForm = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const togglePasswordConfirmationVisibility = () => {
+    setShowPasswordConfirmation(!showPasswordConfirmation);
   };
 
   const checkEmail = async (email) => {
@@ -139,30 +145,32 @@ const SignupForm = () => {
       )}
 
       <label htmlFor="passwordConfirmation">비밀번호 확인</label>
-      <input
-        id="passwordConfirmation"
-        type={showPassword ? "text" : "password"}
-        placeholder="비밀번호와 일치하는 값을 입력해 주세요."
-        style={errors?.password && { borderColor: "red" }}
-        className={errors?.password ? styles.error : ""}
-        {...register("passwordConfirmation", {
-          required: "비밀번호를 입력해 주세요.",
-          validate: (value) =>
-            value === password || "비밀번호가 일치하지 않습니다.",
-        })}
-      />
-      <button
-        type="button"
-        onClick={togglePasswordVisibility}
-        className={styles.eyeIcon}
-      >
-        <Image
-          src={showPassword ? eyeOffIcon : eyeOnIcon}
-          alt="비밀번호 보기"
-          width={16}
-          height={16}
+      <div className={styles.inputWrapper}>
+        <input
+          id="passwordConfirmation"
+          type={showPasswordConfirmation ? "text" : "password"}
+          placeholder="비밀번호와 일치하는 값을 입력해 주세요."
+          style={errors?.password && { borderColor: "red" }}
+          className={errors?.password ? styles.error : ""}
+          {...register("passwordConfirmation", {
+            required: "비밀번호를 입력해 주세요.",
+            validate: (value) =>
+              value === password || "비밀번호가 일치하지 않습니다.",
+          })}
         />
-      </button>
+        <button
+          type="button"
+          onClick={togglePasswordConfirmationVisibility}
+          className={styles.eyeIcon}
+        >
+          <Image
+            src={showPasswordConfirmation ? eyeOffIcon : eyeOnIcon}
+            alt="비밀번호 보기"
+            width={16}
+            height={16}
+          />
+        </button>
+      </div>
       {errors.passwordConfirmation && (
         <p className={styles.errorMessage}>
           {errors.passwordConfirmation.message as string}
