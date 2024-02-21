@@ -6,23 +6,12 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "ca.slack-edge.com",
-                port: "",
-                pathname: "/*",
-            },
-            {
-                protocol: "https",
-                hostname: "codeit-front.s3.ap-northeast-2.amazonaws.com",
-                port: "",
-                pathname: "/**/*",
-            },
-            {
-                protocol: "https",
-                hostname: "codeit-images.codeit.com",
-                port: "",
-                pathname: "/**/*",
+                hostname: "*",
             },
         ],
+    },
+    compiler: {
+        styledComponents: true, // styled-components 사용을 위한 설정
     },
 };
 
