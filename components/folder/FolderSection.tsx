@@ -11,11 +11,20 @@ import classNames from "classnames/bind";
 import { useInitializationEffect } from "../../hook/useInit";
 
 const cx = classNames.bind(styles);
+const initialUserFolder: UserFolder = {
+  id: undefined,
+  created_at: "",
+  name: "전체",
+  user_id: 0,
+  favorite: false,
+  link: {
+    count: 0,
+  },
+};
 
 export default function FolderSection({ initialItems }) {
-  const [selectedFolder, setSelectedFolder] = useState<
-    UserFolder | Pick<UserFolder, "id" | "name">
-  >({ id: undefined, name: "전체" });
+  const [selectedFolder, setSelectedFolder] =
+    useState<UserFolder>(initialUserFolder);
   const [items, setItems] = useState<UserLink[]>(initialItems);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -32,9 +41,7 @@ export default function FolderSection({ initialItems }) {
       (link.title && link.title.includes(searchTerm)) ||
       (link.description && link.description.includes(searchTerm))
   );
-  const handleSelectFolder = (
-    folder: UserFolder | Pick<UserFolder, "id" | "name">
-  ) => {
+  const handleSelectFolder = (folder: UserFolder) => {
     setSelectedFolder(folder);
   };
 
