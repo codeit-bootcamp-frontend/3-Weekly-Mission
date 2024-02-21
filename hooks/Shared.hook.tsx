@@ -15,6 +15,7 @@ import {
     getSharedPageLinkListData,
     getSharedPageUserData,
 } from "@/data";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 // Header의 유저 프로필 데이터 및 로그인 여부
 export const useSharedPageLogin = () => {
@@ -55,8 +56,8 @@ export const useGetSharedPageInfo = () => {
         useState<SharedPageInfoInterface>();
     const [isLoadingSharedPageInfo, setIsLoadingSharedPageInfo] =
         useState(false);
-    // 타입스크립트 v4.4 부터는 error의 object가 unknown type으로 정의
-    const [sharedPageInfoError, setSharedPageInfoError] = useState<unknown>();
+    // 타입스크립트 v4.4 부터는 error의 object가 unknown type으로 정의돼지만 타입가드를 이용해 타입을 정의할 수 있다.
+    const [sharedPageInfoError, setSharedPageInfoError] = useState("");
 
     useEffect(() => {
         try {
@@ -68,7 +69,7 @@ export const useGetSharedPageInfo = () => {
                 });
             })();
         } catch (err) {
-            setSharedPageInfoError(err);
+            setSharedPageInfoError(() => getErrorMessage(err));
         } finally {
             setIsLoadingSharedPageInfo(false);
         }
