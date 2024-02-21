@@ -86,7 +86,7 @@ export const useGetFolderListData = (
     const [folderListData, setFolderListData] = useState([]);
     const [isLoadingFolderListData, setIsLoadingFolderListData] =
         useState(false);
-    const [folderListDataError, setFolderListDataError] = useState<unknown>();
+    const [folderListDataError, setFolderListDataError] = useState("");
 
     useEffect(() => {
         try {
@@ -98,7 +98,7 @@ export const useGetFolderListData = (
                 })();
             }
         } catch (err) {
-            setFolderListDataError(err);
+            setFolderListDataError(() => getErrorMessage(err));
         } finally {
             setIsLoadingFolderListData(false);
         }
@@ -134,7 +134,7 @@ export const useGetShareCardList = (
     const [cardListData, setCardListData] = useState<CardInterface[]>();
     const [isLoadingSetCardListData, setIsLoadingSetCardListData] =
         useState(false);
-    const [cardListDataError, setCardListDataError] = useState<unknown>();
+    const [cardListDataError, setCardListDataError] = useState("");
     const originalCardListData = useRef([]);
 
     useEffect(() => {
@@ -151,7 +151,7 @@ export const useGetShareCardList = (
                 })();
             }
         } catch (err) {
-            setCardListDataError(err);
+            setCardListDataError(() => getErrorMessage(err));
         } finally {
             setIsLoadingSetCardListData(false);
         }
