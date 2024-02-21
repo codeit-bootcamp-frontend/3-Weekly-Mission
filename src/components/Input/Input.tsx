@@ -31,10 +31,8 @@ export default function Input({ type }: Props) {
 
   const onBlurInput = (e: FocusEvent<HTMLInputElement>) => {
     if (!CHECK[type].test(e.target.value)) {
-      e.target.classList.add(cn('error'));
       setIsError(true);
     } else {
-      e.target.classList.remove(cn('error'));
       setIsError(false);
     }
   };
@@ -43,7 +41,7 @@ export default function Input({ type }: Props) {
     <div className={cn('input-container')}>
       <input
         type={type}
-        className={cn('input')}
+        className={isError ? cn('input', 'error') : cn('input')}
         placeholder="내용 입력"
         onBlur={onBlurInput}
       />

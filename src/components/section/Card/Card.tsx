@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, ReactNode, useState } from 'react';
 import timeDifferenceCalculate from '../../../utils/timeElapsedCalculate';
 import DropDown from '../DropDown/DropDown';
 import BaseModal from '../BaseModal/BaseModal';
@@ -37,7 +37,7 @@ export default function Card({ page, folderList }: Props) {
   const temp = upload.toLocaleDateString();
   const uploadDate = temp.slice(0, temp.length - 1);
 
-  let modalContent;
+  let modalContent: ReactNode;
 
   switch (selectDropDownItem) {
     case '삭제하기':

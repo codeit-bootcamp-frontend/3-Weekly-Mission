@@ -69,18 +69,14 @@ export async function getServerSideProps() {
   const userId = 1;
   let links: LinkType[];
   let folderList: FolderList[];
-  {
-    const data: LinkType[] = (await getLinksById(folderInfo.id)).data;
-    if (!data) return;
-    links = data;
-  }
-  {
-    const data: Folder[] = (await getFoldersById(userId)).data;
-    if (!data) return;
-    folderList = data.map((element: Folder) => {
-      return { name: element.name, linkCount: element.link.count };
-    });
-  }
+  let data: Folder[];
+
+  links = (await getLinksById(folderInfo.id)).data;
+
+  data = (await getFoldersById(userId)).data;
+  folderList = data.map((element: Folder) => {
+    return { name: element.name, linkCount: element.link.count };
+  });
 
   const initialData = {
     folderInfo,
