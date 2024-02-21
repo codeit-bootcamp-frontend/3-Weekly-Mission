@@ -1,0 +1,61 @@
+footer {
+  height: 16rem;
+  width: 100%;
+  padding-block: 3.2rem 6.4rem;
+
+  background: var(--the-julge-black, #111322);
+}
+
+.footer-area {
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: 6rem;
+  white-space: nowrap;
+
+  grid-template:
+    'service sm'
+    'copy .'
+    / 1fr 1fr;
+
+  width: 100%;
+  padding-inline: 3.2rem;
+
+  @media screen and (width >= 768px) {
+    padding-inline: 10.4rem;
+
+    display: flex;
+    row-gap: 0;
+  }
+}
+
+.copyright {
+  color: #676767;
+  font-size: 1.6rem;
+  font-weight: 400;
+
+  grid-area: copy;
+}
+
+.service-box {
+  display: flex;
+  column-gap: 3rem;
+
+  color: #cfcfcf;
+  font-size: 1.6rem;
+  font-weight: 400;
+
+  grid-area: service;
+}
+
+.social-media-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1.2rem;
+
+  grid-area: sm;
+
+  padding: 0; /* ul reset */
+  list-style-type: none;
+}

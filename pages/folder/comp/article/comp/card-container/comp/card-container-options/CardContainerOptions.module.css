@@ -1,0 +1,36 @@
+.card-container-options-box {
+  display: flex;
+  column-gap: 1.2rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+
+  flex-basis: 100%;
+  justify-content: flex-start;
+
+  @media screen and (min-width: 768px) {
+    flex-basis: auto;
+    justify-content: space-between;
+  }
+}
+
+.card-container-options-btn {
+  display: flex;
+  column-gap: 0.4rem;
+  flex-shrink: 0;
+
+  padding: 0;
+  background-color: transparent;
+}
+
+.card-container-options-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.card-container-options-text {
+  color: var(--linkbrary-gray60, #9fa6b2);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: normal;
+}

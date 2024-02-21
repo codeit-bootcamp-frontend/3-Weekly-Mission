@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -13,8 +13,19 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@components/*": ["./components/*"],
+      "@pages/*": ["./pages/*"],
+      "@utils/*": ["./utils/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@api/*": ["./api/*"],
+      "@assets/*": ["./assets/*"],
+      "@layout/*": ["./shared/layout/*"],
+      "@routes/*": ["./shared/routes/*"],
+      "@style/*": ["./style/*"],
+      "@/*": ["./*"],
+      "@public/*": ["./public/*"] // cannot resolve public path with '/' when import assets from public folder.
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -1,0 +1,51 @@
+@import url('./reset.css');
+@import url('./color.css');
+@import url('./font.css');
+
+:root {
+  --root-z-index: 1;
+  --portal-z-index: 2;
+}
+
+/* #root { */
+/* 문제 생기는 지 확인해야 함. */
+#__next {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  z-index: var(--root-z-index, 1);
+}
+
+#portal {
+  position: fixed;
+  z-index: var(--portal-z-index, 2);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.background-clip-text {
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
