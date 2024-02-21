@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { DependencyList, useEffect, useRef } from "react";
 
-export function useInitializationEffect(callBack, x) {
+export function useEffectAfterMount(callBack: () => void, x: DependencyList) {
   const a = useRef(false);
   useEffect(() => {
     if (a.current) {

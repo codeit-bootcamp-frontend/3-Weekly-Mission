@@ -19,7 +19,7 @@ export default function SignInForm() {
   const router = useRouter();
   if (typeof localStorage !== "undefined") {
     if (localStorage.getItem("accessToken")) {
-      router.push("/folder");
+      router.replace("/folder");
     }
   }
 

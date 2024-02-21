@@ -8,7 +8,7 @@ import FolderName from "./FolderName";
 import FolderContentCard from "./FolderContentCard";
 import { UserFolder, UserLink, getUserLinks } from "../../api/api";
 import classNames from "classnames/bind";
-import { useInitializationEffect } from "../../hook/useInit";
+import { useEffectAfterMount } from "../../hook/useInit";
 
 const cx = classNames.bind(styles);
 const initialUserFolder: UserFolder = {
@@ -28,7 +28,7 @@ export default function FolderSection({ initialItems }) {
   const [items, setItems] = useState<UserLink[]>(initialItems);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  useInitializationEffect(() => {
+  useEffectAfterMount(() => {
     async function handleload() {
       const { id } = selectedFolder;
       setItems(await getUserLinks(4, id));
