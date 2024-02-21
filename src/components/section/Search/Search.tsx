@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, MouseEvent, useRef } from 'react';
+import classNames from 'classnames/bind';
 import styles from './Search.module.css';
 import Image from 'next/image';
-import classNames from 'classnames';
 
 const cn = classNames.bind(styles);
 

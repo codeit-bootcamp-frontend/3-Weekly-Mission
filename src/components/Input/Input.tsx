@@ -1,12 +1,14 @@
-import { FocusEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, FocusEvent, MouseEvent, useState } from 'react';
 import styles from './Input.module.css';
 import Image from 'next/image';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
+import { InputType } from '@/pages/signin';
 
 const cn = classNames.bind(styles);
 
 interface Props {
-  type: 'email' | 'password';
+  type: InputType;
+  onChange: (type: InputType, value: string) => void;
 }
 
 const CHECK_EMAIL = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]{2,}/;
@@ -17,7 +19,7 @@ const CHECK = {
   password: CHECK_PASSWORD,
 };
 
-export default function Input({ type }: Props) {
+export default function Input({ type, onChange }: Props) {
   const [isHide, setIsHide] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -28,6 +30,9 @@ export default function Input({ type }: Props) {
     inputElement.type = inputElement.type === 'password' ? 'text' : 'password';
     setIsHide(!isHide);
   };
+
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) =>
+    onChange(type, e.target.value);
 
   const onBlurInput = (e: FocusEvent<HTMLInputElement>) => {
     if (!CHECK[type].test(e.target.value)) {
@@ -41,8 +46,10 @@ export default function Input({ type }: Props) {
     <div className={cn('input-container')}>
       <input
         type={type}
+        name={type}
         className={isError ? cn('input', 'error') : cn('input')}
         placeholder="내용 입력"
+        onChange={onChangeInput}
         onBlur={onBlurInput}
       />
       {type === 'password' &&

@@ -1,3 +1,5 @@
+import { User } from '../signin';
+
 export async function getUser() {
   const response = await fetch(
     'https://bootcamp-api.codeit.kr/api/sample/user'
@@ -43,4 +45,17 @@ export async function getLinksById(id = 0) {
   const body = await response.json();
 
   return body;
+}
+
+export async function postSignin(user: User) {
+  const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-in', {
+    method: 'POST',
+    headers: {
+      accept: '*/*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+
+  return response;
 }

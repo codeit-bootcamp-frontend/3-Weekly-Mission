@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getFolder } from '@/pages/api/api';
 import styles from './Folder.module.css';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 

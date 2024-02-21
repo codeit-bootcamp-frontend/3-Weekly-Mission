@@ -5,7 +5,7 @@ import BaseModal from '../BaseModal/BaseModal';
 import modalStyles from '../BaseModal/BaseModal.module.css';
 import styles from './FolderList.module.css';
 import { Folder, FolderInfo } from '@/pages/folder';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 const modalCn = classNames.bind(modalStyles);

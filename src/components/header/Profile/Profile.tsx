@@ -1,6 +1,6 @@
 import styles from './Profile.module.css';
 import { User } from '../Nav/Nav';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 

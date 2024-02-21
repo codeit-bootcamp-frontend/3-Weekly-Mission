@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import styles from './FolderListButton.module.css';
 import { FolderInfo } from '@/pages/folder';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 

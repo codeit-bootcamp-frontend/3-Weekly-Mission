@@ -1,6 +1,6 @@
 import LinkLogo from '../LinkLogo/LinkLogot';
 import styles from './Sns.module.css';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 

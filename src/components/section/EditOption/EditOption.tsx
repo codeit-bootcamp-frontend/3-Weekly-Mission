@@ -4,7 +4,7 @@ import styles from './EditOption.module.css';
 import modalStyles from '../BaseModal/BaseModal.module.css';
 import { FolderInfo } from '@/pages/folder';
 import Image from 'next/image';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 const modalCn = classNames.bind(modalStyles);

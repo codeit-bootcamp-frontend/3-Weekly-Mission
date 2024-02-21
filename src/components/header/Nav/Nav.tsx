@@ -4,7 +4,7 @@ import Profile from '../Profile/Profile';
 import styles from './Nav.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 

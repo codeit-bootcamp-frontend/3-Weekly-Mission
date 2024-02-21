@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from './LinkString.module.css';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 

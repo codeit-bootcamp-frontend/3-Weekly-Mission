@@ -10,7 +10,7 @@ import EditOption from '@/src/components/section/EditOption/EditOption';
 import Card from '@/src/components/section/Card/Card';
 import useIntersectionObserver from '@/src/hooks/useIntersectionObserver';
 import 'intersection-observer';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 
@@ -141,10 +141,12 @@ export default function FolderPage({ initialData }: Props) {
       <header className={cn('header')}>
         <Nav className="not-fixed" id={1} setUserId={handleSetUserId} />
         <div
-          className={cn('observe-arget')}
-          ref={(element) =>
-            observeTargets.current.push(element as HTMLDivElement)
-          }
+          className={cn('observe-target')}
+          ref={(element) => {
+            if (element) {
+              observeTargets.current.push(element);
+            }
+          }}
         >
           <AddLink folderList={folderList} />
         </div>
@@ -155,7 +157,7 @@ export default function FolderPage({ initialData }: Props) {
       <section className={cn('section')}>
         <Search handleOnChange={handleSearchOnChange} />
         {keyword && (
-          <span className={cn('search-esult')}>
+          <span className={cn('search-result')}>
             <strong className={cn('strong')}>{keyword}</strong>으로 검색한
             결과입니다.
           </span>
@@ -166,10 +168,12 @@ export default function FolderPage({ initialData }: Props) {
             onClickFolder={handleChangeFolder}
             id={1}
           />
-          <div className={cn('folders__folder-nfo')}>
-            <span className={cn('folders__folder-ame')}>{folderInfo.name}</span>
+          <div className={cn('folders__folder-info')}>
+            <span className={cn('folders__folder-name')}>
+              {folderInfo.name}
+            </span>
             {folderInfo.name === '전체' || (
-              <div className={cn('folders__folder-dit')}>
+              <div className={cn('folders__folder-edit')}>
                 <EditOption
                   src="/images/share.png"
                   optionName="공유"
@@ -212,16 +216,18 @@ export default function FolderPage({ initialData }: Props) {
                 })}
             </div>
           ) : (
-            <div className={cn('no-ink')}>저장된 링크가 없습니다.</div>
+            <div className={cn('no-link')}>저장된 링크가 없습니다.</div>
           )}
         </div>
       </section>
       <footer className={cn('footer')}>
         <div
-          className={cn('observe-arget')}
-          ref={(element) =>
-            observeTargets.current.push(element as HTMLDivElement)
-          }
+          className={cn('observe-target')}
+          ref={(element) => {
+            if (element) {
+              observeTargets.current.push(element);
+            }
+          }}
         >
           <div className={cn('footer-box')}>
             <span className={cn('copyright')}>©codeit - 2023</span>

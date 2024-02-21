@@ -6,7 +6,7 @@ import Folder from '@/src/components/header/Folder/Folder';
 import Search from '@/src/components/section/Search/Search';
 import Card from '@/src/components/section/Card/Card';
 import FooterLinks from '@/src/components/footer/FooterLinks/FooterLinks';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 

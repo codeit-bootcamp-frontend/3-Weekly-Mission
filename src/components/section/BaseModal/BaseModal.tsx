@@ -2,7 +2,7 @@ import { createPortal } from 'react-dom';
 import { MouseEvent, ReactNode } from 'react';
 import styles from './BaseModal.module.css';
 import Image from 'next/image';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
 
