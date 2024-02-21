@@ -1,8 +1,8 @@
 import Link from "next/link";
 import styles from "./index.module.css";
 import BigGoMainLogo from "../../components/BigGoMainLogo";
-import LoginSocialBox from "../../components/LoginSocialBox";
 import SignupForm from "../../components/SignupForm";
+import SignupSocialBox from "../../components/SignupSocialBox";
 
 const Signup = () => {
   return (
@@ -15,7 +15,7 @@ const Signup = () => {
           </span>
         </div>
         <SignupForm />
-        <LoginSocialBox />
+        <SignupSocialBox />
       </div>
     </div>
   );
