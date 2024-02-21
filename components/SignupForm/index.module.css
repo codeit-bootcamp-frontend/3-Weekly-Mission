@@ -4,7 +4,6 @@
   justify-content: center;
   width: 100%;
   margin-top: 20px;
-  position: relative;
 }
 
 .form label {
@@ -22,11 +21,15 @@
   box-sizing: border-box;
 }
 
+.inputWrapper {
+  position: relative;
+}
+
 .eyeIcon {
   background-color: white;
   position: absolute;
   right: 20px;
-  bottom: 109px;
+  bottom: 19px;
   cursor: pointer;
   border: none;
 }

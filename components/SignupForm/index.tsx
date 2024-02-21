@@ -104,32 +104,34 @@ const SignupForm = () => {
       )}
 
       <label htmlFor="password">비밀번호</label>
-      <input
-        id="password"
-        type={showPassword ? "text" : "password"}
-        placeholder="영문, 숫자를 조합해 8자 이상으로 입력해 주세요."
-        style={errors?.password && { borderColor: "red" }}
-        className={errors?.password ? styles.error : ""}
-        {...register("password", {
-          required: "비밀번호를 입력해 주세요.",
-          pattern: {
-            value: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-            message: "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.",
-          },
-        })}
-      />
-      <button
-        type="button"
-        onClick={togglePasswordVisibility}
-        className={styles.eyeIcon}
-      >
-        <Image
-          src={showPassword ? eyeOffIcon : eyeOnIcon}
-          alt="비밀번호 보기"
-          width={16}
-          height={16}
+      <div className={styles.inputWrapper}>
+        <input
+          id="password"
+          type={showPassword ? "text" : "password"}
+          placeholder="영문, 숫자를 조합해 8자 이상으로 입력해 주세요."
+          style={errors?.password && { borderColor: "red" }}
+          className={errors?.password ? styles.error : ""}
+          {...register("password", {
+            required: "비밀번호를 입력해 주세요.",
+            pattern: {
+              value: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+              message: "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.",
+            },
+          })}
         />
-      </button>
+        <button
+          type="button"
+          onClick={togglePasswordVisibility}
+          className={styles.eyeIcon}
+        >
+          <Image
+            src={showPassword ? eyeOffIcon : eyeOnIcon}
+            alt="비밀번호 보기"
+            width={16}
+            height={16}
+          />
+        </button>
+      </div>
       {errors.password && (
         <p className={styles.errorMessage}>
           {errors.password.message as string}
