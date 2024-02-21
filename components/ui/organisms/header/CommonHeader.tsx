@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { objectFit } from '@style/object-fit/object-fit';
+
 import { IProfileData } from '@api/folder-page/getProfileData';
 
 import styles from './CommonHeader.module.css';
@@ -19,7 +21,13 @@ const CommonHeader = ({ profileData }: THeaderProps) => {
     <header id='header' role='heading' aria-level={1}>
       <nav className={cn('gnb', 'absolute')} role='navigation'>
         <Link href='/' rel='nofollow' className={cn('logo')}>
-          <Image fill alt='symlink logo linked to home' src={'/images/logo/landing-logo.svg'} />
+          <Image
+            priority
+            fill
+            alt='symlink logo linked to home'
+            css={objectFit.cover}
+            src={'/images/logo/landing-logo.svg'}
+          />
         </Link>
         {profileData?.email ? <LoginSuccessProfile profileData={profileData} /> : <LoginButton>로그인</LoginButton>}
       </nav>

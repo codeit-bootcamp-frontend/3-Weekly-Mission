@@ -5,14 +5,7 @@ import LinkSearchBar from '@components/ui/molecules/bar/search-bar/link-search-b
 
 const SearchBar = ({ clearInput, input, onChange }: TSearchBarProps) => {
   return (
-    <div
-      css={`
-        display: flex;
-        flex-direction: column;
-        row-gap: 3.2rem;
-        width: 100%;
-      `}
-    >
+    <StSearchAreaWrap>
       <LinkSearchBar clearInput={clearInput} input={input} onChange={onChange} />
       {input && (
         <StSearchResult>
@@ -20,11 +13,18 @@ const SearchBar = ({ clearInput, input, onChange }: TSearchBarProps) => {
           으로 검색한 결과입니다.
         </StSearchResult>
       )}
-    </div>
+    </StSearchAreaWrap>
   );
 };
 
 export default SearchBar;
+
+const StSearchAreaWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 3.2rem;
+  width: 100%;
+`;
 
 const StSearchResult = styled.h3`
   color: ${({ theme }) => theme.gray60};

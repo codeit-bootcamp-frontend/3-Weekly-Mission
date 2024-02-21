@@ -24,10 +24,10 @@
       "@layout/*": ["./shared/layout/*"],
       "@routes/*": ["./shared/routes/*"],
       "@style/*": ["./style/*"],
-      "@/*": ["./*"]
-      // "/*": ["./public/*"]
+      "@/*": ["./*"],
+      "@public/*": ["./public/*"] // cannot resolve public path with '/' when import assets from public folder.
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/shared/index.pagetsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

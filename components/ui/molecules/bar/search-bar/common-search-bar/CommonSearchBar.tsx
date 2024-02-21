@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import MagnifierSvg from '@public/images/icon/magnifier.svg';
 import { mediaBreakpoint } from '@style/media-breakpoint/mediaBreakpoint';
-
-import MagnifierSvg from '@assets/magnifier.svg';
+import { objectFit } from '@style/object-fit/object-fit';
 
 export type TSearchBarProps = {
   input: string;
@@ -20,17 +20,7 @@ const CommonSearchBar = ({ input, onChange, clearInput }: TSearchBarProps) => {
         </StInputContentsArea>
         {input && (
           <StSearchBarCancelBtn type='reset' onClick={clearInput}>
-            <Image
-              css={`
-                width: 100%;
-                max-width: 100%;
-                height: 100%;
-                object-fit: cover;
-              `}
-              fill
-              alt='검색 취소 버튼 이미지'
-              src='/images/icon/close.svg'
-            />
+            <Image css={objectFit.cover} fill alt='검색 취소 버튼 이미지' src='/images/icon/close.svg' />
           </StSearchBarCancelBtn>
         )}
       </StInputArea>
