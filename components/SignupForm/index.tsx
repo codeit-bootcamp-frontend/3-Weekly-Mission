@@ -146,7 +146,7 @@ const SignupForm = () => {
         {...register("passwordConfirmation", {
           required: "비밀번호를 입력해 주세요.",
           validate: (value) =>
-            value === password || "비밀번호가 일치하지 않아요.",
+            value === password || "비밀번호가 일치하지 않습니다.",
         })}
       />
       <button
