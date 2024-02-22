@@ -1,4 +1,6 @@
 import { CardInterface, FolderInterface, ModalInterface } from "@/types/types";
+import calcDate from "@/utils/calcDate";
+import * as S from "./Card.style";
 
 export default function Card({
   card,
@@ -9,5 +11,11 @@ export default function Card({
   folderList?: FolderInterface[];
   onClick?: (m: ModalInterface) => void;
 }) {
-  const;
+  const unit = calcDate(card.created_at || card.createdAt);
+
+  return (
+    <>
+      <S.MainDiv>{onClick && <></>}</S.MainDiv>
+    </>
+  );
 }

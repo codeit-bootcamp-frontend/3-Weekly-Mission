@@ -46,7 +46,7 @@ export default function FolderModify({
     <S.MainDiv>
       <Title title={folder.name} />
       {folder.name !== "전체" && (
-        <S.ModifyBox>
+        <>
           <S.ButtonBox>
             <S.Button
               onClick={() => {
@@ -88,7 +88,7 @@ export default function FolderModify({
               삭제
             </S.Button>
           </S.ButtonBox>
-        </S.ModifyBox>
+        </>
       )}
     </S.MainDiv>
   );

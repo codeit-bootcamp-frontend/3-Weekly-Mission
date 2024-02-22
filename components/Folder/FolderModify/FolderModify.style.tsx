@@ -27,8 +27,6 @@ export const MainDiv = styled.div`
   }
 `;
 
-export const ModifyBox = styled(MainDiv)``;
-
 export const ButtonBox = styled.div`
   display: flex;
   height: 0;
