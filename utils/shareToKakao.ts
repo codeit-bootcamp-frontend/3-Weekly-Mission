@@ -1,11 +1,5 @@
 import { ModalInterface } from "../interfaces";
 
-// declare global {
-//     interface Window {
-//         Kakao: any;
-//     }
-// }
-
 const shareToKakao = (kakaoSdk: boolean, modal: ModalInterface) => {
     if (kakaoSdk) {
         if (window.Kakao) {

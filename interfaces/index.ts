@@ -71,3 +71,9 @@ export interface ModalProps {
     modal?: ModalInterface;
     onCloseModalButtonClick: CloseModal;
 }
+
+export interface signFormDataInterface {
+    email: string;
+    password: string;
+    confirmPassword?: string;
+}
