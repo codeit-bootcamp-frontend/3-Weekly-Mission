@@ -1,4 +1,4 @@
-import FolderInterface from "@/types/types";
+import { FolderInterface } from "@/types/types";
 import * as S from "./FolderTag.style";
 
 function Tag({
@@ -16,8 +16,11 @@ function Tag({
     }
   };
 
-  // 선택했을 때 clicked 여부
-  return <S.TagButton onClick={handleButton}>{folder.name}</S.TagButton>;
+  return (
+    <S.TagButton onClick={handleButton} clicked={clicked}>
+      {folder.name}
+    </S.TagButton>
+  );
 }
 
 export default function FolderTag({

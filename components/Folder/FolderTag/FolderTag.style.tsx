@@ -1,6 +1,11 @@
-import styled from "styled-components";
+import { ButtonHTMLAttributes } from "react";
+import styled, { css } from "styled-components";
 
-export const TagButton = styled.button`
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  clicked?: boolean;
+};
+
+export const TagButton = styled.button<ButtonProps>`
   padding: 1rem;
   white-space: nowrap;
   border-radius: 10px;
@@ -10,6 +15,13 @@ export const TagButton = styled.button`
   &:hover {
     background-color: var(--linkbrary-bg, #f0f6ff);
   }
+
+  ${({ clicked }) =>
+    clicked &&
+    css`
+      background-color: var(--color-primary);
+      color: white;
+    `}
 `;
 
 export const FolderTagDiv = styled.div`
