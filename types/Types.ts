@@ -1,4 +1,6 @@
 import { FieldError } from 'react-hook-form';
+import { UseFormRegisterReturn } from 'react-hook-form';
+
 export interface UserLinkType {
   id: number;
   created_at: string | null;
@@ -89,16 +91,10 @@ export type ContentStyle = {
 };
 
 export interface LoginInputProps {
-  placeholder: string;
-  inputType: string;
-  label: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-
-export interface InputProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
-  label: string;
   id: string;
-  name: string;
-  error?: FieldError;
+  label: string;
+  type: string;
+  placeholder: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  register:UseFormRegisterReturn;//
 }

@@ -1,40 +1,48 @@
-// import styles from "./loginInput.module.css";
-// import { InputProps } from "@/types/Types";
-// import React from "react";
-
-// const LoginInput = React.forwardRef<HTMLInputElement, InputProps>(
-//   ({ label, id, error, ...props }: InputProps, ref) => {
-//     return (
-//       <>
-//         <label htmlFor={id}>{label}</label>
-//         <input id={id} ref={ref} {...props} />
-//         {error && <div className="error">{error.message}</div>}
-//       </>
-//     );
-//   }
-// );
-
-// export default LoginInput;
-
 import styles from "./loginInput.module.css";
-import {LoginInputProps} from "@/types/Types";
-import { useId } from "react";
+import { LoginInputProps } from "@/types/Types";
+import { useState } from "react";
+import React from "react";
+import Image from "next/image";
+import { eyeoff_svg, eyeon_svg } from "@/public/image/index";
 
-const LoginInput = ({ label, placeholder, inputType, onChange }: LoginInputProps) => {
-  const id = useId();
+const LoginInput = ({
+  id,
+  register,
+  label,
+  placeholder,
+  type,
+}: LoginInputProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  
+
   return (
-    <div className={styles.login_input_from} >
-      <label className={styles.login_input_label} htmlFor={id} >{label}</label>
+    <div className={styles.login_input_from}>
+      <label className={styles.login_input_label} htmlFor={id}>
+        {label}
+      </label>
       <input
         className={styles.login_input}
         id={id}
-        type={inputType}
+        type={showPassword ? "text" : "password"}
         placeholder={placeholder}
-        onChange={onChange}
+        {...register}
       />
+      {id === "password" && 
+        <Image
+          className={styles.eye_icon}
+          src={showPassword ? eyeoff_svg : eyeon_svg}
+          alt="eye on/off"
+          width={16}
+          height={16}
+          onClick={toggleShowPassword}
+        />
+      }
     </div>
   );
 };
 export default LoginInput;
-
 

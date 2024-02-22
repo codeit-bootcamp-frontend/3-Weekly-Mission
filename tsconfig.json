@@ -28,7 +28,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
+    "**/*.tsx", "components/moduleComponents/signIn/index.tsx",
   ],
   "exclude": [
     "node_modules"

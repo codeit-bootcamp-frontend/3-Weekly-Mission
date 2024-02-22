@@ -17,6 +17,9 @@ import twitter_svg from './twitter.svg';
 import youtube_svg from './youtube.svg';
 import google_png from './google.png';
 import kakaotalk_svg from './kakaotalk.svg';
+import eyeoff_svg from './eyeoff.svg';
+import eyeon_svg from './eyeon.svg';
+
 export{
     add_svg,
     close_svg,
@@ -36,6 +39,8 @@ export{
     twitter_svg,
     youtube_svg,
     google_png,
-    kakaotalk_svg
+    kakaotalk_svg,
+    eyeoff_svg,
+    eyeon_svg
 }
 // 이미지를 export 하는 방법은? 
