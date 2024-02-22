@@ -1,5 +1,6 @@
+import useModal from "@/hooks/useModal";
 import { CardInterface, FolderInterface } from "@/types/types";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const INITIAL: FolderInterface = {
   id: "",
@@ -12,5 +13,10 @@ export default function FolderPage() {
   ]);
   const [cardList, setCardList] = useState<CardInterface[]>([]);
   const [current, setCurrent] = useState(INITIAL);
-  const { modal, handleOpen, handleClose } =
+  const [keyword, setKeyword] = useState("");
+  const { modal, handleOpen, handleClose } = useModal();
+
+  const getFolderTag = useCallback(async () => {
+    const { data } = await 
+  })
 }
