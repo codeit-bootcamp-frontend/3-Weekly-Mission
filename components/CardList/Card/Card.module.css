@@ -1,0 +1,98 @@
+.cardBox {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  /* width: 340px; */
+  height: 32.7rem;
+  border-radius: 15px;
+  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.08);
+}
+.cardImgWrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  /* height: 100%; */
+  height: 19.2rem;
+}
+.cardBox:hover .cardImg {
+  cursor: pointer;
+  transform: scale(1.3);
+}
+
+.cardBox:hover .cardContent {
+  cursor: pointer;
+  background-color: var(--linkbrary-bg);
+}
+
+.cardImg {
+  overflow: hidden;
+  height: 19.2rem;
+  flex-shrink: 0;
+  border-radius: 15px 15px 0px 0px;
+  object-fit: cover;
+}
+
+.cardContent {
+  display: flex;
+  width: 100%;
+  padding: 15px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  border-radius: 0px 0px 15px 15px;
+  background: #fff;
+}
+
+.contentTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+}
+.elapsedTime {
+  color: #666;
+  font-size: 1.3rem;
+  line-height: normal;
+}
+
+.kebab {
+  position: relative;
+}
+.kebabImg {
+  display: block;
+  position: relative;
+  width: 21px;
+  height: 17px;
+}
+
+.contentText {
+  height: 4.9rem;
+  align-self: stretch;
+
+  overflow: hidden;
+  color: #000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.6rem;
+  line-height: 2.4rem; /* 150% */
+}
+
+.createdDate {
+  height: 19px;
+  align-self: stretch;
+  overflow: hidden;
+  color: #333;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: 1.4rem;
+  line-height: normal;
+}
+
+.elapsedTime,
+.contentText,
+.createdDate {
+  font-weight: 400;
+  font-style: normal;
+}

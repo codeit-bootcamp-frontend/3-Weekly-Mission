@@ -1,0 +1,27 @@
+.folderListBar {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.folderButtons {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.addFolderBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.text {
+  color: #6d6afe;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.3px;
+}

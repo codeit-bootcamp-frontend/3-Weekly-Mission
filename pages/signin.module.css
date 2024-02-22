@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  padding: 120px 32px 232px 32px;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--linkbrary-bg);
+
+  @media (min-width: 768px) {
+    padding: 200px 0px 291px 0px;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 238px 0px 253px 0px;
+  }
+}
