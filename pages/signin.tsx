@@ -25,6 +25,7 @@ export default function signin() {
   const router = useRouter();
 
   const onBlurEmail = () => {
+    let focus = true;
     if (email === '') {
       setEmailErrorMessage('이메일을 입력해 주세요.');
       setIsEmailError(true);
@@ -33,16 +34,23 @@ export default function signin() {
       setIsEmailError(true);
     } else {
       setIsEmailError(false);
+      focus = false;
     }
+
+    return focus;
   };
 
   const onBlurPassword = () => {
+    let focus = true;
     if (password === '') {
       setPasswordErrorMessage('비밀번호를 입력해 주세요.');
       setIsPasswordError(true);
     } else {
       setIsPasswordError(false);
+      focus = false;
     }
+
+    return focus;
   };
 
   const onClickIcon = (e: MouseEvent) => {
@@ -54,27 +62,20 @@ export default function signin() {
   };
 
   const onClickSignin = async () => {
-    if (!EMAIL_CHECK.test(email)) {
-      if (email === '') {
-        setEmailErrorMessage('이메일을 입력해 주세요.');
-        setIsEmailError(true);
-      } else {
-        setEmailErrorMessage('올바른 이메일 주소가 아닙니다.');
-        setIsEmailError(true);
-      }
+    const inputList = {
+      email: { target: emailInput.current, check: onBlurEmail() },
+      password: { target: passwordInput.current, check: onBlurPassword() },
+    };
 
-      if (emailInput.current) {
-        emailInput.current.focus();
+    for (let input in inputList) {
+      if (inputList[input].check) {
+        inputList[input].target.focus();
+        return;
       }
-      return;
     }
 
-    if (password === '') {
-      setPasswordErrorMessage('비밀번호를 입력해 주세요.');
-      setIsPasswordError(true);
-      if (passwordInput.current) {
-        passwordInput.current.focus();
-      }
+    if (onBlurPassword() && passwordInput.current) {
+      passwordInput.current.focus();
       return;
     }
 
