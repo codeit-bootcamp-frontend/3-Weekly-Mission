@@ -13,19 +13,19 @@ export async function getSampleFolder() {
 }
 
 export async function getUser() {
-  const response = await fetch(`${BASE_URL}/users/4`);
+  const response = await fetch(`${BASE_URL}/users/8`);
   const body = await response.json();
   return body;
 }
 
 export async function getUserFolder() {
-  const response = await fetch(`${BASE_URL}/users/4/links`);
+  const response = await fetch(`${BASE_URL}/users/8/links`);
   const body = await response.json();
   return body;
 }
 
 export async function getFolderList() {
-  const response = await fetch(`${BASE_URL}/users/4/folders`);
+  const response = await fetch(`${BASE_URL}/users/8/folders`);
   const body = await response.json();
   return body;
 }

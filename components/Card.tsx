@@ -7,6 +7,7 @@ import Modal from "./Modal";
 import { ILinks } from "@/hooks/useGetFolderAsync";
 import { IData } from "@/hooks/useGetUserFolderAsync";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Props {
   data: IData & ILinks;
@@ -25,11 +26,15 @@ export default function Card({ data }: Props) {
   const timeAgo = calculateWhenItIsCreated(createdAt || created_at);
   const imageUrl = imageSource || image_source || null;
   const [popoverState, setPopoverState] = useState(false);
-  const [modalState, setModalState, handleModalCancel] = useModal() as [IModal, (modal: IModal) => void, () => void];
+  const [modalState, setModalState, handleModalCancel] = useModal() as [
+    IModal,
+    (modal: IModal) => void,
+    () => void
+  ];
 
   return (
     <>
-      <Link className={styles.card} href={(url)} target="_blank">
+      <Link className={styles.card} href={url} target="_blank">
         <>
           <Modal
             state={modalState}
@@ -37,15 +42,19 @@ export default function Card({ data }: Props) {
             link={undefined}
           />
           <div className={styles["card-img-container"]}>
-            <img
+            <div
               className={
                 imageUrl
                   ? `${styles[`card-img`]}`
                   : `${styles["card-img"]} ${styles["no-img"]}`
               }
-              src={imageSource || image_source || "/no-img-logo.svg"}
-              alt={title}
-            />
+            >
+              <Image
+                fill
+                src={imageSource || image_source || "/no-img-logo.svg"}
+                alt={title}
+              />
+            </div>
           </div>
           <div className={styles["mention-wrapper"]}>
             <p className={styles["time-and-kebob-wrapper"]}>
