@@ -1,9 +1,14 @@
 import getAllCard from "@/api/getAllCard";
 import getFolderList from "@/api/getFolderList";
+import AddLink from "@/components/folder/AddLink/AddLink";
+import ModalCreate from "@/components/modals/ModalCreate";
 import useModal from "@/hooks/useModal";
 import { CardInterface, FolderInterface } from "@/types/types";
 import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
+import * as S from "./FolderPage.style";
+import SearchBar from "@/components/common/SearchBar/SearchBar";
+import FolderTag from "@/components/folder/FolderTag/FolderTag";
 
 const INITIAL: FolderInterface = {
   id: "",
@@ -52,8 +57,23 @@ export default function FolderPage() {
         <title>folder</title>
       </Head>
       {modal && modal.show && (
-        <
+        <ModalCreate onClick={handleClose}>
+          {modal?.component}
+        </ModalCreate>
       )}
+      <AddLink />
+      <S.Content>
+        <SearchBar onChange={setKeyword} keys={keyword} />
+        {keyword && (
+          <S.Section>
+            <S.H1>
+              <S.Span>{keyword}</S.Span>으로 검색한 결과이다.
+            </S.H1>
+          </S.Section>
+        )}
+        <FolderTag folders={folderList} current={current} onClick={getCard} />
+        <FolderM
+      </S.Content>
     </>
   )
 }
