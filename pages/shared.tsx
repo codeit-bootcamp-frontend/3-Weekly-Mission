@@ -63,8 +63,8 @@ export default function SharePage({ links }: Props) {
                 description?.toLowerCase().includes(keyword)
               );
             })
-            .map((element: SharedLink) => {
-              return <Card key={element.id} page={element} />;
+            .map((element) => {
+              return <Card key={element.id} page={element as LinkType} />;
             })}
         </div>
       </section>
