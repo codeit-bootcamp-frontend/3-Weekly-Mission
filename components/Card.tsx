@@ -4,8 +4,8 @@ import formatDate from "../utils/formatDate";
 import styles from "./Card.module.css";
 import { useState } from "react";
 import Modal from "./Modal";
-import { Links } from "@/hooks/useGetFolderAsync";
-import { Data } from "@/hooks/useGetUserFolderAsync";
+import { Links } from "@/hooks/useGetFolder";
+import { Data } from "@/hooks/useGetUserFolder";
 import Link from "next/link";
 import Image from "next/image";
 

@@ -2,7 +2,7 @@ import penIcon from "../public/pen.svg";
 import shareIcon from "../public/share.svg";
 import deleteIcon from "../public/delete.svg";
 import plusImg from "../public/plus_img.svg";
-import useGetFolderListAsync from "../hooks/useGetFolderListAsync";
+import useGetFolderListAsync from "../hooks/useGetFolderList";
 import Card from "./Card";
 import { useState } from "react";
 import styles from "./Content.module.css";

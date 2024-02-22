@@ -1,6 +1,6 @@
 import logo from "../public/logo.svg";
 import styles from "./Header.module.css";
-import useGetUserAsync from "../hooks/useGetUserAsync";
+import useGetUserAsync from "../hooks/useGetUser";
 import Image from "next/image";
 import { useRouter } from "next/router";
 

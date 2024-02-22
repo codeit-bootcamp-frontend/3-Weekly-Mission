@@ -2,7 +2,7 @@ import AddLinkBar from "../components/AddLinkBar";
 import Content from "../components/Content";
 import SearchBar from "../components/SearchBar";
 import Header from "../components/Header";
-import useGetUserFolderAsync, { IData } from "../hooks/useGetUserFolderAsync";
+import useGetUserFolderAsync, { IData } from "../hooks/useGetUserFolder";
 import { useEffect, useState } from "react";
 
 export default function Folder() {

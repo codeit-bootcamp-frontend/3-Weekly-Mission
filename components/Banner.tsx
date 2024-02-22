@@ -1,5 +1,5 @@
 import Image from "next/image";
-import useGetFolderAsync from "../hooks/useGetFolderAsync";
+import useGetFolderAsync from "../hooks/useGetFolder";
 import styles from "./Banner.module.css";
 
 export default function Banner() {

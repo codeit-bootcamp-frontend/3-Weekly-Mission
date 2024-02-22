@@ -2,7 +2,7 @@ import Banner from "../components/Banner";
 import SearchBar from "../components/SearchBar";
 import Cards from "../components/Cards";
 import Header from "../components/Header";
-import useGetFolderAsync from "../hooks/useGetFolderAsync";
+import useGetFolderAsync from "../hooks/useGetFolder";
 import { useEffect, useState } from "react";
 import { getSampleFolder } from "@/api";
 

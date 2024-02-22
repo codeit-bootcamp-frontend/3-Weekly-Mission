@@ -1,4 +1,4 @@
-import useGetFolderListAsync from "../hooks/useGetFolderListAsync";
+import useGetFolderListAsync from "../hooks/useGetFolderList";
 import modalCloseIcon from "../public/modal_close_icon.svg";
 import kakao from "../public/kakao_share.svg";
 import facebook from "../public/facebook_share.svg";
