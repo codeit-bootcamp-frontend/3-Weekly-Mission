@@ -1,4 +1,4 @@
-import Input from '@/src/components/Input/Input';
+import SigninInput from '@/src/components/SigninInput/SigninInput';
 import styles from '@/styles/signin.module.css';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
@@ -28,7 +28,7 @@ export default function signin() {
     }
   };
 
-  const onKeydown = (e: KeyboardEvent) => {
+  const handleOnKeydown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       onClickSignin();
     }
@@ -66,31 +66,30 @@ export default function signin() {
           <section className={cn('section')}>
             <div className={cn('input')}>
               <label className={cn('label')}>이메일</label>
-              <Input
+              <SigninInput
                 type="email"
-                check={/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]{2,}/}
+                placeholder="이메일을 입력해 주세요."
                 errorMessage={
                   isSubmitError
                     ? '이메일을 확인해 주세요.'
                     : '올바른 이메일 주소가 아닙니다.'
                 }
-                placeholder="이메일을 입력해 주세요."
                 isSubmitError={isSubmitError}
                 setIsSubmitError={setIsSubmitError}
                 onChange={setEmail}
-                onKeydown={onKeydown}
+                onKeydown={handleOnKeydown}
               />
             </div>
             <div className={cn('input')}>
               <label className={cn('label')}>비밀번호</label>
-              <Input
+              <SigninInput
                 type="password"
                 placeholder="비밀번호를 입력해 주세요."
-                errorMessage="비밀번호를 확인해 주세요."
+                errorMessage={isSubmitError ? '비밀번호를 확인해 주세요.' : ''}
                 isSubmitError={isSubmitError}
                 setIsSubmitError={setIsSubmitError}
                 onChange={setPassword}
-                onKeydown={onKeydown}
+                onKeydown={handleOnKeydown}
               />
             </div>
           </section>

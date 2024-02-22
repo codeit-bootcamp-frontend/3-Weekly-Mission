@@ -35,13 +35,13 @@
   height: 3.8rem;
 }
 
-.goto-signup {
+.goto-signin {
   display: flex;
   align-items: flex-start;
   gap: 0.8rem;
 }
 
-.goto-signup span {
+.goto-signin span {
   color: var(--black, #000);
 
   /* Linkbrary/body1-regular */
@@ -49,7 +49,7 @@
   line-height: 2.4rem; /* 150% */
 }
 
-.goto-signup .link {
+.goto-signin .link {
   color: var(--linkbrary-primary-color, #6d6afe);
   text-decoration: underline;
 
@@ -79,7 +79,7 @@
   font-size: 1.4rem;
 }
 
-.signin-button {
+.signup-button {
   display: flex;
   width: 40rem;
   padding: 1.6rem 2rem;
@@ -139,7 +139,7 @@
     flex-direction: column;
   }
 
-  .signin-button {
+  .signup-button {
     width: 32.5rem;
   }
 

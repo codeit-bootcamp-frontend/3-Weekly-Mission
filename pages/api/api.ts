@@ -57,3 +57,16 @@ export async function postSignin(user: { email: string; password: string }) {
 
   return response;
 }
+
+export async function postSignup(user: { email: string }) {
+  const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-up', {
+    method: 'POST',
+    headers: {
+      accept: '*/*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+
+  return response;
+}
