@@ -8,7 +8,7 @@ import { Folder, FolderItem } from '@/types/Common';
 
 export const KebabButton = ({ link }: { link: FolderItem }) => {
   const [folders, setFolders] = useState<Folder[]>([]);
-  const [visible, setVisible] = useState<boolean>(false);
+  const [visible, setVisible] = useState(false);
   const [dropDownItem, setDropDownItem] = useState<string | null>(null);
 
   const handleKebabButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -19,7 +19,7 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
     setVisible(true);
   };
 
-  const handleCloseModal: (e: MouseEvent<HTMLElement>) => void = e => {
+  const handleCloseModal = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setVisible(false);

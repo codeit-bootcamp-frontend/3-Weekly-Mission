@@ -19,7 +19,7 @@ export const Card = ({
   activeKebab,
   setActiveKebab,
 }: Props) => {
-  const [hasError, setHasError] = useState<boolean>(false);
+  const [hasError, setHasError] = useState(false);
   const handleKebabButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();

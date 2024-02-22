@@ -6,8 +6,8 @@ import { AddLinkModal } from '../Modal/AddLinkModal';
 
 export const AddLinkInput = () => {
   const [folders, setFolders] = useState<Folder[]>([]);
-  const [visible, setVisible] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string | undefined>('');
+  const [visible, setVisible] = useState(false);
+  const [inputValue, setInputValue] = useState<string>('');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);

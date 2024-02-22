@@ -3,8 +3,8 @@ import styles from './Input.module.css';
 import Image from 'next/image';
 
 export function Input({ type = 'password' }: { type: string }) {
-  const [inputValue, setInputValue] = useState<string | undefined>('');
-  const [isError, setIsError] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [isError, setIsError] = useState(false);
   const [typeValue, setTypeValue] = useState<string>('password');
 
   const handleInputBlur = () => {

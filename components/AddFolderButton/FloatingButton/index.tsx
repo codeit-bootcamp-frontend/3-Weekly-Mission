@@ -5,13 +5,13 @@ import Image from 'next/image';
 import styles from './styles.module.css';
 
 export const AddFolderFloatingButton = () => {
-  const [visible, setVisible] = useState<boolean>(false);
+  const [visible, setVisible] = useState(false);
 
-  const handleAddFolderButtonClick: () => void = () => {
+  const handleAddFolderButtonClick = () => {
     setVisible(true);
   };
 
-  const handleCloseModal: () => void = () => {
+  const handleCloseModal = () => {
     setVisible(false);
   };
 

@@ -5,13 +5,13 @@ import styles from './styles.module.css';
 import Image from 'next/image';
 
 export const AddFolderButton = () => {
-  const [visible, setVisible] = useState<boolean>(false);
+  const [visible, setVisible] = useState(false);
 
-  const handleOnClick: () => void = () => {
+  const handleOnClick = () => {
     setVisible(true);
   };
 
-  const handleCloseModal: () => void = () => {
+  const handleCloseModal = () => {
     setVisible(false);
   };
 
