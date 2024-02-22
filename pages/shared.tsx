@@ -12,17 +12,17 @@ export async function getStaticProps() {
   return { props: { folder } }
 }
 
-export default function Shared({folder: data}) {
+export default function Shared({folder: data}: any) {
   const [searchValue, setsearchValue] = useState("");
   const [searchedData, setSearchedData] = useState(data.links);
-  const handleInputChange = (value) => {
+  const handleInputChange = (value: any) => {
     setsearchValue(value);
   };
 
   useEffect(() => {
     const newDatas =
       data?.links?.filter(
-        (item) => {
+        (item: any) => {
     if (
       item.description.includes(searchValue) ||
       item.url.includes(searchValue) ||

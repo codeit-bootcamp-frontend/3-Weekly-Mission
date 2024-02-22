@@ -7,28 +7,27 @@ import Card from "./Card";
 import { useState } from "react";
 import styles from "./Content.module.css";
 import Modal from "./Modal";
-import useModal, { IModal } from "../hooks/useModal";
+import useModal from "../hooks/useModal";
 import Image from "next/image";
-import { ILinks } from "@/hooks/useGetFolderAsync";
-import { IData } from "@/hooks/useGetUserFolderAsync";
 
-export default function Content({ datas }) {
+export default function Content({ datas }: any) {
   const [targetFolder, setTargetFolder] = useState({
     title: "전체",
     id: 0,
   });
 
-  const [modalState, setModalState, handleModalCancel] = useModal()
+  const [modalState, setModalState, handleModalCancel] = useModal();
   const folderList = useGetFolderListAsync();
 
-  const handleClick = (title, id) => {
+  const handleClick = (title: string, id: number) => {
     setTargetFolder({
       title: title,
       id: id,
     });
   };
   const filteredDatas = datas?.filter(
-    (data) => data.folder_id === targetFolder["id"] || targetFolder["id"] === 0
+    (data: any) =>
+      data.folder_id === targetFolder["id"] || targetFolder["id"] === 0
   );
 
   return (
@@ -46,7 +45,7 @@ export default function Content({ datas }) {
           >
             전체
           </button>
-          {folderList?.map((folder) => (
+          {folderList?.map((folder: any) => (
             <button
               className={
                 targetFolder["title"] === folder.name
@@ -125,7 +124,7 @@ export default function Content({ datas }) {
 
       {filteredDatas?.length ? (
         <div className={styles["card-container"]}>
-          {filteredDatas?.map((data) => (
+          {filteredDatas?.map((data: any) => (
             <Card key={data.id} data={data} />
           ))}
         </div>

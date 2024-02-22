@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUserFolder } from "../api";
 
-export interface IData {
+export interface Data {
   id: number;
   created_at: string;
   updated_at: null;
@@ -13,7 +13,7 @@ export interface IData {
 }
 
 export default function useGetUserFolderAsync() {
-  const [data, setData] = useState<IData[]>();
+  const [data, setData] = useState<Data[]>();
 
   useEffect(() => {
     (async () => {

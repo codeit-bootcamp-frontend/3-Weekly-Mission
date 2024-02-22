@@ -1,16 +1,16 @@
-import useModal, { IModal } from "../hooks/useModal";
+import useModal from "../hooks/useModal";
 import calculateElapsedTimeSinceCreation from "../utils/calculateElapsedTimeSinceCreation";
 import formatDate from "../utils/formatDate";
 import styles from "./Card.module.css";
 import { useState } from "react";
 import Modal from "./Modal";
-import { ILinks } from "@/hooks/useGetFolderAsync";
-import { IData } from "@/hooks/useGetUserFolderAsync";
+import { Links } from "@/hooks/useGetFolderAsync";
+import { Data } from "@/hooks/useGetUserFolderAsync";
 import Link from "next/link";
 import Image from "next/image";
 
 interface Props {
-  data: IData & ILinks;
+  data: Data & Links;
 }
 export default function Card({ data }: Props) {
   const {
@@ -26,11 +26,7 @@ export default function Card({ data }: Props) {
   const timeAgo = calculateElapsedTimeSinceCreation(createdAt || created_at);
   const imageUrl = imageSource || image_source || null;
   const [popoverState, setPopoverState] = useState(false);
-  const [modalState, setModalState, handleModalCancel] = useModal() as [
-    IModal,
-    (modal: IModal) => void,
-    () => void
-  ];
+  const [modalState, setModalState, handleModalCancel] = useModal();
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 
-export interface IModal {
+export interface Modal {
   state?: boolean;
   target?: string;
   folderName?: string;
@@ -8,11 +8,11 @@ export interface IModal {
 }
 
 export default function useModal(): [
-  IModal,
-  Dispatch<SetStateAction<IModal>>,
+  Modal,
+  Dispatch<SetStateAction<Modal>>,
   () => void
 ] {
-  const [modalState, setModalState] = useState<IModal>({
+  const [modalState, setModalState] = useState<Modal>({
     state: false,
     target: "",
     folderName: "",
