@@ -1,0 +1,20 @@
+.titlebar-section {
+  background: var(--color-gray0);
+  text-align: center;
+  padding: 20px 32px 60px;
+}
+
+.titlebar-section img {
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.titlebar-section p {
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.titlebar-section h2 {
+  font-weight: 600;
+  font-size: 2.5rem;
+}

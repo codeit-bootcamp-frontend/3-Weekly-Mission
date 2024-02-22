@@ -1,0 +1,21 @@
+/* 헤더 */
+.linkbrary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 200px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-gray0);
+}
+
+.linkbrary-header .cta {
+  width: 5.5rem;
+}
+
+@media (max-width: 768px) {
+  .linkbrary-header {
+    padding: 13px 32px;
+  }
+}

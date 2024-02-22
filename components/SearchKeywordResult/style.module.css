@@ -1,0 +1,16 @@
+.search-keyword {
+  margin-bottom: 40px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-gray60);
+}
+
+.search-keyword span {
+  color: var(--color-gray80);
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .search-keyword {
+    font-size: 1.5rem;
+  }
+}

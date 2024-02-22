@@ -1,0 +1,40 @@
+.linkbrary-footer {
+  display: flex;
+  height: 160px;
+  padding: 32px 104px 64px;
+  margin-top: 40px;
+  justify-content: space-between;
+  background: var(--color-black);
+}
+
+.linkbrary-footer .footer-copy {
+  color: var(--color-copy);
+}
+
+.linkbrary-footer .footer-links {
+  display: flex;
+  gap: 30px;
+}
+
+.linkbrary-footer a {
+  color: var(--color-links);
+}
+
+.linkbrary-footer .footer-sns {
+  display: flex;
+  gap: 12px;
+}
+
+/* 모바일 */
+@media (min-width: 375px) and (max-width: 767px) {
+  .linkbrary-footer {
+    position: relative;
+    height: 64px;
+    padding: 32px 32px 64px;
+  }
+
+  .footer-copy {
+    position: absolute;
+    bottom: 32px;
+  }
+}

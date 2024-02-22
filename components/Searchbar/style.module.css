@@ -1,0 +1,40 @@
+.searchbar-section {
+  position: relative;
+  padding: 40px 0;
+}
+
+.searchbar-section .search-input {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 15px;
+  padding-left: 42px;
+  background: #f5f5f5 url(/assets/search.svg) left 16px center no-repeat;
+  filter: saturate(0);
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+
+.searchbar-section .search-input.crrent {
+  filter: unset;
+}
+
+.searchbar-section img {
+  position: absolute;
+  right: 12px;
+  top: 13px;
+  cursor: pointer;
+}
+
+@media all and (min-width: 768px) and (max-width: 1199px) {
+  .searchbar-section img {
+    right: 46px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .searchbar-section img {
+    right: 42px;
+  }
+}
