@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUser, getUserById } from '@/pages/api/api';
+import { getUser, getUserById } from '@/pages/api/hello';
 import Profile from '../Profile/Profile';
 import styles from './Nav.module.css';
 import Link from 'next/link';
