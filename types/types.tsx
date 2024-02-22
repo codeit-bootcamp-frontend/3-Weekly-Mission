@@ -25,3 +25,8 @@ export interface CardInterface {
   createdAt?: string;
   imageSource?: string;
 }
+
+export interface ModalProps {
+  children?: ReactNode;
+  onClick?: () => void;
+}
