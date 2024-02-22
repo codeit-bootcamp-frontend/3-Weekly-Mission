@@ -7,7 +7,7 @@ import styles from './styles.module.css';
 export const AddFolderFloatingButton = () => {
   const [visible, setVisible] = useState<boolean>(false);
 
-  const handleOnClick: () => void = () => {
+  const handleAddFolderButtonClick: () => void = () => {
     setVisible(true);
   };
 
@@ -17,7 +17,10 @@ export const AddFolderFloatingButton = () => {
 
   return (
     <>
-      <button className={styles['add-folder__button']} onClick={handleOnClick}>
+      <button
+        className={styles['add-folder__button']}
+        onClick={handleAddFolderButtonClick}
+      >
         <span className={styles['add-folder__button--text']}>폴더 추가</span>
         <Image
           width={18}
