@@ -1,3 +1,4 @@
+import { FieldError } from 'react-hook-form';
 export interface UserLinkType {
   id: number;
   created_at: string | null;
@@ -87,15 +88,17 @@ export type ContentStyle = {
   position: string;
 };
 
-export type onClickEventType = (e: React.MouseEvent<HTMLElement>) => void;
-// 이벤트 객체의 타입을 모듈화해서 사용하는건 굳이 필요 없을것같아요 
-
-////////////////////test
-export interface FolderContextType {
-  folderLists: UserFolderType[];
-  selectedFolderId: number | null;
+export interface LoginInputProps {
+  placeholder: string;
+  inputType: string;
+  label: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export type FolderListType ={
-  folderList:UserFolderType
+
+export interface InputProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+  label: string;
+  id: string;
+  name: string;
+  error?: FieldError;
 }

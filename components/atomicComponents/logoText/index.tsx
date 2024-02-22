@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./logoText.module.css";
 import Image from "next/image";
 import { logo_svg } from "@/public/image";

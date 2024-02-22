@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from "@/styles/signup.module.css";
 import SingUpModule from "@/components/moduleComponents/signUp/index";
 
