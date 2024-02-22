@@ -8,7 +8,6 @@ import AddLink from '@/src/components/header/AddLink/AddLink';
 import FolderList from '@/src/components/section/FolderList/FolderList';
 import EditOption from '@/src/components/section/EditOption/EditOption';
 import Card from '@/src/components/section/Card/Card';
-import 'intersection-observer';
 
 export interface LinkType {
   id: number;

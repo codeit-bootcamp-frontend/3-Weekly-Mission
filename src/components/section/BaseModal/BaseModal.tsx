@@ -1,14 +1,13 @@
 import { createPortal } from 'react-dom';
-import { MouseEvent, ReactNode } from 'react';
+import { MouseEvent, PropsWithChildren, ReactNode } from 'react';
 import styles from './BaseModal.module.css';
 import Image from 'next/image';
 
 interface Props {
   closeModal: () => void;
-  children: ReactNode;
 }
 
-export default function BaseModal({ closeModal, children }: Props) {
+export default function BaseModal({ closeModal, children }: PropsWithChildren<Props>) {
   const portalModal = document.getElementById('modal') as HTMLElement;
 
   const onClickClose = (e: MouseEvent) => {

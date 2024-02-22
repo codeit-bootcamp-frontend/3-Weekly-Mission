@@ -6,9 +6,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 interface Props {
-  className?: string | undefined;
+  className?: string;
   setUserId?: (value: number) => void;
-  id?: number | undefined;
+  id?: number;
 }
 
 export interface User {
@@ -25,21 +25,29 @@ export default function Nav({ className = '', setUserId, id }: Props) {
   useEffect(() => {
     async function applyGetUser() {
       const nextUser = await getUser();
-      if (!nextUser) return;
+      if (!nextUser) {
+        return;
+      }
       setUser(nextUser);
     }
 
     async function apllyGetUserById(id: number) {
       const nextUser = await getUserById(id);
-      if (!nextUser) return;
+      if (!nextUser) {
+        return;
+      }
       setUser(nextUser.data[0]);
       if (setUserId) {
         setUserId(nextUser.data[0].id);
       }
     }
 
-    if (id) apllyGetUserById(id);
-    else applyGetUser();
+    if (id) {
+      apllyGetUserById(id);
+    }
+    else {
+      applyGetUser();
+    }
   }, [id, setUserId]);
 
   return (

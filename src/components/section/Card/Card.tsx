@@ -10,7 +10,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 interface Props {
-  page: LinkType | SharedLink;
+  page: LinkType;
   folderList?: FolderList[];
 }
 
