@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export interface IModal {
   state?: boolean;
@@ -7,7 +7,11 @@ export interface IModal {
   url?: string;
 }
 
-export default function useModal() {
+export default function useModal(): [
+  IModal,
+  Dispatch<SetStateAction<IModal>>,
+  () => void
+] {
   const [modalState, setModalState] = useState<IModal>({
     state: false,
     target: "",
@@ -19,7 +23,6 @@ export default function useModal() {
     setModalState({
       state: false,
     });
-  
-    
+
   return [modalState, setModalState, handleModalCancel];
 }

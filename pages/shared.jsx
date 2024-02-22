@@ -2,12 +2,19 @@ import Banner from "../components/Banner";
 import SearchBar from "../components/SearchBar";
 import Cards from "../components/Cards";
 import Header from "../components/Header";
-import useGetFolderAsync, { ILinks } from "../hooks/useGetFolderAsync";
+import useGetFolderAsync from "../hooks/useGetFolderAsync";
 import { useEffect, useState } from "react";
-export default function Shared() {
+import { getSampleFolder } from "@/api";
+
+export async function getStaticProps() {
+  const { folder } = await getSampleFolder();
+
+  return { props: { folder } }
+}
+
+export default function Shared({folder: data}) {
   const [searchValue, setsearchValue] = useState("");
-  const data = useGetFolderAsync();
-  const [searchedData, setSearchedData] = useState();
+  const [searchedData, setSearchedData] = useState(data.links);
   const handleInputChange = (value) => {
     setsearchValue(value);
   };
