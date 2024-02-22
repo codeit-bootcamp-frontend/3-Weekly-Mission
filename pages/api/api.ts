@@ -1,5 +1,3 @@
-import { User } from '../signin';
-
 export async function getUser() {
   const response = await fetch(
     'https://bootcamp-api.codeit.kr/api/sample/user'
@@ -47,7 +45,7 @@ export async function getLinksById(id = 0) {
   return body;
 }
 
-export async function postSignin(user: User) {
+export async function postSignin(user: { email: string; password: string }) {
   const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-in', {
     method: 'POST',
     headers: {

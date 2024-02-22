@@ -1,49 +1,16 @@
 import Input from '@/src/components/Input/Input';
-import styles from '@/styles/signin.module.css';
+import styles from '@/styles/signup.module.css';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import Link from 'next/link';
-import { KeyboardEvent, MouseEvent, useEffect, useState } from 'react';
-import { postSignin } from './api/api';
-import { useRouter } from 'next/router';
 
 const cn = classNames.bind(styles);
 
-export default function signin() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isSubmitError, setIsSubmitError] = useState(false);
-  const router = useRouter();
-
-  const onClickSignin = async () => {
-    const response = await postSignin({ email, password });
-    if (!response) return;
-
-    if (response.ok) {
-      const body = await response.json();
-      localStorage.setItem('accessToken', body.data.accessToken);
-      router.push('/folder');
-    } else {
-      setIsSubmitError(true);
-    }
-  };
-
-  const onKeydown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      onClickSignin();
-    }
-  };
-
-  useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
-      router.push('/folder');
-    }
-  }, []);
-
+export default function signup() {
   return (
     <div className={cn('background')}>
       <div className={cn('container')}>
-        <article className={cn('article-signin')}>
+        <article className={cn('article-signup')}>
           <header className={cn('header')}>
             <Link href="/">
               <div className={cn('logo')}>
@@ -56,10 +23,10 @@ export default function signin() {
                 />
               </div>
             </Link>
-            <div className={cn('goto-signup')}>
-              <span>회원이 아니신가요?</span>
-              <Link href="/signup" className={cn('link')}>
-                회원 가입하기
+            <div className={cn('goto-signin')}>
+              <span>이미 회원이신가요?</span>
+              <Link href="/signin" className={cn('link')}>
+                로그인 하기
               </Link>
             </div>
           </header>

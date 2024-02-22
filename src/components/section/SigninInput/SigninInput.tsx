@@ -5,7 +5,7 @@ import {
   MouseEvent,
   useState,
 } from 'react';
-import styles from './Input.module.css';
+import styles from './SigninInput.module.css';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
 
