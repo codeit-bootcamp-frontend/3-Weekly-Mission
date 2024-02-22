@@ -30,3 +30,23 @@ export interface ModalProps {
   children?: ReactNode;
   onClick?: () => void;
 }
+
+export interface SharedFolderInterface {
+  folder: {
+    id: string;
+    links: CardInterface[];
+    name: string;
+    owner: {
+      id: string;
+      name: string;
+      profileImageSource?: string;
+    };
+  };
+}
+
+export interface SharedUserInterface {
+  id: string;
+  name: string;
+  email: string;
+  profileImageSource?: string;
+}
