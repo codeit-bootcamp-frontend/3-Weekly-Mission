@@ -1,3 +1,4 @@
+import getFolderList from "@/api/getFolderList";
 import useModal from "@/hooks/useModal";
 import { CardInterface, FolderInterface } from "@/types/types";
 import { useCallback, useState } from "react";
@@ -17,6 +18,11 @@ export default function FolderPage() {
   const { modal, handleOpen, handleClose } = useModal();
 
   const getFolderTag = useCallback(async () => {
-    const { data } = await 
+    const { data } = await getFolderList();
+    setFolderList(() => [INITIAL, ...data]);
+  }, []);
+
+  const getCard = useCallback(async (current: FolderInterface) => {
+    const data = await 
   })
 }
