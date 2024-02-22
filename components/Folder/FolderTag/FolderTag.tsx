@@ -25,11 +25,11 @@ function Tag({
 
 export default function FolderTag({
   folders,
-  clicked,
+  current,
   onClick,
 }: {
   folders: FolderInterface[];
-  clicked: FolderInterface;
+  current: FolderInterface;
   onClick: (folder: FolderInterface) => void;
 }) {
   return (
@@ -41,7 +41,7 @@ export default function FolderTag({
               folder={folder}
               key={folder.id}
               onClick={onClick}
-              clicked={clicked.id === folder.id}
+              clicked={current.id === folder.id}
             />
           );
         })}

@@ -9,6 +9,9 @@ import { useCallback, useEffect, useState } from "react";
 import * as S from "./FolderPage.style";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 import FolderTag from "@/components/folder/FolderTag/FolderTag";
+import FolderMake from "@/components/folder/FolderMake/FolderMake";
+import FolderModify from "@/components/folder/FolderModify/FolderModify";
+import CardList from "@/components/common/CardList/CardList";
 
 const INITIAL: FolderInterface = {
   id: "",
@@ -16,9 +19,7 @@ const INITIAL: FolderInterface = {
 };
 
 export default function FolderPage() {
-  const [folderList, setFolderList] = useState<FolderInterface[]>([
-    INITIAL,
-  ]);
+  const [folderList, setFolderList] = useState<FolderInterface[]>([INITIAL]);
   const [cardList, setCardList] = useState<CardInterface[]>([]);
   const [current, setCurrent] = useState(INITIAL);
   const [keyword, setKeyword] = useState("");
@@ -57,9 +58,7 @@ export default function FolderPage() {
         <title>folder</title>
       </Head>
       {modal && modal.show && (
-        <ModalCreate onClick={handleClose}>
-          {modal?.component}
-        </ModalCreate>
+        <ModalCreate onClick={handleClose}>{modal?.component}</ModalCreate>
       )}
       <AddLink />
       <S.Content>
@@ -72,8 +71,19 @@ export default function FolderPage() {
           </S.Section>
         )}
         <FolderTag folders={folderList} current={current} onClick={getCard} />
-        <FolderM
+        <FolderMake onClick={handleOpen} />
       </S.Content>
+      <S.Div>
+        <FolderModify folder={current} onClick={handleOpen} />
+      </S.Div>
+      <S.List>
+        <CardList
+          cardList={cardList}
+          folderList={folderList}
+          onClick={handleOpen}
+          keyword={keyword}
+        />
+      </S.List>
     </>
-  )
+  );
 }
