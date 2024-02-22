@@ -2,87 +2,59 @@ import { Folder, FolderItem, FolderSample, User } from '@/types/Common';
 import { API } from '@/utils/constants';
 
 export const getUserSample: () => Promise<User> = async () => {
-  try {
-    const response = await fetch(API.USER_SAMPLE);
-    const result = await response.json();
-
-    const userSampleData = {
-      ...result,
-      image_source: result.profileImageSource
-        ? result.profileImageSource
-        : null,
-    };
-
-    return userSampleData;
-  } catch (error) {
-    console.error(`Error: ${error}`);
-    throw error;
-  }
+  const result = await fetchData(API.USER_SAMPLE);
+  return {
+    ...result,
+    image_source: result.profileImageSource ? result.profileImageSource : null,
+  };
 };
 
 export const getFolderSample: () => Promise<FolderSample> = async () => {
-  try {
-    const response = await fetch(API.FOLDER_SAMPLE);
-    const result = await response.json();
-
-    const formattedData: FolderItem[] = result.folder.links.map(
-      (link: FolderItem) => ({
-        ...link,
-        created_at: link.createdAt,
-        image_source: link.imageSource,
-      }),
-    );
-
-    const folderSampleData: FolderSample = {
-      ...result.folder,
-      links: formattedData,
-    };
-
-    return folderSampleData;
-  } catch (error) {
-    console.error(`Error: ${error}`);
-    throw error;
-  }
+  const result = await fetchData(API.FOLDER_SAMPLE);
+  const formattedData: FolderItem[] = result.folder.links.map(
+    (link: FolderItem) => ({
+      ...link,
+      created_at: link.createdAt,
+      image_source: link.imageSource,
+    }),
+  );
+  return {
+    ...result.folder,
+    links: formattedData,
+  };
 };
 
 export const getUser: () => Promise<User> = async () => {
-  try {
-    const response = await fetch(API.USER);
-    const result = await response.json();
-    const userData = result?.data[0];
-    return userData;
-  } catch (error) {
-    console.error(`Error: ${error}`);
-    throw error;
-  }
+  const result = await fetchData(API.USER);
+  return result?.data[0];
 };
 
 export const getFolder: () => Promise<Folder[]> = async () => {
-  try {
-    const response = await fetch(API.USER_FOLDERS);
-    const result = await response.json();
-    const folderData = result?.data;
-    return folderData;
-  } catch (error) {
-    console.error(`Error: ${error}`);
-    throw error;
-  }
+  const result = await fetchData(API.USER_FOLDERS);
+  return result?.data;
 };
 
 export const getFolderItem: (
   folderId: number | string,
 ) => Promise<FolderItem[]> = async folderId => {
+  const result = await fetchData(
+    folderId === 'all'
+      ? API.USER_LINKS
+      : `${API.USER_LINKS}?folderId=${folderId}`,
+  );
+  return result?.data;
+};
+
+// data fetch 로직 분리
+async function fetchData(url: string, options = {}) {
   try {
-    const response = await fetch(
-      folderId === 'all'
-        ? API.USER_LINKS
-        : `${API.USER_LINKS}?folderId=${folderId}`,
-    );
-    const result = await response.json();
-    const folderItemData = result?.data;
-    return folderItemData;
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`API 호출 실패: ${response.statusText}`);
+    }
+    return await response.json();
   } catch (error) {
-    console.error(`Error: ${error}`);
+    console.error(`Fetch 에러: ${error}`);
     throw error;
   }
-};
+}
