@@ -16,7 +16,7 @@ const SigninModule = () => {
 
   return (
     <div className={Styles.signin_Module_wrapper}>
-      <LogoText text={"회원이 아니신가요?"} linkText={"회원 가입하기"} />
+      <LogoText text="회원이 아니신가요?" linkText="회원 가입하기" />
       <form
         noValidate
         onSubmit={handleSubmit((data) => {
@@ -32,7 +32,7 @@ const SigninModule = () => {
             required: "이메일을 입력해주세요",
             pattern: {
               value: email_reg,
-              message: "이메일 형식에 맞게 입력해주세요",
+              message: "올바른 이메일 주소가 아닙니다.",
             },
           })}
           aria-invalid={
@@ -47,10 +47,6 @@ const SigninModule = () => {
           placeholder="비밀번호를 입력해주세요"
           register={register("password", {
             required: "비밀번호를 입력해주세요",
-            pattern: {
-              value: password_reg,
-              message: "비밀번호는 영문,숫자를 포함한 8~25자리로 입력해주세요",
-            },
           })}
           aria-invalid={
             isSubmitted ? (errors.password ? "true" : "false") : undefined
@@ -59,9 +55,9 @@ const SigninModule = () => {
         {errors.password && (
           <small>{(errors.password as FieldError).message}</small>
         )}
-        <LoginButton children={"로그인"} />
+        <LoginButton children="로그인" />
       </form>
-      <SnsLogin children={"소셜 로그인"} />
+      <SnsLogin children="소셜 로그인" />
     </div>
   );
 };
@@ -86,9 +82,8 @@ export default SigninModule;
 //React.forwardRef를 사용하여 ref를 넘겨줄 수 있음
 
 
-
 // react-hook-form 의 register 함수에는 많은 속성? 함수? 이 들어가있다.
 // react-hook-form 에서 input의 값을 handleSubmit의 데이터 로 받으려면 ref속성이 필요한데
 // input 컴포넌트를 분리해서 사용한 경우에는 input에 ref가 없어서 props로 사용해줘야한다.
 // ...register 스프레드 문법으로 register를 props로 넘겨주고 사용
-// -> 정상작동
+// -> 정상작동 라고 추측해보기?

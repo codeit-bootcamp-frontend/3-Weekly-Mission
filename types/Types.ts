@@ -1,5 +1,5 @@
-import { FieldError } from 'react-hook-form';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { FieldError } from "react-hook-form";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 export interface UserLinkType {
   id: number;
@@ -27,34 +27,33 @@ export interface UserFolderType {
   name: string;
   user_id: number;
   favorite: boolean;
-  link: { 
-    count: number 
+  link: {
+    count: number;
   };
 }
 
 export interface UserProfileType {
-  folder:{
+  folder: {
     id: number;
     name: string;
-      owner:{
-        id:number;
-        name:string;
-        profileImageSource:string;
+    owner: {
+      id: number;
+      name: string;
+      profileImageSource: string;
+    };
+    links: [
+      {
+        id: string;
+        createdAt: string;
+        url: string;
+        title: string;
+        description: string;
+        imageSource: string;
       }
-      links: [
-        {
-          id: string;
-          createdAt: string;
-          url: string;
-          title: string;
-          description: string;
-          imageSource:string;
-        }
-      ]
-      count: number; 
-  }
+    ];
+    count: number;
+  };
 }
-
 
 export interface ModalType {
   modalOpen: boolean;
@@ -95,6 +94,5 @@ export interface LoginInputProps {
   label: string;
   type: string;
   placeholder: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  register:UseFormRegisterReturn;//
+  register: UseFormRegisterReturn;
 }
