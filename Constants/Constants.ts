@@ -20,3 +20,6 @@ export enum SignInputErrorMessages {
 
 export const CONFIRM_EMAIL =
     "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])";
+
+export const CONFIRM_PASSWORD_ALPHABET = "[A-Za-z]";
+export const CONFIRM_PASSWORD_NUMBER = "[0-9]";

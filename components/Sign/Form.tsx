@@ -38,6 +38,7 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
                     type="password"
                     FormData={FormData}
                     onChange={handleInputChange}
+                    currentPath={currentPath}
                 />
             </div>
             {currentPath === "signin" ? null : (
@@ -51,6 +52,7 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
                         FormData={FormData}
                         onChange={handleInputChange}
                         isConfirmPassword={true}
+                        currentPath={currentPath}
                     />
                 </div>
             )}

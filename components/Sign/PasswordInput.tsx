@@ -1,23 +1,33 @@
-import { SignInputErrorMessages } from "@/Constants/Constants";
+import {
+    CONFIRM_PASSWORD_ALPHABET,
+    CONFIRM_PASSWORD_NUMBER,
+    SignInputErrorMessages,
+} from "@/Constants/Constants";
 import { signFormDataInterface } from "@/interfaces";
 import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 
+// ToDo 일반 패스워드 인풋과 비밀번호 확인 패스워드 인풋 구분을 하는데 코드가 너무 길어져서 차라리 따로 빼는게 나을듯
 const PasswordInput = ({
     type,
     name,
     FormData,
     onChange,
     isConfirmPassword,
+    currentPath,
 }: {
     type: string;
     name: string;
     FormData: signFormDataInterface;
     onChange: (data: signFormDataInterface) => void;
     isConfirmPassword?: boolean;
+    currentPath: string;
 }) => {
-    const [Error, setError] = useState<SignInputErrorMessages>(
+    const [error, setError] = useState<SignInputErrorMessages>(
+        SignInputErrorMessages.NoError
+    );
+    const [confirmError, setConfirmError] = useState<SignInputErrorMessages>(
         SignInputErrorMessages.NoError
     );
     const [isHidden, setIsHidden] = useState(true);
@@ -27,22 +37,42 @@ const PasswordInput = ({
     };
 
     const handlePasswordBlur = () => {
-        console.log(FormData.password);
+        const confirmPasswordAlphabet = new RegExp(CONFIRM_PASSWORD_ALPHABET);
+        const confirmPasswordNumber = new RegExp(CONFIRM_PASSWORD_NUMBER);
+
         if (FormData.password === "") {
             return setError(SignInputErrorMessages.PleaseEnterPassword);
         }
+
+        if (
+            FormData.password.length < 8 ||
+            !confirmPasswordAlphabet.test(FormData.password) ||
+            !confirmPasswordNumber.test(FormData.password)
+        ) {
+            return setError(SignInputErrorMessages.CheckPasswordFormat);
+        }
+
         return setError(SignInputErrorMessages.NoError);
     };
 
-    const handlePasswordConfirmBlur = () => {};
+    const handlePasswordConfirmBlur = () => {
+        if (FormData.password !== FormData.confirmPassword) {
+            return setConfirmError(SignInputErrorMessages.NotMatchedPassword);
+        }
+        return setConfirmError(SignInputErrorMessages.NoError);
+    };
 
     return (
         <Wrapper>
             {!isConfirmPassword ? (
                 <Input
                     type={isHidden ? "password" : "text"}
-                    placeholder="비밀번호를 입력해주세요"
-                    $Error={Error}
+                    placeholder={
+                        currentPath === "signin"
+                            ? "비밀번호를 입력해주세요"
+                            : "영문, 숫자를 조합해 8자 이상 입력해 주세요."
+                    }
+                    $error={error}
                     value={FormData.password}
                     onChange={(e) => {
                         onChange({ ...FormData, password: e.target.value });
@@ -53,7 +83,7 @@ const PasswordInput = ({
                 <Input
                     type={isHidden ? "password" : "text"}
                     placeholder="비밀번호와 일치하는 값을 입력해 주세요."
-                    $Error={Error}
+                    $error={error}
                     value={FormData.confirmPassword}
                     onChange={(e) => {
                         onChange({
@@ -77,8 +107,8 @@ const PasswordInput = ({
                     height={16}
                 />
             </PasswordHiddenButton>
-            {Error === SignInputErrorMessages.NoError ? null : (
-                <ErrorMessage>{Error}</ErrorMessage>
+            {error === SignInputErrorMessages.NoError ? null : (
+                <ErrorMessage>{error}</ErrorMessage>
             )}
         </Wrapper>
     );
@@ -88,14 +118,14 @@ export const Wrapper = styled.div`
     position: relative;
 `;
 
-export const Input = styled.input<{ $Error: SignInputErrorMessages }>`
+export const Input = styled.input<{ $error: SignInputErrorMessages }>`
     width: 100%;
     box-sizing: border-box;
     border-radius: 8px;
     outline: none;
     border: 1px solid
         ${(props) =>
-            props.$Error === SignInputErrorMessages.NoError
+            props.$error === SignInputErrorMessages.NoError
                 ? "var(--Linkbrary-gray20, #ccd5e3)"
                 : "var(--Linkbrary-red, #ff5b56)"};
 
