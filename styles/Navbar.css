@@ -1,0 +1,87 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+  background: var(--Linkbrary-bg);
+}
+
+.navbar-content {
+  width: 100%;
+  max-width: 192rem;
+  display: flex;
+  padding: 2rem 20rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.logo {
+  position: relative;
+  width: 13.3rem;
+  height: 2.4rem;
+}
+
+.login-btn {
+  width: 12.8rem;
+  padding: 1.6rem 2rem;
+  border: 1px solid var(--Grey-Light);
+  border-radius: 0.8rem;
+  background: var(
+    --gra-purpleblue-to-skyblue,
+    linear-gradient(90.99deg, #6d6afe 0.12%, #6ae3fe 101.84%)
+  );
+  font-size: var(--btn-font-size);
+  font-weight: var(--basic-font-weight);
+}
+
+.profile-img {
+  width: 28px;
+  height: 28px;
+}
+
+.userProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-default-img {
+  background-image: url("../public/img/shared-ellipse-21.svg");
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userName {
+  font-size: var(--label-font-size);
+}
+
+@media screen and (max-width: 1199px) {
+  .navbar-content {
+    padding: 2rem clamp(3.2rem, 10%, 20rem);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-content {
+    padding: 2rem 3.2rem;
+  }
+
+  .logo {
+    width: 8.86rem;
+    height: 1.6rem;
+  }
+
+  .login-btn {
+    width: 8rem;
+    padding: 1rem 1.6rem;
+  }
+  .userName {
+    display: none;
+  }
+}
