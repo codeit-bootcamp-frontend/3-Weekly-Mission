@@ -134,7 +134,7 @@ export default function signup() {
   return (
     <div className={cn('background')}>
       <div className={cn('container')}>
-        <article className={cn('article-signup')}>
+        <form className={cn('form-signup')}>
           <header className={cn('header')}>
             <Link href="/">
               <div className={cn('logo')}>
@@ -202,7 +202,7 @@ export default function signup() {
           >
             회원가입
           </button>
-        </article>
+        </form>
         <footer className={cn('footer')}>
           <span>다른 방식으로 가입하기</span>
           <div className={cn('social-icons')}>

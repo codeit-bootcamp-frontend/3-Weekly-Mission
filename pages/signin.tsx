@@ -110,7 +110,7 @@ export default function signin() {
   return (
     <div className={cn('background')}>
       <div className={cn('container')}>
-        <article className={cn('article-signin')}>
+        <form className={cn('form-signin')}>
           <header className={cn('header')}>
             <Link href="/">
               <div className={cn('logo')}>
@@ -165,7 +165,7 @@ export default function signin() {
           >
             로그인
           </button>
-        </article>
+        </form>
         <footer className={cn('footer')}>
           <span>소셜 로그인</span>
           <div className={cn('social-icons')}>
