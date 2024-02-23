@@ -7,7 +7,7 @@ import Image from 'next/image';
 export const AddFolderButton = () => {
   const [visible, setVisible] = useState(false);
 
-  const handleOnClick = () => {
+  const handleAddFolderButtonClick = () => {
     setVisible(true);
   };
 
@@ -17,7 +17,11 @@ export const AddFolderButton = () => {
 
   return (
     <>
-      <button className={styles['add-folder__button']} onClick={handleOnClick}>
+      <button
+        className={styles['add-folder__button']}
+        type="button"
+        onClick={handleAddFolderButtonClick}
+      >
         <span className={styles['add-folder__button--text']}>폴더 추가</span>
         <Image width={18} height={18} src="/images/add.svg" alt="+ 아이콘" />
       </button>

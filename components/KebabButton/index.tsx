@@ -39,9 +39,9 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
         subTitle={link.url}
         handleCloseModal={handleCloseModal}
       >
-        <button className={styles.modal}>
+        <div className={styles.modal}>
           <ModalSubmitButton type="delete">삭제하기</ModalSubmitButton>
-        </button>
+        </div>
       </Modal>
     );
   }
@@ -53,12 +53,13 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
         subTitle={link.url}
         handleCloseModal={handleCloseModal}
       >
-        <button className={styles.modal}>
+        <div className={styles.modal}>
           <div className={styles['folder-list']}>
             {folders.map(folderItem => (
               <button
                 className={styles['folder-list__button']}
                 key={folderItem.id}
+                type="button"
                 onClick={handleModalFolderListClick}
               >
                 <div className={styles['folder-item']}>
@@ -79,7 +80,7 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
             ))}
           </div>
           <ModalSubmitButton type="submit">추가하기</ModalSubmitButton>
-        </button>
+        </div>
       </Modal>
     );
   }
@@ -96,10 +97,18 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
   return (
     <>
       <div className={styles['kebab-button']}>
-        <button className={styles.delete} onClick={handleKebabButtonClick}>
+        <button
+          className={styles.delete}
+          type="button"
+          onClick={handleKebabButtonClick}
+        >
           삭제하기
         </button>
-        <button className={styles.add} onClick={handleKebabButtonClick}>
+        <button
+          className={styles.add}
+          type="button"
+          onClick={handleKebabButtonClick}
+        >
           폴더에 추가
         </button>
       </div>

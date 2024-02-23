@@ -21,7 +21,7 @@ export const FolderManagementButton = ({
 }: Props) => {
   const [visible, setVisible] = useState(false);
 
-  const handleOnClick = () => {
+  const handleFolderManagementButtonClick = () => {
     setVisible(true);
   };
 
@@ -79,7 +79,11 @@ export const FolderManagementButton = ({
 
   return (
     <>
-      <button className={styles.button} onClick={handleOnClick}>
+      <button
+        className={styles.button}
+        type="button"
+        onClick={handleFolderManagementButtonClick}
+      >
         <Image width={18} height={18} src={iconSource} alt={`${text} 아이콘`} />
         <span className={styles['button__text']}>{text}</span>
       </button>

@@ -55,6 +55,7 @@ export const AddLinkInput = () => {
           />
           <button
             className={styles['add-link__button']}
+            type="submit"
             onClick={handleAddLinkButtonClick}
           >
             추가하기

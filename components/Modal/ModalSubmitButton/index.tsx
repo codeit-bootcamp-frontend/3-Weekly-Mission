@@ -11,6 +11,7 @@ export const ModalSubmitButton = ({
   return (
     <button
       className={`${styles.button} ${type ? styles[`${type}`] : styles.none}`}
+      type="button"
     >
       {children}
     </button>

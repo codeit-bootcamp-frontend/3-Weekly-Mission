@@ -17,6 +17,7 @@ export const LinkShareButton = () => {
     <>
       <button
         className={styles['link-copy-button']}
+        type="button"
         onClick={() => {
           handleCopyClipBoard(location.href);
         }}

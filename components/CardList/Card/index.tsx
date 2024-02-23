@@ -80,7 +80,11 @@ export const Card = ({
             <p className={styles['card__text--formatted-date']}>
               {formatDate(link)}
             </p>
-            <button onClick={handleKebabButtonClick} onBlur={handleCardBlur}>
+            <button
+              type="button"
+              onClick={handleKebabButtonClick}
+              onBlur={handleCardBlur}
+            >
               <Image
                 width={21}
                 height={21}

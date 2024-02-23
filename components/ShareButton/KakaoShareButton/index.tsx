@@ -39,6 +39,7 @@ export const KakaoShareButton = () => {
     <>
       <button
         className={styles['kakao-button']}
+        type="button"
         onClick={() => {
           shareKakao();
         }}

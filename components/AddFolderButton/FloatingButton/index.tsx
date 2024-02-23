@@ -20,6 +20,7 @@ export const AddFolderFloatingButton = () => {
       <button
         className={styles['add-folder__button']}
         onClick={handleAddFolderButtonClick}
+        type="button"
       >
         <span className={styles['add-folder__button--text']}>폴더 추가</span>
         <Image

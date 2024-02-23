@@ -14,6 +14,7 @@ export const FacebookShareButton = () => {
     <>
       <button
         className={styles['facebook-button']}
+        type="button"
         onClick={() => {
           shareFacebook();
         }}

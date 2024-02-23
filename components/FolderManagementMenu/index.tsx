@@ -14,7 +14,7 @@ export const FolderManagementMenu = ({
         {selectedFolder.name}
       </div>
       {selectedFolder.id !== 'all' && (
-        <button className={styles['folder-management-button']}>
+        <div className={styles['folder-management-buttons']}>
           {FOLDER_MANAGEMENT_BUTTONS.map(buttonData => {
             return (
               <FolderManagementButton
@@ -24,7 +24,7 @@ export const FolderManagementMenu = ({
               />
             );
           })}
-        </button>
+        </div>
       )}
     </div>
   );
