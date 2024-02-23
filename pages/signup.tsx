@@ -1,21 +1,20 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import CtaButton, { CTAButton } from "@/components/CtaButton/CtaButton";
 import SignInput from "@/components/SignInput/SignInput";
+import SocialSignBox from "@/components/SocialSignBox/SocialSignBox";
 import { logoImg } from "@/public/img";
 import { NavbarUserInfo } from "@/types/userType";
 import Image from "next/image";
-import Link from "next/link";
 import styled from "styled-components";
-import CtaButton from "@/components/CtaButton/CtaButton";
-import { CTAButton } from "@/components/CtaButton/CtaButton";
-import SocialSignBox from "@/components/SocialSignBox/SocialSignBox";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface Props {
   user: NavbarUserInfo;
 }
 
-export default function signIn({ user }: Props) {
+export default function signUp({ user }: Props) {
   const router = useRouter();
   console.log(user);
   if (user) {
@@ -23,6 +22,7 @@ export default function signIn({ user }: Props) {
   }
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+  const [passwordRepeatValue, setPasswordRepeatValue] = useState("");
 
   return (
     <Wrapper>
@@ -34,8 +34,8 @@ export default function signIn({ user }: Props) {
           alt="홈으로가는 로고 이미지"
         />
         <Paragraph>
-          회원이 아니신가요?
-          <SignUpLink href={"/signup"}>회원가입하기</SignUpLink>
+          이미 회원이신가요?
+          <SignInLink href={"/signin"}>로그인 하기</SignInLink>
         </Paragraph>
       </LogoContainer>
       <Form>
@@ -53,11 +53,18 @@ export default function signIn({ user }: Props) {
           placeholder="비밀번호를 입력해주세요."
           labelName="비밀번호"
         />
+        <SignInput
+          type="password"
+          value={passwordRepeatValue}
+          setValue={setPasswordRepeatValue}
+          placeholder="비밀번호를 입력해주세요."
+          labelName="비밀번호 확인"
+        />
         <CtaButton CTAButtonStyle={Button} type="submit">
           로그인
         </CtaButton>
       </Form>
-      <SocialSignBox text="소셜로그인" />
+      <SocialSignBox text="다른 방식으로 가입하기" />
     </Wrapper>
   );
 }
@@ -93,7 +100,7 @@ const Paragraph = styled.p`
   font-family: Pretendard;
 `;
 
-const SignUpLink = styled(Link)`
+const SignInLink = styled(Link)`
   color: #6d6afe;
   border-bottom: 2px solid;
   position: relative;
