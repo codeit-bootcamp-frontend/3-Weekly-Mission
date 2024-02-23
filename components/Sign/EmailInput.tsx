@@ -9,30 +9,34 @@ import styled from "styled-components";
 export const EmailInput = ({
   type,
   name,
-  FormData,
+  formData,
   onChange,
   currentPath,
   handleLoginSubmit,
   handleRegisterSubmit,
   inputError,
   setInputError,
+  register,
+  errors,
 }: {
   type: string;
   name: string;
-  FormData: signFormDataInterface;
+  formData: signFormDataInterface;
   onChange: (data: signFormDataInterface) => void;
   currentPath: string;
   handleLoginSubmit: (e: React.FormEvent) => void;
   handleRegisterSubmit: (e: React.FormEvent) => void;
   inputError: SignInputErrorMessages;
   setInputError: (inputError: SignInputErrorMessages) => void;
+  register: any;
+  errors: any;
 }) => {
   const handleBlur = () => {
     // 회원가입 페이지에서만 중복확인
     if (currentPath === "signup") {
       (async () => {
         try {
-          const body = { email: FormData.email };
+          const body = { email: formData.email };
           const data = await postFetch(URL_DOMAIN, "api/check-email", body);
           if (data.isUsableNickname) {
             return setInputError(SignInputErrorMessages.NoError);
@@ -42,15 +46,6 @@ export const EmailInput = ({
           return setInputError(SignInputErrorMessages.DuplicateEmail);
         }
       })();
-    }
-
-    if (FormData.email === "") {
-      return setInputError(SignInputErrorMessages.PleaseEnterEmail);
-    }
-
-    const confirmEmail = new RegExp(CONFIRM_EMAIL);
-    if (!confirmEmail.test(FormData.email)) {
-      return setInputError(SignInputErrorMessages.NotValidEmail);
     }
 
     return setInputError(SignInputErrorMessages.NoError);
@@ -74,15 +69,22 @@ export const EmailInput = ({
       <Input
         type={type}
         placeholder="이메일을 입력해주세요"
-        $inputError={inputError}
-        value={FormData.email}
+        {...register("email", {
+          required: SignInputErrorMessages.PleaseEnterEmail,
+          pattern: {
+            value: CONFIRM_EMAIL,
+            message: SignInputErrorMessages.NotValidEmail,
+          },
+        })}
+        $inputError={errors.email && errors.email.message}
+        value={formData.email}
         onChange={(e) => {
-          onChange({ ...FormData, email: e.target.value });
+          onChange({ ...formData, email: e.target.value });
         }}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
       />
-      {inputError === SignInputErrorMessages.NoError ? null : <ErrorMessage>{inputError}</ErrorMessage>}
+      {errors.email ? <ErrorMessage>{errors.email.message}</ErrorMessage> : null}
     </>
   );
 };
