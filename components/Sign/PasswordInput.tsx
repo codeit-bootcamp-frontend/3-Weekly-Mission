@@ -14,6 +14,10 @@ const PasswordInput = ({
   currentPath,
   handleLoginSubmit,
   handleRegisterSubmit,
+  passwordError,
+  setPasswordError,
+  confirmPasswordError,
+  setConfirmPasswordError,
 }: {
   type: string;
   name: string;
@@ -23,9 +27,11 @@ const PasswordInput = ({
   currentPath: string;
   handleLoginSubmit: (e: React.FormEvent) => void;
   handleRegisterSubmit: (e: React.FormEvent) => void;
+  passwordError: SignInputErrorMessages;
+  setPasswordError: (passwordError: SignInputErrorMessages) => void;
+  confirmPasswordError: SignInputErrorMessages;
+  setConfirmPasswordError: (confirmPasswordError: SignInputErrorMessages) => void;
 }) => {
-  const [error, setError] = useState<SignInputErrorMessages>(SignInputErrorMessages.NoError);
-  const [confirmError, setConfirmError] = useState<SignInputErrorMessages>(SignInputErrorMessages.NoError);
   const [isHidden, setIsHidden] = useState(true);
 
   const toggleHidden = () => {
@@ -37,7 +43,7 @@ const PasswordInput = ({
     const confirmPasswordNumber = new RegExp(CONFIRM_PASSWORD_NUMBER);
 
     if (FormData.password === "") {
-      return setError(SignInputErrorMessages.PleaseEnterPassword);
+      return setPasswordError(SignInputErrorMessages.PleaseEnterPassword);
     }
 
     if (
@@ -45,17 +51,18 @@ const PasswordInput = ({
       !confirmPasswordAlphabet.test(FormData.password) ||
       !confirmPasswordNumber.test(FormData.password)
     ) {
-      return setError(SignInputErrorMessages.CheckPasswordFormat);
+      return setPasswordError(SignInputErrorMessages.CheckPasswordFormat);
     }
 
-    return setError(SignInputErrorMessages.NoError);
+    return setPasswordError(SignInputErrorMessages.NoError);
   };
 
   const handlePasswordConfirmBlur = () => {
     if (FormData.password !== FormData.confirmPassword) {
-      return setConfirmError(SignInputErrorMessages.NotMatchedPassword);
+      console.log("not matched password");
+      return setConfirmPasswordError(SignInputErrorMessages.NotMatchedPassword);
     }
-    return setConfirmError(SignInputErrorMessages.NoError);
+    return setConfirmPasswordError(SignInputErrorMessages.NoError);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -74,45 +81,61 @@ const PasswordInput = ({
   return (
     <Wrapper>
       {!isConfirmPassword ? (
-        <Input
-          type={isHidden ? "password" : "text"}
-          placeholder={
-            currentPath === "signin" ? "비밀번호를 입력해주세요" : "영문, 숫자를 조합해 8자 이상 입력해 주세요."
-          }
-          $error={error}
-          value={FormData.password}
-          onChange={(e) => {
-            onChange({ ...FormData, password: e.target.value });
-          }}
-          onBlur={handlePasswordBlur}
-          onKeyDown={handleKeyDown}
-        />
-      ) : (
-        <Input
-          type={isHidden ? "password" : "text"}
-          placeholder="비밀번호와 일치하는 값을 입력해 주세요."
-          $error={error}
-          value={FormData.confirmPassword}
-          onChange={(e) => {
-            onChange({
-              ...FormData,
-              confirmPassword: e.target.value,
-            });
-          }}
-          onBlur={handlePasswordConfirmBlur}
-          onKeyDown={handleKeyDown}
-        />
-      )}
+        <>
+          <Input
+            type={isHidden ? "password" : "text"}
+            placeholder={
+              currentPath === "signin" ? "비밀번호를 입력해주세요" : "영문, 숫자를 조합해 8자 이상 입력해 주세요."
+            }
+            $passwordError={passwordError}
+            value={FormData.password}
+            onChange={(e) => {
+              onChange({ ...FormData, password: e.target.value });
+            }}
+            onBlur={handlePasswordBlur}
+            onKeyDown={handleKeyDown}
+          />
 
-      <PasswordHiddenButton type="button" onClick={toggleHidden}>
-        <Image
-          src={isHidden ? "/images/signin-eye-off.svg" : "/images/signin-eye-on.svg"}
-          alt="눈 아이콘"
-          width={16}
-          height={16}
-        />
-      </PasswordHiddenButton>
-      {error === SignInputErrorMessages.NoError ? null : <ErrorMessage>{error}</ErrorMessage>}
+          <PasswordHiddenButton type="button" onClick={toggleHidden}>
+            <Image
+              src={isHidden ? "/images/signin-eye-off.svg" : "/images/signin-eye-on.svg"}
+              alt="눈 아이콘"
+              width={16}
+              height={16}
+            />
+          </PasswordHiddenButton>
+          {passwordError === SignInputErrorMessages.NoError ? null : <ErrorMessage>{passwordError}</ErrorMessage>}
+        </>
+      ) : (
+        <>
+          <Input
+            type={isHidden ? "password" : "text"}
+            placeholder="비밀번호와 일치하는 값을 입력해 주세요."
+            $passwordError={passwordError}
+            value={FormData.confirmPassword}
+            onChange={(e) => {
+              onChange({
+                ...FormData,
+                confirmPassword: e.target.value,
+              });
+            }}
+            onBlur={handlePasswordConfirmBlur}
+            onKeyDown={handleKeyDown}
+          />
+
+          <PasswordHiddenButton type="button" onClick={toggleHidden}>
+            <Image
+              src={isHidden ? "/images/signin-eye-off.svg" : "/images/signin-eye-on.svg"}
+              alt="눈 아이콘"
+              width={16}
+              height={16}
+            />
+          </PasswordHiddenButton>
+          {confirmPasswordError === SignInputErrorMessages.NoError ? null : (
+            <ErrorMessage>{confirmPasswordError}</ErrorMessage>
+          )}
+        </>
+      )}
     </Wrapper>
   );
 };
@@ -121,14 +144,14 @@ export const Wrapper = styled.div`
   position: relative;
 `;
 
-export const Input = styled.input<{ $error: SignInputErrorMessages }>`
+export const Input = styled.input<{ $passwordError: SignInputErrorMessages }>`
   width: 100%;
   box-sizing: border-box;
   border-radius: 8px;
   outline: none;
   border: 1px solid
     ${(props) =>
-      props.$error === SignInputErrorMessages.NoError
+      props.$passwordError === SignInputErrorMessages.NoError
         ? "var(--Linkbrary-gray20, #ccd5e3)"
         : "var(--Linkbrary-red, #ff5b56)"};
 

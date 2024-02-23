@@ -14,6 +14,8 @@ export const EmailInput = ({
   currentPath,
   handleLoginSubmit,
   handleRegisterSubmit,
+  inputError,
+  setInputError,
 }: {
   type: string;
   name: string;
@@ -22,9 +24,9 @@ export const EmailInput = ({
   currentPath: string;
   handleLoginSubmit: (e: React.FormEvent) => void;
   handleRegisterSubmit: (e: React.FormEvent) => void;
+  inputError: SignInputErrorMessages;
+  setInputError: (inputError: SignInputErrorMessages) => void;
 }) => {
-  const [Error, setError] = useState<SignInputErrorMessages>(SignInputErrorMessages.NoError);
-
   const handleBlur = () => {
     // 회원가입 페이지에서만 중복확인
     if (currentPath === "signup") {
@@ -33,25 +35,25 @@ export const EmailInput = ({
           const body = { email: FormData.email };
           const data = await postFetch(URL_DOMAIN, "api/check-email", body);
           if (data.isUsableNickname) {
-            return setError(SignInputErrorMessages.NoError);
+            return setInputError(SignInputErrorMessages.NoError);
           }
         } catch (error) {
           console.error(error);
-          return setError(SignInputErrorMessages.DuplicateEmail);
+          return setInputError(SignInputErrorMessages.DuplicateEmail);
         }
       })();
     }
 
     if (FormData.email === "") {
-      return setError(SignInputErrorMessages.PleaseEnterEmail);
+      return setInputError(SignInputErrorMessages.PleaseEnterEmail);
     }
 
     const confirmEmail = new RegExp(CONFIRM_EMAIL);
     if (!confirmEmail.test(FormData.email)) {
-      return setError(SignInputErrorMessages.NotValidEmail);
+      return setInputError(SignInputErrorMessages.NotValidEmail);
     }
 
-    return setError(SignInputErrorMessages.NoError);
+    return setInputError(SignInputErrorMessages.NoError);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -72,7 +74,7 @@ export const EmailInput = ({
       <Input
         type={type}
         placeholder="이메일을 입력해주세요"
-        $Error={Error}
+        $inputError={inputError}
         value={FormData.email}
         onChange={(e) => {
           onChange({ ...FormData, email: e.target.value });
@@ -80,19 +82,19 @@ export const EmailInput = ({
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
       />
-      {Error === SignInputErrorMessages.NoError ? null : <ErrorMessage>{Error}</ErrorMessage>}
+      {inputError === SignInputErrorMessages.NoError ? null : <ErrorMessage>{inputError}</ErrorMessage>}
     </>
   );
 };
 
-export const Input = styled.input<{ $Error: SignInputErrorMessages }>`
+export const Input = styled.input<{ $inputError: SignInputErrorMessages }>`
   width: 100%;
   box-sizing: border-box;
   border-radius: 8px;
   outline: none;
   border: 1px solid
     ${(props) =>
-      props.$Error === SignInputErrorMessages.NoError
+      props.$inputError === SignInputErrorMessages.NoError
         ? "var(--Linkbrary-gray20, #ccd5e3)"
         : "var(--Linkbrary-red, #ff5b56)"};
 

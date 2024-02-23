@@ -3,8 +3,7 @@ import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
 import { FormEvent, useId, useState } from "react";
 import { signFormDataInterface } from "@/interfaces";
-import { URL_DOMAIN } from "@/Constants/Constants";
-import getFetch from "@/utils/getFetch";
+import { SignInputErrorMessages, URL_DOMAIN } from "@/Constants/Constants";
 import { useRouter } from "next/router";
 import postFetch from "@/utils/postFetch";
 
@@ -12,7 +11,11 @@ import postFetch from "@/utils/postFetch";
 export const Form = ({ currentPath }: { currentPath: string }) => {
   const router = useRouter();
   const id = useId();
-  const [failSubmit, setFailSubmit] = useState(false);
+  const [inputError, setInputError] = useState<SignInputErrorMessages>(SignInputErrorMessages.NoError);
+  const [passwordError, setPasswordError] = useState<SignInputErrorMessages>(SignInputErrorMessages.NoError);
+  const [confirmPasswordError, setConfirmPasswordError] = useState<SignInputErrorMessages>(
+    SignInputErrorMessages.NoError
+  );
   const [FormData, setFormData] = useState<signFormDataInterface>(() => {
     return {
       email: "",
@@ -28,6 +31,10 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
   // 로그인 버튼 클릭
   const handleLoginSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    if (FormData.password !== FormData.confirmPassword) {
+    }
+
     const body = {
       email: FormData.email,
       password: FormData.password,
@@ -46,10 +53,6 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
   // 회원가입 버튼 클릭
   const handleRegisterSubmit = (e: FormEvent) => {
     e.preventDefault();
-
-    if (FormData.password !== FormData.confirmPassword) {
-      return alert("비밀번호가 일치하지 않습니다.");
-    }
 
     const body = {
       email: FormData.email,
@@ -74,6 +77,8 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
           currentPath={currentPath}
           handleLoginSubmit={handleLoginSubmit}
           handleRegisterSubmit={handleRegisterSubmit}
+          inputError={inputError}
+          setInputError={setInputError}
         />
       </div>
       <div>
@@ -83,9 +88,12 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
           type="password"
           FormData={FormData}
           onChange={handleInputChange}
+          isConfirmPassword={false}
           currentPath={currentPath}
           handleLoginSubmit={handleLoginSubmit}
           handleRegisterSubmit={handleRegisterSubmit}
+          passwordError={passwordError}
+          setPasswordError={setPasswordError}
         />
       </div>
       {currentPath === "signin" ? null : (
@@ -100,6 +108,8 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
             currentPath={currentPath}
             handleLoginSubmit={handleLoginSubmit}
             handleRegisterSubmit={handleRegisterSubmit}
+            confirmPasswordError={confirmPasswordError}
+            setConfirmPasswordError={setConfirmPasswordError}
           />
         </div>
       )}
