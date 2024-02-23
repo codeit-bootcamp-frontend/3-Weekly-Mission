@@ -3,7 +3,7 @@ import ShareIconBox from "./ShareIconBox";
 import styles from "./Modal.module.css";
 import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-import { Folder } from "@/api/api";
+import { Folder } from "@/@types/api/interface";
 
 interface Props {
   setModal: Dispatch<SetStateAction<boolean>>;

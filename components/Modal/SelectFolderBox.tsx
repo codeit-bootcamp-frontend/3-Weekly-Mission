@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SelectFolderItem from "./SelectFolderItem";
 import styles from "./SelectFolderBox.module.css";
-import { Folder } from "@/api/api";
+import { Folder } from "@/@types/api/interface";
 
 interface Props {
   folderData?: Folder[] | null;

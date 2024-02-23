@@ -1,4 +1,3 @@
-import { MouseEvent } from "react";
 import styles from "./SelectFolderItem.module.css";
 import Image from "next/image";
 

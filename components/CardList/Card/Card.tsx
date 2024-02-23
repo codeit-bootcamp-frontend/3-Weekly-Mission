@@ -4,7 +4,7 @@ import styles from "./Card.module.css";
 import PopOver from "../../PopOver/PopOver";
 import { useState } from "react";
 import Image from "next/image";
-import { Folder, Link } from "@/api/api";
+import { Folder, Link } from "@/@types/api/interface";
 
 interface Props {
   link: Link;

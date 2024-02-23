@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getUserData, User } from "@/api/api";
+import { getUserData } from "@/api/api";
+import { User } from "@/@types/api/interface";
 
 export function useUserData() {
   const [userData, setUserData] = useState<User | null>(null);

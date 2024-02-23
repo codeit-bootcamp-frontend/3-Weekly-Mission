@@ -3,7 +3,7 @@ import styles from "./FolderList.module.css";
 import FolderButton from "./FolderButton";
 import FloatingButton from "../FloatingButton/FloatingButton";
 import { ALL_LINKS_ID, ALL_LINKS_NAME } from "./constants";
-import { Folder } from "@/api/api";
+import { Folder } from "@/@types/api/interface";
 
 interface Props {
   folderData: Folder[];
