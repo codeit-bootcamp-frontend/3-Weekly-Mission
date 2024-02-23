@@ -22,12 +22,12 @@ export const AddLinkInput = () => {
   };
 
   useEffect(() => {
-    const getFolderData = async () => {
+    const initFolders = async () => {
       const folderData = await getFolder();
       setFolders(folderData);
     };
 
-    getFolderData();
+    initFolders();
   }, []);
 
   return (
