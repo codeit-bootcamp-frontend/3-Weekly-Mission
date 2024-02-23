@@ -5,13 +5,7 @@ import Image from 'next/image';
 import { FolderSample } from '@/types/Common';
 
 export const Favorites = () => {
-  const [favorites, setFavorites] = useState<FolderSample>({
-    count: 0,
-    id: 0,
-    links: [],
-    name: '',
-    owner: { id: 0, name: '', profileImageSource: '' },
-  });
+  const [favorites, setFavorites] = useState<FolderSample | undefined>();
 
   useEffect(() => {
     (async () => {
@@ -26,9 +20,14 @@ export const Favorites = () => {
         <Image
           width={60}
           height={60}
-          src={favorites?.owner?.profileImageSource}
+          src={
+            favorites
+              ? favorites.owner?.profileImageSource
+              : '/images/no-image.svg'
+          }
           alt="프로필 이미지"
         />
+
         <p className={styles['favorites__owner-name']}>
           {favorites?.owner?.name}
         </p>
