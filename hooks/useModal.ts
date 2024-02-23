@@ -1,8 +1,17 @@
 import { Dispatch, SetStateAction, useState } from "react";
+type target =
+  | "공유"
+  | "이름 변경"
+  | "삭제"
+  | "폴더추가"
+  | "삭제하기"
+  | "폴더에 추가"
+  | "추가하기"
+  | "";
 
 export interface Modal {
   state?: boolean;
-  target?: string;
+  target?: target;
   folderName?: string;
   url?: string;
 }

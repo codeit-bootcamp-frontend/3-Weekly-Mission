@@ -3,16 +3,20 @@ import calculateElapsedTimeSinceCreation from "../utils/calculateElapsedTimeSinc
 import formatDate from "../utils/formatDate";
 import styles from "./Card.module.css";
 import { useState } from "react";
-import Modal from "./Modal";
+import Modal from "./modals/Modal";
 import { Links } from "@/hooks/useGetFolder";
-import { Data } from "@/hooks/useGetUserFolder";
+import { UserFolderData } from "@/hooks/useGetUserFolder";
 import Link from "next/link";
 import Image from "next/image";
+import classNames from "classnames/bind";
 
 interface Props {
-  data: Data & Links;
+  data: UserFolderData & Links;
 }
-export default function Card({ data }: Props) {
+
+const cx = classNames.bind(styles);
+
+export default function Card({ data: folderLink }: Props) {
   const {
     createdAt,
     created_at,
@@ -21,30 +25,33 @@ export default function Card({ data }: Props) {
     imageSource,
     image_source,
     title,
-  } = data;
+  } = folderLink;
   const formattedDate = formatDate(createdAt || created_at);
   const timeAgo = calculateElapsedTimeSinceCreation(createdAt || created_at);
   const imageUrl = imageSource || image_source || null;
   const [popoverState, setPopoverState] = useState(false);
   const [modalState, setModalState, handleModalCancel] = useModal();
+  const [isHover, setIsHover] = useState(false);
 
   return (
     <>
-      <Link className={styles.card} href={url} target="_blank">
+      <Link
+        className={cx("card", { "card-hover": isHover })}
+        href={url}
+        target="_blank"
+        onMouseEnter={() => {
+          console.log(isHover);
+          setIsHover(true);
+        }}
+        onMouseLeave={() => {
+          console.log(isHover);
+          setIsHover(false);
+        }}
+      >
         <>
-          <Modal
-            state={modalState}
-            onClick={handleModalCancel}
-            link={undefined}
-          />
+          <Modal state={modalState} onClick={handleModalCancel} />
           <div className={styles["card-img-container"]}>
-            <div
-              className={
-                imageUrl
-                  ? `${styles[`card-img`]}`
-                  : `${styles["card-img"]} ${styles["no-img"]}`
-              }
-            >
+            <div className={cx("card-img", { "no-img": !imageUrl })}>
               <Image
                 fill
                 src={imageSource || image_source || "/no-img-logo.svg"}
@@ -55,17 +62,25 @@ export default function Card({ data }: Props) {
           <div className={styles["mention-wrapper"]}>
             <p className={styles["time-and-kebob-wrapper"]}>
               <span className={styles["upload-time-ago"]}>{timeAgo}</span>
-              <button
-                className={styles["kebab-btn"]}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setPopoverState(!popoverState);
-                }}
-              />
+              {created_at && (
+                <button
+                  className={styles["kebab-btn"]}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setPopoverState(!popoverState);
+                  }}
+                />
+              )}
             </p>
             {popoverState ? (
-              <div className={styles["popover"]}>
+              <div
+                className={styles["popover"]}
+                onMouseEnter={(e) => {
+                  e.stopPropagation();
+                  setIsHover(false);
+                }}
+              >
                 <button
                   className={styles["popover-btn"]}
                   onClick={(e) => {

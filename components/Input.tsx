@@ -5,7 +5,7 @@ import Image from "next/image";
 export function Input({ type = "text" }: { type: string }) {
   const [inputValue, setInputValue] = useState("");
   const [isError, setIsError] = useState(false);
-  const [typeValue, setTypeValue] = useState("password")
+  const [typeValue, setTypeValue] = useState<"password" | "text">("password");
 
   const handleInputBlur = () => {
     if (!inputValue) {
@@ -17,9 +17,9 @@ export function Input({ type = "text" }: { type: string }) {
 
   const handleEyeIconClick = () => {
     if (typeValue === "password") {
-      setTypeValue("string")
+      setTypeValue("text");
     } else {
-      setTypeValue("password")
+      setTypeValue("password");
     }
   };
 
@@ -41,7 +41,7 @@ export function Input({ type = "text" }: { type: string }) {
             className={styles["input-eye"]}
             width={16}
             height={16}
-            src={typeValue === "string" ? "/eye-on.svg" : "/eye-off.svg"}
+            src={typeValue === "text" ? "/eye-on.svg" : "/eye-off.svg"}
             alt="비밀번호 가리기"
             onClick={handleEyeIconClick}
           />

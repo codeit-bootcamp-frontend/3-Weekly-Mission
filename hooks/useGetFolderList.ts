@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getFolderList } from "../api";
 
-export interface FolderList {
+interface UserFolderList {
   id: number;
   created_at: string;
   name: string;
@@ -12,13 +12,13 @@ export interface FolderList {
   };
 }
 
-export default function useGetFolderListAsync() : any {
-  const [folderList, setFolderList] = useState<FolderList[]>();
+export default function useGetFolderList(): any {
+  const [folderList, setFolderList] = useState<UserFolderList[]>();
 
   useEffect(() => {
     (async () => {
-        const {data} = await getFolderList();
-        setFolderList(data);
+      const { data } = await getFolderList();
+      setFolderList(data);
     })();
   }, []);
 

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import useModal from "../hooks/useModal";
 import styles from "./AddLinkBar.module.css";
-import Modal from "./Modal";
+import Modal from "./modals/Modal";
 
 export default function AddLinkBar() {
   const [modalState, setModalState, handleModalCancel] = useModal();
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputValue(e.target.value);

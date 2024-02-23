@@ -1,4 +1,4 @@
-.nav-wrapper{
+.nav-wrapper {
   max-width: 192rem;
   display: flex;
   justify-content: center;
@@ -19,7 +19,7 @@
   z-index: 1;
 }
 
-.nav-bg{
+.nav-bg {
   position: fixed;
   background-color: var(--Linkbrary-bg);
   width: 100%;
@@ -30,7 +30,7 @@
 .nav-folder {
   width: 100%;
   position: absolute;
-  left:0;
+  left: 0;
   background-color: var(--Linkbrary-bg);
   display: flex;
   justify-content: space-between;
@@ -39,7 +39,7 @@
   z-index: 1;
 }
 
-.nav-folder-bg{
+.nav-folder-bg {
   position: absolute;
   background-color: var(--Linkbrary-bg);
   width: 100%;
@@ -69,27 +69,26 @@
   font-weight: 400;
 }
 
-@media(max-width: 1123px){
-  .nav{
+@media (max-width: 1123px) {
+  .nav {
     margin: 0 auto;
     max-width: 78rem;
     padding: 3.3rem 3.25rem 3.2rem;
   }
-  
-  .nav-folder{
+
+  .nav-folder {
     margin: 0 auto;
     max-width: 78rem;
     padding: 3.3rem 3.25rem 3.2rem;
   }
 }
 
-@media(max-width: 767px){
-.logo {
-  width: 8.867rem;
-  height: 1.6rem;
-}
-  .profile-email{
+@media (max-width: 767px) {
+  .logo {
+    width: 8.867rem;
+    height: 1.6rem;
+  }
+  .profile-email {
     display: none;
   }
-
 }

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { getSampleUser, getUser } from "../api";
 
-interface Data {
+interface UserData {
   [key: string]: any;
 }
 
-export default function useGetUserAsync(isSticky: boolean): any {
-  const [data, setData] = useState<Data>();
+export default function useGetUser(isSticky: boolean): any {
+  const [data, setData] = useState<UserData>();
 
   useEffect(() => {
     (async () => {

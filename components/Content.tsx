@@ -2,22 +2,22 @@ import penIcon from "../public/pen.svg";
 import shareIcon from "../public/share.svg";
 import deleteIcon from "../public/delete.svg";
 import plusImg from "../public/plus_img.svg";
-import useGetFolderListAsync from "../hooks/useGetFolderList";
+import useGetFolderList from "../hooks/useGetFolderList";
 import Card from "./Card";
 import { useState } from "react";
 import styles from "./Content.module.css";
-import Modal from "./Modal";
+import Modal from "./modals/Modal";
 import useModal from "../hooks/useModal";
 import Image from "next/image";
 
-export default function Content({ datas }: any) {
+export default function Content({ userFolderLinks }: any) {
   const [targetFolder, setTargetFolder] = useState({
     title: "전체",
     id: 0,
   });
 
   const [modalState, setModalState, handleModalCancel] = useModal();
-  const folderList = useGetFolderListAsync();
+  const folderList = useGetFolderList();
 
   const handleClick = (title: string, id: number) => {
     setTargetFolder({
@@ -25,7 +25,7 @@ export default function Content({ datas }: any) {
       id: id,
     });
   };
-  const filteredDatas = datas?.filter(
+  const filteredLinkList = userFolderLinks?.filter(
     (data: any) =>
       data.folder_id === targetFolder["id"] || targetFolder["id"] === 0
   );
@@ -122,9 +122,9 @@ export default function Content({ datas }: any) {
         )}
       </div>
 
-      {filteredDatas?.length ? (
+      {filteredLinkList?.length ? (
         <div className={styles["card-container"]}>
-          {filteredDatas?.map((data: any) => (
+          {filteredLinkList?.map((data: any) => (
             <Card key={data.id} data={data} />
           ))}
         </div>

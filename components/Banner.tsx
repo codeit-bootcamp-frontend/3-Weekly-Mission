@@ -1,9 +1,9 @@
 import Image from "next/image";
-import useGetFolderAsync from "../hooks/useGetFolder";
+import useGetFolder from "../hooks/useGetFolder";
 import styles from "./Banner.module.css";
 
 export default function Banner() {
-  const data: any = useGetFolderAsync();
+  const data: any = useGetFolder();
 
   return (
     <section className={styles["banner"]}>

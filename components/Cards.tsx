@@ -1,11 +1,11 @@
 import styles from "./Cards.module.css";
 import Card from "./Card";
 
-export default function Cards({ data }: any) {
+export default function Cards({ data: sampleFolderLinkList }: any) {
   return (
     <div className={styles["card-container"]}>
-      {data?.map((data: any) => (
-        <Card key={data.id} data={data} />
+      {sampleFolderLinkList?.map((link: any) => (
+        <Card key={link.id} data={link} />
       ))}
     </div>
   );
