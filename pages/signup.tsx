@@ -181,25 +181,16 @@ export default function signup() {
                 onKeyDown={onKeydown}
                 isError={isPasswordError}
                 errorMessage={passwordErrorMessage}
-                suffixImage={
-                  isShowPassword
-                    ? {
-                        width: 16,
-                        height: 16,
-                        className: 'password-icon',
-                        src: '/images/eye-on.svg',
-                        alt: '눈모양 아이콘',
-                        onClick: () => setIsShowPassword(!isShowPassword),
-                      }
-                    : {
-                        width: 16,
-                        height: 16,
-                        className: 'password-icon',
-                        src: '/images/eye-off.svg',
-                        alt: '눈에 빗금친 아이콘',
-                        onClick: () => setIsShowPassword(!isShowPassword),
-                      }
-                }
+                suffixImage={{
+                  width: 16,
+                  height: 16,
+                  className: 'password-icon',
+                  src: isShowPassword
+                    ? '/images/eye-on.svg'
+                    : '/images/eye-off.svg',
+                  alt: isShowPassword ? '눈모양 아이콘' : '눈에 빗금친 아이콘',
+                  onClick: () => setIsShowPassword(!isShowPassword),
+                }}
               />
             </div>
             <div className={cn('input-element')}>
@@ -213,27 +204,16 @@ export default function signup() {
                 onKeyDown={onKeydown}
                 isError={isPasswordCheckError}
                 errorMessage={passwordCheckErrorMessage}
-                suffixImage={
-                  isShowPasswordCheck
-                    ? {
-                        width: 16,
-                        height: 16,
-                        className: 'password-icon',
-                        src: '/images/eye-on.svg',
-                        alt: '눈모양 아이콘',
-                        onClick: () =>
-                          setIsShowPasswordCheck(!isShowPasswordCheck),
-                      }
-                    : {
-                        width: 16,
-                        height: 16,
-                        className: 'password-icon',
-                        src: '/images/eye-off.svg',
-                        alt: '눈에 빗금친 아이콘',
-                        onClick: () =>
-                          setIsShowPasswordCheck(!isShowPasswordCheck),
-                      }
-                }
+                suffixImage={{
+                  width: 16,
+                  height: 16,
+                  className: 'password-icon',
+                  src: isShowPassword
+                    ? '/images/eye-on.svg'
+                    : '/images/eye-off.svg',
+                  alt: isShowPassword ? '눈모양 아이콘' : '눈에 빗금친 아이콘',
+                  onClick: () => setIsShowPassword(!isShowPassword),
+                }}
               />
             </div>
           </section>
