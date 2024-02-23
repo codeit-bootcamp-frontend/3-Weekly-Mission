@@ -29,5 +29,6 @@
     ".next/types/**/*.ts",
     "components/SignInForm/SignInForm.jsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "typeRoots": ["./@types"]
 }

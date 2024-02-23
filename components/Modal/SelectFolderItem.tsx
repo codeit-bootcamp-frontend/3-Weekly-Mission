@@ -6,7 +6,7 @@ interface Props {
   name: string;
   count: number;
   isSelected: boolean;
-  onClick: (e: React.MouseEvent) => void; // 모르겠다..
+  onClick: (e: React.MouseEvent) => void;
 }
 
 function SelectFolderItem({ name, count, isSelected, onClick }: Props) {
