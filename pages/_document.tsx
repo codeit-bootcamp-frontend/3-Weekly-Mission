@@ -1,13 +1,18 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+/* eslint-disable @next/next/no-title-in-document-head */
+import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html lang="en">
-      <Head />
-      <body>
+    <Html lang="ko">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>LINKBRARY</title>
+      </Head>
+      <body className="root">
+        <div id="modal-root"></div>
         <Main />
         <NextScript />
       </body>
     </Html>
-  )
+  );
 }
