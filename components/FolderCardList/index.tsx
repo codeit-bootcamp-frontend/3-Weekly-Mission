@@ -8,15 +8,15 @@ import styles from './styles.module.css';
 import { Folder, FolderItem, SelectedFolder } from '@/types/Common';
 
 interface Props {
-  link: FolderItem[];
-  setLink: Dispatch<SetStateAction<FolderItem[]>>;
+  links: FolderItem[];
+  setLinks: Dispatch<SetStateAction<FolderItem[]>>;
   selectedFolder: SelectedFolder;
   setSelectedFolder: Dispatch<SetStateAction<SelectedFolder>>;
 }
 
 export const FolderCardList = ({
-  link,
-  setLink,
+  links,
+  setLinks,
   selectedFolder,
   setSelectedFolder,
 }: Props) => {
@@ -28,7 +28,7 @@ export const FolderCardList = ({
     setSelectedFolder({ id: folderId, name: folderName });
 
     const folderItems = await getFolderItem(folderId);
-    setLink(folderItems);
+    setLinks(folderItems);
   };
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export const FolderCardList = ({
         handleFolderMenuClick={handleFolderMenuClick}
       />
       <FolderManagementMenu selectedFolder={selectedFolder} />
-      <CardList link={link} />
+      <CardList links={links} />
       <AddFolderFloatingButton />
     </div>
   );

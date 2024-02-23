@@ -3,19 +3,19 @@ import { Card } from './Card/index';
 import styles from './styles.module.css';
 import { FolderItem } from '@/types/Common';
 
-export const CardList = ({ link }: { link: FolderItem[] }) => {
+export const CardList = ({ links }: { links: FolderItem[] }) => {
   const [activeKebab, setActiveKebab] = useState<string | number | null>(null);
 
   return (
     <>
       <div className={styles['card-list']}>
-        {link && link.length > 0 ? (
-          link?.map(item => {
+        {links && links.length > 0 ? (
+          links?.map(link => {
             return (
               <Card
-                key={item.id}
-                link={item}
-                isActive={activeKebab === item.id}
+                key={link.id}
+                link={link}
+                isActive={activeKebab === link.id}
                 activeKebab={activeKebab}
                 setActiveKebab={setActiveKebab}
               />

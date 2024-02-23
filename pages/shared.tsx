@@ -16,16 +16,20 @@ interface Props {
 
 const Shared = ({ initialData }: Props) => {
   const [isSticky, setIsSticky] = useStickyState(true);
-  const [link, setLink] = useState<FolderItem[]>(initialData);
-  const [initialLink, setInitialLink] = useState<FolderItem[]>(initialData);
+  const [links, setLinks] = useState<FolderItem[]>(initialData);
+  const [initialLinks, setInitialLinks] = useState<FolderItem[]>(initialData);
 
   return (
     <>
       <Header isSticky={!isSticky} />
       <Favorites />
       <div className={styles.section}>
-        <SearchInput link={link} setLink={setLink} initialLink={initialLink} />
-        <SharedCardList link={link} />
+        <SearchInput
+          links={links}
+          setLinks={setLinks}
+          initialLinks={initialLinks}
+        />
+        <SharedCardList links={links} />
       </div>
       <Footer />
     </>

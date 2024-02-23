@@ -25,16 +25,16 @@ export const AddLinkModal = ({
     >
       <div className={styles.modal}>
         <div className={styles['folder-list']}>
-          {folders.map(folderItem => (
+          {folders.map(folder => (
             <button
               className={styles['folder-list__button']}
               type="button"
-              key={folderItem.id}
+              key={folder.id}
             >
               <div className={styles['folder-item']}>
-                <p className={styles['folder-item-name']}>{folderItem.name}</p>
+                <p className={styles['folder-item-name']}>{folder.name}</p>
                 <p className={styles['folder-item-count']}>
-                  {folderItem.link.count}개 링크
+                  {folder.link.count}개 링크
                 </p>
               </div>
               <Image

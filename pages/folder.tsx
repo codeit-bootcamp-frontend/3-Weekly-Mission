@@ -16,8 +16,8 @@ interface Props {
 
 const Folder = ({ initialData }: Props) => {
   const [isSticky, setIsSticky] = useStickyState(true);
-  const [link, setLink] = useState<FolderItem[]>(initialData);
-  const [initialLink, setInitialLink] = useState<FolderItem[]>(initialData);
+  const [links, setLinks] = useState<FolderItem[]>(initialData);
+  const [initialLinks, setInitialLinks] = useState<FolderItem[]>(initialData);
   const [selectedFolder, setSelectedFolder] = useState<SelectedFolder>({
     name: '전체',
     id: 'all',
@@ -28,10 +28,14 @@ const Folder = ({ initialData }: Props) => {
       <Header isSticky={!isSticky} />
       <AddLinkInput />
       <div className={styles.section}>
-        <SearchInput link={link} setLink={setLink} initialLink={initialLink} />
+        <SearchInput
+          links={links}
+          setLinks={setLinks}
+          initialLinks={initialLinks}
+        />
         <FolderCardList
-          link={link}
-          setLink={setLink}
+          links={links}
+          setLinks={setLinks}
           selectedFolder={selectedFolder}
           setSelectedFolder={setSelectedFolder}
         />
