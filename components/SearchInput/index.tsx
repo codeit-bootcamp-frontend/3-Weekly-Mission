@@ -54,10 +54,8 @@ export const SearchInput = ({ link, setLink, initialLink }: Props) => {
         src="/images/search.svg"
         alt="검색 아이콘"
       />
-      <label htmlFor="input-search" />
       <input
         className={styles['search__input']}
-        id="input-search"
         placeholder="링크를 검색해 보세요"
         name="searchData"
         onChange={handleSearchInputChange}
