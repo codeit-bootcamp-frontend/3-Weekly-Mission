@@ -20,6 +20,7 @@ export const Card = ({
   setActiveKebab,
 }: Props) => {
   const [hasError, setHasError] = useState(false);
+
   const handleKebabButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setActiveKebab(activeKebab === folderLink.id ? null : folderLink.id);

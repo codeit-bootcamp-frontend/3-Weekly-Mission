@@ -21,14 +21,21 @@ export const FolderCardList = ({
   setSelectedFolder,
 }: Props) => {
   const [folders, setFolders] = useState<Folder[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleFolderMenuClick = async (
     folderId: string | number,
     folderName: string,
   ) => {
-    setSelectedFolder({ id: folderId, name: folderName });
+    if (isLoading) {
+      return;
+    }
 
+    setSelectedFolder({ id: folderId, name: folderName });
+    setIsLoading(true);
     const Links = await getFolderLinks(folderId);
     setFolderLinks(Links);
+    setIsLoading(false);
   };
 
   useEffect(() => {
