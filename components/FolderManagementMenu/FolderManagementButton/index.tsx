@@ -25,7 +25,7 @@ export const FolderManagementButton = ({
     setVisible(true);
   };
 
-  const handleCloseModal = () => {
+  const handleModalClose = () => {
     setVisible(false);
   };
 
@@ -36,7 +36,7 @@ export const FolderManagementButton = ({
       <Modal
         title={`폴더 ${text}`}
         subTitle={selectedFolder.name}
-        handleCloseModal={handleCloseModal}
+        handleModalClose={handleModalClose}
       >
         <div className={styles.modal}>
           <ModalSubmitButton type="delete">삭제하기</ModalSubmitButton>
@@ -50,7 +50,7 @@ export const FolderManagementButton = ({
       <Modal
         title={`폴더 ${text}`}
         subTitle={selectedFolder.name}
-        handleCloseModal={handleCloseModal}
+        handleModalClose={handleModalClose}
       >
         <div className={styles.modal}>
           <div className={styles['modal__share-button']}>
@@ -65,7 +65,7 @@ export const FolderManagementButton = ({
 
   if (text === '이름 변경') {
     modalContent = (
-      <Modal title={`폴더 ${text}`} handleCloseModal={handleCloseModal}>
+      <Modal title={`폴더 ${text}`} handleModalClose={handleModalClose}>
         <div className={styles.modal}>
           <input
             className={styles['modal__input']}

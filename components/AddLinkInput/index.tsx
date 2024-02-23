@@ -19,7 +19,7 @@ export const AddLinkInput = () => {
     setVisible(!visible);
   };
 
-  const handleCloseModal = (e: MouseEvent<HTMLElement>) => {
+  const handleModalClose = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setVisible(false);
@@ -66,7 +66,7 @@ export const AddLinkInput = () => {
         <AddLinkModal
           folders={folders}
           inputValue={inputValue}
-          handleCloseModal={handleCloseModal}
+          handleModalClose={handleModalClose}
         />
       )}
     </>

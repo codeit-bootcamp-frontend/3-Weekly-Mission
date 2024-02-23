@@ -8,20 +8,20 @@ import { MouseEvent } from 'react';
 interface Props {
   folders: Folder[];
   inputValue: string | undefined;
-  handleCloseModal: (e: MouseEvent<HTMLElement>) => void;
+  handleModalClose: (e: MouseEvent<HTMLElement>) => void;
 }
 
 export const AddLinkModal = ({
   folders,
   inputValue,
 
-  handleCloseModal,
+  handleModalClose,
 }: Props) => {
   return (
     <Modal
       title="폴더에 추가"
       subTitle={inputValue}
-      handleCloseModal={handleCloseModal}
+      handleModalClose={handleModalClose}
     >
       <div className={styles.modal}>
         <div className={styles['folder-list']}>

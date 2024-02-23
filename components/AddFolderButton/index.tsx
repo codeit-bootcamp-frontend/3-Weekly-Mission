@@ -11,7 +11,7 @@ export const AddFolderButton = () => {
     setVisible(true);
   };
 
-  const handleCloseModal = () => {
+  const handleModalClose = () => {
     setVisible(false);
   };
 
@@ -26,7 +26,7 @@ export const AddFolderButton = () => {
         <Image width={18} height={18} src="/images/add.svg" alt="+ 아이콘" />
       </button>
       {visible && (
-        <Modal title="폴더 추가" handleCloseModal={handleCloseModal}>
+        <Modal title="폴더 추가" handleModalClose={handleModalClose}>
           <div className={styles.modal}>
             <input
               className={styles['modal__input']}

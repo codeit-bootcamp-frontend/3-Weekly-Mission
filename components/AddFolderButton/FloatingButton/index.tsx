@@ -11,7 +11,7 @@ export const AddFolderFloatingButton = () => {
     setVisible(true);
   };
 
-  const handleCloseModal = () => {
+  const handleModalClose = () => {
     setVisible(false);
   };
 
@@ -31,7 +31,7 @@ export const AddFolderFloatingButton = () => {
         />
       </button>
       {visible && (
-        <Modal title="폴더 추가" handleCloseModal={handleCloseModal}>
+        <Modal title="폴더 추가" handleModalClose={handleModalClose}>
           <div className={styles.modal}>
             <input
               className={styles['modal__input']}

@@ -4,21 +4,21 @@ import { MouseEvent, ReactNode } from 'react';
 
 interface Props {
   title: string;
-  handleCloseModal: (e: MouseEvent<HTMLElement>) => void;
+  handleModalClose: (e: MouseEvent<HTMLElement>) => void;
   children?: ReactNode;
   subTitle?: string | null;
 }
 
 export const Modal = ({
   title,
-  handleCloseModal,
+  handleModalClose,
   children,
 
   subTitle = undefined,
 }: Props) => {
   const onClick = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      handleCloseModal(e);
+      handleModalClose(e);
     }
   };
 
@@ -33,7 +33,7 @@ export const Modal = ({
           <button
             className={styles['close-button']}
             type="button"
-            onClick={e => handleCloseModal(e)}
+            onClick={e => handleModalClose(e)}
           >
             <Image
               width={24}

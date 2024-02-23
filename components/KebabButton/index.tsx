@@ -19,7 +19,7 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
     setVisible(true);
   };
 
-  const handleCloseModal = (e: MouseEvent<HTMLElement>) => {
+  const handleModalClose = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setVisible(false);
@@ -37,7 +37,7 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
       <Modal
         title="링크 삭제"
         subTitle={link.url}
-        handleCloseModal={handleCloseModal}
+        handleModalClose={handleModalClose}
       >
         <div className={styles.modal}>
           <ModalSubmitButton type="delete">삭제하기</ModalSubmitButton>
@@ -51,7 +51,7 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
       <Modal
         title="폴더에 추가"
         subTitle={link.url}
-        handleCloseModal={handleCloseModal}
+        handleModalClose={handleModalClose}
       >
         <div className={styles.modal}>
           <div className={styles['folder-list']}>
