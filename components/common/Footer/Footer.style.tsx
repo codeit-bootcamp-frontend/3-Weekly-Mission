@@ -7,7 +7,7 @@ const commonFooterStyle = `
   align-items: center;
   padding: 3rem 3rem 10rem;
   min-width: 50rem;
-  background: var(--the-julge-black, --color-black, #111322);
+  background: var(--color-black, #111322);
   font-size: 1.6rem;
   font-weight: 400;
 `;
