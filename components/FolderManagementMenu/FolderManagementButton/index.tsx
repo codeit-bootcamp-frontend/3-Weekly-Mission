@@ -29,50 +29,53 @@ export const FolderManagementButton = ({
     setVisible(false);
   };
 
-  let modalContent;
+  const modalContent = (() => {
+    let content;
 
-  if (text === '삭제') {
-    modalContent = (
-      <Modal
-        title={`폴더 ${text}`}
-        subTitle={selectedFolder.name}
-        handleModalClose={handleModalClose}
-      >
-        <div className={styles.modal}>
-          <ModalSubmitButton type="delete">삭제하기</ModalSubmitButton>
-        </div>
-      </Modal>
-    );
-  }
-
-  if (text === '공유') {
-    modalContent = (
-      <Modal
-        title={`폴더 ${text}`}
-        subTitle={selectedFolder.name}
-        handleModalClose={handleModalClose}
-      >
-        <div className={styles.modal}>
-          <div className={styles['modal__share-button']}>
-            <KakaoShareButton />
-            <FacebookShareButton />
-            <LinkShareButton />
+    switch (text) {
+      case '삭제':
+        content = (
+          <div className={styles.modal}>
+            <ModalSubmitButton type="delete">삭제하기</ModalSubmitButton>
           </div>
-        </div>
-      </Modal>
-    );
-  }
+        );
+        break;
+      case '공유':
+        content = (
+          <div className={styles.modal}>
+            <div className={styles['modal__share-button']}>
+              <KakaoShareButton />
+              <FacebookShareButton />
+              <LinkShareButton />
+            </div>
+          </div>
+        );
+        break;
+      case '이름 변경':
+        content = (
+          <div className={styles.modal}>
+            <input
+              className={styles['modal__input']}
+              placeholder="새 폴더 이름 입력"
+            />
+            <ModalSubmitButton type="submit">변경하기</ModalSubmitButton>
+          </div>
+        );
+        break;
+      default:
+        content = null;
+    }
 
-  if (text === '이름 변경') {
-    modalContent = (
-      <Modal title={`폴더 ${text}`} handleModalClose={handleModalClose}>
-        <div className={styles.modal}>
-          <input className={styles['modal__input']} placeholder="내용 입력" />
-          <ModalSubmitButton type="submit">변경하기</ModalSubmitButton>
-        </div>
+    return content ? (
+      <Modal
+        title={`폴더 ${text}`}
+        subTitle={text !== '이름 변경' ? selectedFolder.name : undefined}
+        handleModalClose={handleModalClose}
+      >
+        {content}
       </Modal>
-    );
-  }
+    ) : null;
+  })();
 
   return (
     <>

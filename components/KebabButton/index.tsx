@@ -21,57 +21,60 @@ export const KebabButton = ({ folderLink }: { folderLink: FolderLink }) => {
     setVisible(false);
   };
 
-  let modalContent;
+  const modalContent = (() => {
+    let content;
 
-  if (dropDownItem === '삭제하기') {
-    modalContent = (
-      <Modal
-        title="링크 삭제"
-        subTitle={folderLink.url}
-        handleModalClose={handleModalClose}
-      >
-        <div className={styles.modal}>
-          <ModalSubmitButton type="delete">삭제하기</ModalSubmitButton>
-        </div>
-      </Modal>
-    );
-  }
-
-  if (dropDownItem === '폴더에 추가') {
-    modalContent = (
-      <Modal
-        title="폴더에 추가"
-        subTitle={folderLink.url}
-        handleModalClose={handleModalClose}
-      >
-        <div className={styles.modal}>
-          <div className={styles['folder-list']}>
-            {folders.map(folder => (
-              <button
-                className={styles['folder-list__button']}
-                key={folder.id}
-                type="button"
-              >
-                <div className={styles['folder-item']}>
-                  <p className={styles['folder-item-name']}>{folder.name}</p>
-                  <p className={styles['folder-item-count']}>
-                    {folder.link.count}개 링크
-                  </p>
-                </div>
-                <Image
-                  width={14}
-                  height={14}
-                  src="/images/check.png"
-                  alt="체크"
-                />
-              </button>
-            ))}
+    switch (dropDownItem) {
+      case '삭제하기':
+        content = (
+          <div className={styles.modal}>
+            <ModalSubmitButton type="delete">삭제하기</ModalSubmitButton>
           </div>
-          <ModalSubmitButton type="submit">추가하기</ModalSubmitButton>
-        </div>
+        );
+        break;
+      case '폴더에 추가':
+        content = (
+          <div className={styles.modal}>
+            <div className={styles['folder-list']}>
+              {folders.map(folder => (
+                <button
+                  className={styles['folder-list__button']}
+                  key={folder.id}
+                  type="button"
+                >
+                  <div className={styles['folder-item']}>
+                    <p className={styles['folder-item-name']}>{folder.name}</p>
+                    <p className={styles['folder-item-count']}>
+                      {folder.link.count}개 링크
+                    </p>
+                  </div>
+                  <Image
+                    width={14}
+                    height={14}
+                    src="/images/check.png"
+                    alt="체크"
+                  />
+                </button>
+              ))}
+            </div>
+            <ModalSubmitButton type="submit">추가하기</ModalSubmitButton>
+          </div>
+        );
+        break;
+      default:
+        content = null;
+    }
+
+    return (
+      <Modal
+        title={dropDownItem === '삭제하기' ? '링크 삭제' : '폴더에 추가'}
+        subTitle={folderLink.url}
+        handleModalClose={handleModalClose}
+      >
+        {content}
       </Modal>
     );
-  }
+  })();
 
   useEffect(() => {
     const getFolderData = async () => {
