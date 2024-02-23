@@ -1,11 +1,14 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { FieldError } from "react-hook-form";
+import { useState } from "react";
+import Image from "next/image";
 import LogoText from "@/components/atomicComponents/logoText";
 import LoginInput from "@/components/atomicComponents/loginInput";
 import LoginButton from "@/components/atomicComponents/loginButton";
 import SnsLogin from "@/components/atomicComponents/snsLogin";
-import { useForm } from "react-hook-form";
-import { FieldError } from "react-hook-form";
 import { email_reg, password_reg } from "@/src/utils/regexPatterns";
+import { eyeoff_svg, eyeon_svg } from "@/public/image/index";
 import styles from "./signup.module.css";
 
 const SingUpModule = () => {
@@ -13,8 +16,19 @@ const SingUpModule = () => {
     register,
     handleSubmit,
     watch,
-    formState: { isSubmitted, errors },
+    formState: { errors },
   } = useForm({ mode: "onBlur" });
+
+  const [isPasswordVisible, setisPasswordVisible] = useState(false);
+  const [isPasswordConfirmVisible, setisPasswordConfirmVisible] = useState(false);
+
+  const toggleisPasswordVisible = () => {
+    setisPasswordVisible(!isPasswordVisible);
+  };
+
+  const toggleisPasswordConfirmVisible = () => {
+    setisPasswordConfirmVisible(!isPasswordConfirmVisible);
+  };
 
   return (
     <div>
@@ -47,7 +61,7 @@ const SingUpModule = () => {
         </div>
         <LoginInput
           id="password"
-          type="password"
+          type={isPasswordVisible ? "text" : "password"}
           label="비밀번호"
           placeholder="영문, 숫자를 조합해서 8자 이상 입력해주세요"
           register={register("password", {
@@ -57,6 +71,16 @@ const SingUpModule = () => {
               message: "영문, 숫자를 조합해서 8자 이상 입력해주세요",
             },
           })}
+          suffix={
+            <Image
+              className={styles.eye_icon}
+              src={isPasswordVisible ? eyeon_svg : eyeoff_svg}
+              alt="eye"
+              onClick={toggleisPasswordVisible}
+              width={16}
+              height={16}
+            />
+          }
         />
         <div className={styles.error_text_wrapper}>
           {errors.password && (
@@ -67,7 +91,7 @@ const SingUpModule = () => {
         </div>
         <LoginInput
           id="passwordconfirm"
-          type="password"
+          type={isPasswordConfirmVisible ? "text" : "password"}
           label="비밀번호 확인"
           placeholder="비밀번호와 일치하는 값을 입력해주세요"
           register={register("passwordconfirm", {
@@ -77,6 +101,16 @@ const SingUpModule = () => {
                 ? true
                 : "비밀번호가 일치하지 않습니다.",
           })}
+          suffix={
+            <Image
+              className={styles.eye_icon}
+              src={isPasswordConfirmVisible ? eyeon_svg : eyeoff_svg}
+              alt="eye"
+              onClick={toggleisPasswordConfirmVisible}
+              width={16}
+              height={16}
+            />
+          }
         />
         <div className={styles.error_text_wrapper}>
           {errors.passwordconfirm && (
@@ -98,3 +132,7 @@ export default SingUpModule;
 //watch("password") -> password의 값을 가져옴
 //value === watch("password") ? true : "비밀번호가 일치하지 않습니다.",
 //-> 비밀번호가 같으면 true, 다르면 "비밀번호가 일치하지 않습니다."를 반환
+
+
+//똑같은 느김의 state 2개로 하기 싫d으니까  id에 키값을 줘서 하나로 처리하기?
+//

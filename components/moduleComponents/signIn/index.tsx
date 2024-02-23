@@ -14,7 +14,7 @@ const SigninModule = () => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitted, errors },
+    formState: { errors },
   } = useForm({ mode: "onBlur" });
 
   const [isPasswordVisible, setisPasswordVisible] = useState(false);
@@ -97,7 +97,7 @@ export default SigninModule;
 
 // 양식이 현재 어떤 상태인지를 담고있는 formState
 //{isSubmitting} -> 제출중인지 아닌지를 나타내는 불리언 값
-//{isSubmitted} -> 양식이 제출되었는지 아닌지를 나타내는 불리언 값
+//{ -> 양식이 제출되었는지 아닌지를 나타내는 불리언 값
 
 //{errors.email && <small>{errors.email.message}</small>}
 //errors라는 객체에 email이라는 키가 있고, 그 값이 있다면, 그 값의 message를 출력해라
