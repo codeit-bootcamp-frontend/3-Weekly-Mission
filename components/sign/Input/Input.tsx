@@ -11,7 +11,7 @@ export default function Input({
   onChange,
   placeholder = "",
   value,
-  ExistError = false,
+  existError = false,
   errorMessage = "",
 }: {
   id: string;
@@ -20,7 +20,7 @@ export default function Input({
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   value: string;
-  ExistError: boolean;
+  existError: boolean;
   errorMessage?: string;
 }) {
   const defaultType = type;
@@ -47,11 +47,11 @@ export default function Input({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          data-status={ExistError ? "Error" : "Ok"}
+          data-status={existError ? "Error" : "Ok"}
           onBlur={onChange}
         />
       </S.Label>
-      {ExistError && <S.Error>{errorMessage}</S.Error>}
+      {existError && <S.Error>{errorMessage}</S.Error>}
       {defaultType === "password" && (
         <S.Image
           src={eyeIcon}
