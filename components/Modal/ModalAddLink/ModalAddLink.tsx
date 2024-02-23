@@ -12,7 +12,7 @@ import CtaButton from "../../CtaButton/CtaButton";
 import { FolderData } from "../../../types/dataTypes";
 
 interface Props {
-  url: string | null;
+  url?: string;
   itemList?: FolderData[];
 }
 export default function ModalAddLink({ url, itemList }: Props) {
