@@ -12,6 +12,7 @@ import postFetch from "@/utils/postFetch";
 export const Form = ({ currentPath }: { currentPath: string }) => {
   const router = useRouter();
   const id = useId();
+  const [failSubmit, setFailSubmit] = useState(false);
   const [FormData, setFormData] = useState<signFormDataInterface>(() => {
     return {
       email: "",
@@ -32,15 +33,24 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
       password: FormData.password,
     };
     (async () => {
-      const data = await postFetch(URL_DOMAIN, "api/sign-in", body);
-      localStorage.setItem("accessToken", await data.data.accessToken);
-      return router.push("./folder");
+      try {
+        const data = await postFetch(URL_DOMAIN, "api/sign-in", body);
+        localStorage.setItem("accessToken", await data.data.accessToken);
+        return router.push("./folder");
+      } catch (error) {
+        console.error(error);
+      }
     })();
   };
 
   // 회원가입 버튼 클릭
   const handleRegisterSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    if (FormData.password !== FormData.confirmPassword) {
+      return alert("비밀번호가 일치하지 않습니다.");
+    }
+
     const body = {
       email: FormData.email,
       password: FormData.password,
@@ -62,6 +72,8 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
           FormData={FormData}
           onChange={handleInputChange}
           currentPath={currentPath}
+          handleLoginSubmit={handleLoginSubmit}
+          handleRegisterSubmit={handleRegisterSubmit}
         />
       </div>
       <div>
@@ -72,6 +84,8 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
           FormData={FormData}
           onChange={handleInputChange}
           currentPath={currentPath}
+          handleLoginSubmit={handleLoginSubmit}
+          handleRegisterSubmit={handleRegisterSubmit}
         />
       </div>
       {currentPath === "signin" ? null : (
@@ -84,6 +98,8 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
             onChange={handleInputChange}
             isConfirmPassword={true}
             currentPath={currentPath}
+            handleLoginSubmit={handleLoginSubmit}
+            handleRegisterSubmit={handleRegisterSubmit}
           />
         </div>
       )}

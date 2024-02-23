@@ -12,26 +12,20 @@ export const EmailInput = ({
   FormData,
   onChange,
   currentPath,
+  handleLoginSubmit,
+  handleRegisterSubmit,
 }: {
   type: string;
   name: string;
   FormData: signFormDataInterface;
   onChange: (data: signFormDataInterface) => void;
   currentPath: string;
+  handleLoginSubmit: (e: React.FormEvent) => void;
+  handleRegisterSubmit: (e: React.FormEvent) => void;
 }) => {
   const [Error, setError] = useState<SignInputErrorMessages>(SignInputErrorMessages.NoError);
 
   const handleBlur = () => {
-    const confirmEmail = new RegExp(CONFIRM_EMAIL);
-
-    if (FormData.email === "") {
-      return setError(SignInputErrorMessages.PleaseEnterEmail);
-    }
-
-    if (!confirmEmail.test(FormData.email)) {
-      return setError(SignInputErrorMessages.NotValidEmail);
-    }
-
     // 회원가입 페이지에서만 중복확인
     if (currentPath === "signup") {
       (async () => {
@@ -48,7 +42,29 @@ export const EmailInput = ({
       })();
     }
 
+    if (FormData.email === "") {
+      return setError(SignInputErrorMessages.PleaseEnterEmail);
+    }
+
+    const confirmEmail = new RegExp(CONFIRM_EMAIL);
+    if (!confirmEmail.test(FormData.email)) {
+      return setError(SignInputErrorMessages.NotValidEmail);
+    }
+
     return setError(SignInputErrorMessages.NoError);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      // 회원가입 페이지인 경우 회원가입 버튼 클릭
+      if (currentPath === "signup") {
+        return handleRegisterSubmit(e);
+      }
+      // 로그인 페이지인 경우 로그인 버튼 클릭
+      if (currentPath === "signin") {
+        return handleLoginSubmit(e);
+      }
+    }
   };
 
   return (
@@ -62,6 +78,7 @@ export const EmailInput = ({
           onChange({ ...FormData, email: e.target.value });
         }}
         onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
       />
       {Error === SignInputErrorMessages.NoError ? null : <ErrorMessage>{Error}</ErrorMessage>}
     </>
