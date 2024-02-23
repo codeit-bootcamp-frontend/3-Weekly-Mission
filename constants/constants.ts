@@ -9,7 +9,7 @@ export const TIMES = {
   MONTHS_AGO: ' months ago',
   ONE_YEAR_AGO: '1 year ago',
   YEARS_AGO: ' years ago',
-};
+} as const;
 
 const BASE_URL = 'https://bootcamp-api.codeit.kr';
 
@@ -20,13 +20,13 @@ export const API = {
   USER: `${BASE_URL}/api/users/4`,
   FOLDER: `${BASE_URL}/api/users/4/folders`,
   FOLDER_LINK: `${BASE_URL}/api/users/4/links`,
-};
+} as const;
 
 export const MANAGEMENT_ACTIONS = {
   SHARE: '공유',
   EDIT_NAME: '이름 변경',
   DELETE: '삭제',
-};
+} as const;
 
 export const SOCIAL_LINKS = {
   FACEBOOK: {
@@ -49,4 +49,4 @@ export const SOCIAL_LINKS = {
     URL: 'https://www.instagram.com/',
     ICON: '/images/instagram-icon.svg',
   },
-};
+} as const;
