@@ -95,8 +95,8 @@ const SnsLogin = styled.div`
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
-  border: 1px solid var(--linkbrary-gray-20);
-  background: var(--linkbrary-gray-10);
+  border: 1px solid var(--linkbrary-gray-20, #ccd5e3);
+  background: var(--linkbrary-gray-10, #e7effb);
 `;
 const Text = styled.span`
   font-size: 14px;
