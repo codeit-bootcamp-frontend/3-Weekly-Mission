@@ -1,10 +1,29 @@
 import styles from "./Footer.module.css";
-import facebookIcon from "../public/facebook_icon.svg";
-import twitterIcon from "../public/twitter_icon.svg";
-import youtubeIcon from "../public/youtube_icon.svg";
-import instagramIcon from "../public/instagram_icon.svg";
 import Image from "next/image";
 import Link from "next/link";
+
+const SNS = [
+  {
+    href: "https://www.facebook.com",
+    src: "/facebook_icon.svg",
+    alt: "facebook-icon",
+  },
+  {
+    href: "https://twitter.com",
+    src: "/twitter_icon.svg",
+    alt: "twitter-icon",
+  },
+  {
+    href: "https://www.youtube.com",
+    src: "/youtube_icon.svg",
+    alt: "youtube-icon",
+  },
+  {
+    href: "https://www.instagram.com",
+    src: "/instagram_icon.svg",
+    alt: "instagram-icon",
+  },
+];
 
 export default function Footer() {
   return (
@@ -19,34 +38,16 @@ export default function Footer() {
         </Link>
       </div>
       <div className={styles["sns-link"]}>
-        <Link
-          href="https://www.facebook.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src={facebookIcon} alt="facebook-icon" />
-        </Link>
-        <Link
-          href="https://twitter.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src={twitterIcon} alt="twitter-icon" />
-        </Link>
-        <Link
-          href="https://www.youtube.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src={youtubeIcon} alt="youtube-icon" />
-        </Link>
-        <Link
-          href="https://www.instagram.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src={instagramIcon} alt="instagram-icon" />
-        </Link>
+        {SNS.map((sns, idx) => (
+          <Link
+            key={idx}
+            href={sns.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image width={20} height={20} src={sns.src} alt={sns.alt} />
+          </Link>
+        ))}
       </div>
     </footer>
   );

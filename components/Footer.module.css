@@ -1,8 +1,8 @@
 .footer {
   width: 100%;
   height: 16rem;
-  position : relative;
-  transform : translateY(100%);
+  position: relative;
+  transform: translateY(100%);
   padding: 3.2rem 10.4rem 6.4rem;
   background-color: var(--color-black);
   display: flex;
@@ -18,14 +18,14 @@
   color: #676767;
 }
 
-.privacy{
+.privacy {
   text-decoration: none;
-  color: #CFCFCF;
+  color: #cfcfcf;
 }
 
-.faq{
+.faq {
   text-decoration: none;
-  color: #CFCFCF;
+  color: #cfcfcf;
 }
 
 .policy-and-faq {
@@ -39,25 +39,24 @@
   gap: 1.2rem;
 }
 
-@media(max-width: 767px){
-  .footer{
+@media (max-width: 767px) {
+  .footer {
     padding: 3.2rem 3.2rem 3.2rem;
     display: grid;
-    grid-template-areas: 
-    "policy-and-faq sns-link"
-    "brand-year sns-link";
+    grid-template-areas:
+      "policy-and-faq sns-link"
+      "brand-year sns-link";
     row-gap: 6rem;
   }
 
-  .brand-year{
+  .brand-year {
     grid-area: brand-year;
   }
 
   .policy-and-faq {
     grid-area: policy-and-faq;
-    
   }
-  
+
   .sns-link {
     grid-area: sns-link;
   }
