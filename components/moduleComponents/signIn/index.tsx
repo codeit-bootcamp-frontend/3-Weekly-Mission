@@ -1,11 +1,11 @@
-import { useForm } from "react-hook-form";
+import { useForm, FieldError } from "react-hook-form";
+import styles from "./signin.module.css";
 import LogoText from "@/components/atomicComponents/logoText/index";
 import LoginInput from "@/components/atomicComponents/loginInput/index";
 import LoginButton from "@/components/atomicComponents/loginButton/index";
 import SnsLogin from "@/components/atomicComponents/snsLogin/index";
 import Styles from "@/styles/signin.module.css";
-import { FieldError } from "react-hook-form";
-import { email_reg, password_reg } from "@/src/regexPatterns";
+import { email_reg } from "@/src/utils/regexPatterns";
 
 const SigninModule = () => {
   const {
@@ -35,11 +35,14 @@ const SigninModule = () => {
               message: "올바른 이메일 주소가 아닙니다.",
             },
           })}
-          aria-invalid={
-            isSubmitted ? (errors.email ? "true" : "false") : undefined
-          }
         />
-        {errors.email && <small>{(errors.email as FieldError).message}</small>}
+        <div className={styles.error_text_wrapper}>
+          {errors.email && (
+            <small className={styles.error_text}>
+              {(errors.email as FieldError).message}
+            </small>
+          )}
+        </div>
         <LoginInput
           id="password"
           type="password"
@@ -48,13 +51,15 @@ const SigninModule = () => {
           register={register("password", {
             required: "비밀번호를 입력해주세요",
           })}
-          aria-invalid={
-            isSubmitted ? (errors.password ? "true" : "false") : undefined
-          }
         />
-        {errors.password && (
-          <small>{(errors.password as FieldError).message}</small>
-        )}
+        <div className={styles.error_text_wrapper}>
+          {errors.password && (
+            <small className={styles.error_text}>
+              {(errors.password as FieldError).message}
+            </small>
+          )}
+        </div>
+
         <LoginButton children="로그인" />
       </form>
       <SnsLogin children="소셜 로그인" />
@@ -81,8 +86,7 @@ export default SigninModule;
 //리액트 컴포넌트는 props로 ref를 넘겨줄 수 없음
 //React.forwardRef를 사용하여 ref를 넘겨줄 수 있음
 
-
-// react-hook-form 의 register 함수에는 많은 속성? 함수? 이 들어가있다.
+// react-hook-form 의 register 함수에는 많은 속성? 옵션? 이 들어가있다.
 // react-hook-form 에서 input의 값을 handleSubmit의 데이터 로 받으려면 ref속성이 필요한데
 // input 컴포넌트를 분리해서 사용한 경우에는 input에 ref가 없어서 props로 사용해줘야한다.
 // ...register 스프레드 문법으로 register를 props로 넘겨주고 사용

@@ -1,4 +1,4 @@
-import { createDay, createTime } from "../../../src/shared";
+import { createDay, createTime } from "../../../src/utils/shared";
 import { useState } from "react";
 import useUserLinkData from "../../../hook/useUserLinkData";
 import Kebab from "../../atomicComponents/kebab/Kebab";
