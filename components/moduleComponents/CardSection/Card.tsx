@@ -54,9 +54,9 @@ function CardList({ link }: { link: UserLinkType }) {
 export default function Card({
   selectedFolderId,
 }: {
-  selectedFolderId?: number;
+  selectedFolderId: number;
 }) {
-  const { linkData } = useUserLinkData(selectedFolderId!); //!인 이유는
+  const { linkData } = useUserLinkData(selectedFolderId); //!인 이유는
   return (
     <>
       {linkData.map((link) => (
@@ -65,3 +65,10 @@ export default function Card({
     </>
   );
 }
+
+//! 는 null이 아닌 어선셜 연산자, 또는 확정할당 연산자
+//null 또는 undefined가 될 수 없다. 라는 의미
+//값이 실제로 null 또는 undefined인지 확인하지 않고 단언 연산자를 사용하면 예상치 못한 결과가 발생할 수 있다
+//?.은 ?.앞의 평가 대상이 undefined나 null이면 평가를 멈추고 undefined를 반환한다.
+
+

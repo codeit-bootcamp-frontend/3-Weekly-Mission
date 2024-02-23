@@ -1,11 +1,14 @@
 import { useForm, FieldError } from "react-hook-form";
+import { useState } from "react";
+import { email_reg } from "@/src/utils/regexPatterns";
+import { eyeoff_svg, eyeon_svg } from "@/public/image/index";
 import styles from "./signin.module.css";
+import Styles from "@/styles/signin.module.css";
+import Image from "next/image";
 import LogoText from "@/components/atomicComponents/logoText/index";
 import LoginInput from "@/components/atomicComponents/loginInput/index";
 import LoginButton from "@/components/atomicComponents/loginButton/index";
 import SnsLogin from "@/components/atomicComponents/snsLogin/index";
-import Styles from "@/styles/signin.module.css";
-import { email_reg } from "@/src/utils/regexPatterns";
 
 const SigninModule = () => {
   const {
@@ -13,6 +16,12 @@ const SigninModule = () => {
     handleSubmit,
     formState: { isSubmitted, errors },
   } = useForm({ mode: "onBlur" });
+
+  const [isPasswordVisible, setisPasswordVisible] = useState(false);
+
+  const toggleisPasswordVisible = () => {
+    setisPasswordVisible(!isPasswordVisible);
+  };
 
   return (
     <div className={Styles.signin_Module_wrapper}>
@@ -45,12 +54,22 @@ const SigninModule = () => {
         </div>
         <LoginInput
           id="password"
-          type="password"
+          type={isPasswordVisible ? "text" : "password"}
           label="비밀번호"
           placeholder="비밀번호를 입력해주세요"
           register={register("password", {
             required: "비밀번호를 입력해주세요",
           })}
+          suffix={
+            <Image
+              className={styles.eye_icon}
+              src={isPasswordVisible ? eyeon_svg : eyeoff_svg}
+              alt="eye"
+              onClick={toggleisPasswordVisible}
+              width={16}
+              height={16}
+            />
+          }
         />
         <div className={styles.error_text_wrapper}>
           {errors.password && (

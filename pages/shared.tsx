@@ -11,3 +11,5 @@ export default function Home() {
     </>
   );
 }
+
+//다이나믹 라우팅으로 만들어야할듯

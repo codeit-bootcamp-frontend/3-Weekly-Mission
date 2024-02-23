@@ -1,3 +1,4 @@
+import { HTMLAttributes } from "react";
 import { FieldError } from "react-hook-form";
 import { UseFormRegisterReturn } from "react-hook-form";
 
@@ -89,10 +90,11 @@ export type ContentStyle = {
   position: string;
 };
 
-export interface LoginInputProps {
+export interface LoginInputProps extends HTMLAttributes<HTMLInputElement> {
   id: string;
   label: string;
   type: string;
   placeholder: string;
   register: UseFormRegisterReturn;
+  suffix?: React.ReactNode;
 }

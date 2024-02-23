@@ -1,23 +1,15 @@
 import styles from "./loginInput.module.css";
 import { LoginInputProps } from "@/types/Types";
-import { useState } from "react";
 import React from "react";
-import Image from "next/image";
-import { eyeoff_svg, eyeon_svg } from "@/public/image/index";
 
 const LoginInput = ({
   id,
   register,
   label,
-  placeholder,
-  type,
+  suffix,
+  ...rest
 }: LoginInputProps) => {
-  const [isPasswordVisible, setisPasswordVisible] = useState(false);
-
-  const toggleisPasswordVisible = () => {
-    setisPasswordVisible(!isPasswordVisible);
-  };
-
+ 
   return (
     <div className={styles.login_input_from}>
       <label className={styles.login_input_label} htmlFor={id}>
@@ -26,26 +18,10 @@ const LoginInput = ({
       <input
         className={styles.login_input}
         id={id}
-        type={
-          type === "password"
-            ? isPasswordVisible
-              ? "text"
-              : "password"
-            : undefined
-        }
-        placeholder={placeholder}
         {...register}
+        {...rest}
       />
-      {type === "password" && (
-        <Image
-          className={styles.eye_icon}
-          src={isPasswordVisible ? eyeon_svg : eyeoff_svg}
-          alt="eye on/off"
-          width={16}
-          height={16}
-          onClick={toggleisPasswordVisible}
-        />
-      )}
+      {suffix}
     </div>
   );
 };
