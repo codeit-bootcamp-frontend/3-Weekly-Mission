@@ -58,7 +58,7 @@ export const Card = ({
             alt="카드 이미지"
             style={{ objectFit: 'cover' }}
             onError={() => {
-              if (!hasError) setHasError(true);
+              setHasError(true);
             }}
           />
         </div>
