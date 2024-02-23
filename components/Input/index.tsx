@@ -5,14 +5,10 @@ import Image from 'next/image';
 export function Input({ type = 'password' }: { type: string }) {
   const [inputValue, setInputValue] = useState<string>('');
   const [isError, setIsError] = useState(false);
-  const [typeValue, setTypeValue] = useState<string>('password');
+  const [typeValue, setTypeValue] = useState<string>(type);
 
   const handleInputBlur = () => {
-    if (!inputValue) {
-      setIsError(true);
-    } else {
-      setIsError(false);
-    }
+    setIsError(!inputValue);
   };
 
   const handleEyeIconClick = () => {
@@ -28,7 +24,7 @@ export function Input({ type = 'password' }: { type: string }) {
       <div className={styles['input-box']}>
         <input
           className={`${styles.input} ${isError && styles.error}`}
-          type={type === 'password' ? typeValue : type}
+          type={type}
           value={inputValue}
           placeholder="내용 입력"
           onChange={e => {
