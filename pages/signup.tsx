@@ -3,8 +3,9 @@ import classNames from 'classnames/bind';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from 'react';
+import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { checkEmail, postSignup } from './api/api';
+import Input from '@/src/components/Input/Input';
 
 const cn = classNames.bind(styles);
 
@@ -22,7 +23,6 @@ export default function signup() {
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
   const [isPasswordCheckError, setIsPasswordCheckError] = useState(false);
-  const [isHide, setIsHide] = useState(false);
 
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
@@ -86,15 +86,7 @@ export default function signup() {
     return focus;
   };
 
-  const onClickIcon = (e: MouseEvent) => {
-    const targetElement = e.target as HTMLElement;
-    const inputElement =
-      targetElement.previousElementSibling as HTMLInputElement;
-    inputElement.type = inputElement.type === 'password' ? 'text' : 'password';
-    setIsHide(!isHide);
-  };
-
-  const onClickSignup = async () => {
+  const onClickSignup = () => {
     const inputList = {
       email: { target: emailInput.current, check: onBlurEmail() },
       password: { target: passwordInput.current, check: onBlurPassword() },
@@ -104,27 +96,27 @@ export default function signup() {
       },
     };
 
-    setTimeout(() => {
+    setTimeout(async () => {
       for (let input in inputList) {
         if (inputList[input].check) {
           inputList[input].target.focus();
           return;
         }
       }
+
+      const response = await postSignup({ email, password });
+      if (!response) return;
+
+      if (response.ok) {
+        const body = await response.json();
+        localStorage.setItem('accessToken', body.data.accessToken);
+        router.push('/folder');
+      } else {
+        onBlurEmail();
+        onBlurPassword();
+        onBlurPasswordCheck();
+      }
     }, 100);
-
-    const response = await postSignup({ email, password });
-    if (!response) return;
-
-    if (response.ok) {
-      const body = await response.json();
-      localStorage.setItem('accessToken', body.data.accessToken);
-      router.push('/folder');
-    } else {
-      onBlurEmail();
-      onBlurPassword();
-      onBlurPasswordCheck();
-    }
   };
 
   const onKeydown = (e: KeyboardEvent) => {
@@ -165,105 +157,42 @@ export default function signup() {
           <section className={cn('section')}>
             <div className={cn('input-element')}>
               <label className={cn('label')}>이메일</label>
-              <div className={cn('input-container')}>
-                <input
-                  ref={emailInput}
-                  type="email"
-                  name="email"
-                  className={isEmailError ? cn('input', 'error') : cn('input')}
-                  placeholder="이메일을 입력해 주세요."
-                  onChange={(e) => setEmail(e.target.value)}
-                  onBlur={onBlurEmail}
-                  onKeyDown={onKeydown}
-                />
-                {isEmailError && (
-                  <span className={cn('error-message')}>
-                    {emailErrorMessage}
-                  </span>
-                )}
-              </div>
+              <Input
+                ref={emailInput}
+                type="email"
+                placeholder="이메일을 입력해 주세요"
+                onChange={setEmail}
+                onBlur={onBlurEmail}
+                onKeyDown={onKeydown}
+                isError={isEmailError}
+                errorMessage={emailErrorMessage}
+              />
             </div>
             <div className={cn('input-element')}>
               <label className={cn('label')}>비밀번호</label>
-              <div className={cn('input-container')}>
-                <input
-                  ref={passwordInput}
-                  type="password"
-                  name="password"
-                  className={
-                    isPasswordError ? cn('input', 'error') : cn('input')
-                  }
-                  placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요."
-                  onChange={(e) => setPassword(e.target.value)}
-                  onBlur={onBlurPassword}
-                  onKeyDown={onKeydown}
-                />
-                {isHide ? (
-                  <Image
-                    width={16}
-                    height={16}
-                    className={cn('password-icon')}
-                    src="/images/eye-on.svg"
-                    alt="눈모양 아이콘"
-                    onClick={onClickIcon}
-                  />
-                ) : (
-                  <Image
-                    width={16}
-                    height={16}
-                    className={cn('password-icon')}
-                    src="/images/eye-off.svg"
-                    alt="눈에 빗금친 아이콘"
-                    onClick={onClickIcon}
-                  />
-                )}
-                {isPasswordError && (
-                  <span className={cn('error-message')}>
-                    {passwordErrorMessage}
-                  </span>
-                )}
-              </div>
+              <Input
+                ref={passwordInput}
+                type="password"
+                onChange={setPassword}
+                placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요."
+                onBlur={onBlurPassword}
+                onKeyDown={onKeydown}
+                isError={isPasswordError}
+                errorMessage={passwordErrorMessage}
+              />
             </div>
             <div className={cn('input-element')}>
               <label className={cn('label')}>비밀번호 확인</label>
-              <div className={cn('input-container')}>
-                <input
-                  ref={passwordCheckInput}
-                  type="password"
-                  name="passwordCheck"
-                  className={
-                    isPasswordCheckError ? cn('input', 'error') : cn('input')
-                  }
-                  placeholder="비밀번호와 일치하는 값을 입력해 주세요."
-                  onChange={(e) => setPasswordCheck(e.target.value)}
-                  onBlur={onBlurPasswordCheck}
-                  onKeyDown={onKeydown}
-                />
-                {isHide ? (
-                  <Image
-                    width={16}
-                    height={16}
-                    className={cn('password-icon')}
-                    src="/images/eye-on.svg"
-                    alt="눈모양 아이콘"
-                    onClick={onClickIcon}
-                  />
-                ) : (
-                  <Image
-                    width={16}
-                    height={16}
-                    className={cn('password-icon')}
-                    src="/images/eye-off.svg"
-                    alt="눈에 빗금친 아이콘"
-                    onClick={onClickIcon}
-                  />
-                )}
-                {isPasswordCheckError && (
-                  <span className={cn('error-message')}>
-                    {passwordCheckErrorMessage}
-                  </span>
-                )}
-              </div>
+              <Input
+                ref={passwordCheckInput}
+                type="password"
+                placeholder="비밀번호와 일치하는 값을 입력해 주세요."
+                onChange={setPasswordCheck}
+                onBlur={onBlurPasswordCheck}
+                onKeyDown={onKeydown}
+                isError={isPasswordCheckError}
+                errorMessage={passwordCheckErrorMessage}
+              />
             </div>
           </section>
           <button

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import { postSignin } from './api/api';
 import { useRouter } from 'next/router';
+import Input from '@/src/components/Input/Input';
 
 const cn = classNames.bind(styles);
 
@@ -132,64 +133,29 @@ export default function signin() {
           <section className={cn('section')}>
             <div className={cn('input-element')}>
               <label className={cn('label')}>이메일</label>
-              <div className={cn('input-container')}>
-                <input
-                  ref={emailInput}
-                  type="email"
-                  name="email"
-                  className={isEmailError ? cn('input', 'error') : cn('input')}
-                  placeholder="이메일을 입력해 주세요."
-                  onChange={(e) => setEmail(e.target.value)}
-                  onBlur={onBlurEmail}
-                  onKeyDown={onKeydown}
-                />
-                {isEmailError && (
-                  <span className={cn('error-message')}>
-                    {emailErrorMessage}
-                  </span>
-                )}
-              </div>
+              <Input
+                ref={emailInput}
+                type="email"
+                placeholder="이메일을 입력해 주세요."
+                onChange={setEmail}
+                onBlur={onBlurEmail}
+                onKeyDown={onKeydown}
+                isError={isEmailError}
+                errorMessage={emailErrorMessage}
+              />
             </div>
             <div className={cn('input-element')}>
               <label className={cn('label')}>비밀번호</label>
-              <div className={cn('input-container')}>
-                <input
-                  ref={passwordInput}
-                  type="password"
-                  name="password"
-                  className={
-                    isPasswordError ? cn('input', 'error') : cn('input')
-                  }
-                  placeholder="비밀번호를 입력해 주세요."
-                  onChange={(e) => setPassword(e.target.value)}
-                  onBlur={onBlurPassword}
-                  onKeyDown={onKeydown}
-                />
-                {isHide ? (
-                  <Image
-                    width={16}
-                    height={16}
-                    className={cn('password-icon')}
-                    src="/images/eye-on.svg"
-                    alt="눈모양 아이콘"
-                    onClick={onClickIcon}
-                  />
-                ) : (
-                  <Image
-                    width={16}
-                    height={16}
-                    className={cn('password-icon')}
-                    src="/images/eye-off.svg"
-                    alt="눈에 빗금친 아이콘"
-                    onClick={onClickIcon}
-                  />
-                )}
-                {isPasswordError && (
-                  <span className={cn('error-message')}>
-                    {passwordErrorMessage}
-                  </span>
-                )}
-              </div>
+              <Input
+                ref={passwordInput}
+                type="password"
+                placeholder="비밀번호를 입력해 주세요."
+                onChange={setPassword}
+                onBlur={onBlurPassword}
+                onKeyDown={onKeydown}
+                isError={isPasswordError}
+                errorMessage={passwordErrorMessage}
+              />
             </div>
           </section>
           <button
