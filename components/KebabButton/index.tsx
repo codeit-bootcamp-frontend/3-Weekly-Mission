@@ -1,12 +1,12 @@
 import { useState, useEffect, MouseEvent } from 'react';
 import { Modal } from '../Modal/index';
 import { ModalSubmitButton } from '../Modal/ModalSubmitButton/index';
-import { getFolder } from '@/api/api';
+import { getFolders } from '@/api/api';
 import styles from './styles.module.css';
 import Image from 'next/image';
-import { Folder, FolderItem } from '@/types/Common';
+import { Folder, FolderLink } from '@/types/Common';
 
-export const KebabButton = ({ link }: { link: FolderItem }) => {
+export const KebabButton = ({ folderLink }: { folderLink: FolderLink }) => {
   const [folders, setFolders] = useState<Folder[]>([]);
   const [visible, setVisible] = useState(false);
   const [dropDownItem, setDropDownItem] = useState<string | null>(null);
@@ -27,7 +27,7 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
     modalContent = (
       <Modal
         title="링크 삭제"
-        subTitle={link.url}
+        subTitle={folderLink.url}
         handleModalClose={handleModalClose}
       >
         <div className={styles.modal}>
@@ -41,23 +41,21 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
     modalContent = (
       <Modal
         title="폴더에 추가"
-        subTitle={link.url}
+        subTitle={folderLink.url}
         handleModalClose={handleModalClose}
       >
         <div className={styles.modal}>
           <div className={styles['folder-list']}>
-            {folders.map(folderItem => (
+            {folders.map(folder => (
               <button
                 className={styles['folder-list__button']}
-                key={folderItem.id}
+                key={folder.id}
                 type="button"
               >
                 <div className={styles['folder-item']}>
-                  <p className={styles['folder-item-name']}>
-                    {folderItem.name}
-                  </p>
+                  <p className={styles['folder-item-name']}>{folder.name}</p>
                   <p className={styles['folder-item-count']}>
-                    {folderItem.link.count}개 링크
+                    {folder.link.count}개 링크
                   </p>
                 </div>
                 <Image
@@ -77,7 +75,7 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
 
   useEffect(() => {
     const getFolderData = async () => {
-      const folderData = await getFolder();
+      const folderData = await getFolders();
       setFolders(folderData);
     };
 

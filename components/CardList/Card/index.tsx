@@ -3,18 +3,18 @@ import { KebabButton } from '../../KebabButton/index';
 import styles from './styles.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FolderItem } from '@/types/Common';
+import { FolderLink } from '@/types/Common';
 import { MouseEvent, useState } from 'react';
 
 interface Props {
-  link: FolderItem;
+  folderLink: FolderLink;
   isActive: boolean;
   activeKebab: string | number | null;
   setActiveKebab: React.Dispatch<React.SetStateAction<string | number | null>>;
 }
 
 export const Card = ({
-  link,
+  folderLink,
   isActive,
   activeKebab,
   setActiveKebab,
@@ -22,16 +22,16 @@ export const Card = ({
   const [hasError, setHasError] = useState(false);
   const handleKebabButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setActiveKebab(activeKebab === link.id ? null : link.id);
+    setActiveKebab(activeKebab === folderLink.id ? null : folderLink.id);
   };
 
   const handleCardBlur = () => {
-    if (activeKebab !== link.id) {
+    if (activeKebab !== folderLink.id) {
       setActiveKebab(null);
     }
   };
 
-  const imageUrl: string | null = link.image_source;
+  const imageUrl: string | null = folderLink.image_source;
   const absoluteImageUrl = imageUrl?.startsWith('//')
     ? `https:${imageUrl}`
     : imageUrl;
@@ -47,7 +47,7 @@ export const Card = ({
     <>
       <Link
         className={styles.card}
-        href={link.url ?? '/404'}
+        href={folderLink.url ?? '/404'}
         target="_blank"
         rel="noreferrer"
       >
@@ -72,7 +72,7 @@ export const Card = ({
         <div className={styles['card__text']}>
           <div className={styles['card__text--header']}>
             <p className={styles['card__text--formatted-date']}>
-              {formatDate(link)}
+              {formatDate(folderLink)}
             </p>
             <button
               type="button"
@@ -86,12 +86,12 @@ export const Card = ({
                 alt="케밥 아이콘"
               />
             </button>
-            {isActive && <KebabButton link={link} />}
+            {isActive && <KebabButton folderLink={folderLink} />}
           </div>
           <p className={styles['card__text--description']}>
-            {link.description}
+            {folderLink.description}
           </p>
-          <p className={styles['card__text--date']}>{uploadDate(link)}</p>
+          <p className={styles['card__text--date']}>{uploadDate(folderLink)}</p>
         </div>
       </Link>
     </>

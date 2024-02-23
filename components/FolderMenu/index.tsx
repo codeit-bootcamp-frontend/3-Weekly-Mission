@@ -3,7 +3,7 @@ import { AddFolderButton } from '../AddFolderButton';
 import styles from './styles.module.css';
 
 interface Props {
-  folder: Folder[];
+  folders: Folder[];
   selectedFolder: SelectedFolder;
   handleFolderMenuClick: (
     folderId: string | number,
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const FolderMenu = ({
-  folder,
+  folders,
   selectedFolder,
   handleFolderMenuClick,
 }: Props) => {
@@ -25,15 +25,13 @@ export const FolderMenu = ({
         >
           전체
         </button>
-        {folder?.map(folderItem => (
+        {folders?.map(folder => (
           <button
-            className={`${styles['folder-menu__button']} ${selectedFolder.id === folderItem.id ? styles.selected : null}`}
-            key={folderItem.id}
-            onClick={() =>
-              handleFolderMenuClick(folderItem.id, folderItem.name)
-            }
+            className={`${styles['folder-menu__button']} ${selectedFolder.id === folder.id ? styles.selected : null}`}
+            key={folder.id}
+            onClick={() => handleFolderMenuClick(folder.id, folder.name)}
           >
-            {folderItem.name}
+            {folder.name}
           </button>
         ))}
       </div>

@@ -20,8 +20,8 @@ export const API: Api = {
   USER_SAMPLE: `${BASE_URL}/api/sample/user`,
   FOLDER_SAMPLE: `${BASE_URL}/api/sample/folder`,
   USER: `${BASE_URL}/api/users/4`,
-  USER_LINKS: `${BASE_URL}/api/users/4/links`,
-  USER_FOLDERS: `${BASE_URL}/api/users/4/folders`,
+  FOLDER: `${BASE_URL}/api/users/4/folders`,
+  FOLDER_LINK: `${BASE_URL}/api/users/4/links`,
 };
 
 export const FOLDER_MANAGEMENT_BUTTONS: FolderManagementButton[] = [

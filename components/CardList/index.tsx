@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { Card } from './Card/index';
 import styles from './styles.module.css';
-import { FolderItem } from '@/types/Common';
+import { FolderLink } from '@/types/Common';
 
-export const CardList = ({ links }: { links: FolderItem[] }) => {
+export const CardList = ({ folderLinks }: { folderLinks: FolderLink[] }) => {
   const [activeKebab, setActiveKebab] = useState<string | number | null>(null);
 
   return (
     <>
       <div className={styles['card-list']}>
-        {links && links.length > 0 ? (
-          links?.map(link => {
+        {folderLinks && folderLinks.length > 0 ? (
+          folderLinks?.map(folderLink => {
             return (
               <Card
-                key={link.id}
-                link={link}
-                isActive={activeKebab === link.id}
+                key={folderLink.id}
+                folderLink={folderLink}
+                isActive={activeKebab === folderLink.id}
                 activeKebab={activeKebab}
                 setActiveKebab={setActiveKebab}
               />

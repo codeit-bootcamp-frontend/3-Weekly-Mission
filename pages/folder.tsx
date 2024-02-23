@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getFolderItem } from '@/api/api';
+import { getFolderLinks } from '@/api/api';
 import useStickyState from '@/hooks/useStickyState';
 import { Header } from '@/components/Header/index';
 import { AddLinkInput } from '@/components/AddLinkInput/index';
@@ -7,17 +7,18 @@ import { SearchInput } from '@/components/SearchInput/index';
 import { FolderCardList } from '@/components/FolderCardList/index';
 import { Footer } from '@/components/Footer/index';
 import styles from '@/styles/folder.module.css';
-import { FolderItem, SelectedFolder } from '@/types/Common';
+import { FolderLink, SelectedFolder } from '@/types/Common';
 import { GetStaticProps } from 'next';
 
 interface Props {
-  initialData: FolderItem[];
+  initialData: FolderLink[];
 }
 
 const Folder = ({ initialData }: Props) => {
   const [isSticky, setIsSticky] = useStickyState(true);
-  const [links, setLinks] = useState<FolderItem[]>(initialData);
-  const [initialLinks, setInitialLinks] = useState<FolderItem[]>(initialData);
+  const [folderLinks, setFolderLinks] = useState<FolderLink[]>(initialData);
+  const [initialFolderLinks, setInitialFolderLinks] =
+    useState<FolderLink[]>(initialData);
   const [selectedFolder, setSelectedFolder] = useState<SelectedFolder>({
     name: '전체',
     id: 'all',
@@ -29,13 +30,13 @@ const Folder = ({ initialData }: Props) => {
       <AddLinkInput />
       <div className={styles.section}>
         <SearchInput
-          links={links}
-          setLinks={setLinks}
-          initialLinks={initialLinks}
+          folderLinks={folderLinks}
+          setFolderLinks={setFolderLinks}
+          initialFolderLinks={initialFolderLinks}
         />
         <FolderCardList
-          links={links}
-          setLinks={setLinks}
+          folderLinks={folderLinks}
+          setFolderLinks={setFolderLinks}
           selectedFolder={selectedFolder}
           setSelectedFolder={setSelectedFolder}
         />
@@ -46,10 +47,10 @@ const Folder = ({ initialData }: Props) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const folderItemData: FolderItem[] = await getFolderItem('all');
+  const folderLinksData: FolderLink[] = await getFolderLinks('all');
   return {
     props: {
-      initialData: folderItemData,
+      initialData: folderLinksData,
     },
   };
 };

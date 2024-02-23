@@ -10,8 +10,8 @@ export interface Folder {
   created_at: string;
 }
 
-// getFolderItem
-export interface FolderItem {
+// getLinks
+export interface FolderLink {
   createdAt?: string | undefined;
   created_at: string;
   description: string | null;
@@ -38,7 +38,7 @@ export interface User {
 export interface FolderSample {
   count: number;
   id: number;
-  links: FolderItem[];
+  links: FolderLink[];
   name: string;
   owner: Owner;
 }
@@ -67,8 +67,8 @@ export interface Api {
   USER_SAMPLE: string;
   FOLDER_SAMPLE: string;
   USER: string;
-  USER_LINKS: string;
-  USER_FOLDERS: string;
+  FOLDER: string;
+  FOLDER_LINK: string;
 }
 
 // Types

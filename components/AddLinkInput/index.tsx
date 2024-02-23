@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, MouseEvent } from 'react';
-import { getFolder } from '@/api/api';
+import { getFolders } from '@/api/api';
 import styles from './styles.module.css';
 import Image from 'next/image';
 import { Folder } from '@/types/Common';
@@ -24,7 +24,7 @@ export const AddLinkInput = () => {
 
   useEffect(() => {
     const initFolders = async () => {
-      const folderData = await getFolder();
+      const folderData = await getFolders();
       setFolders(folderData);
     };
 

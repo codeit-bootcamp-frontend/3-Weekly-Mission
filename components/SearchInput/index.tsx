@@ -7,15 +7,19 @@ import {
 } from 'react';
 import styles from './styles.module.css';
 import Image from 'next/image';
-import { FolderItem } from '@/types/Common';
+import { FolderLink } from '@/types/Common';
 
 interface Props {
-  links: FolderItem[];
-  setLinks: Dispatch<SetStateAction<FolderItem[]>>;
-  initialLinks: FolderItem[];
+  folderLinks: FolderLink[];
+  setFolderLinks: Dispatch<SetStateAction<FolderLink[]>>;
+  initialFolderLinks: FolderLink[];
 }
 
-export const SearchInput = ({ links, setLinks, initialLinks }: Props) => {
+export const SearchInput = ({
+  folderLinks,
+  setFolderLinks,
+  initialFolderLinks,
+}: Props) => {
   const [inputValue, setInputValue] = useState<string>('');
 
   const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,23 +30,25 @@ export const SearchInput = ({ links, setLinks, initialLinks }: Props) => {
     e.preventDefault();
 
     if (inputValue) {
-      const filteredLinks: FolderItem[] = links?.filter(link => {
-        return (
-          link?.url?.includes(inputValue) ||
-          link?.title?.includes(inputValue) ||
-          link?.description?.includes(inputValue)
-        );
-      });
-      setLinks(filteredLinks);
+      const filteredFolderLinks: FolderLink[] = folderLinks?.filter(
+        folderLink => {
+          return (
+            folderLink?.url?.includes(inputValue) ||
+            folderLink?.title?.includes(inputValue) ||
+            folderLink?.description?.includes(inputValue)
+          );
+        },
+      );
+      setFolderLinks(filteredFolderLinks);
       return;
     }
 
-    setLinks(initialLinks);
+    setFolderLinks(initialFolderLinks);
   };
 
   const handleSearchCancelIconClick = () => {
     setInputValue('');
-    setLinks(initialLinks);
+    setFolderLinks(initialFolderLinks);
   };
 
   return (

@@ -1,6 +1,10 @@
 import { CardList } from '../CardList/index';
-import { FolderItem } from '@/types/Common';
+import { FolderLink } from '@/types/Common';
 
-export const SharedCardList = ({ links }: { links: FolderItem[] }) => {
-  return <CardList links={links} />;
+export const SharedCardList = ({
+  folderLinks,
+}: {
+  folderLinks: FolderLink[];
+}) => {
+  return <CardList folderLinks={folderLinks} />;
 };

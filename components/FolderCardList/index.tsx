@@ -3,38 +3,38 @@ import { CardList } from '../CardList/index';
 import { FolderMenu } from '../FolderMenu';
 import { FolderManagementMenu } from '../FolderManagementMenu';
 import { AddFolderFloatingButton } from '../AddFolderButton/FloatingButton/index';
-import { getFolder, getFolderItem } from '@/api/api';
+import { getFolders, getFolderLinks } from '@/api/api';
 import styles from './styles.module.css';
-import { Folder, FolderItem, SelectedFolder } from '@/types/Common';
+import { Folder, FolderLink, SelectedFolder } from '@/types/Common';
 
 interface Props {
-  links: FolderItem[];
-  setLinks: Dispatch<SetStateAction<FolderItem[]>>;
+  folderLinks: FolderLink[];
+  setFolderLinks: Dispatch<SetStateAction<FolderLink[]>>;
   selectedFolder: SelectedFolder;
   setSelectedFolder: Dispatch<SetStateAction<SelectedFolder>>;
 }
 
 export const FolderCardList = ({
-  links,
-  setLinks,
+  folderLinks,
+  setFolderLinks,
   selectedFolder,
   setSelectedFolder,
 }: Props) => {
-  const [folder, setFolder] = useState<Folder[]>([]);
+  const [folders, setFolders] = useState<Folder[]>([]);
   const handleFolderMenuClick = async (
     folderId: string | number,
     folderName: string,
   ) => {
     setSelectedFolder({ id: folderId, name: folderName });
 
-    const folderItems = await getFolderItem(folderId);
-    setLinks(folderItems);
+    const Links = await getFolderLinks(folderId);
+    setFolderLinks(Links);
   };
 
   useEffect(() => {
     const getFolderData = async () => {
-      const folderData = await getFolder();
-      setFolder(folderData);
+      const folderData = await getFolders();
+      setFolders(folderData);
     };
     getFolderData();
   }, []);
@@ -42,12 +42,12 @@ export const FolderCardList = ({
   return (
     <div className={styles['folder-card-list']}>
       <FolderMenu
-        folder={folder}
+        folders={folders}
         selectedFolder={selectedFolder}
         handleFolderMenuClick={handleFolderMenuClick}
       />
       <FolderManagementMenu selectedFolder={selectedFolder} />
-      <CardList links={links} />
+      <CardList folderLinks={folderLinks} />
       <AddFolderFloatingButton />
     </div>
   );

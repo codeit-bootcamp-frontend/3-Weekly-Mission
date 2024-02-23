@@ -1,4 +1,4 @@
-import { Folder, FolderItem, FolderSample, User } from '@/types/Common';
+import { Folder, FolderLink, FolderSample, User } from '@/types/Common';
 import { API } from '@/utils/constants';
 
 export const getUserSample: () => Promise<User> = async () => {
@@ -11,11 +11,11 @@ export const getUserSample: () => Promise<User> = async () => {
 
 export const getFolderSample: () => Promise<FolderSample> = async () => {
   const result = await fetchData(API.FOLDER_SAMPLE);
-  const formattedData: FolderItem[] = result.folder.links.map(
-    (link: FolderItem) => ({
-      ...link,
-      created_at: link.createdAt,
-      image_source: link.imageSource,
+  const formattedData: FolderLink[] = result.folder.links.map(
+    (folderLink: FolderLink) => ({
+      ...folderLink,
+      created_at: folderLink.createdAt,
+      image_source: folderLink.imageSource,
     }),
   );
   return {
@@ -29,18 +29,18 @@ export const getUser: () => Promise<User> = async () => {
   return result?.data[0];
 };
 
-export const getFolder: () => Promise<Folder[]> = async () => {
-  const result = await fetchData(API.USER_FOLDERS);
+export const getFolders: () => Promise<Folder[]> = async () => {
+  const result = await fetchData(API.FOLDER);
   return result?.data;
 };
 
-export const getFolderItem: (
+export const getFolderLinks: (
   folderId: number | string,
-) => Promise<FolderItem[]> = async folderId => {
+) => Promise<FolderLink[]> = async folderId => {
   const result = await fetchData(
     folderId === 'all'
-      ? API.USER_LINKS
-      : `${API.USER_LINKS}?folderId=${folderId}`,
+      ? API.FOLDER_LINK
+      : `${API.FOLDER_LINK}?folderId=${folderId}`,
   );
   return result?.data;
 };
