@@ -71,6 +71,35 @@ export interface Api {
   FOLDER_LINK: string;
 }
 
+export interface ManagementActions {
+  SHARE: string;
+  EDIT_NAME: string;
+  DELETE: string;
+}
+
+export interface SocialLinks {
+  FACEBOOK: {
+    NAME: string;
+    URL: string;
+    ICON: string;
+  };
+  TWITTER: {
+    NAME: string;
+    URL: string;
+    ICON: string;
+  };
+  YOUTUBE: {
+    NAME: string;
+    URL: string;
+    ICON: string;
+  };
+  INSTAGRAM: {
+    NAME: string;
+    URL: string;
+    ICON: string;
+  };
+}
+
 // Types
 export interface SelectedFolder {
   name: string;

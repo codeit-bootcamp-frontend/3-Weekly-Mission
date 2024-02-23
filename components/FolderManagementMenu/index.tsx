@@ -1,4 +1,4 @@
-import { FOLDER_MANAGEMENT_BUTTONS } from '@/utils/constants';
+import { folderManagementButtons } from './folderManagementButtons';
 import { FolderManagementButton } from './FolderManagementButton';
 import styles from './styles.module.css';
 import { SelectedFolder } from '@/types/Common';
@@ -15,12 +15,12 @@ export const FolderManagementMenu = ({
       </div>
       {selectedFolder.id !== 'all' && (
         <div className={styles['folder-management-buttons']}>
-          {FOLDER_MANAGEMENT_BUTTONS.map(buttonData => {
+          {folderManagementButtons.map(button => {
             return (
               <FolderManagementButton
                 selectedFolder={selectedFolder}
-                key={buttonData.text}
-                {...buttonData}
+                key={button.text}
+                {...button}
               />
             );
           })}

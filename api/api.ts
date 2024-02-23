@@ -1,5 +1,5 @@
 import { Folder, FolderLink, FolderSample, User } from '@/types/Common';
-import { API } from '@/utils/constants';
+import { API } from '@/constants/constants';
 
 export const getUserSample: () => Promise<User> = async () => {
   const result = await fetchData(API.USER_SAMPLE);
