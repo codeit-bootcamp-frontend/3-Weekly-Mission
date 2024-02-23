@@ -1,14 +1,6 @@
 import { ALL_LINKS_ID } from "../components/Folder/constants";
+import { User, Folder, SampleFolder, Link } from "@/@types/api/interface";
 const BASE_URL = "https://bootcamp-api.codeit.kr/api";
-
-export interface User {
-  auth_id: string;
-  created_at: string;
-  email: string;
-  id: number;
-  image_source: string;
-  name: string;
-}
 
 export async function getUserData(): Promise<{ data: User[] }> {
   // const response = await fetch(`${BASE_URL}/uses/1`);
@@ -16,17 +8,6 @@ export async function getUserData(): Promise<{ data: User[] }> {
   const body = await response.json();
 
   return body;
-}
-
-export interface Folder {
-  id: number;
-  created_at: string;
-  name: string;
-  user_id: number;
-  favorite: boolean;
-  link: {
-    count: number;
-  };
 }
 
 export async function getFolderData(): Promise<{ data: Folder[] }> {
@@ -39,27 +20,6 @@ export async function getFolderData(): Promise<{ data: Folder[] }> {
   return body;
 }
 
-export interface SampleFolder {
-  id: number;
-  name: string;
-  owner: {
-    id: number;
-    name: string;
-    profileImageSource: string;
-  };
-  links: [
-    {
-      id: number;
-      createdAt: string;
-      url: string;
-      title: string;
-      description: string;
-      imageSource: string;
-    }
-  ];
-  count: number;
-}
-
 export async function getSampleFolderData(): Promise<{ folder: SampleFolder }> {
   const response = await fetch(`${BASE_URL}/sample/folder`);
   if (!response.ok) {
@@ -68,17 +28,6 @@ export async function getSampleFolderData(): Promise<{ folder: SampleFolder }> {
   const body = await response.json();
 
   return body;
-}
-
-export interface Link {
-  created_at: string;
-  description: string;
-  folder_id: number;
-  id: number;
-  image_source: string;
-  title: string;
-  updated_at: string;
-  url: string;
 }
 
 export async function getLinkDataByFolderId(
