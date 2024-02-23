@@ -33,10 +33,7 @@ export const AddFolderFloatingButton = () => {
       {visible && (
         <Modal title="폴더 추가" handleModalClose={handleModalClose}>
           <div className={styles.modal}>
-            <input
-              className={styles['modal__input']}
-              placeholder="내용 입력"
-            ></input>
+            <input className={styles['modal__input']} placeholder="내용 입력" />
             <ModalSubmitButton type="submit">추가하기</ModalSubmitButton>
           </div>
         </Modal>

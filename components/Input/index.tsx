@@ -35,7 +35,7 @@ export function Input({ type = 'password' }: { type: string }) {
             setInputValue(e.target.value);
           }}
           onBlur={handleInputBlur}
-        ></input>
+        />
         {type === 'password' && (
           <Image
             className={styles['input-eye']}

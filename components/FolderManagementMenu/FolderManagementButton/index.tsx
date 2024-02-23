@@ -67,10 +67,7 @@ export const FolderManagementButton = ({
     modalContent = (
       <Modal title={`폴더 ${text}`} handleModalClose={handleModalClose}>
         <div className={styles.modal}>
-          <input
-            className={styles['modal__input']}
-            placeholder="내용 입력"
-          ></input>
+          <input className={styles['modal__input']} placeholder="내용 입력" />
           <ModalSubmitButton type="submit">변경하기</ModalSubmitButton>
         </div>
       </Modal>
