@@ -8,9 +8,9 @@ export const KakaoShareButton = () => {
   const realUrl: string = 'https://adorable-malasada-14962e.netlify.app';
 
   useEffect(() => {
-    window.Kakao.cleanup();
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
-    console.log(window.Kakao.isInitialized());
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+    }
   }, []);
 
   const shareKakao = () => {
