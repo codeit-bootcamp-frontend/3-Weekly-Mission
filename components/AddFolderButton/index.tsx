@@ -22,7 +22,7 @@ export const AddFolderButton = () => {
         type="button"
         onClick={handleAddFolderButtonClick}
       >
-        <span className={styles['add-folder__button--text']}>폴더 추가</span>
+        <span className={styles['add-folder__button--label']}>폴더 추가</span>
         <Image
           width={18}
           height={18}
