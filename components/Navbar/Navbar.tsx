@@ -1,7 +1,7 @@
-import imageData from "@/public/imageData";
 import { NavbarUserInfo } from "../../types/userType";
 import Link from "next/link";
 import Image from "next/image";
+import { defaultProfileImg, logoImg } from "@/public/img";
 
 interface Props {
   user?: NavbarUserInfo;
@@ -15,7 +15,7 @@ export default function Navbar({ user }: Props) {
           <div className="logo">
             <Image
               style={{ objectFit: "cover" }}
-              src={imageData.logoImg}
+              src={logoImg}
               fill
               alt="홈으로 이동하는 로고"
             />
@@ -49,7 +49,7 @@ function NavProfile({ user }: Props) {
           <Image
             width={10}
             height={10}
-            src={imageData.defaultProfileImg.src}
+            src={defaultProfileImg}
             alt="프로필 사진"
           />
         </div>

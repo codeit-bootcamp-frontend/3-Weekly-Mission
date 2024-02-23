@@ -1,8 +1,8 @@
 import React from "react";
-import imageData from "@/public/imageData";
 import styled from "styled-components";
 import { ModalButtonClickType } from "../../types/types";
 import Image from "next/image";
+import { deleteIcon, penIcon, shareIcon } from "@/public/img";
 
 interface Props {
   handleModalButtonClick: ModalButtonClickType;
@@ -23,7 +23,7 @@ export default function FolderNameLine({
             id="shareFolder"
             onClick={handleModalButtonClick}
           >
-            <Img src={imageData.shareIcon} alt="공유아이콘" />
+            <Img src={shareIcon} alt="공유아이콘" />
             <Span>공유</Span>
           </Button>
           <Button
@@ -31,7 +31,7 @@ export default function FolderNameLine({
             id="editFolder"
             onClick={handleModalButtonClick}
           >
-            <Img src={imageData.penIcon} alt="이름 변경아이콘" />
+            <Img src={penIcon} alt="이름 변경아이콘" />
             <Span>이름 변경</Span>
           </Button>
           <Button
@@ -39,7 +39,7 @@ export default function FolderNameLine({
             id="deleteFolder"
             onClick={handleModalButtonClick}
           >
-            <Img src={imageData.deleteIcon} alt="삭제아이콘" />
+            <Img src={deleteIcon} alt="삭제아이콘" />
             <Span>삭제</Span>
           </Button>
         </Container>

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { VoidFunc } from "@/types/functionType";
-import imageData from "@/public/imageData";
 import Image from "next/image";
+import { eyeOff, eyeOn } from "@/public/img";
 
 interface Props {
   placeholder?: string;
@@ -20,20 +19,20 @@ export default function SignInput({
   value,
   setValue,
 }: Props) {
-  const eyeOn = { src: imageData.eyeOn.src, alt: "비밀번호 보이는 아이콘" };
-  const eyeOff = { src: imageData.eyeOff.src, alt: "비밀번호 안보이는 아이콘" };
+  const EYE_ON = { src: eyeOn.src, alt: "비밀번호 보이는 아이콘" };
+  const EYE_OFF = { src: eyeOff.src, alt: "비밀번호 안보이는 아이콘" };
   const [eye, setEye] = useState(eyeOff);
   const [showPassword, setShowPassword] = useState(false);
   const [errorMassage, setErrorMessage] = useState("");
 
   const toggleEyeImg = () => {
-    if (eye.alt === eyeOn.alt) {
-      setEye(eyeOff);
+    if (eye.alt === EYE_ON.alt) {
+      setEye(EYE_OFF);
       setShowPassword(false);
       return;
     }
     setShowPassword(true);
-    setEye(eyeOn);
+    setEye(EYE_ON);
   };
   const checkFocusOut = () => {
     if (!handler) return;

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import imageData from "@/public/imageData";
 import ModalShare from "./ModalShare/ModalShare";
 import ModalDelete from "./ModalDelete";
 import ModalForm from "./ModalForm";
@@ -9,6 +8,7 @@ import { VoidFunc } from "../../types/functionType";
 import { FolderData } from "../../types/dataTypes";
 import { NavbarUserInfo } from "../../types/userType";
 import Image from "next/image";
+import { closeButton } from "@/public/img";
 
 interface Props {
   folderName: string;
@@ -34,7 +34,7 @@ export default function Modal({
           <Image
             width={24}
             height={24}
-            src={imageData.closeButton.src}
+            src={closeButton}
             alt="모달창 닫기 버튼"
           />
         </ModalCloseButton>

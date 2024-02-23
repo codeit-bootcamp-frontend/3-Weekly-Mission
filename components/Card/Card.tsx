@@ -1,12 +1,12 @@
 import React from "react";
 import { getCreateDay, getTimeDifference } from "../../utils/util";
-import imageData from "@/public/imageData";
 import Kebab from "../Kebab/Kebab";
 import { ModalButtonClickType } from "../../types/types";
 import { CardItem } from "../../types/dataTypes";
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
+import { defaultImg, starIcon } from "@/public/img";
 
 interface Props {
   handleModalButtonClick: ModalButtonClickType | null;
@@ -20,7 +20,7 @@ export default function Card({ handleModalButtonClick, item, toggle }: Props) {
   const timeAgo = getTimeDifference(dateTimeString);
   const createdDay = getCreateDay(dateTimeString);
   const imgAlt = `${title} 새창으로 바로가기 이미지`;
-  const imgSource = imageSource ?? imageData.defaultImg.src;
+  const imgSource = imageSource ?? defaultImg.src;
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function Card({ handleModalButtonClick, item, toggle }: Props) {
           width={34}
           height={34}
           priority
-          src={imageData.starIcon}
+          src={starIcon}
           alt="별모양 아이콘"
         />
       )}

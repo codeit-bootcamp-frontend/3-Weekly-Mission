@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import imageData from "@/public/imageData";
 import CardList from "../components/CardList/CardList";
 import { getFolderData, getFolderList, getOwner } from "../apis/api";
 import LinkSearchForm from "../components/LinkSearchForm/LinkSearchForm";
@@ -15,6 +14,7 @@ import SearchResult from "../components/SearchResult/SearchResult";
 import Image from "next/image";
 import { GetServerSidePropsContext } from "next";
 import Spinner from "@/components/Spinner/Spinner";
+import { codeitLogo } from "@/public/img";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const userId = context.query?.user;
@@ -121,12 +121,7 @@ function SharedHeader({ folderOwner, folderName }: HeaderProps) {
         <img className="user-profile-img" src={source} alt="유저이미지" />
       ) : (
         <div className="codeit-img-background">
-          <Image
-            fill
-            priority
-            src={imageData.codeitLogo.src}
-            alt="코드잇 로고 이미지"
-          />
+          <Image fill priority src={codeitLogo} alt="코드잇 로고 이미지" />
         </div>
       )}
 

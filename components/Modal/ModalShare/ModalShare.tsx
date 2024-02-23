@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import imageData from "@/public/imageData";
 import {
   ModalFolderTitle,
   ModalTitleContainer,
@@ -12,6 +11,7 @@ import { CopyClipBoard } from "@/utils/util";
 import { shareKakao } from "@/utils/kakaoShare";
 import { shareFacebook } from "@/utils/facebookShare";
 import { FolderData } from "@/types/dataTypes";
+import { kakaoIcon, modalFacebookIcon, modalShareIcon } from "@/public/img";
 
 interface Props {
   folderName: string;
@@ -48,7 +48,7 @@ export default function ModalShare({
         <ModalShareLinkBox onClick={handleShareToKakao}>
           <ModalShareLinkIcon
             type={"kakao"}
-            imageSource={imageData.kakaoIcon}
+            imageSource={kakaoIcon}
             altContent={"카카오이미지"}
           />
           카카오톡
@@ -56,7 +56,7 @@ export default function ModalShare({
         <ModalShareLinkBox onClick={handleShareToFacebook}>
           <ModalShareLinkIcon
             type={"facebook"}
-            imageSource={imageData.modalFacebookIcon}
+            imageSource={modalFacebookIcon}
             altContent={"페이스북이미지"}
           />
           페이스북
@@ -64,7 +64,7 @@ export default function ModalShare({
         <ModalShareLinkBox onClick={handleLinkCopy}>
           <ModalShareLinkIcon
             type={"link"}
-            imageSource={imageData.modalShareIcon}
+            imageSource={modalShareIcon}
             altContent={"링크 복사"}
           />
           링크복사
