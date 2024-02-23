@@ -27,7 +27,7 @@ export const AddFolderFloatingButton = () => {
           width={18}
           height={18}
           src="/images/add-white.svg"
-          alt="읜색 + 아이콘"
+          alt="추가하기 버튼 흰색 아이콘"
         />
       </button>
       {visible && (

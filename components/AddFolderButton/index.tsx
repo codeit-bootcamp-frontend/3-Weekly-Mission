@@ -23,7 +23,12 @@ export const AddFolderButton = () => {
         onClick={handleAddFolderButtonClick}
       >
         <span className={styles['add-folder__button--text']}>폴더 추가</span>
-        <Image width={18} height={18} src="/images/add.svg" alt="+ 아이콘" />
+        <Image
+          width={18}
+          height={18}
+          src="/images/add.svg"
+          alt="추가하기 버튼 아이콘"
+        />
       </button>
       {visible && (
         <Modal title="폴더 추가" handleModalClose={handleModalClose}>
