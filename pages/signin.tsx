@@ -2,7 +2,7 @@ import styles from '@/styles/signin.module.css';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import Link from 'next/link';
-import { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from 'react';
+import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { postSignin } from './api/api';
 import { useRouter } from 'next/router';
 import Input from '@/src/components/Input/Input';
@@ -18,7 +18,6 @@ export default function signin() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
-  const [isHide, setIsHide] = useState(false);
 
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
@@ -52,14 +51,6 @@ export default function signin() {
     }
 
     return focus;
-  };
-
-  const onClickIcon = (e: MouseEvent) => {
-    const targetElement = e.target as HTMLElement;
-    const inputElement =
-      targetElement.previousElementSibling as HTMLInputElement;
-    inputElement.type = inputElement.type === 'password' ? 'text' : 'password';
-    setIsHide(!isHide);
   };
 
   const onClickSignin = async () => {
