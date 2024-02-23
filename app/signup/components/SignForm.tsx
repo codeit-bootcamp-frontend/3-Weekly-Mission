@@ -1,53 +1,49 @@
 import styled from 'styled-components';
 import Input from '../../components/input/Input';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export default function SignForm() {
-  const [inputEmailValue, setInputEmailValue] = useState('');
-  const [inputPasswordValue, setInputPasswordValue] = useState('');
-  const [inputVerifyPasswordValue, setInputVerifyPasswordValue] = useState('');
-  const [isErrorValue] = useState(true);
-  const testInputValue = () => {
-    // test
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm();
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}>
       <Container>
         <InputBox>
           <Label htmlFor="email">이메일</Label>
           <Input
             type="email"
+            id="email"
             placeholder="이메일을 입력해 주세요"
-            inputValue={inputEmailValue}
-            updateInputValue={setInputEmailValue}
-            isErrorValue={isErrorValue}
-            testInputValue={testInputValue}
+            register={register}
+            errors={errors}
           />
         </InputBox>
         <InputBox>
           <Label htmlFor="password">비밀번호</Label>
           <Input
             type="password"
+            id="password"
             placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요"
-            inputValue={inputPasswordValue}
-            updateInputValue={setInputPasswordValue}
-            isErrorValue={isErrorValue}
-            testInputValue={testInputValue}
+            register={register}
+            errors={errors}
           />
         </InputBox>
         <InputBox>
-          <Label htmlFor="password-repeat">비밀번호 확인</Label>
+          <Label htmlFor="verifyPassword">비밀번호 확인</Label>
           <Input
-            type="password"
+            type="verifyPassword"
+            id="verifyPassword"
             placeholder="비밀번호와 일치하는 값을 입력해 주세요"
-            inputValue={inputVerifyPasswordValue}
-            updateInputValue={setInputVerifyPasswordValue}
-            isErrorValue={isErrorValue}
-            testInputValue={testInputValue}
+            register={register}
+            errors={errors}
           />
         </InputBox>
       </Container>
-      <SignButton>회원가입</SignButton>
+      <SignButton disabled={isSubmitting}>회원가입</SignButton>
     </Form>
   );
 }
