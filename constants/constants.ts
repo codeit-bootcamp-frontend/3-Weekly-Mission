@@ -1,6 +1,4 @@
-import { Api, Times, ManagementActions, SocialLinks } from '@/types/Common';
-
-export const TIMES: Times = {
+export const TIMES = {
   ONE_MINUTE_AGO: '1 minute ago',
   MINUTES_AGO: ' minutes ago',
   ONE_HOUR_AGO: '1 hour ago',
@@ -13,9 +11,9 @@ export const TIMES: Times = {
   YEARS_AGO: ' years ago',
 };
 
-const BASE_URL: string = 'https://bootcamp-api.codeit.kr';
+const BASE_URL = 'https://bootcamp-api.codeit.kr';
 
-export const API: Api = {
+export const API = {
   ROOT: `${BASE_URL}`,
   USER_SAMPLE: `${BASE_URL}/api/sample/user`,
   FOLDER_SAMPLE: `${BASE_URL}/api/sample/folder`,
@@ -24,13 +22,13 @@ export const API: Api = {
   FOLDER_LINK: `${BASE_URL}/api/users/4/links`,
 };
 
-export const MANAGEMENT_ACTIONS: ManagementActions = {
+export const MANAGEMENT_ACTIONS = {
   SHARE: '공유',
   EDIT_NAME: '이름 변경',
   DELETE: '삭제',
 };
 
-export const SOCIAL_LINKS: SocialLinks = {
+export const SOCIAL_LINKS = {
   FACEBOOK: {
     NAME: '페이스북',
     URL: 'https://www.facebook.com/',
