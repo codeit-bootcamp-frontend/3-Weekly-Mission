@@ -1,9 +1,9 @@
-import { FolderItem } from '@/types/Common';
+import { FolderLink } from '@/types/Common';
 import { TIMES } from './constants';
 
-export const formatDate = (link: FolderItem) => {
+export const formatDate = (folderLink: FolderLink) => {
   const now: Date = new Date();
-  const created: Date = new Date(link.created_at);
+  const created: Date = new Date(folderLink.created_at);
   const diffInMilliseconds = now.getTime() - created.getTime();
   const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
   const diffInHours = Math.floor(diffInMinutes / 60);
@@ -42,8 +42,8 @@ export const formatDate = (link: FolderItem) => {
   return diffInYears + TIMES.YEARS_AGO;
 };
 
-export const uploadDate = (link: FolderItem) => {
-  const now = new Date(link.created_at);
+export const uploadDate = (folderLink: FolderLink) => {
+  const now = new Date(folderLink.created_at);
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
   const day = now.getDate();
