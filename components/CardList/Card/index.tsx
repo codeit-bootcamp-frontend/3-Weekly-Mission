@@ -45,21 +45,19 @@ export const Card = ({
         rel="noreferrer"
       >
         <div className={styles['card__image-container']}>
-          <div style={{ position: 'relative', width: '100%', height: '200px' }}>
-            <Image
-              fill
-              src={
-                hasError || !absoluteImageUrl
-                  ? '/images/no-image.svg'
-                  : absoluteImageUrl
-              }
-              alt="카드 이미지"
-              style={{ objectFit: 'cover' }}
-              onError={() => {
-                if (!hasError) setHasError(true);
-              }}
-            />
-          </div>
+          <Image
+            fill
+            src={
+              hasError || !absoluteImageUrl
+                ? '/images/no-image.svg'
+                : absoluteImageUrl
+            }
+            alt="카드 이미지"
+            style={{ objectFit: 'cover' }}
+            onError={() => {
+              if (!hasError) setHasError(true);
+            }}
+          />
         </div>
         <Image
           width={34}

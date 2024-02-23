@@ -1,6 +1,7 @@
 import { useState, useEffect, ChangeEvent, MouseEvent } from 'react';
 import { getFolder } from '@/api/api';
 import styles from './styles.module.css';
+import Image from 'next/image';
 import { Folder } from '@/types/Common';
 import { AddLinkModal } from '../Modal/AddLinkModal';
 
@@ -34,9 +35,10 @@ export const AddLinkInput = () => {
     <>
       <form className={styles['add-link__form']}>
         <div className={styles['input-container']}>
-          <img
+          <Image
             className={styles['add-link__icon']}
             width="20"
+            height="20"
             src="/images/link.svg"
             alt="링크 아이콘"
           />
