@@ -2,19 +2,18 @@ import AddLinkBar from "../components/AddLinkBar";
 import Content from "../components/Content";
 import SearchBar from "../components/SearchBar";
 import Header from "../components/Header";
-import useGetUserFolderAsync, { IData } from "../hooks/useGetUserFolder";
-import { useEffect, useState } from "react";
+import useGetUserFolder from "../hooks/useGetUserFolder";
+import { useMemo, useState } from "react";
 
 export default function Folder() {
   const [searchValue, setsearchValue] = useState("");
-  const datas = useGetUserFolderAsync();
-  const [searchedData, setSearchedData] = useState<IData[]>();
+  const userFolderLinks = useGetUserFolder();
   const handleInputChange = (value: string) => {
     setsearchValue(value);
   };
 
-  useEffect(() => {
-    const newDatas = datas?.filter((item) => {
+  const searchedData = useMemo(() => {
+    return userFolderLinks?.filter((item) => {
       if (
         item.description?.includes(searchValue) ||
         item.url?.includes(searchValue) ||
@@ -23,15 +22,14 @@ export default function Folder() {
         return item;
       }
     });
-    setSearchedData(newDatas);
-  }, [datas, searchValue]);
+  }, [userFolderLinks, searchValue]);
 
   return (
     <>
-      <Header isSticky={false} />
+      <Header isSticky />
       <AddLinkBar />
       <SearchBar handleInputChange={handleInputChange} />
-      <Content datas={searchedData} />
+      <Content userFolderLinks={searchedData} />
     </>
   );
 }
