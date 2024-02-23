@@ -2,10 +2,18 @@ import { Form } from "@/components/Sign/Form";
 import { Header } from "@/components/Sign/Header";
 import { SnsLogin } from "@/components/Sign/SnsLogin";
 import useGetPathname from "@/hooks/useGetPathname";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export default function Signup() {
+    const router = useRouter();
+    useEffect(() => {
+        if (localStorage.getItem("accessToken")) {
+            router.push("/folder");
+        }
+    }, []);
+
     const { pathname } = useGetPathname();
     const [currentPath, setCurrentPath] = useState(() => {
         if (pathname.includes("signin")) {

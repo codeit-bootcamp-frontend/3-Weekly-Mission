@@ -3,10 +3,17 @@ import { Header } from "@/components/Sign/Header";
 import { SnsLogin } from "@/components/Sign/SnsLogin";
 import useGetPathname from "@/hooks/useGetPathname";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export default function Signin() {
+    const router = useRouter();
+    useEffect(() => {
+        if (localStorage.getItem("accessToken")) {
+            router.push("/folder");
+        }
+    }, []);
+
     const { pathname } = useGetPathname();
     const [currentPath, setCurrentPath] = useState(() => {
         if (pathname.includes("signin")) {

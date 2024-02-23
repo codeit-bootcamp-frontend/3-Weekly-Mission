@@ -1,9 +1,15 @@
-import { CONFIRM_EMAIL, SignInputErrorMessages } from "@/Constants/Constants";
+import {
+    CONFIRM_EMAIL,
+    SignInputErrorMessages,
+    URL_DOMAIN,
+} from "@/Constants/Constants";
 import { signFormDataInterface } from "@/interfaces";
+import postFetch from "@/utils/postFetch";
 import { useState } from "react";
 import styled from "styled-components";
 
-// ToDO 회원가입페이지, 로그인페이지의 인풋을 제어 컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
+// ToDo 회원가입페이지, 로그인페이지의 인풋을 제어 컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
+// ToDo 이메일 중복확인 에러처리하기
 export const EmailInput = ({
     type,
     name,
@@ -27,6 +33,21 @@ export const EmailInput = ({
         if (!confirmEmail.test(FormData.email)) {
             return setError(SignInputErrorMessages.NotValidEmail);
         }
+
+        const body = { email: FormData.email };
+        try {
+            (async () => {
+                const data = await postFetch(
+                    URL_DOMAIN,
+                    "api/check-email",
+                    body
+                );
+                console.log(data);
+            })();
+        } catch (error) {
+            return setError(SignInputErrorMessages.DuplicateEmail);
+        }
+
         return setError(SignInputErrorMessages.NoError);
     };
 

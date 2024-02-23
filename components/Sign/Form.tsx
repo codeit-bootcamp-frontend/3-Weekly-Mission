@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import { SubmitButton } from "./SubmitButton";
 import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
-import { useId, useState } from "react";
+import { FormEvent, useId, useState } from "react";
 import { signFormDataInterface } from "@/interfaces";
+import { URL_DOMAIN } from "@/Constants/Constants";
+import getFetch from "@/utils/getFetch";
+import { useRouter } from "next/router";
+import postFetch from "@/utils/postFetch";
 
 // Think: 제어컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
 export const Form = ({ currentPath }: { currentPath: string }) => {
+    const router = useRouter();
     const id = useId();
     const [FormData, setFormData] = useState<signFormDataInterface>(() => {
         return {
@@ -18,6 +22,34 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
 
     const handleInputChange = (data: signFormDataInterface) => {
         setFormData({ ...FormData, ...data });
+    };
+
+    // 로그인 버튼 클릭
+    const handleLoginSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        const body = {
+            email: FormData.email,
+            password: FormData.password,
+        };
+        (async () => {
+            const data = await postFetch(URL_DOMAIN, "api/sign-in", body);
+            localStorage.setItem("accessToken", await data.data.accessToken);
+            return router.push("./folder");
+        })();
+    };
+
+    // 회원가입 버튼 클릭
+    const handleRegisterSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        const body = {
+            email: FormData.email,
+            password: FormData.password,
+        };
+        (async () => {
+            const data = await postFetch(URL_DOMAIN, "api/sign-up", body);
+            localStorage.setItem("accessToken", await data.data.accessToken);
+            return router.push("./folder");
+        })();
     };
 
     return (
@@ -57,9 +89,13 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
                 </div>
             )}
             {currentPath === "signin" ? (
-                <SubmitButton>로그인</SubmitButton>
+                <SubmitButton type="submit" onClick={handleLoginSubmit}>
+                    로그인
+                </SubmitButton>
             ) : (
-                <SubmitButton>회원가입</SubmitButton>
+                <SubmitButton type="submit" onClick={handleRegisterSubmit}>
+                    회원가입
+                </SubmitButton>
             )}
         </FormWrapper>
     );
@@ -87,4 +123,22 @@ const Label = styled.label`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+`;
+
+const SubmitButton = styled.button`
+    color: var(--Grey-Light, #f5f5f5);
+    font-family: Pretendard;
+    font-size: 18px;
+
+    border-radius: 8px;
+    width: 400px;
+    display: flex;
+    padding: 16px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: var(
+        --gra-purpleblue-to-skyblue,
+        linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%)
+    );
 `;

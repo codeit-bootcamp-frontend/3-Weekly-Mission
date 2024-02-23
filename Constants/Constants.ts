@@ -15,6 +15,7 @@ export enum SignInputErrorMessages {
     PleaseConfirmPassword = "비밀번호를 확인해주세요.",
     CheckPasswordFormat = "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.",
     NotMatchedPassword = "비밀번호가 일치하지 않아요.",
+    DuplicateEmail = "중복된 이메일입니다.",
     NoError = "",
 }
 
