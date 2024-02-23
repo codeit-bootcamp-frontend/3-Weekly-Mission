@@ -21,8 +21,8 @@ export default function SignInput({
   setValue,
   labelName,
 }: Props) {
-  const EYE_ON = { src: eyeOn.src, alt: "비밀번호 보이는 아이콘" };
-  const EYE_OFF = { src: eyeOff.src, alt: "비밀번호 안보이는 아이콘" };
+  const EYE_ON = { src: eyeOn.src, alt: "비밀번호 보이게 해주는 아이콘" };
+  const EYE_OFF = { src: eyeOff.src, alt: "비밀번호 안보이게 해주는 아이콘" };
   const [eye, setEye] = useState(EYE_ON);
   const [showPassword, setShowPassword] = useState(false);
   const [errorMassage, setErrorMessage] = useState("");
@@ -30,10 +30,10 @@ export default function SignInput({
   const toggleEyeImg = () => {
     if (eye.alt === EYE_ON.alt) {
       setEye(EYE_OFF);
-      setShowPassword(false);
+      setShowPassword(true);
       return;
     }
-    setShowPassword(true);
+    setShowPassword(false);
     setEye(EYE_ON);
   };
   const checkFocusOut = () => {
