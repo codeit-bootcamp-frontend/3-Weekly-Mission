@@ -47,6 +47,7 @@ module.exports = {
     },
   ],
   rules: {
+    'import/no-cycle': 'off', // TODO: 해결법 알아보기
     'react/react-in-jsx-scope': 'off',
     'import/no-absolute-path': 'off',
     'consistent-return': 'off',

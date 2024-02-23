@@ -24,6 +24,7 @@
       "@layout/*": ["./shared/layout/*"],
       "@routes/*": ["./shared/routes/*"],
       "@style/*": ["./style/*"],
+      "@store/*": ["./store/*"],
       "@/*": ["./*"],
       "@public/*": ["./public/*"] // cannot resolve public path with '/' when import assets from public folder.
     }
