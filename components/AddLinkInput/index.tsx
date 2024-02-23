@@ -14,14 +14,10 @@ export const AddLinkInput = () => {
   };
 
   const handleAddLinkButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
     setVisible(!visible);
   };
 
   const handleModalClose = (e: MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
     setVisible(false);
   };
 
@@ -53,7 +49,7 @@ export const AddLinkInput = () => {
           />
           <button
             className={styles['add-link__button']}
-            type="submit"
+            type="button"
             onClick={handleAddLinkButtonClick}
           >
             추가하기

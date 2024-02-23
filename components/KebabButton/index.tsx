@@ -11,23 +11,14 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
   const [visible, setVisible] = useState(false);
   const [dropDownItem, setDropDownItem] = useState<string | null>(null);
 
-  const handleKebabButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleKebabItemClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    e.stopPropagation();
-
     setDropDownItem(e.currentTarget.textContent);
     setVisible(true);
   };
 
   const handleModalClose = (e: MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
     setVisible(false);
-  };
-
-  const handleModalFolderListClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
   };
 
   let modalContent;
@@ -60,7 +51,6 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
                 className={styles['folder-list__button']}
                 key={folderItem.id}
                 type="button"
-                onClick={handleModalFolderListClick}
               >
                 <div className={styles['folder-item']}>
                   <p className={styles['folder-item-name']}>
@@ -100,14 +90,14 @@ export const KebabButton = ({ link }: { link: FolderItem }) => {
         <button
           className={styles.delete}
           type="button"
-          onClick={handleKebabButtonClick}
+          onClick={handleKebabItemClick}
         >
           삭제하기
         </button>
         <button
           className={styles.add}
           type="button"
-          onClick={handleKebabButtonClick}
+          onClick={handleKebabItemClick}
         >
           폴더에 추가
         </button>

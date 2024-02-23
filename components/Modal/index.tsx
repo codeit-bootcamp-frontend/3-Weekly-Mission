@@ -16,7 +16,8 @@ export const Modal = ({
 
   subTitle = undefined,
 }: Props) => {
-  const onClick = (e: MouseEvent<HTMLDivElement>) => {
+  const handleModalClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
     if (e.target === e.currentTarget) {
       handleModalClose(e);
     }
@@ -24,7 +25,7 @@ export const Modal = ({
 
   return (
     <>
-      <div className={styles.container} onClick={onClick}>
+      <div className={styles.container} onClick={handleModalClick}>
         <div className={styles.content}>
           <div className={styles.title}>
             <h1>{title}</h1>

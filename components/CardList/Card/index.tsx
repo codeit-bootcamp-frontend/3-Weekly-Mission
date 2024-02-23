@@ -22,8 +22,6 @@ export const Card = ({
   const [hasError, setHasError] = useState(false);
   const handleKebabButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    e.stopPropagation();
-
     setActiveKebab(activeKebab === link.id ? null : link.id);
   };
 
@@ -31,10 +29,6 @@ export const Card = ({
     if (activeKebab !== link.id) {
       setActiveKebab(null);
     }
-  };
-
-  const stopPropagation = (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
   };
 
   const imageUrl: string | null = link.image_source;
@@ -49,7 +43,6 @@ export const Card = ({
         href={link.url ?? '/404'}
         target="_blank"
         rel="noreferrer"
-        onClick={stopPropagation}
       >
         <div className={styles['card__image-container']}>
           <div style={{ position: 'relative', width: '100%', height: '200px' }}>
