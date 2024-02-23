@@ -7,12 +7,14 @@ import eyeOnImg from '/public/eye-on.svg';
 
 export default function Input({
   type,
+  placeholder,
   inputValue,
   updateInputValue,
   isErrorValue,
   testInputValue,
 }: {
   type: string;
+  placeholder: string;
   inputValue: string;
   updateInputValue: (value: string) => void;
   isErrorValue: boolean;
@@ -38,7 +40,7 @@ export default function Input({
     <Wrapper>
       <Container>
         <StyledInput
-          placeholder="내용입력"
+          placeholder={placeholder}
           type={inputType}
           value={inputValue}
           onChange={handleInputValue}
@@ -79,7 +81,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 350px;
+  width: 100%;
   flex-direction: column;
   gap: 6px;
 `;
