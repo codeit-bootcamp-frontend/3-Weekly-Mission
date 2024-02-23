@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import Input from '../../components/input/Input';
 import { useForm } from 'react-hook-form';
 
-export default function SignForm() {
+interface Props {
+  category: string;
+}
+
+export default function SignForm({ category }: Props) {
   const {
     register,
     handleSubmit,
@@ -27,21 +31,27 @@ export default function SignForm() {
           <Input
             type="password"
             id="password"
-            placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요"
+            placeholder={
+              category === 'signup'
+                ? '영문, 숫자를 조합해 8자 이상 입력해 주세요'
+                : '비밀번호를 입력해 주세요'
+            }
             register={register}
             errors={errors}
           />
         </InputBox>
-        <InputBox>
-          <Label htmlFor="verifyPassword">비밀번호 확인</Label>
-          <Input
-            type="verifyPassword"
-            id="verifyPassword"
-            placeholder="비밀번호와 일치하는 값을 입력해 주세요"
-            register={register}
-            errors={errors}
-          />
-        </InputBox>
+        {category === 'signup' ? (
+          <InputBox>
+            <Label htmlFor="verifyPassword">비밀번호 확인</Label>
+            <Input
+              type="verifyPassword"
+              id="verifyPassword"
+              placeholder="비밀번호와 일치하는 값을 입력해 주세요"
+              register={register}
+              errors={errors}
+            />
+          </InputBox>
+        ) : null}
       </Container>
       <SignButton disabled={isSubmitting}>회원가입</SignButton>
     </Form>

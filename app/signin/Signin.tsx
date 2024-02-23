@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import SignForm from './components/SignForm';
 import styled from 'styled-components';
 import Link from 'next/link';
+import SignForm from '../signup/components/SignForm';
 
-export default function Signup() {
+export default function Signin() {
   return (
     <Wrapper>
       <Container>
@@ -15,14 +15,14 @@ export default function Signup() {
               <Image src="/logo.svg" alt="logo" width={133} height={24} />
             </Link>
             <GoToSignUp>
-              <span>이미 회원이신가요?</span>
-              <GoToSignUpLink href="/signin">로그인 하기</GoToSignUpLink>
+              <span>회원이 아니신가요?</span>
+              <GoToSignUpLink href="/signup">회원가입 하기</GoToSignUpLink>
             </GoToSignUp>
           </LoginBox_top>
-          <SignForm category="signup" />
+          <SignForm category="signin" />
         </LoginBox>
         <SnsLogin>
-          <Text>다른 방식으로 가입하기</Text>
+          <Text>소셜 로그인</Text>
           <SnsLogo>
             <Link href="https://google.com">
               <Image
