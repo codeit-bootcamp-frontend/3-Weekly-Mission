@@ -23,6 +23,8 @@ export default function signup() {
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
   const [isPasswordCheckError, setIsPasswordCheckError] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowPasswordCheck, setIsShowPasswordCheck] = useState(false);
 
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
@@ -161,7 +163,7 @@ export default function signup() {
                 ref={emailInput}
                 type="email"
                 placeholder="이메일을 입력해 주세요"
-                onChange={setEmail}
+                onChange={(e) => setEmail(e.target.value)}
                 onBlur={onBlurEmail}
                 onKeyDown={onKeydown}
                 isError={isEmailError}
@@ -172,26 +174,66 @@ export default function signup() {
               <label className={cn('label')}>비밀번호</label>
               <Input
                 ref={passwordInput}
-                type="password"
-                onChange={setPassword}
+                type={isShowPassword ? 'text' : 'password'}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요."
                 onBlur={onBlurPassword}
                 onKeyDown={onKeydown}
                 isError={isPasswordError}
                 errorMessage={passwordErrorMessage}
+                suffixImage={
+                  isShowPassword
+                    ? {
+                        width: 16,
+                        height: 16,
+                        className: 'password-icon',
+                        src: '/images/eye-on.svg',
+                        alt: '눈모양 아이콘',
+                        onClick: () => setIsShowPassword(!isShowPassword),
+                      }
+                    : {
+                        width: 16,
+                        height: 16,
+                        className: 'password-icon',
+                        src: '/images/eye-off.svg',
+                        alt: '눈에 빗금친 아이콘',
+                        onClick: () => setIsShowPassword(!isShowPassword),
+                      }
+                }
               />
             </div>
             <div className={cn('input-element')}>
               <label className={cn('label')}>비밀번호 확인</label>
               <Input
                 ref={passwordCheckInput}
-                type="password"
+                type={isShowPasswordCheck ? 'text' : 'password'}
                 placeholder="비밀번호와 일치하는 값을 입력해 주세요."
-                onChange={setPasswordCheck}
+                onChange={(e) => setPasswordCheck(e.target.value)}
                 onBlur={onBlurPasswordCheck}
                 onKeyDown={onKeydown}
                 isError={isPasswordCheckError}
                 errorMessage={passwordCheckErrorMessage}
+                suffixImage={
+                  isShowPasswordCheck
+                    ? {
+                        width: 16,
+                        height: 16,
+                        className: 'password-icon',
+                        src: '/images/eye-on.svg',
+                        alt: '눈모양 아이콘',
+                        onClick: () =>
+                          setIsShowPasswordCheck(!isShowPasswordCheck),
+                      }
+                    : {
+                        width: 16,
+                        height: 16,
+                        className: 'password-icon',
+                        src: '/images/eye-off.svg',
+                        alt: '눈에 빗금친 아이콘',
+                        onClick: () =>
+                          setIsShowPasswordCheck(!isShowPasswordCheck),
+                      }
+                }
               />
             </div>
           </section>

@@ -18,6 +18,7 @@ export default function signin() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState(false);
 
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
@@ -128,7 +129,7 @@ export default function signin() {
                 ref={emailInput}
                 type="email"
                 placeholder="이메일을 입력해 주세요."
-                onChange={setEmail}
+                onChange={(e) => setEmail(e.target.value)}
                 onBlur={onBlurEmail}
                 onKeyDown={onKeydown}
                 isError={isEmailError}
@@ -139,13 +140,32 @@ export default function signin() {
               <label className={cn('label')}>비밀번호</label>
               <Input
                 ref={passwordInput}
-                type="password"
+                type={isShowPassword ? 'text' : 'password'}
                 placeholder="비밀번호를 입력해 주세요."
-                onChange={setPassword}
+                onChange={(e) => setPassword(e.target.value)}
                 onBlur={onBlurPassword}
                 onKeyDown={onKeydown}
                 isError={isPasswordError}
                 errorMessage={passwordErrorMessage}
+                suffixImage={
+                  isShowPassword
+                    ? {
+                        width: 16,
+                        height: 16,
+                        className: 'password-icon',
+                        src: '/images/eye-on.svg',
+                        alt: '눈모양 아이콘',
+                        onClick: () => setIsShowPassword(!isShowPassword),
+                      }
+                    : {
+                        width: 16,
+                        height: 16,
+                        className: 'password-icon',
+                        src: '/images/eye-off.svg',
+                        alt: '눈에 빗금친 아이콘',
+                        onClick: () => setIsShowPassword(!isShowPassword),
+                      }
+                }
               />
             </div>
           </section>
