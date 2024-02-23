@@ -1,13 +1,12 @@
 import { ReactNode } from 'react';
 import styles from './styles.module.css';
 
-export const ModalSubmitButton = ({
-  type,
-  children,
-}: {
+interface Props {
   type: string | null;
   children: ReactNode;
-}) => {
+}
+
+export const ModalSubmitButton = ({ type, children }: Props) => {
   return (
     <button
       className={`${styles.button} ${type ? styles[`${type}`] : styles.none}`}

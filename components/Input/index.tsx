@@ -2,7 +2,11 @@ import { useState } from 'react';
 import styles from './Input.module.css';
 import Image from 'next/image';
 
-export function Input({ type = 'password' }: { type: string }) {
+interface Props {
+  type: string;
+}
+
+export function Input({ type = 'password' }: Props) {
   const [inputValue, setInputValue] = useState<string>('');
   const [isError, setIsError] = useState(false);
   const [typeValue, setTypeValue] = useState<string>(type);

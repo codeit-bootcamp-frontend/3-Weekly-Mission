@@ -3,11 +3,11 @@ import { FolderManagementButton } from './FolderManagementButton';
 import styles from './styles.module.css';
 import { SelectedFolder } from '@/types/Common';
 
-export const FolderManagementMenu = ({
-  selectedFolder,
-}: {
+interface Props {
   selectedFolder: SelectedFolder;
-}) => {
+}
+
+export const FolderManagementMenu = ({ selectedFolder }: Props) => {
   return (
     <div className={styles['selected-folder']}>
       <div className={styles['selected-folder__menu']}>

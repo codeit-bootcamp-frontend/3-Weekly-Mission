@@ -6,7 +6,11 @@ import styles from './styles.module.css';
 import Image from 'next/image';
 import { Folder, FolderLink } from '@/types/Common';
 
-export const KebabButton = ({ folderLink }: { folderLink: FolderLink }) => {
+interface Props {
+  folderLink: FolderLink;
+}
+
+export const KebabButton = ({ folderLink }: Props) => {
   const [folders, setFolders] = useState<Folder[]>([]);
   const [visible, setVisible] = useState(false);
   const [dropDownItem, setDropDownItem] = useState<string | null>(null);

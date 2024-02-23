@@ -3,7 +3,11 @@ import { Card } from './Card/index';
 import styles from './styles.module.css';
 import { FolderLink } from '@/types/Common';
 
-export const CardList = ({ folderLinks }: { folderLinks: FolderLink[] }) => {
+interface Props {
+  folderLinks: FolderLink[];
+}
+
+export const CardList = ({ folderLinks }: Props) => {
   const [activeKebab, setActiveKebab] = useState<string | number | null>(null);
 
   return (

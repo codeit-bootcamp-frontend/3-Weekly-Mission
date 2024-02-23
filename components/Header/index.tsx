@@ -6,7 +6,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { User } from '@/types/Common';
 
-export const Header = ({ isSticky }: { isSticky: boolean }) => {
+interface Props {
+  isSticky: boolean;
+}
+
+export const Header = ({ isSticky }: Props) => {
   const router: NextRouter = useRouter();
   const [user, setUser] = useState<User>({
     auth_id: '',

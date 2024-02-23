@@ -1,10 +1,10 @@
 import { CardList } from '../CardList/index';
 import { FolderLink } from '@/types/Common';
 
-export const SharedCardList = ({
-  folderLinks,
-}: {
+interface Props {
   folderLinks: FolderLink[];
-}) => {
+}
+
+export const SharedCardList = ({ folderLinks }: Props) => {
   return <CardList folderLinks={folderLinks} />;
 };
