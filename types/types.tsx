@@ -50,3 +50,12 @@ export interface SharedUserInterface {
   email: string;
   profileImageSource?: string;
 }
+
+export interface UserInterface {
+  id: string;
+  created_at: string;
+  name: string;
+  image_source?: string;
+  email: string;
+  auth_id: string;
+}

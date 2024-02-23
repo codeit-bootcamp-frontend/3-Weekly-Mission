@@ -6,7 +6,7 @@ const commonHeaderStyle = `
   justify-content: center;
   align-items: center;
   padding: 3rem 3rem 0 3rem;
-  background-color: var(--color-gray1);
+  background-color: var(--color-gray1, #f0f6ff);
 `;
 
 const commonContentStyle = `
@@ -127,7 +127,11 @@ export const Button = styled.button`
   font-size: 18px;
   font-weight: 600;
   border-radius: 8px;
-  background: var(--gra-purpleblue-to-skyblue);
+  background: var(
+    --gra-purpleblue-to-skyblue,
+    linear-gradient(91deg, var(--color-primary, #6d6afe) 0.12%, #6ae3fe 101.84%)
+      ;
+  );
 `;
 
 export const ImageBox = styled.div`
