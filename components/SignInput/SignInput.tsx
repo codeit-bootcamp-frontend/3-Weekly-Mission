@@ -10,6 +10,7 @@ interface Props {
   errorMassage?: string;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  labelName: string;
 }
 
 export default function SignInput({
@@ -18,10 +19,11 @@ export default function SignInput({
   placeholder = "내용입력",
   value,
   setValue,
+  labelName,
 }: Props) {
   const EYE_ON = { src: eyeOn.src, alt: "비밀번호 보이는 아이콘" };
   const EYE_OFF = { src: eyeOff.src, alt: "비밀번호 안보이는 아이콘" };
-  const [eye, setEye] = useState(eyeOff);
+  const [eye, setEye] = useState(EYE_ON);
   const [showPassword, setShowPassword] = useState(false);
   const [errorMassage, setErrorMessage] = useState("");
 
@@ -43,7 +45,9 @@ export default function SignInput({
   return (
     <Wrapper>
       <Container>
+        <Label htmlFor={labelName}>{labelName}</Label>
         <Input
+          id={labelName}
           onBlur={checkFocusOut}
           $error={errorMassage !== ""}
           type={showPassword ? "text" : type}
@@ -68,15 +72,13 @@ const EyeButton = styled.button`
   height: 16px;
   position: absolute;
   right: 15px;
-  top: 18px;
+  top: 50px;
   outline: none;
   border: none;
   background-color: #000;
 `;
 
 const Wrapper = styled.div`
-  margin: 0 auto;
-  max-width: 350px;
   display: flex;
   gap: 6px;
   flex-direction: column;
@@ -84,6 +86,9 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 interface InputProps {
@@ -110,4 +115,10 @@ const ErrorMessage = styled.span`
   font-size: 1.4rem;
   font-weight: 400;
   text-align: left;
+`;
+
+const Label = styled.label`
+  color: #000;
+  font-size: 1.4rem;
+  font-weight: 400;
 `;

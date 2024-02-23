@@ -23,6 +23,10 @@ import modalCheckedIcon from "@/public/img/modal-footer-icon-check.svg";
 import spinnerImg from "@/public/img/spinner.svg";
 import eyeOn from "@/public/img/eye-on.svg";
 import eyeOff from "@/public/img/eye-off.svg";
+import googleBg from "@/public/img/google.svg";
+import googleIcon from "@/public/img/google.png";
+import socialKakaoIcon from "@/public/img/99FE484C5C3451F2181.svg";
+import socialKakaoBg from "@/public/img/signin-kakao-bg.svg";
 
 export {
   shareIcon,
@@ -44,10 +48,14 @@ export {
   folderPulsIcon,
   closeButton,
   kakaoIcon,
+  socialKakaoIcon,
+  socialKakaoBg,
   modalShareIcon,
   modalFacebookIcon,
   modalCheckedIcon,
   spinnerImg,
   eyeOn,
   eyeOff,
+  googleIcon,
+  googleBg,
 };

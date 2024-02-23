@@ -6,3 +6,7 @@ export type ModalButtonClickType = ({
 }: React.MouseEvent<HTMLButtonElement> & { url: string }) => void;
 
 export type Samples = MouseEventHandler;
+
+export interface StringKeyValues {
+  [key: string]: string;
+}

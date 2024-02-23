@@ -1,6 +1,5 @@
-interface ModalType {
-  [key: string]: string;
-}
+import { StringKeyValues } from "./types";
+
 export interface ModalFormType {
-  [key: string]: ModalType;
+  [key: string]: StringKeyValues;
 }

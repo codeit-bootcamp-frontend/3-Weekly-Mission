@@ -16,22 +16,7 @@ export default function Test() {
   };
   return (
     <Wrapper>
-      <form>
-        <SignInput
-          value={id}
-          setValue={setId}
-          type="email"
-          placeholder="아이디"
-          handler={handleError}
-        />
-        <SignInput
-          value={password}
-          setValue={setPassword}
-          type="password"
-          placeholder="비밀번호"
-          handler={handleError}
-        />
-      </form>
+      <form></form>
     </Wrapper>
   );
 }

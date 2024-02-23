@@ -4,14 +4,16 @@ import styled from "styled-components";
 interface Props {
   CTAButtonStyle?: React.ComponentType<any>;
   children: React.ReactNode;
+  type?: string;
 }
 
 export default function CtaButton({
   CTAButtonStyle = CTAButton,
   children,
+  type = "button",
 }: Props) {
   return (
-    <CTAButtonStyle type="button">
+    <CTAButtonStyle type={type}>
       <ButtonText>{children}</ButtonText>
     </CTAButtonStyle>
   );

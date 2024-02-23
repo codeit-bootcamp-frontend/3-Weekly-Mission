@@ -25,7 +25,7 @@ export default function Navbar({ user }: Props) {
         {user ? (
           <NavProfile user={user} />
         ) : (
-          <Link href={"/"}>
+          <Link href={"/signin"}>
             <button type="button" className="login-btn">
               로그인
             </button>
