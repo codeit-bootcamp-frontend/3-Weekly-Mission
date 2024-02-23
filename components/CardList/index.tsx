@@ -9,18 +9,16 @@ export const CardList = ({ folderLinks }: { folderLinks: FolderLink[] }) => {
   return (
     <>
       <div className={styles['card-list']}>
-        {folderLinks && folderLinks.length > 0 ? (
-          folderLinks?.map(folderLink => {
-            return (
-              <Card
-                key={folderLink.id}
-                folderLink={folderLink}
-                isActive={activeKebab === folderLink.id}
-                activeKebab={activeKebab}
-                setActiveKebab={setActiveKebab}
-              />
-            );
-          })
+        {folderLinks?.length > 0 ? (
+          folderLinks.map(folderLink => (
+            <Card
+              key={folderLink.id}
+              folderLink={folderLink}
+              isActive={activeKebab === folderLink.id}
+              activeKebab={activeKebab}
+              setActiveKebab={setActiveKebab}
+            />
+          ))
         ) : (
           <p className={styles['no-link']}>저장된 링크가 없습니다.</p>
         )}
