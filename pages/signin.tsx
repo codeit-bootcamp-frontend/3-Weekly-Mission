@@ -17,7 +17,6 @@ interface Props {
 
 export default function signIn({ user }: Props) {
   const router = useRouter();
-  console.log(user);
   if (user) {
     router.push("/folder");
   }
