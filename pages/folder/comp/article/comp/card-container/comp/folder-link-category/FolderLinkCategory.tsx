@@ -1,9 +1,10 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
 import FolderAddModal from '@components/ui/molecules/modal/folder-add-modal/FolderAddModal';
+import { useFolderPageServerSideProp } from '@pages/folder/context/folderPageContext';
 
 import { useModal } from '@hooks/useModal';
 
@@ -23,7 +24,14 @@ type TFolderLinkCategoryProps = {
 };
 
 const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName }: TFolderLinkCategoryProps) => {
-  const folderSortList = useGetFolderCategoryList();
+  // ssr로 받아온 폴더 카테고리 리스트 state에 initial state로 주입시킴
+  // prerendering 이용하면서 폴더 추가했을 때 client 쪽에서 ajax로 처리하는 방식
+  const initialFolderCategoryList = useFolderPageServerSideProp();
+  const { folderCategoryList } = useGetFolderCategoryList(initialFolderCategoryList);
+  const setFolderCategoryList = useFolderStore((state) => state.setFolderCategoryList);
+  useEffect(() => {
+    setFolderCategoryList(folderCategoryList);
+  }, [folderCategoryList]);
 
   const { openModal } = useModal();
 
@@ -32,10 +40,10 @@ const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName }: TFolder
 
   return (
     <>
-      {folderSortList.length > 1 && (
+      {folderCategoryList.length > 1 && (
         <div className={styles['folder-link-category-wrapper']}>
           <div className={styles['folder-link-category-box']}>
-            {folderSortList.map((folder) => (
+            {folderCategoryList.map((folder) => (
               <Link
                 // ? userId에는 현재 로그인 중인 유저 id를 넣기. 가 맞나?
                 href={{ search: `user=${userId}&folder=${folder.id}` }}

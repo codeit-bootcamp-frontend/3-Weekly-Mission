@@ -1,7 +1,5 @@
 import { fetchWithGet } from '@api/instance/fetchWithGet';
 
-const GET_FOLDER_CATEGORY_API = '/api/users/1/folders';
-
 export type TFolderCategoryData = {
   id: number;
   created_at: string;
@@ -12,12 +10,13 @@ export type TFolderCategoryData = {
     count: number;
   };
 };
-interface IFolderCategoryResponse {
+
+export interface IFolderCategoryResponse {
   data: TFolderCategoryData[];
 }
 
-const getFolderCategory = async () => {
-  return fetchWithGet<IFolderCategoryResponse>(GET_FOLDER_CATEGORY_API);
+const getFolderCategory = async (userId: string) => {
+  return fetchWithGet<IFolderCategoryResponse>(`/api/users/${userId}/folders`);
 };
 
 export { getFolderCategory };
