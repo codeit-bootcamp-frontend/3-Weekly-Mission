@@ -35,6 +35,13 @@ export const Card = ({
   const absoluteImageUrl = imageUrl?.startsWith('//')
     ? `https:${imageUrl}`
     : imageUrl;
+  const fallbackImgUrl = '/images/no-image.svg';
+  const imgSrc = (() => {
+    if (hasError || !absoluteImageUrl) {
+      return fallbackImgUrl;
+    }
+    return absoluteImageUrl;
+  })();
 
   return (
     <>
@@ -47,11 +54,7 @@ export const Card = ({
         <div className={styles['card__image-container']}>
           <Image
             fill
-            src={
-              hasError || !absoluteImageUrl
-                ? '/images/no-image.svg'
-                : absoluteImageUrl
-            }
+            src={imgSrc}
             alt="카드 이미지"
             style={{ objectFit: 'cover' }}
             onError={() => {
