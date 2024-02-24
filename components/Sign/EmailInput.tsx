@@ -2,16 +2,22 @@ import {
     CONFIRM_EMAIL,
     SignInputErrorMessages,
     URL_DOMAIN,
-    fetchErrorMessages,
 } from "@/Constants/Constants";
-import postFetch from "@/utils/postFetch";
-import { error } from "console";
+import { FormStateProxy, UseFormReturn } from "@/types";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
 import styled from "styled-components";
 
-// ToDo 회원가입페이지, 로그인페이지의 인풋을 제어 컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
-// ToDo 이메일 중복확인 에러처리하기
+interface EmailInputProps {
+    id: string;
+    currentPath: string;
+    register: any;
+    errors: any;
+    onLoginSubmit: (e: React.FormEvent) => void;
+    onRegisterSubmit: (e: React.FormEvent) => void;
+    watch: any;
+    setError: any;
+}
+
 export const EmailInput = ({
     id,
     currentPath,
@@ -21,16 +27,7 @@ export const EmailInput = ({
     onRegisterSubmit,
     watch,
     setError,
-}: {
-    id: string;
-    currentPath: string;
-    register: any;
-    errors: any;
-    onLoginSubmit: (e: React.FormEvent) => void;
-    onRegisterSubmit: (e: React.FormEvent) => void;
-    watch: any;
-    setError: any;
-}) => {
+}: EmailInputProps) => {
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {

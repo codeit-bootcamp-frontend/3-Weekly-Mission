@@ -12,7 +12,7 @@ export default function Signup() {
         if (localStorage.getItem("accessToken")) {
             router.push("/folder");
         }
-    }, []);
+    }, [router]);
 
     const { pathname } = useGetPathname();
     const [currentPath, setCurrentPath] = useState(() => {

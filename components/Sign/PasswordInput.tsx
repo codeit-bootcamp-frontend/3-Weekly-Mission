@@ -2,9 +2,21 @@ import {
     CONFIRM_PASSWORD,
     SignInputErrorMessages,
 } from "@/Constants/Constants";
+import { FormStateProxy, UseFormReturn } from "@/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { FieldErrors, FieldValues } from "react-hook-form";
 import styled from "styled-components";
+
+interface PasswordInputProps {
+    currentPath: string;
+    id: string;
+    register: any;
+    errors: any;
+    onLoginSubmit: (e: React.FormEvent) => void;
+    watch?: any;
+    onRegisterSubmit: (e: React.FormEvent) => void;
+}
 
 // ToDo 일반 패스워드 인풋과 비밀번호 확인 패스워드 인풋 구분을 하는데 코드가 너무 길어져서 차라리 따로 빼는게 나을듯
 const PasswordInput = ({
@@ -15,16 +27,7 @@ const PasswordInput = ({
     onLoginSubmit,
     watch,
     onRegisterSubmit,
-}: {
-    type: string;
-    currentPath: string;
-    id: string;
-    register: any;
-    errors: any;
-    onLoginSubmit: (e: React.FormEvent) => void;
-    watch: any;
-    onRegisterSubmit: (e: React.FormEvent) => void;
-}) => {
+}: PasswordInputProps) => {
     const [isHidden, setIsHidden] = useState(true);
     const [isPasswordError, setIsPasswordError] = useState(false);
     const [isConfirmPasswordError, setIsConfirmPasswordError] = useState(false);
@@ -77,7 +80,7 @@ const PasswordInput = ({
                                 ? "비밀번호를 입력해주세요"
                                 : "영문, 숫자를 조합해 8자 이상 입력해 주세요."
                         }
-                        $isPasswordError={isPasswordError}
+                        $isError={isPasswordError}
                         {...register("password", {
                             required:
                                 SignInputErrorMessages.PleaseEnterPassword,
@@ -113,7 +116,7 @@ const PasswordInput = ({
                         id={id}
                         type={isHidden ? "password" : "text"}
                         placeholder="비밀번호와 일치하는 값을 입력해 주세요."
-                        $isConfirmPasswordError={isConfirmPasswordError}
+                        $isError={isConfirmPasswordError}
                         {...register("confirmPassword", {
                             required:
                                 SignInputErrorMessages.PleaseEnterPassword,
@@ -160,8 +163,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Input = styled.input<{
-    $isPasswordError?: boolean;
-    $isConfirmPasswordError?: boolean;
+    $isError: boolean;
 }>`
     width: 100%;
     box-sizing: border-box;
@@ -169,7 +171,7 @@ export const Input = styled.input<{
     outline: none;
     border: 1px solid
         ${(props) =>
-            props.$isPasswordError === false
+            props.$isError === false
                 ? "var(--Linkbrary-gray20, #ccd5e3)"
                 : "var(--Linkbrary-red, #ff5b56)"};
 

@@ -6,8 +6,7 @@ import { signFormDataInterface } from "@/interfaces";
 import { SignInputErrorMessages, URL_DOMAIN } from "@/Constants/Constants";
 import { useRouter } from "next/router";
 import postFetch from "@/utils/postFetch";
-import { useForm } from "react-hook-form";
-import { sign } from "crypto";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 // Think: 제어컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
 export const Form = ({ currentPath }: { currentPath: string }) => {
@@ -75,13 +74,7 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
         })();
     };
 
-    type FormValues = {
-        username: string;
-        email: string;
-        password: string;
-    };
-
-    const onSubmit = (data: FormValues) => {
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
         console.log("Form submitted.", data);
     };
 
