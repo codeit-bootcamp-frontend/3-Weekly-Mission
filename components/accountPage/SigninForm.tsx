@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import { postSignIn } from "@/api";
 import { useForm } from "react-hook-form";
 import { EMAIL_REG } from "./SignupForm";
+import { useRouter } from "next/router";
 
 const cx = classNames.bind(styles);
 
@@ -16,26 +17,21 @@ export default function SigninForm() {
     formState: { errors },
   } = useForm({ mode: "onBlur" });
 
+  const router = useRouter();
+  
+  if (localStorage.getItem("accessToken")) router.push("/folder");
+
   const inputValue = watch();
 
   const onSubmit = async () => {
     const result = await postSignIn({
       email: inputValue.email,
       password: inputValue.password,
+      setError,
     });
-    if (result.data) {
-      console.log(result.data.accessToken);
-      // 로컬스토리지 저장
-      // 라우터
-    } else if (result.error.status === 400) {
-      setError("email", {
-        type: "custom",
-        message: "이메일을 확인해 주세요.",
-      });
-      setError("password", {
-        type: "custom",
-        message: "비밀번호를 확인해 주세요.",
-      });
+    if (result) {
+      localStorage.setItem("accessToken", result.accessToken);
+      router.push("/folder");
     }
   };
 

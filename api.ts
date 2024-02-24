@@ -33,17 +33,33 @@ export async function getFolderList() {
 export async function postSignIn({
   email,
   password,
+  setError,
 }: {
   email: string;
   password: string;
+  setError: any;
 }) {
   const response = await fetch(`${BASE_URL}/sign-in`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   });
-  const result = await response.json();
-  return result;
+
+  if (response.ok) {
+    const { data } = await response.json();
+    return data;
+  } else {
+    setError("email", {
+      type: "custom",
+      message: "이메일을 확인해 주세요.",
+    });
+    setError("password", {
+      type: "custom",
+      message: "비밀번호를 확인해 주세요.",
+    });
+
+    return;
+  }
 }
 
 export async function postSignUp({
@@ -58,9 +74,9 @@ export async function postSignUp({
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   });
-  console.log(response);
-  const result = await response.json();
-  return result;
+  
+  const {data} = await response.json();
+  return data;
 }
 
 export async function checkEmail({

@@ -3,6 +3,7 @@ import styles from "@/styles/accountPage.module.css";
 import classNames from "classnames/bind";
 import { checkEmail, postSignUp } from "@/api";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
 export const EMAIL_REG = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
 const PASSWD_REG = /(?=.*[0-9])(?=.*[A-Za-z])^.{8,}$/;
@@ -17,6 +18,9 @@ export default function SignUpForm() {
     formState: { errors },
   } = useForm({ mode: "onBlur" });
 
+  const router = useRouter();
+  if (localStorage.getItem("accessToken")) router.push("/folder");
+
   const inputValue = watch();
 
   const onSubmit = async () => {
@@ -26,7 +30,10 @@ export default function SignUpForm() {
       postSignUp({
         email: inputValue.email,
         password: inputValue.password,
-      }).then((res) => console.log(res));
+      }).then((result) => {
+        localStorage.setItem("accessToken", result.accessToken);
+        router.push("/folder");
+      });
     }
   };
 
