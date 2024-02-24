@@ -1,0 +1,119 @@
+.nav {
+  max-width: 1140px;
+  padding: 0 32px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.divCard {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.buttonButtonArea {
+  display: flex;
+  gap: 5px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.buttonButtonArea button {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #6d6afe;
+  background: #fff;
+  cursor: pointer;
+}
+
+.buttonButtonArea button.selected {
+  color: #fff;
+  border: 1px solid #6d6afe;
+  background: #6d6afe;
+}
+
+.addButton {
+  position: absolute;
+  right: 40px;
+  top: 8px;
+  cursor: pointer;
+}
+
+.buttonTextArea {
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.buttonTextArea p {
+  font-size: 1.5rem;
+  color: #000;
+}
+
+.buttonTextArea img {
+  width: 18px;
+  height: 18px;
+}
+
+.toolBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toolBox.hidden {
+  display: none;
+}
+
+.toolBox div {
+  display: flex;
+  align-items: center;
+  color: var(--Linkbrary-gray60, #9fa6b2);
+  font-family: Pretendard;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.emptyFolder {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.emptyFolder img {
+  width: 200px;
+  height: 200px;
+}
+
+@media (max-width: 1123px) {
+  .divCard {
+    padding: 0 32px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 20px 0;
+  }
+
+  .divCard {
+    grid-template-columns: 1fr;
+  }
+
+  .buttonTextArea {
+    display: grid;
+    gap: 12px;
+  }
+
+  .addButton {
+    display: none;
+  }
+}

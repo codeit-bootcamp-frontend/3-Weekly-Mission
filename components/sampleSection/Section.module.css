@@ -1,0 +1,30 @@
+.section {
+  padding-bottom: 40px;
+}
+
+.divCard {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1123px) {
+  .divCard {
+    padding: 0 32px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+  }
+}
+
+@media (max-width: 770px) {
+  .section {
+    padding: 20px 0;
+  }
+
+  .divCard {
+    grid-template-columns: 1fr;
+  }
+}

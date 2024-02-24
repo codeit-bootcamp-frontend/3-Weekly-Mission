@@ -1,0 +1,62 @@
+.main {
+  margin-top: 92px;
+  margin-bottom: 40px;
+  background-color: #f0f6ff;
+  padding: 20px 0 60px;
+}
+
+.mainSon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+}
+
+.profileImage {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 12px;
+}
+
+.userNickname {
+  margin: 0 0 20px;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.folderName {
+  margin: 0;
+  font-family: Pretendard;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+@media (max-width: 1123px) {
+}
+
+@media (max-width: 779px) {
+  .main {
+    margin-top: 64px;
+    padding: 10px 0 40px;
+  }
+
+  .profileImage {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 6px;
+  }
+
+  .userNickname {
+    margin: 0 0 10px;
+    font-size: 0.875rem;
+  }
+
+  .folderName {
+    font-size: 2rem;
+    letter-spacing: -0.2px;
+  }
+}
