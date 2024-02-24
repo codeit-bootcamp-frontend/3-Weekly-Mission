@@ -67,11 +67,6 @@ export default function signin() {
       }
     }
 
-    if (onBlurPassword() && passwordInput.current) {
-      passwordInput.current.focus();
-      return;
-    }
-
     const response = await postSignin({ email, password });
     if (!response) return;
 
@@ -147,25 +142,16 @@ export default function signin() {
                 onKeyDown={onKeydown}
                 isError={isPasswordError}
                 errorMessage={passwordErrorMessage}
-                suffixImage={
-                  isShowPassword
-                    ? {
-                        width: 16,
-                        height: 16,
-                        className: 'password-icon',
-                        src: '/images/eye-on.svg',
-                        alt: '눈모양 아이콘',
-                        onClick: () => setIsShowPassword(!isShowPassword),
-                      }
-                    : {
-                        width: 16,
-                        height: 16,
-                        className: 'password-icon',
-                        src: '/images/eye-off.svg',
-                        alt: '눈에 빗금친 아이콘',
-                        onClick: () => setIsShowPassword(!isShowPassword),
-                      }
-                }
+                suffixImage={{
+                  width: 16,
+                  height: 16,
+                  className: 'password-icon',
+                  src: isShowPassword
+                    ? '/images/eye-on.svg'
+                    : '/images/eye-off.svg',
+                  alt: isShowPassword ? '눈모양 아이콘' : '눈에 빗금친 아이콘',
+                  onClick: () => setIsShowPassword(!isShowPassword),
+                }}
               />
             </div>
           </section>
