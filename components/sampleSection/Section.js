@@ -44,7 +44,6 @@ function Section() {
             key={cardData.id}
           >
             <Card
-              style={cardData.imageSource !== undefined ? style : logoStyle}
               image={cardData.imageSource}
               createdAt={timeDiffChecker(timeDiffs[index])}
               description={cardData.description}

@@ -23,6 +23,12 @@
   object-fit: fill;
 }
 
+.defaultCardImage {
+  opacity: 0.2;
+  width: 133px;
+  height: 24px;
+}
+
 .star {
   position: absolute;
   top: 15px;

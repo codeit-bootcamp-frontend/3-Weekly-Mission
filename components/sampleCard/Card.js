@@ -19,7 +19,6 @@ function Card({
   createdAt = DEFAULT_CARD_VALUE.createdAt,
   description = DEFAULT_CARD_VALUE.description,
   uploadDate = DEFAULT_CARD_VALUE.uploadDate,
-  style,
   link,
   buttonInfo,
 }) {
@@ -27,21 +26,22 @@ function Card({
   const [isShowModalDeleteLink, setIsShowModalDeleteLink] = useState(false);
   const [isShowAddLink, setIsShowAddLink] = useState(false);
 
-  function popOver(e) {
+  function defaultClickEvent(e, callbackFn) {
     e.preventDefault();
+    callbackFn();
+  }
+
+  function popOver() {
     setIsShowPopover(!isShowPopover);
   }
 
-  function handleDeleteLink(e) {
-    e.preventDefault();
+  function handleDeleteLink() {
     setIsShowModalDeleteLink(!isShowModalDeleteLink);
   }
-  function handleAddLink(e) {
-    e.preventDefault();
+  function handleAddLink() {
     setIsShowAddLink(!isShowAddLink);
   }
-  function DeleteLink(e) {
-    e.preventDefault();
+  function deleteLink() {
     alert('아직 미구현');
   }
 
@@ -51,10 +51,11 @@ function Card({
         <Image
           width={340}
           height={254}
-          src={image}
+          src={image ? image : logo}
           alt="default-card-image"
-          style={style}
-          className={styles.cardImage}
+          className={
+            image !== logo ? styles.cardImage : styles.defaultCardImage
+          }
         />
         <Image src={star} alt="star-icon" className={styles.star} />
       </figure>
@@ -64,14 +65,20 @@ function Card({
           src={kebab}
           alt="kebab-icon"
           className={styles.kebab}
-          onClick={popOver}
+          onClick={e => defaultClickEvent(e, popOver)}
         />
         {isShowPopover && (
           <div className={styles.popover}>
-            <div className={styles.popoverSon} onClick={handleDeleteLink}>
+            <div
+              className={styles.popoverSon}
+              onClick={e => defaultClickEvent(e, handleDeleteLink)}
+            >
               삭제하기
             </div>
-            <div className={styles.popoverSon} onClick={handleAddLink}>
+            <div
+              className={styles.popoverSon}
+              onClick={e => defaultClickEvent(e, handleAddLink)}
+            >
               폴더에 추가
             </div>
           </div>
@@ -82,15 +89,15 @@ function Card({
 
       {isShowModalDeleteLink && (
         <ModalDeleteLink
-          handleClickClose={handleDeleteLink}
-          handleClickDelete={DeleteLink}
+          handleClickClose={e => defaultClickEvent(e, handleDeleteLink)}
+          handleClickDelete={e => defaultClickEvent(e, deleteLink)}
           link={link}
         />
       )}
       {isShowAddLink && (
         <ModalAddLink
-          handleClickClose={handleAddLink}
-          handleClickButton={DeleteLink}
+          handleClickClose={e => defaultClickEvent(e, handleAddLink)}
+          handleClickButton={e => defaultClickEvent(e, deleteLink)}
           link={link}
           buttonInfo={buttonInfo}
         />
