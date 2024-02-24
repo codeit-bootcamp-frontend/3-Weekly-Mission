@@ -72,4 +72,3 @@ export default function FolderListBtn() {
     </div>
   );
 }
-/////// map을 한번만 사용해서 folderList 데이터를 folderactonBtn에 전달해주는 방법을 사용하면 좋을것같다
