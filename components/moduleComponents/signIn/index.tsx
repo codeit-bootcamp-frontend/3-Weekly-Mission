@@ -1,5 +1,6 @@
 import { useForm, FieldError } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { email_reg } from "@/src/utils/regexPatterns";
 import { eyeoff_svg, eyeon_svg } from "@/public/image/index";
 import styles from "./signin.module.css";
@@ -9,29 +10,56 @@ import LogoText from "@/components/atomicComponents/logoText/index";
 import LoginInput from "@/components/atomicComponents/loginInput/index";
 import LoginButton from "@/components/atomicComponents/loginButton/index";
 import SnsLogin from "@/components/atomicComponents/snsLogin/index";
+import axios from "@/libs/axios";
 
 const SigninModule = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({ mode: "onBlur" });
 
   const [isPasswordVisible, setisPasswordVisible] = useState(false);
+  const router = useRouter();
 
   const toggleisPasswordVisible = () => {
     setisPasswordVisible(!isPasswordVisible);
   };
 
+  const getSignIn = async (data: any) => {
+    try {
+      const res = await axios.post("/sign-in", data);
+      localStorage.setItem("accessToken", res.data.accessToken);
+      router.push("/folder");
+    } catch (e: any) {
+      if (e.response.status === 400) {
+        setError("email", {
+          type: "manual",
+          message: "이메일을 확인해주세요",
+        });
+        setError("password", {
+          type: "manual",
+          message: "비밀번호를 확인해주세요",
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      router.push("/folder");
+    }
+  }, []);
+  
+  //data 랑 error의 타입은 무엇인가?
+ // localStorage.setItem("accessToken", res.data.accessToken);
+  // 로컬스토리지에 토큰을 저장할때 "accessToken" 이건 키고  res.data.accessToken는 value가 들어와야 하는데 undefined가 들어온다.
+
   return (
     <div className={Styles.signin_Module_wrapper}>
       <LogoText text="회원이 아니신가요?" linkText="회원 가입하기" />
-      <form
-        noValidate
-        onSubmit={handleSubmit((data) => {
-          console.log(data);
-        })}
-      >
+      <form noValidate onSubmit={handleSubmit(getSignIn)}>
         <LoginInput
           id="email"
           type="email"
@@ -110,3 +138,19 @@ export default SigninModule;
 // input 컴포넌트를 분리해서 사용한 경우에는 input에 ref가 없어서 props로 사용해줘야한다.
 // ...register 스프레드 문법으로 register를 props로 넘겨주고 사용
 // -> 정상작동 라고 추측해보기?
+
+//“/api/sign-in”으로 post요청을 보내는 함수
+//post요청해서 성공 응답 받기 -> 성공하면 /folder페이지로 이동
+//로그인을 실패하는 경우 이메일 && 비밀번호를 확인해주세요가 밑에 나오도록
+//대부분의 경우에는 response.ok를 사용하여 응답이 성공했는지를 확인하는 것이 더 간단하고 효율적
+//accessToken을 localStorage에 저장하고, 조회해서 /folder페이지로 이동
+//   test@codeit.com sprint101
+//현재 에러메세지가 안나옴
+
+// React.useEffect(() => {
+//   setError("username", {
+//     type: "manual",  //manual은 사용자가 직접 에러를 설정할 때 사용
+//     message: "Dont Forget Your Username Should Be Cool!",
+//   })
+// }, [setError])
+//보통은 에러를 자동으로 처리하지만, 수동으로 처리할 때는 setError를 사용한다.

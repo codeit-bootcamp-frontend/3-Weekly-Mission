@@ -5,7 +5,6 @@ export function createDay(createAt: string): string {
   const day = date.getDate();
   return `${year}.${month}.${day}`;
 }
-//createAt 의 타입은 string이고 반환값은 꼭 스트링이어야 하는가? 아니면 :string|null 이런식으로 반환값이 null일수도 있다고 명시해주는게 좋은가?
 
 export function createTime(createdTime: string): string {
   const currentDate: Date = new Date();
