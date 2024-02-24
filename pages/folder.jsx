@@ -1,4 +1,4 @@
-import { useGetLinks } from '@/api-access/useGetLinks';
+import { useGetLinks } from '@/hooks/useGetLinks';
 import { useMemo, useState } from 'react';
 import { NoLink } from './components/NoLink/NoLink';
 import { CardList } from './components/CardList/CardList';
@@ -8,7 +8,7 @@ import { LinkForm } from './components/LinkForm/LinkForm';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import { Footer } from './components/Footer/Footer';
 import { FolderToolBar } from './components/FolderToolBar/FolderToolBar';
-import { useGetFolders } from '@/api-access/useGetFolders';
+import { useGetFolders } from '@/hooks/useGetFolders';
 import styled from 'styled-components';
 
 export default function Folder() {

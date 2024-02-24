@@ -5,18 +5,18 @@ export const ROUTE = {
   FAQ: 'fap',
 };
 
-const second = 1000;
-const minute = second * 60;
-const hour = minute * 60;
-const day = hour * 24;
-const month = day * 30;
-const year = month * 12;
+const SECOND = 1000;
+const MINUTE = SECOND * 60;
+const HOUR = MINUTE * 60;
+const DAY = HOUR * 24;
+const MONTH = DAY * 30;
+const YEAR = MONTH * 12;
 
 export const TIME_IN_MILLISECONDS = {
-  second,
-  minute,
-  hour,
-  day,
-  month,
-  year,
+  SECOND,
+  MINUTE,
+  HOUR,
+  DAY,
+  MONTH,
+  YEAR,
 };

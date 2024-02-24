@@ -1,4 +1,4 @@
-import { useGetFolder } from '@/api-access/useGetFolder';
+import { useGetFolder } from '@/hooks/useGetFolder';
 import { FolderInfo } from './components/FolderInfo/FolderInfo';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import { SearchBar } from './components/SearchBar/SearchBar';
