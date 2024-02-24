@@ -8,7 +8,7 @@ import styled from "styled-components";
 const PasswordInput = ({
   type,
   name,
-  formData,
+  FormData,
   onChange,
   isConfirmPassword,
   currentPath,
@@ -18,11 +18,10 @@ const PasswordInput = ({
   setPasswordError,
   confirmPasswordError,
   setConfirmPasswordError,
-  register,
 }: {
   type: string;
   name: string;
-  formData: signFormDataInterface;
+  FormData: signFormDataInterface;
   onChange: (data: signFormDataInterface) => void;
   isConfirmPassword?: boolean;
   currentPath: string;
@@ -32,7 +31,6 @@ const PasswordInput = ({
   setPasswordError: (passwordError: SignInputErrorMessages) => void;
   confirmPasswordError: SignInputErrorMessages;
   setConfirmPasswordError: (confirmPasswordError: SignInputErrorMessages) => void;
-  register: any;
 }) => {
   const [isHidden, setIsHidden] = useState(true);
 
@@ -44,14 +42,14 @@ const PasswordInput = ({
     const confirmPasswordAlphabet = new RegExp(CONFIRM_PASSWORD_ALPHABET);
     const confirmPasswordNumber = new RegExp(CONFIRM_PASSWORD_NUMBER);
 
-    if (formData.password === "") {
+    if (FormData.password === "") {
       return setPasswordError(SignInputErrorMessages.PleaseEnterPassword);
     }
 
     if (
-      formData.password.length < 8 ||
-      !confirmPasswordAlphabet.test(formData.password) ||
-      !confirmPasswordNumber.test(formData.password)
+      FormData.password.length < 8 ||
+      !confirmPasswordAlphabet.test(FormData.password) ||
+      !confirmPasswordNumber.test(FormData.password)
     ) {
       return setPasswordError(SignInputErrorMessages.CheckPasswordFormat);
     }
@@ -60,7 +58,7 @@ const PasswordInput = ({
   };
 
   const handlePasswordConfirmBlur = () => {
-    if (formData.password !== formData.confirmPassword) {
+    if (FormData.password !== FormData.confirmPassword) {
       console.log("not matched password");
       return setConfirmPasswordError(SignInputErrorMessages.NotMatchedPassword);
     }
@@ -90,9 +88,9 @@ const PasswordInput = ({
               currentPath === "signin" ? "비밀번호를 입력해주세요" : "영문, 숫자를 조합해 8자 이상 입력해 주세요."
             }
             $passwordError={passwordError}
-            value={formData.password}
+            value={FormData.password}
             onChange={(e) => {
-              onChange({ ...formData, password: e.target.value });
+              onChange({ ...FormData, password: e.target.value });
             }}
             onBlur={handlePasswordBlur}
             onKeyDown={handleKeyDown}
@@ -114,10 +112,10 @@ const PasswordInput = ({
             type={isHidden ? "password" : "text"}
             placeholder="비밀번호와 일치하는 값을 입력해 주세요."
             $passwordError={passwordError}
-            value={formData.confirmPassword}
+            value={FormData.confirmPassword}
             onChange={(e) => {
               onChange({
-                ...formData,
+                ...FormData,
                 confirmPassword: e.target.value,
               });
             }}

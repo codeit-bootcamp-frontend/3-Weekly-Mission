@@ -3,18 +3,12 @@ import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
 import { FormEvent, useId, useState } from "react";
 import { signFormDataInterface } from "@/interfaces";
-import { CONFIRM_EMAIL, SignInputErrorMessages, URL_DOMAIN } from "@/Constants/Constants";
+import { SignInputErrorMessages, URL_DOMAIN } from "@/Constants/Constants";
 import { useRouter } from "next/router";
 import postFetch from "@/utils/postFetch";
-import { set, useForm } from "react-hook-form";
 
 // Think: 제어컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
 export const Form = ({ currentPath }: { currentPath: string }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, isSubmitted, errors },
-  } = useForm();
   const router = useRouter();
   const id = useId();
   const [inputError, setInputError] = useState<SignInputErrorMessages>(SignInputErrorMessages.NoError);
@@ -22,7 +16,7 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState<SignInputErrorMessages>(
     SignInputErrorMessages.NoError
   );
-  const [formData, setFormData] = useState<signFormDataInterface>(() => {
+  const [FormData, setFormData] = useState<signFormDataInterface>(() => {
     return {
       email: "",
       password: "",
@@ -31,16 +25,19 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
   });
 
   const handleInputChange = (data: signFormDataInterface) => {
-    setFormData({ ...formData, ...data });
+    setFormData({ ...FormData, ...data });
   };
 
   // 로그인 버튼 클릭
   const handleLoginSubmit = (e: FormEvent) => {
     e.preventDefault();
 
+    if (FormData.password !== FormData.confirmPassword) {
+    }
+
     const body = {
-      email: formData.email,
-      password: formData.password,
+      email: FormData.email,
+      password: FormData.password,
     };
     (async () => {
       try {
@@ -49,8 +46,6 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
         return router.push("./folder");
       } catch (error) {
         console.error(error);
-        setInputError(SignInputErrorMessages.PleaseConfirmEmail);
-        setPasswordError(SignInputErrorMessages.PleaseConfirmPassword);
       }
     })();
   };
@@ -60,50 +55,30 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
     e.preventDefault();
 
     const body = {
-      email: formData.email,
-      password: formData.password,
+      email: FormData.email,
+      password: FormData.password,
     };
     (async () => {
-      try {
-        const data = await postFetch(URL_DOMAIN, "api/sign-up", body);
-        localStorage.setItem("accessToken", await data.data.accessToken);
-        return router.push("./folder");
-      } catch (error) {
-        console.error(error);
-      }
+      const data = await postFetch(URL_DOMAIN, "api/sign-up", body);
+      localStorage.setItem("accessToken", await data.data.accessToken);
+      return router.push("./folder");
     })();
   };
 
   return (
-    <FormWrapper
-      onSubmit={handleSubmit(async (data) => {
-        alert(JSON.stringify(data));
-      })}>
-      <input
-        type="text"
-        {...register("email1", {
-          required: SignInputErrorMessages.PleaseEnterEmail,
-          pattern: {
-            value: new RegExp(CONFIRM_EMAIL),
-            message: SignInputErrorMessages.NotValidEmail,
-          },
-        })}
-      />
-      <button onClick={() => console.log(errors)}>버튼</button>
+    <FormWrapper>
       <div>
         <Label htmlFor={`${id}-email`}>이메일</Label>
         <EmailInput
           name={`${id}-email`}
           type="email"
-          formData={formData}
+          FormData={FormData}
           onChange={handleInputChange}
           currentPath={currentPath}
           handleLoginSubmit={handleLoginSubmit}
           handleRegisterSubmit={handleRegisterSubmit}
           inputError={inputError}
           setInputError={setInputError}
-          register={register}
-          errors={errors}
         />
       </div>
       <div>
@@ -111,7 +86,7 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
         <PasswordInput
           name={`${id}-password`}
           type="password"
-          formData={formData}
+          FormData={FormData}
           onChange={handleInputChange}
           isConfirmPassword={false}
           currentPath={currentPath}
@@ -119,9 +94,6 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
           handleRegisterSubmit={handleRegisterSubmit}
           passwordError={passwordError}
           setPasswordError={setPasswordError}
-          confirmPasswordError={confirmPasswordError}
-          setConfirmPasswordError={setConfirmPasswordError}
-          register={register}
         />
       </div>
       {currentPath === "signin" ? null : (
@@ -130,26 +102,23 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
           <PasswordInput
             name={`${id}-confirm-password`}
             type="password"
-            formData={formData}
+            FormData={FormData}
             onChange={handleInputChange}
             isConfirmPassword={true}
             currentPath={currentPath}
             handleLoginSubmit={handleLoginSubmit}
             handleRegisterSubmit={handleRegisterSubmit}
-            passwordError={passwordError}
-            setPasswordError={setPasswordError}
             confirmPasswordError={confirmPasswordError}
             setConfirmPasswordError={setConfirmPasswordError}
-            register={register}
           />
         </div>
       )}
       {currentPath === "signin" ? (
-        <SubmitButton type="submit" disabled={isSubmitting} onClick={handleLoginSubmit}>
+        <SubmitButton type="submit" onClick={handleLoginSubmit}>
           로그인
         </SubmitButton>
       ) : (
-        <SubmitButton type="submit" disabled={isSubmitting} onClick={handleRegisterSubmit}>
+        <SubmitButton type="submit" onClick={handleRegisterSubmit}>
           회원가입
         </SubmitButton>
       )}
