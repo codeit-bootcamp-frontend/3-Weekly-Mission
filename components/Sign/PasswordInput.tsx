@@ -1,19 +1,52 @@
+import {
+    CONFIRM_PASSWORD,
+    SignInputErrorMessages,
+} from "@/Constants/Constants";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 // ToDo 일반 패스워드 인풋과 비밀번호 확인 패스워드 인풋 구분을 하는데 코드가 너무 길어져서 차라리 따로 빼는게 나을듯
 const PasswordInput = ({
-    type,
-    isConfirmPassword,
     currentPath,
+    id,
+    register,
+    errors,
+    onLoginSubmit,
+    watch,
+    onRegisterSubmit,
 }: {
     type: string;
-    isConfirmPassword?: boolean;
     currentPath: string;
+    id: string;
+    register: any;
+    errors: any;
+    onLoginSubmit: (e: React.FormEvent) => void;
+    watch: any;
+    onRegisterSubmit: (e: React.FormEvent) => void;
 }) => {
     const [isHidden, setIsHidden] = useState(true);
-    const [isError, setIsError] = useState(false);
+    const [isPasswordError, setIsPasswordError] = useState(false);
+    const [isConfirmPasswordError, setIsConfirmPasswordError] = useState(false);
+
+    useEffect(() => {
+        if (errors.password?.message) {
+            return setIsPasswordError(true);
+        }
+        if (!errors.password?.message) {
+            return setIsPasswordError(false);
+        }
+    }, [errors.password]);
+
+    useEffect(() => {
+        if (errors.confirmPassword?.message) {
+            return setIsConfirmPasswordError(true);
+        }
+
+        if (!errors.confirmPassword?.message) {
+            return setIsConfirmPasswordError(false);
+        }
+    }, [errors.confirmPassword]);
 
     const toggleHidden = () => {
         setIsHidden(!isHidden);
@@ -21,28 +54,39 @@ const PasswordInput = ({
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
-            // 회원가입 페이지인 경우 회원가입 버튼 클릭
-            if (currentPath === "signup") {
-            }
             // 로그인 페이지인 경우 로그인 버튼 클릭
             if (currentPath === "signin") {
+                onLoginSubmit(e);
+            }
+            // 회원가입 페이지인 경우 회원가입 버튼 클릭
+            if (currentPath === "signup") {
+                onRegisterSubmit(e);
             }
         }
     };
 
     return (
         <Wrapper>
-            {!isConfirmPassword ? (
+            {id === "password" ? (
                 <>
                     <Input
-                        id="password"
+                        id={id}
                         type={isHidden ? "password" : "text"}
                         placeholder={
                             currentPath === "signin"
                                 ? "비밀번호를 입력해주세요"
                                 : "영문, 숫자를 조합해 8자 이상 입력해 주세요."
                         }
-                        $isError={isError}
+                        $isPasswordError={isPasswordError}
+                        {...register("password", {
+                            required:
+                                SignInputErrorMessages.PleaseEnterPassword,
+                            pattern: {
+                                value: new RegExp(CONFIRM_PASSWORD),
+                                message:
+                                    SignInputErrorMessages.CheckPasswordFormat,
+                            },
+                        })}
                         onKeyDown={handleKeyDown}
                     />
 
@@ -59,15 +103,32 @@ const PasswordInput = ({
                         />
                     </PasswordHiddenButton>
 
-                    <ErrorMessage>에러메시지</ErrorMessage>
+                    {errors.password && (
+                        <ErrorMessage>{errors.password.message}</ErrorMessage>
+                    )}
                 </>
             ) : (
                 <>
                     <Input
-                        id="confirm-password"
+                        id={id}
                         type={isHidden ? "password" : "text"}
                         placeholder="비밀번호와 일치하는 값을 입력해 주세요."
-                        $isError={isError}
+                        $isConfirmPasswordError={isConfirmPasswordError}
+                        {...register("confirmPassword", {
+                            required:
+                                SignInputErrorMessages.PleaseEnterPassword,
+                            pattern: {
+                                value: new RegExp(CONFIRM_PASSWORD),
+                                message:
+                                    SignInputErrorMessages.CheckPasswordFormat,
+                            },
+                            validate: (value: string) => {
+                                return (
+                                    value === watch("password") ||
+                                    SignInputErrorMessages.NotMatchedPassword
+                                );
+                            },
+                        })}
                         onKeyDown={handleKeyDown}
                     />
 
@@ -83,8 +144,11 @@ const PasswordInput = ({
                             height={16}
                         />
                     </PasswordHiddenButton>
-
-                    <ErrorMessage>에러메시지</ErrorMessage>
+                    {errors.confirmPassword && (
+                        <ErrorMessage>
+                            {errors.confirmPassword.message}
+                        </ErrorMessage>
+                    )}
                 </>
             )}
         </Wrapper>
@@ -95,14 +159,17 @@ export const Wrapper = styled.div`
     position: relative;
 `;
 
-export const Input = styled.input<{ $isError: boolean }>`
+export const Input = styled.input<{
+    $isPasswordError?: boolean;
+    $isConfirmPasswordError?: boolean;
+}>`
     width: 100%;
     box-sizing: border-box;
     border-radius: 8px;
     outline: none;
     border: 1px solid
         ${(props) =>
-            props.$isError === false
+            props.$isPasswordError === false
                 ? "var(--Linkbrary-gray20, #ccd5e3)"
                 : "var(--Linkbrary-red, #ff5b56)"};
 

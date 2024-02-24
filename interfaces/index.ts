@@ -75,5 +75,4 @@ export interface ModalProps {
 export interface signFormDataInterface {
     email: string;
     password: string;
-    confirmPassword?: string;
 }

@@ -19,8 +19,12 @@ export enum SignInputErrorMessages {
     NoError = "",
 }
 
+export enum fetchErrorMessages {
+    DuplicateEmail = "이미 존재하는 이메일입니다.",
+    NotValidEmail = "올바른 이메일이 아닙니다.",
+}
+
 export const CONFIRM_EMAIL =
     "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])";
 
-export const CONFIRM_PASSWORD_ALPHABET = "[A-Za-z]";
-export const CONFIRM_PASSWORD_NUMBER = "[0-9]";
+export const CONFIRM_PASSWORD = "(?=.*[A-Za-z])(?=.*[0-9]).{8,}";

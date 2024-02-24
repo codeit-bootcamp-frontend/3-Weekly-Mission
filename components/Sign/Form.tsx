@@ -7,12 +7,15 @@ import { SignInputErrorMessages, URL_DOMAIN } from "@/Constants/Constants";
 import { useRouter } from "next/router";
 import postFetch from "@/utils/postFetch";
 import { useForm } from "react-hook-form";
+import { sign } from "crypto";
 
 // Think: 제어컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
 export const Form = ({ currentPath }: { currentPath: string }) => {
     const {
         register,
         handleSubmit,
+        watch,
+        setError,
         formState: { errors },
     } = useForm({ mode: "onBlur" });
 
@@ -21,41 +24,104 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
     // 로그인 버튼 클릭
     const handleLoginSubmit = (e: FormEvent) => {
         e.preventDefault();
+        (async () => {
+            try {
+                const data: signFormDataInterface = {
+                    email: watch("email"),
+                    password: watch("password"),
+                };
+                const res = await postFetch(URL_DOMAIN, "api/sign-in", data);
+                const result = res.data;
+                if (result.accessToken) {
+                    localStorage.setItem("accessToken", result.accessToken);
+                    router.push("/folder");
+                }
+            } catch (error) {
+                console.error(error);
+                setError("email", {
+                    message: SignInputErrorMessages.PleaseConfirmEmail,
+                });
+                setError("password", {
+                    message: SignInputErrorMessages.PleaseConfirmPassword,
+                });
+            }
+        })();
     };
 
     // 회원가입 버튼 클릭
     const handleRegisterSubmit = (e: FormEvent) => {
         e.preventDefault();
+        (async () => {
+            try {
+                const data: signFormDataInterface = {
+                    email: watch("email"),
+                    password: watch("password"),
+                };
+                const res = await postFetch(URL_DOMAIN, "api/sign-up", data);
+                const result = res.data;
+                if (result.accessToken) {
+                    localStorage.setItem("accessToken", result.accessToken);
+                    router.push("/folder");
+                }
+            } catch (error) {
+                console.error(error);
+                setError("email", {
+                    message: SignInputErrorMessages.PleaseConfirmEmail,
+                });
+                setError("password", {
+                    message: SignInputErrorMessages.PleaseConfirmPassword,
+                });
+            }
+        })();
+    };
+
+    type FormValues = {
+        username: string;
+        email: string;
+        password: string;
+    };
+
+    const onSubmit = (data: FormValues) => {
+        console.log("Form submitted.", data);
     };
 
     return (
-        <FormWrapper
-            onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}
-        >
-            <button onClick={() => console.log(errors)}>클릭</button>
+        <FormWrapper onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <Label htmlFor={"email"}>이메일</Label>
+                <Label htmlFor="email">이메일</Label>
                 <EmailInput
+                    id="email"
                     currentPath={currentPath}
                     register={register}
                     errors={errors}
+                    onLoginSubmit={handleLoginSubmit}
+                    onRegisterSubmit={handleRegisterSubmit}
+                    watch={watch}
+                    setError={setError}
                 />
             </div>
             <div>
-                <Label htmlFor={`password`}>비밀번호</Label>
+                <Label htmlFor="password">비밀번호</Label>
                 <PasswordInput
-                    type="password"
-                    isConfirmPassword={false}
+                    id="password"
                     currentPath={currentPath}
+                    register={register}
+                    errors={errors}
+                    onLoginSubmit={handleLoginSubmit}
+                    onRegisterSubmit={handleRegisterSubmit}
                 />
             </div>
             {currentPath === "signin" ? null : (
                 <div>
-                    <Label htmlFor={`confirm-password`}>비밀번호 확인</Label>
+                    <Label htmlFor="confirmPassword">비밀번호 확인</Label>
                     <PasswordInput
-                        type="password"
-                        isConfirmPassword={true}
+                        id="confirmPassword"
                         currentPath={currentPath}
+                        register={register}
+                        errors={errors}
+                        onLoginSubmit={handleLoginSubmit}
+                        onRegisterSubmit={handleRegisterSubmit}
+                        watch={watch}
                     />
                 </div>
             )}

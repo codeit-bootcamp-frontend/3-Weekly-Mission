@@ -20,7 +20,7 @@ const postFetch = async (
         if (res.ok) {
             return data;
         }
-        throw new Error(data.error.message);
+        throw new Error(data);
     } catch (error) {
         throw error;
     }
