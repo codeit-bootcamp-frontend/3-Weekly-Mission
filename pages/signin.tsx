@@ -22,7 +22,6 @@ export default function signin() {
 
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
-
   const router = useRouter();
 
   const onBlurEmail = () => {

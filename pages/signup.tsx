@@ -29,7 +29,6 @@ export default function signup() {
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
   const passwordCheckInput = useRef<HTMLInputElement>(null);
-
   const router = useRouter();
 
   const checkEmailDuplicate = async () => {
