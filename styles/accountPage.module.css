@@ -1,0 +1,123 @@
+.login-page {
+  max-width: 144rem;
+  height: 98.2rem;
+  margin: 0 auto;
+  padding: 23.8rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  background-color: var(--Linkbrary-bg);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 3rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.logo {
+  width: 21rem;
+  height: 3.8rem;
+}
+
+.not-user {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.sign-up {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  line-height: 1.9rem;
+  text-decoration: none;
+}
+
+.under-line {
+  width: 100%;
+  height: 0.1rem;
+  background-color: var(--color-primary);
+}
+
+.email-passwd-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.login {
+  padding: 1.6rem 2rem;
+  background-image: linear-gradient(90deg, var(--color-primary), #6ae3fe);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #f5f5f5;
+  border-radius: 0.8rem;
+  border-style: none;
+  text-align: center;
+  width: 40rem;
+}
+
+.social-login {
+  width: 40rem;
+  margin: 0 auto;
+  padding: 1.2rem 2.4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.1rem solid rgba(204, 213, 227, 1);
+  border-radius: 0.8rem;
+  background-color: var(--color-gray-10);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--color-gray-100);
+}
+.email-passwd {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  font-size: 1.4rem;
+}
+
+.google-and-kakao-login {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.google-login {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+.kakao-login {
+  width: 2.6rem;
+  height: 2.4rem;
+}
+
+.bg {
+  width: 4.2rem;
+  height: 4.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 26rem;
+  background-color: white;
+}
+
+.kakao{
+  background-color: #F5E14B;
+}
+

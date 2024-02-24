@@ -4,6 +4,7 @@ import Cards from "../components/Cards";
 import Header from "../components/Header";
 import { useMemo, useState } from "react";
 import { getSampleFolder } from "@/api";
+import Footer from "@/components/Footer";
 
 export async function getStaticProps() {
   const { folder } = await getSampleFolder();
@@ -35,6 +36,7 @@ export default function Shared({ folder: sampleFolderLinkList }: any) {
       <Banner />
       <SearchBar handleInputChange={handleInputChange} />
       <Cards data={searchedData} />
+      <Footer />
     </>
   );
 }

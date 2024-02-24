@@ -1,19 +1,20 @@
 import { useState } from "react";
 import styles from "./Input.module.css";
 import Image from "next/image";
-
-export function Input({ type = "text" }: { type: string }) {
-  const [inputValue, setInputValue] = useState("");
-  const [isError, setIsError] = useState(false);
+export function Input({
+  id,
+  type,
+  register,
+  error,
+  placeholder,
+}: {
+  id: string;
+  type: string;
+  register: any;
+  error: any;
+  placeholder: string;
+}) {
   const [typeValue, setTypeValue] = useState<"password" | "text">("password");
-
-  const handleInputBlur = () => {
-    if (!inputValue) {
-      setIsError(true);
-    } else {
-      setIsError(false);
-    }
-  };
 
   const handleEyeIconClick = () => {
     if (typeValue === "password") {
@@ -24,17 +25,14 @@ export function Input({ type = "text" }: { type: string }) {
   };
 
   return (
-    <>
+    <div className={styles["input-container"]}>
       <div className={styles["input-box"]}>
         <input
-          className={`${styles.input} ${isError && styles.error}`}
+          id={id}
+          className={`${styles.input} ${error && styles.error}`}
           type={type === "password" ? typeValue : type}
-          value={inputValue}
-          placeholder="내용 입력"
-          onChange={(e) => {
-            setInputValue(e.target.value);
-          }}
-          onBlur={handleInputBlur}
+          placeholder={placeholder}
+          {...register}
         ></input>
         {type === "password" && (
           <Image
@@ -47,9 +45,11 @@ export function Input({ type = "text" }: { type: string }) {
           />
         )}
       </div>
-      {isError && (
-        <p className={styles["error-message"]}>내용을 다시 작성해주세요</p>
+      {error?.message && (
+        <p className={styles["error-message"]} role="alert">
+          {error?.message}
+        </p>
       )}
-    </>
+    </div>
   );
 }

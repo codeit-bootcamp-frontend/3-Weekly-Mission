@@ -5,6 +5,7 @@ import facebook from "@/public/facebook_share.svg";
 import linkIcon from "@/public/link.svg";
 
 export default function ShareModal({ state }: any) {
+  // 호스트주소/shared?user={현재 로그인 중인 유저ID}&folder={현재 열려있는 폴더ID}
   return (
     <>
       <h2

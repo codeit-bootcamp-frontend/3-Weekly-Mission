@@ -40,11 +40,9 @@ export default function Card({ data: folderLink }: Props) {
         href={url}
         target="_blank"
         onMouseEnter={() => {
-          console.log(isHover);
           setIsHover(true);
         }}
         onMouseLeave={() => {
-          console.log(isHover);
           setIsHover(false);
         }}
       >
