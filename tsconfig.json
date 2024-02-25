@@ -27,7 +27,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/SignInForm/SignInForm.jsx",
     "./@types"
   ],
   "exclude": ["node_modules"],

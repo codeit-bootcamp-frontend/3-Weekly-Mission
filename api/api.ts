@@ -1,10 +1,9 @@
 import { ALL_LINKS_ID } from "../components/Folder/constants";
 import { User, Folder, SampleFolder, Link } from "@/@types/api/interface";
-const BASE_URL = "https://bootcamp-api.codeit.kr/api";
+import { BASE_URL } from "@/constants/constant";
 
 export async function getUserData(): Promise<{ data: User[] }> {
-  // const response = await fetch(`${BASE_URL}/uses/1`);
-  const response = await fetch(`${BASE_URL}/users/1`); // 로그인 테스트
+  const response = await fetch(`${BASE_URL}/users/1`);
   const body = await response.json();
 
   return body;

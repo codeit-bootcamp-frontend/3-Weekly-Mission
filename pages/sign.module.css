@@ -13,3 +13,9 @@
     padding: 238px 0px 253px 0px;
   }
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

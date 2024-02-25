@@ -1,0 +1,32 @@
+.socialLoginBox {
+  display: flex;
+  padding: 12px 24px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--linkbrary-gray-20);
+  background: var(--linkbrary-gray-10);
+}
+
+.socialLoginText {
+  color: var(--linkbrary-gray-100);
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.socialIcons {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.socialIcon {
+  display: block;
+  position: relative;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+}

@@ -48,3 +48,13 @@ export interface Link {
   updated_at: string;
   url: string;
 }
+
+export interface SignInData {
+  email?: string;
+  password?: string;
+}
+export interface SignUpData {
+  email?: string;
+  password?: string;
+  repassword?: string;
+}
