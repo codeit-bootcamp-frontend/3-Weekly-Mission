@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from "next/router";
-import { useState } from "react";
 import CtaButton, { CTAButton } from "@/components/CtaButton/CtaButton";
 import SignInput from "@/components/SignInput/SignInput";
 import SocialSignBox from "@/components/SocialSignBox/SocialSignBox";
@@ -9,6 +8,14 @@ import { NavbarUserInfo } from "@/types/userType";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import {
+  checkEmptyValue,
+  emailValidator,
+  passwordValidator,
+} from "@/utils/signValidator";
+import { ChangeEvent } from "react";
+import { SignUpDataType } from "@/types/dataTypes";
 
 interface Props {
   user: NavbarUserInfo;
@@ -19,9 +26,33 @@ export default function signUp({ user }: Props) {
   if (user) {
     router.push("/folder");
   }
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-  const [passwordRepeatValue, setPasswordRepeatValue] = useState("");
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm();
+
+  const changeMessage = (
+    e: ChangeEvent<HTMLInputElement>,
+    registerName: string
+  ) => {
+    if (e.target.value !== "") {
+      return;
+    }
+    const nextMessage = checkEmptyValue(registerName);
+    setError(registerName, { type: "custom", message: nextMessage });
+  };
+  const successSubmit = (data: SignUpDataType) => {
+    const { password, passwordRepeat } = data;
+    if (password !== passwordRepeat) {
+      setError("passwordRepeat", {
+        type: "custom",
+        message: "비밀번호가 일치하지 않아요.",
+      });
+      return;
+    }
+  };
 
   return (
     <Wrapper>
@@ -37,27 +68,40 @@ export default function signUp({ user }: Props) {
           <SignInLink href={"/signin"}>로그인 하기</SignInLink>
         </Paragraph>
       </LogoContainer>
-      <Form>
+      <Form
+        onSubmit={handleSubmit((data) =>
+          successSubmit(JSON.parse(JSON.stringify(data)))
+        )}
+      >
         <SignInput
           type="email"
-          value={emailValue}
-          setValue={setEmailValue}
           placeholder="이메일을 입력해주세요."
           labelName="이메일"
+          register={register}
+          registerName="email"
+          validator={emailValidator}
+          errorMessage={errors.email?.message?.toString() || ""}
+          changeMessage={changeMessage}
         />
         <SignInput
           type="password"
-          value={passwordValue}
-          setValue={setPasswordValue}
           placeholder="비밀번호를 입력해주세요."
           labelName="비밀번호"
+          register={register}
+          registerName="password"
+          validator={passwordValidator}
+          errorMessage={errors.password?.message?.toString() || ""}
+          changeMessage={changeMessage}
         />
         <SignInput
           type="password"
-          value={passwordRepeatValue}
-          setValue={setPasswordRepeatValue}
           placeholder="비밀번호를 입력해주세요."
           labelName="비밀번호 확인"
+          register={register}
+          validator={passwordValidator}
+          registerName="passwordRepeat"
+          errorMessage={errors.passwordRepeat?.message?.toString() || ""}
+          changeMessage={changeMessage}
         />
         <CtaButton CTAButtonStyle={Button} type="submit">
           로그인

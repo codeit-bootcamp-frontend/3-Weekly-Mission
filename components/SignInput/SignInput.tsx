@@ -1,31 +1,38 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { eyeOff, eyeOn } from "@/public/img";
+import { FieldValues, UseFormRegister } from "react-hook-form";
+import { ValidatorType } from "@/types/types";
 
 interface Props {
   placeholder?: string;
   type: string;
-  handler?: (value: string) => string;
-  errorMassage?: string;
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
   labelName: string;
+  register: UseFormRegister<FieldValues>;
+  registerName: string;
+  validator: ValidatorType;
+  errorMessage?: string;
+  changeMessage: (
+    e: ChangeEvent<HTMLInputElement>,
+    registerName: string
+  ) => void;
 }
 
 export default function SignInput({
   type,
-  handler,
   placeholder = "내용입력",
-  value,
-  setValue,
   labelName,
+  register,
+  registerName,
+  validator,
+  errorMessage,
+  changeMessage,
 }: Props) {
   const EYE_ON = { src: eyeOn.src, alt: "비밀번호 보이게 해주는 아이콘" };
   const EYE_OFF = { src: eyeOff.src, alt: "비밀번호 안보이게 해주는 아이콘" };
   const [eye, setEye] = useState(EYE_ON);
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMassage, setErrorMessage] = useState("");
 
   const toggleEyeImg = () => {
     if (eye.alt === EYE_ON.alt) {
@@ -36,11 +43,6 @@ export default function SignInput({
     setShowPassword(false);
     setEye(EYE_ON);
   };
-  const checkFocusOut = () => {
-    if (!handler) return;
-    const massage = handler(value);
-    setErrorMessage(massage);
-  };
 
   return (
     <Wrapper>
@@ -48,13 +50,12 @@ export default function SignInput({
         <Label htmlFor={labelName}>{labelName}</Label>
         <Input
           id={labelName}
-          onBlur={checkFocusOut}
-          $error={errorMassage !== ""}
+          $error={errorMessage !== ""}
           type={showPassword ? "text" : type}
           placeholder={placeholder}
           autoComplete="on"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          {...register(registerName, validator)}
+          onBlur={(e) => changeMessage(e, registerName)}
         />
         {type === "password" ? (
           <EyeButton type="button" onClick={toggleEyeImg}>
@@ -62,7 +63,7 @@ export default function SignInput({
           </EyeButton>
         ) : null}
       </Container>
-      <ErrorMessage>{errorMassage}</ErrorMessage>
+      <ErrorMessage>{errorMessage}</ErrorMessage>
     </Wrapper>
   );
 }

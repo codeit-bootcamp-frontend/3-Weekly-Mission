@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from "react";
 import SignInput from "@/components/SignInput/SignInput";
 import { logoImg } from "@/public/img";
 import { NavbarUserInfo } from "@/types/userType";
@@ -10,6 +9,13 @@ import CtaButton from "@/components/CtaButton/CtaButton";
 import { CTAButton } from "@/components/CtaButton/CtaButton";
 import SocialSignBox from "@/components/SocialSignBox/SocialSignBox";
 import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import {
+  checkEmptyValue,
+  emailValidator,
+  passwordValidator,
+} from "@/utils/signValidator";
+import { ChangeEvent } from "react";
 
 interface Props {
   user: NavbarUserInfo;
@@ -17,11 +23,32 @@ interface Props {
 
 export default function signIn({ user }: Props) {
   const router = useRouter();
-  if (user) {
-    router.push("/folder");
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("accessToken");
+    if (user || token) {
+      router.push("/folder");
+    }
   }
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm();
+
+  const changeMessage = (
+    e: ChangeEvent<HTMLInputElement>,
+    registerName: string
+  ) => {
+    if (e.target.value !== "") {
+      return;
+    }
+    const nextMessage = checkEmptyValue(registerName);
+    setError(registerName, { type: "custom", message: nextMessage });
+  };
+
+  const successSubmit = (data: object) => {};
 
   return (
     <Wrapper>
@@ -37,20 +64,26 @@ export default function signIn({ user }: Props) {
           <SignUpLink href={"/signup"}>회원가입하기</SignUpLink>
         </Paragraph>
       </LogoContainer>
-      <Form>
+      <Form onSubmit={handleSubmit((data) => successSubmit(data))}>
         <SignInput
           type="email"
-          value={emailValue}
-          setValue={setEmailValue}
           placeholder="이메일을 입력해주세요."
           labelName="이메일"
+          register={register}
+          registerName="email"
+          validator={emailValidator}
+          errorMessage={errors.email?.message?.toString() || ""}
+          changeMessage={changeMessage}
         />
         <SignInput
           type="password"
-          value={passwordValue}
-          setValue={setPasswordValue}
           placeholder="비밀번호를 입력해주세요."
           labelName="비밀번호"
+          register={register}
+          registerName="password"
+          validator={passwordValidator}
+          errorMessage={errors.password?.message?.toString() || ""}
+          changeMessage={changeMessage}
         />
         <CtaButton CTAButtonStyle={Button} type="submit">
           로그인

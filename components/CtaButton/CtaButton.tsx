@@ -5,15 +5,17 @@ interface Props {
   CTAButtonStyle?: React.ComponentType<any>;
   children: React.ReactNode;
   type?: string;
+  disabled?: boolean;
 }
 
 export default function CtaButton({
   CTAButtonStyle = CTAButton,
   children,
   type = "button",
+  disabled = false,
 }: Props) {
   return (
-    <CTAButtonStyle type={type}>
+    <CTAButtonStyle type={type} disabled={disabled}>
       <ButtonText>{children}</ButtonText>
     </CTAButtonStyle>
   );
