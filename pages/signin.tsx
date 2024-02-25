@@ -1,23 +1,26 @@
 import { Input } from '@/components/Input';
 import Image from 'next/image';
 import styles from '@/styles/signin.module.css';
+import Link from 'next/link';
 
 const SignIn = () => {
   return (
     <div className={styles['background-container']}>
       <div className={styles['sign-section']}>
         <div className={styles.header}>
-          <a href="/">
+          <Link href="/">
             <Image
               width={211}
               height={38}
               src="./images/logo.svg"
               alt="홈으로 연결된 Linkbrary 로고"
             />
-          </a>
+          </Link>
           <p className={styles['header__text']}>
             <span>회원이 아니신가요? </span>
-            <a className={styles['header__signup-link']}>회원 가입하기</a>
+            <Link className={styles['header__signup-link']} href="/signup">
+              회원 가입하기
+            </Link>
           </p>
         </div>
 
@@ -42,22 +45,22 @@ const SignIn = () => {
         <article className={styles['social-sign']}>
           <p>소셜 로그인</p>
           <div className={styles['social-sign__icons']}>
-            <a href="https://www.google.com">
+            <Link href="https://www.google.com">
               <Image
                 width={42}
                 height={42}
                 src="/images/google.png"
                 alt="구글 아이콘"
               />
-            </a>
-            <a href="https://www.kakaocorp.com/page">
+            </Link>
+            <Link href="https://www.kakaocorp.com/page">
               <Image
                 width={42}
                 height={42}
                 src="/images/kakaotalk.png"
                 alt="카카오톡 아이콘"
               />
-            </a>
+            </Link>
           </div>
         </article>
       </div>
