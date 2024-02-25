@@ -16,6 +16,8 @@ import {
   passwordValidator,
 } from "@/utils/signValidator";
 import { ChangeEvent } from "react";
+import axios from "@/apis/axios";
+import { AxiosError } from "axios";
 
 interface Props {
   user: NavbarUserInfo;
@@ -34,7 +36,7 @@ export default function signIn({ user }: Props) {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { isSubmitting, errors },
   } = useForm();
 
   const changeMessage = (
@@ -48,7 +50,26 @@ export default function signIn({ user }: Props) {
     setError(registerName, { type: "custom", message: nextMessage });
   };
 
-  const successSubmit = (data: object) => {};
+  const successSubmit = async (data: object) => {
+    try {
+      const res = await axios.post("sign-in", data);
+      console.log(res);
+      if (res.status === 200) {
+        localStorage.setItem("accessToken", res.data.data.accessToken);
+        router.push("/folder");
+        return;
+      }
+    } catch (e) {
+      setError("email", {
+        type: "custom",
+        message: "이메일을 확인해주세요.",
+      });
+      setError("password", {
+        type: "custom",
+        message: "비밀번호를 확인해주세요",
+      });
+    }
+  };
 
   return (
     <Wrapper>
@@ -64,7 +85,11 @@ export default function signIn({ user }: Props) {
           <SignUpLink href={"/signup"}>회원가입하기</SignUpLink>
         </Paragraph>
       </LogoContainer>
-      <Form onSubmit={handleSubmit((data) => successSubmit(data))}>
+      <Form
+        onSubmit={handleSubmit((data) =>
+          successSubmit(JSON.parse(JSON.stringify(data)))
+        )}
+      >
         <SignInput
           type="email"
           placeholder="이메일을 입력해주세요."
@@ -85,7 +110,11 @@ export default function signIn({ user }: Props) {
           errorMessage={errors.password?.message?.toString() || ""}
           changeMessage={changeMessage}
         />
-        <CtaButton CTAButtonStyle={Button} type="submit">
+        <CtaButton
+          CTAButtonStyle={Button}
+          type="submit"
+          disabled={isSubmitting}
+        >
           로그인
         </CtaButton>
       </Form>
