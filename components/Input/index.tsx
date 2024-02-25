@@ -1,12 +1,15 @@
 import { useState } from 'react';
-import styles from './Input.module.css';
+import styles from './style.module.css';
 import Image from 'next/image';
 
 interface Props {
   type: string;
+  id?: string;
+  label?: string;
+  placeholder?: string;
 }
 
-export function Input({ type = 'password' }: Props) {
+export const Input = ({ type = 'password', id, label, placeholder }: Props) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isError, setIsError] = useState(false);
   const [typeValue, setTypeValue] = useState<string>(type);
@@ -24,32 +27,38 @@ export function Input({ type = 'password' }: Props) {
   };
 
   return (
-    <>
+    <div>
+      {label ? <label htmlFor={id}>{label}</label> : null}
       <div className={styles['input-box']}>
         <input
-          className={`${styles.input} ${isError && styles.error}`}
-          type={type}
+          className={`${styles.input} ${isError ? styles.error : null}`}
+          type={typeValue}
           value={inputValue}
-          placeholder="내용 입력"
+          placeholder={placeholder}
           onChange={e => {
             setInputValue(e.target.value);
           }}
           onBlur={handleInputBlur}
+          id={id}
         />
-        {type === 'password' && (
+        {type === 'password' ? (
           <Image
-            className={styles['input-eye']}
+            className={styles['eye-icon']}
             width={16}
             height={16}
-            src={typeValue === 'string' ? './eye-off.svg' : './eye-on.svg'}
+            src={
+              typeValue === 'password'
+                ? '/images/eye-off.svg'
+                : '/images/eye-on.svg'
+            }
             alt="비밀번호 가리기"
             onClick={handleEyeIconClick}
           />
-        )}
+        ) : null}
       </div>
       {isError && (
         <p className={styles['error-message']}>내용을 다시 작성해주세요</p>
       )}
-    </>
+    </div>
   );
-}
+};
