@@ -144,7 +144,7 @@ export default function signUp({ user }: Props) {
           changeMessage={changeMessage}
         />
         <CtaButton CTAButtonStyle={Button} type="submit">
-          로그인
+          회원가입
         </CtaButton>
       </Form>
       <SocialSignBox text="다른 방식으로 가입하기" />
