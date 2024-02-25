@@ -1,19 +1,23 @@
 import Image from "next/image";
-import useGetFolder from "../hooks/useGetFolder";
 import styles from "./Banner.module.css";
+import { SampleFolder } from "@/pages/shared";
 
-export default function Banner() {
-  const data: any = useGetFolder();
-
+export default function Banner({ folder }: { folder: SampleFolder }) {
   return (
     <section className={styles["banner"]}>
       <div className={styles["banner-wrapper"]}>
         <div className={styles["banner-img"]}>
-          <Image fill src={data?.owner?.profileImageSource} alt="banner-img" />
+          <Image
+            fill
+            src={folder?.owner?.profileImageSource}
+            alt="banner-img"
+          />
         </div>
-        <span className={styles["banner-user-name"]}>@{data?.owner?.name}</span>
+        <span className={styles["banner-user-name"]}>
+          @{folder?.owner?.name}
+        </span>
       </div>
-      <div className={styles["banner-title"]}>{data?.name}</div>
+      <div className={styles["banner-title"]}>{folder?.name}</div>
     </section>
   );
 }
