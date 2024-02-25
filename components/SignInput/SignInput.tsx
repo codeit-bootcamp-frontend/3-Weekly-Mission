@@ -29,18 +29,18 @@ export default function SignInput({
   errorMessage,
   changeMessage,
 }: Props) {
-  const EYE_ON = { src: eyeOn.src, alt: "비밀번호 보이게 해주는 아이콘" };
-  const EYE_OFF = { src: eyeOff.src, alt: "비밀번호 안보이게 해주는 아이콘" };
-  const [eye, setEye] = useState(EYE_ON);
+  const EYE_ON = { src: eyeOn.src, alt: "비밀번호가 보이는 중인 아이콘" };
+  const EYE_OFF = { src: eyeOff.src, alt: "비밀번호가 안보이 중인 아이콘" };
+  const [eye, setEye] = useState(EYE_OFF);
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleEyeImg = () => {
     if (eye.alt === EYE_ON.alt) {
       setEye(EYE_OFF);
-      setShowPassword(true);
+      setShowPassword(false);
       return;
     }
-    setShowPassword(false);
+    setShowPassword(true);
     setEye(EYE_ON);
   };
 
