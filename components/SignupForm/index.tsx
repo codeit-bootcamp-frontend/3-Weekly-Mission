@@ -1,161 +1,199 @@
-import { FormEvent, useState } from 'react';
-import { Input } from '@/components/Input';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import styles from './styles.module.css';
 import {
   ERROR_MESSAGES,
   EMAIL_REGEX,
   PASSWORD_REGEX,
 } from '@/constants/constants';
-import { useRouter } from 'next/router';
 import { postDuplicateEmail, postUserSignup } from '@/api/api';
+import Image from 'next/image';
+import { useState } from 'react';
+
+type FormValues = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 
 export const SignupForm = () => {
-  const [emailInputValue, setemailInputValue] = useState<string>('');
-  const [passwordInputValue, setPasswordInputValue] = useState<string>('');
-  const [confirmPasswordInputValue, setConfirmPasswordInputValue] =
-    useState<string>('');
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
-  const [emailErrorMessage, setEmailErrorMessage] = useState('');
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
-    useState('');
+  const [passwordTypeValue, setPasswordTypeValue] =
+    useState<string>('password');
+  const [confirmPasswordTypeValue, setConfirmPasswordTypeValue] =
+    useState<string>('password');
   const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    setError,
+    clearErrors,
+    getValues,
+  } = useForm<FormValues>({ mode: 'onBlur' });
 
-  const handleEmailInputBlur = async () => {
-    if (!emailInputValue) {
-      setIsEmailValid(false);
-      setEmailErrorMessage(ERROR_MESSAGES.EMAIL_REQUIRED);
-      return;
-    }
-    if (!EMAIL_REGEX.test(emailInputValue)) {
-      setIsEmailValid(false);
-      setEmailErrorMessage(ERROR_MESSAGES.INVALID_EMAIL);
-      return;
-    }
+  const password = watch('password');
 
-    const response = await postDuplicateEmail(emailInputValue);
-    if (!response) {
-      setIsEmailValid(false);
-      setEmailErrorMessage(ERROR_MESSAGES.DUPLICATE_EMAIL);
-      return;
+  const checkEmailDuplicate = async () => {
+    const email = getValues('email');
+    try {
+      const response = await postDuplicateEmail(email);
+      if (!response) {
+        setError('email', {
+          type: 'custom',
+          message: ERROR_MESSAGES.DUPLICATE_EMAIL,
+        });
+      } else {
+        clearErrors('email');
+      }
+    } catch (error) {
+      console.error(error);
     }
-
-    setIsEmailValid(true);
-    setEmailErrorMessage('');
   };
 
-  const handlePasswordInputBlur = () => {
-    if (!passwordInputValue) {
-      setIsPasswordValid(false);
-      setPasswordErrorMessage(ERROR_MESSAGES.PASSWORD_REQUIRED);
-      return;
-    }
-    if (
-      !PASSWORD_REGEX.test(passwordInputValue) ||
-      passwordInputValue.length < 8
-    ) {
-      setIsPasswordValid(false);
-      setPasswordErrorMessage(ERROR_MESSAGES.INVALID_PASSWORD);
-      return;
-    }
-    setIsPasswordValid(true);
-    setPasswordErrorMessage('');
-  };
-
-  const handleConfirmPasswordInputBlur = () => {
-    if (!confirmPasswordInputValue) {
-      setIsConfirmPasswordValid(false);
-      setConfirmPasswordErrorMessage(ERROR_MESSAGES.CONFIRM_PASSWORD_REQUIRED);
-      return;
-    }
-    if (confirmPasswordInputValue !== passwordInputValue) {
-      setIsConfirmPasswordValid(false);
-      setConfirmPasswordErrorMessage(ERROR_MESSAGES.INVALID_CONFIRM_PASSWORD);
-      return;
-    }
-    setIsConfirmPasswordValid(true);
-    setConfirmPasswordErrorMessage('');
-  };
-
-  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const user = {
-      email: emailInputValue,
-      password: passwordInputValue,
-    };
+  const onSubmit = async (data: FormValues) => {
+    console.log(data);
 
     try {
-      const response = await postUserSignup(user);
+      const response = await postUserSignup(data);
+
       if (!response) {
-        setIsEmailValid(false);
-        setIsPasswordValid(false);
-        setIsConfirmPasswordValid(false);
-        setEmailErrorMessage(ERROR_MESSAGES.EMAIL_CHECK_FAILED);
-        setPasswordErrorMessage(ERROR_MESSAGES.PASSWORD_CHECK_FAILED);
-        setConfirmPasswordErrorMessage(
-          ERROR_MESSAGES.CONFIRM_PASSWORD_CHECK_FAILED,
-        );
+        setError('email', {
+          type: 'custom',
+          message: ERROR_MESSAGES.EMAIL_CHECK_FAILED,
+        });
+        setError('password', {
+          type: 'custom',
+          message: ERROR_MESSAGES.PASSWORD_CHECK_FAILED,
+        });
         return;
       }
+
       const { accessToken, refreshToken } = response;
+
       if (accessToken && refreshToken) {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
-        setIsEmailValid(true);
-        setIsPasswordValid(true);
-        setIsConfirmPasswordValid(true);
-        setEmailErrorMessage('');
-        setPasswordErrorMessage('');
-        setConfirmPasswordErrorMessage('');
         router.push('/folder');
       } else {
-        throw Error('No Token');
+        throw new Error('No Token');
       }
     } catch (error) {
-      alert(ERROR_MESSAGES.SIGN_UP_FAILED);
-      throw error;
+      alert(ERROR_MESSAGES.SIGN_IN_FAILED);
+      console.error(error);
     }
   };
 
+  const handlePasswordEyeIconClick = () => {
+    setPasswordTypeValue(
+      passwordTypeValue === 'password' ? 'text' : 'password',
+    );
+  };
+
+  const handleConfirmPasswordEyeIconClick = () => {
+    setConfirmPasswordTypeValue(
+      confirmPasswordTypeValue === 'password' ? 'text' : 'password',
+    );
+  };
+
   return (
-    <form className={styles.form} onSubmit={handleFormSubmit}>
-      <Input
-        type="string"
-        id="sign-email"
-        label="이메일"
-        placeholder="이메일을 입력해주세요."
-        inputValue={emailInputValue}
-        setInputValue={setemailInputValue}
-        handleInputBlur={handleEmailInputBlur}
-        isError={!isEmailValid}
-        errorMessage={emailErrorMessage}
-      />
-      <Input
-        type="password"
-        id="sign-password"
-        label="비밀번호"
-        placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요."
-        inputValue={passwordInputValue}
-        setInputValue={setPasswordInputValue}
-        handleInputBlur={handlePasswordInputBlur}
-        isError={!isPasswordValid}
-        errorMessage={passwordErrorMessage}
-      />
-      <Input
-        type="password"
-        id="sign-confirm-password"
-        label="비밀번호 확인"
-        placeholder="비밀번호와 일치하는 값을 입력해주세요."
-        inputValue={confirmPasswordInputValue}
-        setInputValue={setConfirmPasswordInputValue}
-        handleInputBlur={handleConfirmPasswordInputBlur}
-        isError={!isConfirmPasswordValid}
-        errorMessage={confirmPasswordErrorMessage}
-      />
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label htmlFor="sign-email">이메일</label>
+        <div className={styles['input-box']}>
+          <input
+            className={`${styles.input} ${errors.email ? styles.error : null}`}
+            type="email"
+            id="sign-email"
+            placeholder="이메일을 입력해주세요."
+            {...register('email', {
+              required: '이메일을 입력해주세요.',
+              pattern: {
+                value: EMAIL_REGEX,
+                message: ERROR_MESSAGES.INVALID_EMAIL,
+              },
+              onBlur: checkEmailDuplicate,
+            })}
+          />
+        </div>
+        {errors.email ? (
+          <p className={styles['error-message']}>{errors.email.message}</p>
+        ) : null}
+      </div>
+
+      <div>
+        <label htmlFor="sign-password">비밀번호</label>
+        <div className={styles['input-box']}>
+          <input
+            className={`${styles.input} ${errors.password ? styles.error : null}`}
+            type={passwordTypeValue}
+            id="sign-password"
+            placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요."
+            {...register('password', {
+              required: ERROR_MESSAGES.PASSWORD_REQUIRED,
+              pattern: {
+                value: PASSWORD_REGEX,
+                message: ERROR_MESSAGES.INVALID_PASSWORD,
+              },
+              minLength: {
+                value: 8,
+                message: ERROR_MESSAGES.INVALID_PASSWORD,
+              },
+            })}
+          />
+          <Image
+            className={styles['eye-icon']}
+            width={16}
+            height={16}
+            src={
+              passwordTypeValue === 'password'
+                ? '/images/eye-off.svg'
+                : '/images/eye-on.svg'
+            }
+            alt="눈 모양 아이콘"
+            onClick={handlePasswordEyeIconClick}
+          />
+        </div>
+        {errors.password ? (
+          <p className={styles['error-message']}>{errors.password.message}</p>
+        ) : null}
+      </div>
+
+      <div>
+        <label htmlFor="sign-confirm-password">비밀번호 확인</label>
+        <div className={styles['input-box']}>
+          <input
+            className={`${styles.input} ${errors.confirmPassword ? styles.error : null}`}
+            type={confirmPasswordTypeValue}
+            id="sign-confirm-password"
+            placeholder="비밀번호와 일치하는 값을 입력해 주세요."
+            {...register('confirmPassword', {
+              required: ERROR_MESSAGES.CONFIRM_PASSWORD_REQUIRED,
+              validate: value =>
+                value === password || ERROR_MESSAGES.INVALID_CONFIRM_PASSWORD,
+            })}
+          />
+          <Image
+            className={styles['eye-icon']}
+            width={16}
+            height={16}
+            src={
+              confirmPasswordTypeValue === 'password'
+                ? '/images/eye-off.svg'
+                : '/images/eye-on.svg'
+            }
+            alt="눈 모양 아이콘"
+            onClick={handleConfirmPasswordEyeIconClick}
+          />
+        </div>
+        {errors.confirmPassword ? (
+          <p className={styles['error-message']}>
+            {errors.confirmPassword.message}
+          </p>
+        ) : null}
+      </div>
       <button className={styles['submit-button']} type="submit">
-        회원가입
+        로그인
       </button>
     </form>
   );

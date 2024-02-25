@@ -64,7 +64,9 @@ export const postUserSignin: (
     },
     body: JSON.stringify(user),
   });
-  console.log(result);
+  if (!result) {
+    return null;
+  }
   return result.data;
 };
 
@@ -79,7 +81,9 @@ export const postUserSignup: (
     },
     body: JSON.stringify(user),
   });
-  console.log(result);
+  if (!result) {
+    return null;
+  }
   return result.data;
 };
 
@@ -94,7 +98,9 @@ export const postDuplicateEmail: (
     },
     body: JSON.stringify({ email: userEmail }),
   });
-  console.log(result);
+  if (!result) {
+    return null;
+  }
   return result.data;
 };
 
@@ -106,7 +112,6 @@ const fetchData = async (url: string, options = {}) => {
     if (!response.ok) {
       throw new Error(`API 호출 실패: ${response.statusText}`);
     }
-
     return await response.json();
   } catch (error) {
     console.error(`Fetch 에러: ${error}`);
@@ -121,11 +126,9 @@ const fetchSignData = async (url: string, options = {}) => {
     if (response.status === 400) {
       return null;
     }
-
     if (!response.ok) {
       throw new Error(`API 호출 실패: ${response.statusText}`);
     }
-
     return await response.json();
   } catch (error) {
     console.error(`Fetch 에러: ${error}`);
@@ -140,11 +143,9 @@ const fetchDuplicateEmailData = async (url: string, options = {}) => {
     if (response.status === 409) {
       return null;
     }
-
     if (!response.ok) {
       throw new Error(`API 호출 실패: ${response.statusText}`);
     }
-
     return await response.json();
   } catch (error) {
     console.error(`Fetch 에러: ${error}`);

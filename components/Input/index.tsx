@@ -1,4 +1,10 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useState,
+  forwardRef,
+} from 'react';
 import styles from './style.module.css';
 import Image from 'next/image';
 
@@ -14,62 +20,62 @@ interface Props {
   errorMessage?: string;
 }
 
-export const Input = ({
-  type = 'password',
-  id,
-  label,
-  placeholder,
-  inputValue,
-  setInputValue,
-  handleInputBlur,
-  isError,
-  errorMessage,
-}: Props) => {
-  const [typeValue, setTypeValue] = useState<string>(type);
+export const Input = forwardRef<HTMLInputElement, Props>(
+  (
+    {
+      type = 'password',
+      id,
+      label,
+      placeholder,
+      inputValue,
+      setInputValue,
+      handleInputBlur,
+      isError,
+      errorMessage,
+    },
+    ref, // ref 추가
+  ) => {
+    const [typeValue, setTypeValue] = useState<string>(type);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setInputValue(e.target.value);
+    };
 
-  const handleEyeIconClick = () => {
-    if (typeValue === 'password') {
-      setTypeValue('string');
-    } else {
-      setTypeValue('password');
-    }
-  };
+    const handleEyeIconClick = () => {
+      setTypeValue(typeValue === 'password' ? 'text' : 'password');
+    };
 
-  return (
-    <div>
-      {label ? <label htmlFor={id}>{label}</label> : null}
-      <div className={styles['input-box']}>
-        <input
-          className={`${styles.input} ${isError ? styles.error : null}`}
-          type={typeValue}
-          value={inputValue}
-          placeholder={placeholder}
-          onChange={handleInputChange}
-          onBlur={handleInputBlur}
-          id={id}
-        />
-        {type === 'password' ? (
-          <Image
-            className={styles['eye-icon']}
-            width={16}
-            height={16}
-            src={
-              typeValue === 'password'
-                ? '/images/eye-off.svg'
-                : '/images/eye-on.svg'
-            }
-            alt="비밀번호 가리기"
-            onClick={handleEyeIconClick}
+    return (
+      <div>
+        {label && <label htmlFor={id}>{label}</label>}
+        <div className={styles['input-box']}>
+          <input
+            ref={ref}
+            className={`${styles.input} ${isError ? styles.error : ''}`}
+            type={typeValue}
+            value={inputValue}
+            placeholder={placeholder}
+            onChange={handleInputChange}
+            onBlur={handleInputBlur}
+            id={id}
           />
-        ) : null}
+          {type === 'password' && (
+            <Image
+              className={styles['eye-icon']}
+              width={16}
+              height={16}
+              src={
+                typeValue === 'password'
+                  ? '/images/eye-off.svg'
+                  : '/images/eye-on.svg'
+              }
+              alt="비밀번호 가리기"
+              onClick={handleEyeIconClick}
+            />
+          )}
+        </div>
+        {isError && <p className={styles['error-message']}>{errorMessage}</p>}
       </div>
-      {isError ? (
-        <p className={styles['error-message']}>{errorMessage}</p>
-      ) : null}
-    </div>
-  );
-};
+    );
+  },
+);
