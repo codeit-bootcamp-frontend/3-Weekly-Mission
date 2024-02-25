@@ -105,9 +105,9 @@ export const SignupForm = () => {
             className={`${styles.input} ${errors.email ? styles.error : null}`}
             type="email"
             id="sign-email"
-            placeholder="이메일을 입력해주세요."
+            placeholder={ERROR_MESSAGES.EMAIL_REQUIRED}
             {...register('email', {
-              required: '이메일을 입력해주세요.',
+              required: ERROR_MESSAGES.EMAIL_REQUIRED,
               pattern: {
                 value: EMAIL_REGEX,
                 message: ERROR_MESSAGES.INVALID_EMAIL,

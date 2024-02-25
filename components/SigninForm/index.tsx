@@ -65,9 +65,9 @@ export const SigninForm = () => {
             className={`${styles.input} ${errors.email ? styles.error : null}`}
             type="email"
             id="sign-email"
-            placeholder="이메일을 입력해주세요."
+            placeholder={ERROR_MESSAGES.EMAIL_REQUIRED}
             {...register('email', {
-              required: '이메일을 입력해주세요.',
+              required: ERROR_MESSAGES.EMAIL_REQUIRED,
               pattern: {
                 value: EMAIL_REGEX,
                 message: ERROR_MESSAGES.INVALID_EMAIL,
@@ -86,7 +86,7 @@ export const SigninForm = () => {
             className={`${styles.input} ${errors.password ? styles.error : null}`}
             type={typeValue}
             id="sign-password"
-            placeholder="비밀번호를 입력해주세요."
+            placeholder={ERROR_MESSAGES.PASSWORD_REQUIRED}
             {...register('password', {
               required: ERROR_MESSAGES.PASSWORD_REQUIRED,
             })}
