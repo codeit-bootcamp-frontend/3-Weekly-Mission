@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { getFoldersById, getLinksById } from './api/hello';
+import { getFoldersById, getLinksById } from './api/api';
 import styles from '@/styles/page.module.css';
 import Nav from '@/src/components/header/Nav/Nav';
 import Search from '@/src/components/section/Search/Search';
@@ -8,6 +8,11 @@ import AddLink from '@/src/components/header/AddLink/AddLink';
 import FolderList from '@/src/components/section/FolderList/FolderList';
 import EditOption from '@/src/components/section/EditOption/EditOption';
 import Card from '@/src/components/section/Card/Card';
+import useIntersectionObserver from '@/src/hooks/useIntersectionObserver';
+import 'intersection-observer';
+import classNames from 'classnames/bind';
+
+const cn = classNames.bind(styles);
 
 export interface LinkType {
   id: number;
@@ -64,18 +69,14 @@ export async function getServerSideProps() {
   const userId = 1;
   let links: LinkType[];
   let folderList: FolderList[];
-  {
-    const data: LinkType[] = (await getLinksById(folderInfo.id)).data;
-    if (!data) return;
-    links = data;
-  }
-  {
-    const data: Folder[] = (await getFoldersById(userId)).data;
-    if (!data) return;
-    folderList = data.map((element: Folder) => {
-      return { name: element.name, linkCount: element.link.count };
-    });
-  }
+  let data: Folder[];
+
+  links = (await getLinksById(folderInfo.id)).data;
+
+  data = (await getFoldersById(userId)).data;
+  folderList = data.map((element: Folder) => {
+    return { name: element.name, linkCount: element.link.count };
+  });
 
   const initialData = {
     folderInfo,
@@ -99,10 +100,8 @@ export default function FolderPage({ initialData }: Props) {
   const [userId, setUserId] = useState(initialData.userId);
   const [links, setLinks] = useState<LinkType[]>(initialData.links);
   const [keyword, setKeyword] = useState('');
-  const [showFixedAddLink, setShowFixedAddLink] = useState(false);
-  const addLinkObserver = useRef<HTMLDivElement>(null);
-  const footerObserver = useRef<HTMLDivElement>(null);
-  const observer = useRef<IntersectionObserver>();
+  const observeTargets = useRef<HTMLDivElement[]>([]);
+  const showFixedAddLink = useIntersectionObserver(observeTargets.current);
 
   const handleSearchOnChange = (nextKeyword: string) => {
     setKeyword(nextKeyword);
@@ -115,26 +114,6 @@ export default function FolderPage({ initialData }: Props) {
   const handleSetUserId = (nextUserId: number) => {
     setUserId(nextUserId);
   };
-
-  useEffect(() => {
-    observer.current = new IntersectionObserver((entries) => {
-      for (let i = 0; i < entries.length; i++) {
-        if (entries[i].isIntersecting) {
-          setShowFixedAddLink(false);
-          break;
-        } else {
-          setShowFixedAddLink(true);
-        }
-      }
-    });
-
-    const observeTargets = document.querySelectorAll(
-      '.' + styles['observe-target']
-    );
-    observeTargets.forEach((element) => {
-      observer.current?.observe(element);
-    });
-  }, []);
 
   useEffect(() => {
     async function getFolderLinks() {
@@ -159,35 +138,42 @@ export default function FolderPage({ initialData }: Props) {
 
   return (
     <>
-      <header className={styles['header']}>
+      <header className={cn('header')}>
         <Nav className="not-fixed" id={1} setUserId={handleSetUserId} />
-        <div className={styles['observe-target']} ref={addLinkObserver}>
+        <div
+          className={cn('observe-target')}
+          ref={(element) => {
+            if (element) {
+              observeTargets.current.push(element);
+            }
+          }}
+        >
           <AddLink folderList={folderList} />
         </div>
         {showFixedAddLink && (
           <AddLink folderList={folderList} className="fixed" />
         )}
       </header>
-      <section className={styles['section']}>
+      <section className={cn('section')}>
         <Search handleOnChange={handleSearchOnChange} />
         {keyword && (
-          <span className={styles['search-result']}>
-            <strong className={styles['strong']}>{keyword}</strong>으로 검색한
+          <span className={cn('search-result')}>
+            <strong className={cn('strong')}>{keyword}</strong>으로 검색한
             결과입니다.
           </span>
         )}
-        <div className={styles['folders']}>
+        <div className={cn('folders')}>
           <FolderList
             folderName={folderInfo.name}
             onClickFolder={handleChangeFolder}
             id={1}
           />
-          <div className={styles['folders__folder-info']}>
-            <span className={styles['folders__folder-name']}>
+          <div className={cn('folders__folder-info')}>
+            <span className={cn('folders__folder-name')}>
               {folderInfo.name}
             </span>
             {folderInfo.name === '전체' || (
-              <div className={styles['folders__folder-edit']}>
+              <div className={cn('folders__folder-edit')}>
                 <EditOption
                   src="/images/share.png"
                   optionName="공유"
@@ -230,14 +216,21 @@ export default function FolderPage({ initialData }: Props) {
                 })}
             </div>
           ) : (
-            <div className={styles['no-link']}>저장된 링크가 없습니다.</div>
+            <div className={cn('no-link')}>저장된 링크가 없습니다.</div>
           )}
         </div>
       </section>
-      <footer className={styles['footer']}>
-        <div className={styles['observe-target']} ref={footerObserver}>
-          <div className={styles['footer-box']}>
-            <span className={styles['copyright']}>©codeit - 2023</span>
+      <footer className={cn('footer')}>
+        <div
+          className={cn('observe-target')}
+          ref={(element) => {
+            if (element) {
+              observeTargets.current.push(element);
+            }
+          }}
+        >
+          <div className={cn('footer-box')}>
+            <span className={cn('copyright')}>©codeit - 2023</span>
             <FooterLinks target="_blank" rel="noopener noreferrer" />
           </div>
         </div>

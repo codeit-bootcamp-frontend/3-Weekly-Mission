@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getFolder } from '@/pages/api/hello';
+import { getFolder } from '@/pages/api/api';
 import styles from './Folder.module.css';
 
 interface FolderType {

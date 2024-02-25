@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getFoldersById } from '@/pages/api/hello';
+import { getFoldersById } from '@/pages/api/api';
 import FolderListButton from '../FolderListButton/FolderListButton';
 import BaseModal from '../BaseModal/BaseModal';
 import modalStyles from '../BaseModal/BaseModal.module.css';

@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { getFolder } from './api/hello';
+import { getFolder } from './api/api';
 import styles from '@/styles/page.module.css';
 import Nav from '@/src/components/header/Nav/Nav';
 import Folder from '@/src/components/header/Folder/Folder';
 import Search from '@/src/components/section/Search/Search';
 import Card from '@/src/components/section/Card/Card';
 import FooterLinks from '@/src/components/footer/FooterLinks/FooterLinks';
+import classNames from 'classnames/bind';
+
+const cn = classNames.bind(styles);
 
 export interface SharedLink {
   id: number;
@@ -42,11 +45,11 @@ export default function SharePage({ links }: Props) {
 
   return (
     <>
-      <header className={styles['header']}>
+      <header className={cn('header')}>
         <Nav />
         <Folder />
       </header>
-      <section className={styles['section']}>
+      <section className={cn('section')}>
         <Search handleOnChange={handleSearchOnChange} />
         {keyword && (
           <span className="search-result">
@@ -63,12 +66,12 @@ export default function SharePage({ links }: Props) {
                 description?.toLowerCase().includes(keyword)
               );
             })
-            .map((element) => {
-              return <Card key={element.id} page={element as LinkType} />;
+            .map((element: SharedLink) => {
+              return <Card key={element.id} page={element} />;
             })}
         </div>
       </section>
-      <footer className={styles['footer']}>
+      <footer className={cn('footer')}>
         <div className="footer-box">
           <span className="copyright">©codeit - 2023</span>
           <FooterLinks target="_blank" rel="noopener noreferrer" />
