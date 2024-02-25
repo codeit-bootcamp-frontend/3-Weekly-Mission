@@ -2,7 +2,7 @@ import AddLinkBar from "../components/AddLinkBar";
 import Content from "../components/Content";
 import SearchBar from "../components/SearchBar";
 import Header from "../components/Header";
-import useGetUserFolder from "../hooks/useGetUserFolder";
+import useGetUserFolder, { UserFolderData } from "../hooks/useGetUserFolder";
 import { useMemo, useState } from "react";
 import Footer from "@/components/Footer";
 
@@ -30,7 +30,7 @@ export default function Folder() {
       <Header isSticky />
       <AddLinkBar />
       <SearchBar handleInputChange={handleInputChange} />
-      <Content userFolderLinks={searchedData} />
+      <Content folderLinkList={searchedData} />
       <Footer />
     </>
   );

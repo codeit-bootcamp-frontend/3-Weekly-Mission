@@ -1,4 +1,4 @@
-import { Input } from "@/components/accountPage/Input";
+import { Input } from "@/components/account/Input";
 import styles from "@/styles/accountPage.module.css";
 import classNames from "classnames/bind";
 import { postSignIn } from "@/api";

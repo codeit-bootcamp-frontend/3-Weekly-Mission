@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getFolderList } from "../api";
 
-interface UserFolderList {
+export interface UserFolderList {
   id: number;
   created_at: string;
   name: string;

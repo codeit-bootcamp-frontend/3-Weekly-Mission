@@ -16,8 +16,6 @@ export default function useGetUser(isSticky: boolean): any {
         setData([profileImageSource, email]);
       } else {
         const { data } = await getUser();
-        console.log(data);
-
         const { image_source, email } = data[0];
         setData([image_source, email]);
       }

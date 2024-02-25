@@ -2,15 +2,23 @@ import penIcon from "../public/pen.svg";
 import shareIcon from "../public/share.svg";
 import deleteIcon from "../public/delete.svg";
 import plusImg from "../public/plus_img.svg";
-import useGetFolderList from "../hooks/useGetFolderList";
+import useGetFolderList, { UserFolderList } from "../hooks/useGetFolderList";
 import Card from "./Card";
 import { useState } from "react";
 import styles from "./Content.module.css";
 import Modal from "./modals/Modal";
 import useModal from "../hooks/useModal";
 import Image from "next/image";
+import { UserFolderData } from "@/hooks/useGetUserFolder";
+import classNames from "classnames/bind";
 
-export default function Content({ userFolderLinks }: any) {
+const cx = classNames.bind(styles);
+
+export default function Content({
+  folderLinkList,
+}: {
+  folderLinkList: UserFolderData[] | undefined;
+}) {
   const [targetFolder, setTargetFolder] = useState({
     title: "전체",
     id: 0,
@@ -25,33 +33,33 @@ export default function Content({ userFolderLinks }: any) {
       id: id,
     });
   };
-  const filteredLinkList = userFolderLinks?.filter(
+  const filteredLinkList = folderLinkList?.filter(
     (data: any) =>
       data.folder_id === targetFolder["id"] || targetFolder["id"] === 0
   );
 
   return (
-    <section className={styles["content"]}>
+    <section className={cx("content")}>
       <Modal state={modalState} onClick={handleModalCancel} />
-      <div className={styles["folder-title-container"]}>
-        <div className={styles["folder-title-wrapper"]}>
+      <div className={cx("folder-title-container")}>
+        <div className={cx("folder-title-wrapper")}>
           <button
-            className={
-              targetFolder["title"] === "전체"
-                ? `${styles.button} ${styles["folder-title"]} ${styles["selected"]}`
-                : `${styles.button} ${styles["folder-title"]}`
-            }
+            className={cx(
+              "button",
+              "folder-title",
+              targetFolder["title"] === "전체" && "selected"
+            )}
             onClick={() => handleClick("전체", 0)}
           >
             전체
           </button>
-          {folderList?.map((folder: any) => (
+          {folderList?.map((folder: UserFolderList) => (
             <button
-              className={
-                targetFolder["title"] === folder.name
-                  ? `${styles.button} ${styles["folder-title"]} ${styles["selected"]}`
-                  : `${styles.button} ${styles["folder-title"]}`
-              }
+              className={cx(
+                "button",
+                "folder-title",
+                targetFolder["title"] === folder.name && "selected"
+              )}
               key={folder.id}
               onClick={() => {
                 handleClick(folder.name, folder.id);
@@ -62,7 +70,7 @@ export default function Content({ userFolderLinks }: any) {
           ))}
         </div>
         <button
-          className={`${styles["button"]} ${styles["plus-btn"]} ${styles["add-folder-btn-wrapper"]}`}
+          className={cx("button", "plus-btn", "add-folder-btn-wrapper")}
           onClick={() =>
             setModalState({
               state: true,
@@ -71,16 +79,16 @@ export default function Content({ userFolderLinks }: any) {
           }
         >
           <span>폴더추가</span>
-          <Image className={styles["plus-svg"]} src={plusImg} alt="plus-img" />
+          <Image className={cx("plus-svg")} src={plusImg} alt="plus-img" />
         </button>
       </div>
 
-      <div className={styles["selected-category"]}>
-        <h2 className={styles["h2"]}>{targetFolder["title"]}</h2>
+      <div className={cx("selected-category")}>
+        <h2 className={cx("h2")}>{targetFolder["title"]}</h2>
         {targetFolder["title"] === "전체" || (
-          <div className={styles["folder-edits"]}>
+          <div className={cx("folder-edits")}>
             <button
-              className={`${styles.button} ${styles["edit-function"]}`}
+              className={cx("button", "edit-function")}
               onClick={() =>
                 setModalState({
                   state: true,
@@ -93,7 +101,7 @@ export default function Content({ userFolderLinks }: any) {
               공유
             </button>
             <button
-              className={`${styles.button} ${styles["edit-function"]}`}
+              className={cx("button", "edit-function")}
               onClick={() =>
                 setModalState({
                   state: true,
@@ -106,7 +114,7 @@ export default function Content({ userFolderLinks }: any) {
               이름 변경
             </button>
             <button
-              className={`${styles.button} ${styles["edit-function"]}`}
+              className={cx("button", "edit-function")}
               onClick={() =>
                 setModalState({
                   state: true,
@@ -123,13 +131,13 @@ export default function Content({ userFolderLinks }: any) {
       </div>
 
       {filteredLinkList?.length ? (
-        <div className={styles["card-container"]}>
+        <div className={cx("card-container")}>
           {filteredLinkList?.map((data: any) => (
             <Card key={data.id} data={data} />
           ))}
         </div>
       ) : (
-        <div className={styles["no-link"]}>저장된 링크가 없습니다</div>
+        <div className={cx("no-link")}>저장된 링크가 없습니다</div>
       )}
     </section>
   );

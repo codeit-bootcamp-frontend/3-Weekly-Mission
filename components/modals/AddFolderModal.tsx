@@ -1,5 +1,5 @@
 import styles from "./Modal.module.css";
-export default function AddFolderModal({ state }: any) {
+export default function AddFolderModal() {
   return (
     <>
       <h2 className={styles["modal-title"]}>폴더 추가</h2>

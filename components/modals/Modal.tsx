@@ -9,12 +9,14 @@ import AddFolderModal from "./AddFolderModal";
 import AddLinkModal from "./AddLinkModal";
 import FolderDeleteModal from "./FolderDeleteModal";
 import LinkDeleteModal from "./LinkDeleteModal";
+import classNames from "classnames/bind";
 
+const cx = classNames.bind(styles);
 enum FOLDER_NAME {
   FOLDER_SHARE = "공유",
   FOLDER_UPDATE = "이름 변경",
   FOLDER_DELETE = "삭제",
-  FOLDER_ADD = "폴더 추가",
+  FOLDER_ADD = "폴더추가",
   LINK_DELETE = "삭제하기",
   LINK_ADD = "폴더에 추가",
   LINK_ADD2 = "추가하기",
@@ -37,16 +39,18 @@ export default function Modal({ state, onClick, link }: any) {
     <>
       {state["state"] && (
         <>
-          <div className={styles["modal-background"]} onClick={cancelModal} />
-          <div className={styles["modal-container"]}>
-            <button className={styles["modal-close-btn"]} onClick={cancelModal}>
+          <div className={cx("modal-background")} onClick={cancelModal} />
+          <div className={cx("modal-container")}>
+            <button className={cx("modal-close-btn")} onClick={cancelModal}>
               <Image
-                className={styles["modal-close-icon"]}
+                className={cx("modal-close-icon")}
                 src={modalCloseIcon}
                 alt="modal-close-Image"
               />
             </button>
-            {(state["target"] === FOLDER_NAME.FOLDER_SHARE && <ShareModal state={state} />) ||
+            {(state["target"] === FOLDER_NAME.FOLDER_SHARE && (
+              <ShareModal state={state} />
+            )) ||
               (state["target"] === FOLDER_NAME.FOLDER_UPDATE && (
                 <NameChangeModal state={state} />
               )) ||
@@ -54,12 +58,13 @@ export default function Modal({ state, onClick, link }: any) {
                 <FolderDeleteModal state={state} />
               )) ||
               (state["target"] === FOLDER_NAME.FOLDER_ADD && (
-                <AddFolderModal state={state} />
+                <AddFolderModal />
               )) ||
               (state["target"] === FOLDER_NAME.LINK_DELETE && (
                 <LinkDeleteModal state={state} />
               )) ||
-              ((state["target"] === FOLDER_NAME.LINK_ADD || FOLDER_NAME.LINK_ADD2) && (
+              ((state["target"] === FOLDER_NAME.LINK_ADD ||
+                FOLDER_NAME.LINK_ADD2) && (
                 <AddLinkModal state={state} data={folderList} link={link} />
               ))}
           </div>

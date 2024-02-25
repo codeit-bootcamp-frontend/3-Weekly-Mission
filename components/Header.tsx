@@ -3,6 +3,9 @@ import styles from "./Header.module.css";
 import useGetUser from "../hooks/useGetUser";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 export default function Header({ isSticky }: { isSticky: boolean }) {
   const [profileImageSource, email] = useGetUser(!isSticky) || [];
@@ -12,30 +15,26 @@ export default function Header({ isSticky }: { isSticky: boolean }) {
     router.push("/");
   };
   return (
-    <div className={styles["nav-wrapper"]}>
-      <div
-        className={
-          isSticky ? `${styles["nav-folder-bg"]}` : `${styles["nav-bg"]}`
-        }
-      />
+    <div className={cx("nav-wrapper")}>
+      <div className={cx(isSticky ? "nav-folder-bg" : "nav-bg")} />
       <header
-        className={isSticky ? `${styles["nav-folder"]}` : `${styles["nav"]}`}
+        className={cx(isSticky ? "nav-folder" : "nav")}
       >
         <Image
           src={logo}
-          className={styles.logo}
+          className={cx("logo")}
           alt="logo"
           onClick={handleLogoClick}
         />
-        <div className={styles["profile-wrapper"]}>
+        <div className={cx("profile-wrapper")}>
           <Image
             width={28}
             height={28}
             src={profileImageSource}
-            className={styles["profile-img"]}
+            className={cx("profile-img")}
             alt="profile-img"
           />
-          <span className={styles["profile-email"]}>{email ?? "로그인"}</span>
+          <span className={cx("profile-email")}>{email ?? "로그인"}</span>
         </div>
       </header>
     </div>

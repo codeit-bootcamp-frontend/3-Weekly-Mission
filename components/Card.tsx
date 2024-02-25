@@ -4,11 +4,11 @@ import formatDate from "../utils/formatDate";
 import styles from "./Card.module.css";
 import { useState } from "react";
 import Modal from "./modals/Modal";
-import { Links } from "@/hooks/useGetFolder";
 import { UserFolderData } from "@/hooks/useGetUserFolder";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames/bind";
+import { Links } from "@/pages/shared";
 
 interface Props {
   data: UserFolderData & Links;
@@ -16,7 +16,7 @@ interface Props {
 
 const cx = classNames.bind(styles);
 
-export default function Card({ data: folderLink }: Props) {
+export default function Card({ data: folderLink }: Props ) {
   const {
     createdAt,
     created_at,
@@ -48,7 +48,7 @@ export default function Card({ data: folderLink }: Props) {
       >
         <>
           <Modal state={modalState} onClick={handleModalCancel} />
-          <div className={styles["card-img-container"]}>
+          <div className={cx("card-img-container")}>
             <div className={cx("card-img", { "no-img": !imageUrl })}>
               <Image
                 fill
@@ -57,12 +57,12 @@ export default function Card({ data: folderLink }: Props) {
               />
             </div>
           </div>
-          <div className={styles["mention-wrapper"]}>
-            <p className={styles["time-and-kebob-wrapper"]}>
-              <span className={styles["upload-time-ago"]}>{timeAgo}</span>
+          <div className={cx("mention-wrapper")}>
+            <p className={cx("time-and-kebob-wrapper")}>
+              <span className={cx("upload-time-ago")}>{timeAgo}</span>
               {created_at && (
                 <button
-                  className={styles["kebab-btn"]}
+                  className={cx("kebab-btn")}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -73,14 +73,14 @@ export default function Card({ data: folderLink }: Props) {
             </p>
             {popoverState ? (
               <div
-                className={styles["popover"]}
+                className={cx("popover")}
                 onMouseEnter={(e) => {
                   e.stopPropagation();
                   setIsHover(false);
                 }}
               >
                 <button
-                  className={styles["popover-btn"]}
+                  className={cx("popover-btn")}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -90,7 +90,7 @@ export default function Card({ data: folderLink }: Props) {
                   삭제하기
                 </button>
                 <button
-                  className={styles["popover-btn"]}
+                  className={cx("popover-btn")}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -103,8 +103,8 @@ export default function Card({ data: folderLink }: Props) {
             ) : (
               ""
             )}
-            <p className={styles["description"]}>{description}</p>
-            <p className={styles["upload-date"]}>{formattedDate}</p>
+            <p className={cx("description")}>{description}</p>
+            <p className={cx("upload-date")}>{formattedDate}</p>
           </div>
         </>
       </Link>

@@ -1,9 +1,9 @@
 
-import SigninForm from "@/components/accountPage/SigninForm";
+import SigninForm from "@/components/account/SigninForm";
 import styles from "@/styles/accountPage.module.css";
 import classNames from "classnames/bind";
-import SocialLoginForm from "@/components/accountPage/SocialLoginForm";
-import AccountHeader from "@/components/accountPage/AccountHeader";
+import SocialLoginForm from "@/components/account/SocialLoginForm";
+import AccountHeader from "@/components/account/AccountHeader";
 
 const cx = classNames.bind(styles);
 
