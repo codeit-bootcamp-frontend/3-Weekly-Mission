@@ -63,3 +63,12 @@ export interface SignUser {
   email: string;
   password: string;
 }
+
+export interface SignAccess {
+  accessToken: string | undefined | null;
+  refreshToken?: string;
+}
+
+export interface DuplicateEmail {
+  isUsableNickname: boolean;
+}

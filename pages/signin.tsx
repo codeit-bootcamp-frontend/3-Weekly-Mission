@@ -15,7 +15,7 @@ const SignIn = () => {
     if (localStorage.accessToken) {
       router.push('/folder');
     } else {
-      router.push('signup');
+      router.push('/signup');
     }
   };
 

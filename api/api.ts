@@ -1,7 +1,9 @@
 import {
+  DuplicateEmail,
   Folder,
   FolderLink,
   FolderSample,
+  SignAccess,
   SignUser,
   User,
 } from '@/types/Common';
@@ -52,7 +54,9 @@ export const getFolderSample: () => Promise<FolderSample> = async () => {
 };
 
 // 로그인
-export const postUserSignin: (user: SignUser) => Promise<any> = async user => {
+export const postUserSignin: (
+  user: SignUser,
+) => Promise<SignAccess | null> = async user => {
   const result = await fetchSignData(API.SIGN_IN, {
     method: 'POST',
     headers: {
@@ -60,11 +64,39 @@ export const postUserSignin: (user: SignUser) => Promise<any> = async user => {
     },
     body: JSON.stringify(user),
   });
-
-  return result;
+  console.log(result);
+  return result.data;
 };
 
 // 회원가입
+export const postUserSignup: (
+  user: SignUser,
+) => Promise<SignAccess | null> = async user => {
+  const result = await fetchSignData(API.SIGN_UP, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+  console.log(result);
+  return result.data;
+};
+
+// 이메일 중복 확인
+export const postDuplicateEmail: (
+  userEmail: string,
+) => Promise<DuplicateEmail | null> = async userEmail => {
+  const result = await fetchDuplicateEmailData(API.CHECK_EMAIL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email: userEmail }),
+  });
+  console.log(result);
+  return result.data;
+};
 
 // data fetch 로직 분리
 const fetchData = async (url: string, options = {}) => {
@@ -87,6 +119,25 @@ const fetchSignData = async (url: string, options = {}) => {
     const response = await fetch(url, options);
 
     if (response.status === 400) {
+      return null;
+    }
+
+    if (!response.ok) {
+      throw new Error(`API 호출 실패: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(`Fetch 에러: ${error}`);
+    throw error;
+  }
+};
+
+const fetchDuplicateEmailData = async (url: string, options = {}) => {
+  try {
+    const response = await fetch(url, options);
+
+    if (response.status === 409) {
       return null;
     }
 

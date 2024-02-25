@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { Input } from '@/components/Input';
 import styles from './styles.module.css';
-import { ERROR_MESSAGES, EMAIL_REGEX, API } from '@/constants/constants';
+import { ERROR_MESSAGES, EMAIL_REGEX } from '@/constants/constants';
 import { useRouter } from 'next/router';
 import { postUserSignin } from '@/api/api';
 
@@ -21,7 +21,7 @@ export const SigninForm = () => {
       return;
     }
     if (!EMAIL_REGEX.test(emailInputValue)) {
-      setIsEmailValid(true);
+      setIsEmailValid(false);
       setEmailErrorMessage(ERROR_MESSAGES.INVALID_EMAIL);
       return;
     }
@@ -29,7 +29,7 @@ export const SigninForm = () => {
     setEmailErrorMessage('');
   };
 
-  const handlePsswordInputBlur = () => {
+  const handlePasswordInputBlur = () => {
     if (!passwordInputValue) {
       setIsPasswordValid(false);
       setPasswordErrorMessage(ERROR_MESSAGES.PASSWORD_REQUIRED);
@@ -47,15 +47,15 @@ export const SigninForm = () => {
     };
 
     try {
-      const result = await postUserSignin(user);
-      if (result === null) {
+      const response = await postUserSignin(user);
+      if (!response) {
         setIsEmailValid(false);
         setIsPasswordValid(false);
         setEmailErrorMessage(ERROR_MESSAGES.EMAIL_CHECK_FAILED);
         setPasswordErrorMessage(ERROR_MESSAGES.PASSWORD_CHECK_FAILED);
         return;
       }
-      const { accessToken, refreshToken } = result.data;
+      const { accessToken, refreshToken } = response;
       if (accessToken && refreshToken) {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
@@ -93,7 +93,7 @@ export const SigninForm = () => {
         placeholder="비밀번호를 입력해주세요."
         inputValue={passwordInputValue}
         setInputValue={setPasswordInputValue}
-        handleInputBlur={handlePsswordInputBlur}
+        handleInputBlur={handlePasswordInputBlur}
         isError={!isPasswordValid}
         errorMessage={passwordErrorMessage}
       />

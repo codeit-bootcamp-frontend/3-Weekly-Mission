@@ -3,8 +3,22 @@ import styles from '@/styles/signup.module.css';
 import Link from 'next/link';
 import { SocialSign } from '@/components/SocialSign';
 import { SignupForm } from '@/components/SignupForm';
+import { MouseEvent } from 'react';
+import { useRouter } from 'next/router';
 
 const Signup = () => {
+  const router = useRouter();
+
+  const handleSignTextClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
+    if (localStorage.accessToken) {
+      router.push('/folder');
+    } else {
+      router.push('/signin');
+    }
+  };
+
   return (
     <div className={styles['background-container']}>
       <div className={styles['sign-section']}>
@@ -19,7 +33,11 @@ const Signup = () => {
           </Link>
           <p className={styles['header__text']}>
             <span>이미 회원이신가요? </span>
-            <Link className={styles['header__signin-link']} href="/signin">
+            <Link
+              className={styles['header__signin-link']}
+              href="/signin"
+              onClick={handleSignTextClick}
+            >
               로그인 하기
             </Link>
           </p>
