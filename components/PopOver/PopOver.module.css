@@ -9,9 +9,9 @@
   background: var(--gray-light-gray-00, #fff);
   box-shadow: 0px 2px 8px 0px rgba(51, 50, 54, 0.1);
 
-  @media (min-width: 768px) {
+  /* @media (min-width: 768px) {
     left: 0;
-  }
+  } */
 }
 
 .deleteBtn,

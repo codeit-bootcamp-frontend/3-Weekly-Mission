@@ -2,36 +2,47 @@ import { calElapsedTime } from "@/utils/calElapsedTime";
 import { calDate } from "@/utils/calDate";
 import styles from "./Card.module.css";
 import PopOver from "../../PopOver/PopOver";
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { Folder, Link } from "@/@types/api/interface";
+import DEFAULT_IMAGE from "@/public/svgs/no-img.svg";
 
 interface Props {
   link: Link;
   folderData: Folder[] | null;
 }
 function Card({ link, folderData }: Props) {
-  const [pop, setPop] = useState(false);
+  // const [pop, setPop] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const kebabButtonRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseOver = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+  // const handleKebabClick = (
+  //   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  // ) => {
+  //   e.preventDefault();
+  //   setIsPopoverOpen(true);
+  // };
+  const handleBackgroundClick = useCallback(() => {
+    setIsPopoverOpen(false);
+    console.log("outside 클릭!");
+  }, []);
 
   return (
-    <div className={styles.cardBox}>
-      <div className={styles.cardImgWrap} onClick={() => window.open(link.url)}>
-        {link.image_source ? (
-          <Image
-            fill
-            className={styles.cardImg}
-            src={link.image_source}
-            alt="Image"
-          />
-        ) : (
-          <Image
-            fill
-            className={styles.cardImg}
-            src="/svgs/no-img.svg"
-            alt="Image"
-          />
-        )}
-      </div>
+    <div
+      className={styles.cardBox}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div
+        style={{
+          backgroundImage: `url(${link.image_source ?? DEFAULT_IMAGE.src})`,
+        }}
+        className={`${styles.cardImgWrap} ${isHovered ? styles.zoomIn : ""}`}
+        onClick={() => window.open(link.url)}
+      ></div>
 
       <div className={styles.cardContent}>
         <div className={styles.contentTop}>
@@ -39,17 +50,23 @@ function Card({ link, folderData }: Props) {
             {calElapsedTime(link.created_at)}
           </span>
           <span className={styles.kebab}>
-            <span className={styles.kebabImg}>
-              <Image
-                fill
-                src="/svgs/kebab-icon.svg"
-                alt="kebab"
-                onClick={() => {
-                  setPop(!pop);
-                }}
-              />
+            <span
+              className={styles.kebabImg}
+              onClick={() => {
+                setIsPopoverOpen(!isPopoverOpen);
+              }}
+            >
+              <Image fill src="/svgs/kebab-icon.svg" alt="kebab" />
             </span>
-            {pop && <PopOver folderData={folderData} />}
+            {isPopoverOpen && (
+              <PopOver
+                isOpen={isPopoverOpen}
+                folderData={folderData}
+                anchorRef={kebabButtonRef}
+                // anchorPosition={popoverPosition}
+                onBackgroundClick={handleBackgroundClick}
+              />
+            )}
           </span>
         </div>
         <div className={styles.contentText}>{link.title}</div>
