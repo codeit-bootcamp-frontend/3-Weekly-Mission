@@ -3,10 +3,10 @@ import Input from '../../components/input/Input';
 import { useForm } from 'react-hook-form';
 
 interface Props {
-  category: string;
+  type: string;
 }
 
-export default function SignForm({ category }: Props) {
+export default function SignForm({ type }: Props) {
   const {
     register,
     handleSubmit,
@@ -32,7 +32,7 @@ export default function SignForm({ category }: Props) {
             type="password"
             id="password"
             placeholder={
-              category === 'signup'
+              type === 'signup'
                 ? '영문, 숫자를 조합해 8자 이상 입력해 주세요'
                 : '비밀번호를 입력해 주세요'
             }
@@ -40,7 +40,7 @@ export default function SignForm({ category }: Props) {
             errors={errors}
           />
         </InputBox>
-        {category === 'signup' ? (
+        {type === 'signup' ? (
           <InputBox>
             <Label htmlFor="verifyPassword">비밀번호 확인</Label>
             <Input

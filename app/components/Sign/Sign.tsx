@@ -3,9 +3,9 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 import Link from 'next/link';
-import SignForm from '../signup/components/SignForm';
+import SignForm from './SignForm';
 
-export default function Signin() {
+export default function Sign({ type }: { type: string }) {
   return (
     <Wrapper>
       <Container>
@@ -15,11 +15,17 @@ export default function Signin() {
               <Image src="/logo.svg" alt="logo" width={133} height={24} />
             </Link>
             <GoToSignUp>
-              <span>회원이 아니신가요?</span>
-              <GoToSignUpLink href="/signup">회원가입 하기</GoToSignUpLink>
+              <span>
+                {type === 'signup'
+                  ? '이미 회원이신가요?'
+                  : '회원이 아니신가요?'}
+              </span>
+              <GoToSignUpLink href={type === 'signup' ? '/signin' : '/signup'}>
+                {type === 'signup' ? '로그인 하기' : '회원가입 하기'}
+              </GoToSignUpLink>
             </GoToSignUp>
           </LoginBox_top>
-          <SignForm category="signin" />
+          <SignForm type={type} />
         </LoginBox>
         <SnsLogin>
           <Text>소셜 로그인</Text>

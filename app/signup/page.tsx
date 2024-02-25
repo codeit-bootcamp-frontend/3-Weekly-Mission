@@ -1,5 +1,5 @@
-import Signup from './Signup';
+import Sign from '../components/Sign/Sign';
 
 export default function page() {
-  return <Signup />;
+  return <Sign type="signup" />;
 }

@@ -1,5 +1,5 @@
-import Signin from './Signin';
+import Sign from '../components/Sign/Sign';
 
 export default function page() {
-  return <Signin />;
+  return <Sign type="signin" />;
 }
