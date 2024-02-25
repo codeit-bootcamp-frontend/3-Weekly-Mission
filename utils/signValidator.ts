@@ -1,3 +1,4 @@
+import { EMAIL } from "@/constants/sign";
 import { ValidatorType } from "@/types/types";
 
 export const emailValidator: ValidatorType = {
@@ -13,12 +14,12 @@ export const passwordValidator: ValidatorType = {
   required: "비밀번호를 입력해주세요",
   pattern: {
     value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,20}$/,
-    message: "비밀번호 형식에 맞지 않습니다.",
+    message: "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.",
   },
 };
 
 export const checkEmptyValue = (type: string) => {
-  if (type === "email") {
+  if (type === EMAIL) {
     return "이메일을 입력해주세요.";
   }
   return "비밀번호를 입력해주세요.";

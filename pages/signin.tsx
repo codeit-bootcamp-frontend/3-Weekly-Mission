@@ -17,7 +17,7 @@ import {
 } from "@/utils/signValidator";
 import { ChangeEvent } from "react";
 import axios from "@/apis/axios";
-import { AxiosError } from "axios";
+import { EMAIL, PASSWORD } from "@/constants/sign";
 
 interface Props {
   user: NavbarUserInfo;
@@ -60,11 +60,11 @@ export default function signIn({ user }: Props) {
         return;
       }
     } catch (e) {
-      setError("email", {
+      setError(EMAIL, {
         type: "custom",
         message: "이메일을 확인해주세요.",
       });
-      setError("password", {
+      setError(PASSWORD, {
         type: "custom",
         message: "비밀번호를 확인해주세요",
       });
@@ -91,21 +91,21 @@ export default function signIn({ user }: Props) {
         )}
       >
         <SignInput
-          type="email"
+          type={EMAIL}
           placeholder="이메일을 입력해주세요."
           labelName="이메일"
           register={register}
-          registerName="email"
+          registerName={EMAIL}
           validator={emailValidator}
           errorMessage={errors.email?.message?.toString() || ""}
           changeMessage={changeMessage}
         />
         <SignInput
-          type="password"
+          type={PASSWORD}
           placeholder="비밀번호를 입력해주세요."
           labelName="비밀번호"
           register={register}
-          registerName="password"
+          registerName={PASSWORD}
           validator={passwordValidator}
           errorMessage={errors.password?.message?.toString() || ""}
           changeMessage={changeMessage}

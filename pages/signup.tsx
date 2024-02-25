@@ -16,6 +16,9 @@ import {
 } from "@/utils/signValidator";
 import { ChangeEvent } from "react";
 import { SignUpDataType } from "@/types/dataTypes";
+import axios from "@/apis/axios";
+import { EMAIL, PASSWORD, PASSWORD_REPEAT } from "@/constants/sign";
+import { AxiosError } from "axios";
 
 interface Props {
   user: NavbarUserInfo;
@@ -23,8 +26,11 @@ interface Props {
 
 export default function signUp({ user }: Props) {
   const router = useRouter();
-  if (user) {
-    router.push("/folder");
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("accessToken");
+    if (user || token) {
+      router.push("/folder");
+    }
   }
   const {
     register,
@@ -33,25 +39,59 @@ export default function signUp({ user }: Props) {
     formState: { errors },
   } = useForm();
 
+  const checkEmail = async (email: object) => {
+    let message = "";
+    try {
+      const res = await axios.post("check-email", email);
+      if (res.status === 200) {
+        return;
+      }
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError?.response?.status === 409) {
+        message = "이미 사용 중인 이메일입니다.";
+        return;
+      }
+      message = "올바른 이메일 주소가 아닙니다.";
+    } finally {
+      setError(EMAIL, {
+        type: "custom",
+        message,
+      });
+    }
+  };
+
   const changeMessage = (
     e: ChangeEvent<HTMLInputElement>,
     registerName: string
   ) => {
-    if (e.target.value !== "") {
+    if (e.target.value === "") {
+      const nextMessage = checkEmptyValue(registerName);
+      setError(registerName, { type: "custom", message: nextMessage });
       return;
     }
-    const nextMessage = checkEmptyValue(registerName);
-    setError(registerName, { type: "custom", message: nextMessage });
+    if (registerName !== EMAIL) {
+      return;
+    }
+    checkEmail({ email: e.target.value });
   };
-  const successSubmit = (data: SignUpDataType) => {
-    const { password, passwordRepeat } = data;
+  const successSubmit = async (data: SignUpDataType) => {
+    const { email, password, passwordRepeat } = data;
     if (password !== passwordRepeat) {
-      setError("passwordRepeat", {
+      setError(PASSWORD_REPEAT, {
         type: "custom",
         message: "비밀번호가 일치하지 않아요.",
       });
       return;
     }
+    try {
+      const res = await axios.post("sign-up", { email, password });
+      console.log(res);
+      if (res.status === 200) {
+        localStorage.setItem("accessToken", res.data.data.accessToken);
+        router.push("/folder");
+      }
+    } catch (e) {}
   };
 
   return (
@@ -74,32 +114,32 @@ export default function signUp({ user }: Props) {
         )}
       >
         <SignInput
-          type="email"
+          type={EMAIL}
           placeholder="이메일을 입력해주세요."
           labelName="이메일"
           register={register}
-          registerName="email"
+          registerName={EMAIL}
           validator={emailValidator}
           errorMessage={errors.email?.message?.toString() || ""}
           changeMessage={changeMessage}
         />
         <SignInput
-          type="password"
-          placeholder="비밀번호를 입력해주세요."
+          type={PASSWORD}
+          placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요."
           labelName="비밀번호"
           register={register}
-          registerName="password"
+          registerName={PASSWORD}
           validator={passwordValidator}
           errorMessage={errors.password?.message?.toString() || ""}
           changeMessage={changeMessage}
         />
         <SignInput
-          type="password"
-          placeholder="비밀번호를 입력해주세요."
+          type={PASSWORD}
+          placeholder="비밀번호와 일치하는 값을 입력해 주세요."
           labelName="비밀번호 확인"
           register={register}
           validator={passwordValidator}
-          registerName="passwordRepeat"
+          registerName={PASSWORD_REPEAT}
           errorMessage={errors.passwordRepeat?.message?.toString() || ""}
           changeMessage={changeMessage}
         />
