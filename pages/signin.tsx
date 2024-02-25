@@ -16,7 +16,7 @@ const SignIn = () => {
             />
           </a>
           <p className={styles['header__text']}>
-            회원이 아니신가요?
+            <span>회원이 아니신가요? </span>
             <a className={styles['header__signup-link']}>회원 가입하기</a>
           </p>
         </div>
@@ -26,13 +26,13 @@ const SignIn = () => {
             type="string"
             id="sign-email"
             label="이메일"
-            placeholder="이메일을 입력해주세요"
+            placeholder="이메일을 입력해주세요."
           />
           <Input
             type="password"
             id="sign-password"
             label="비밀번호"
-            placeholder="비밀번호를 입력해주세요"
+            placeholder="비밀번호를 입력해주세요."
           />
           <button className={styles['submit-button']} type="button">
             로그인
