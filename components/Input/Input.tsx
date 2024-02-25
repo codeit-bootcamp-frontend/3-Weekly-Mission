@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./Input.module.css";
 import { useState } from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
+import { EMAIL, PASSWORD } from "@/constants/sign";
 
 interface Props {
   type: string;
@@ -35,7 +36,7 @@ export default function Input({
         <input
           className={`${styles.formInput} ${errorMessage && styles.inputError}`}
           id={registerName}
-          type={type === "password" && isShowPassword ? "text" : type}
+          type={type === PASSWORD && isShowPassword ? "text" : type}
           placeholder={placeholder}
           {...register(registerName, validator)}
           onBlur={(e) => onBlur?.(e.target.value)}
@@ -47,7 +48,7 @@ export default function Input({
           </span>
         )}
 
-        {registerName !== "email" && (
+        {registerName !== EMAIL && (
           <span className={styles.eyeIcon}>
             <Image
               fill

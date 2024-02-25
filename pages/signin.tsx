@@ -37,12 +37,12 @@ function Signin() {
       localStorage.setItem("accessToken", responseData.data.accessToken);
       router.push("/folder");
     } else {
-      setError("email", {
-        type: "manual",
+      setError(EMAIL, {
+        type: "wrong-email",
         message: "이메일을 확인해 주세요.",
       });
-      setError("password", {
-        type: "manual",
+      setError(PASSWORD, {
+        type: "wrong-password",
         message: "비밀번호를 확인해 주세요.",
       });
     }

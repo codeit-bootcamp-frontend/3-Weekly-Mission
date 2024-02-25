@@ -46,7 +46,7 @@ export default function Signup() {
     }
 
     setError(EMAIL, {
-      type: "custom",
+      type: "email-error",
       message: msg,
     });
   };
@@ -56,7 +56,7 @@ export default function Signup() {
 
     if (password !== repassword) {
       setError(REPASSWORD, {
-        type: "custom",
+        type: "password-mismatch",
         message: "비밀번호가 일치하지 않아요.",
       });
       return;
@@ -77,16 +77,16 @@ export default function Signup() {
   };
 
   useEffect(() => {
-    if (watch("password") !== watch("repassword") && watch("repassword")) {
-      setError("repassword", {
+    if (watch(PASSWORD) !== watch(REPASSWORD) && watch(REPASSWORD)) {
+      setError(REPASSWORD, {
         type: "password-mismatch",
         message: "비밀번호가 일치하지 않아요.",
       });
     } else {
       // 비밀번호 일치시 오류 제거
-      clearErrors("repassword");
+      clearErrors(REPASSWORD);
     }
-  }, [watch("password"), watch("repassword")]);
+  }, [watch(PASSWORD), watch(REPASSWORD)]);
 
   //  accessToken이 있는 경우 “/folder” 페이지로 이동합니다.
   // 기능 확인 위해 임시로 막아둠
