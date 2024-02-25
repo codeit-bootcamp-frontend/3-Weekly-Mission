@@ -10,6 +10,16 @@ import AddLinkModal from "./AddLinkModal";
 import FolderDeleteModal from "./FolderDeleteModal";
 import LinkDeleteModal from "./LinkDeleteModal";
 
+enum FOLDER_NAME {
+  FOLDER_SHARE = "공유",
+  FOLDER_UPDATE = "이름 변경",
+  FOLDER_DELETE = "삭제",
+  FOLDER_ADD = "폴더 추가",
+  LINK_DELETE = "삭제하기",
+  LINK_ADD = "폴더에 추가",
+  LINK_ADD2 = "추가하기",
+}
+
 export default function Modal({ state, onClick, link }: any) {
   const folderList = useGetFolderList();
 
@@ -36,20 +46,20 @@ export default function Modal({ state, onClick, link }: any) {
                 alt="modal-close-Image"
               />
             </button>
-            {(state["target"] === "공유" && <ShareModal state={state} />) ||
-              (state["target"] === "이름 변경" && (
+            {(state["target"] === FOLDER_NAME.FOLDER_SHARE && <ShareModal state={state} />) ||
+              (state["target"] === FOLDER_NAME.FOLDER_UPDATE && (
                 <NameChangeModal state={state} />
               )) ||
-              (state["target"] === "삭제" && (
+              (state["target"] === FOLDER_NAME.FOLDER_DELETE && (
                 <FolderDeleteModal state={state} />
               )) ||
-              (state["target"] === "폴더추가" && (
+              (state["target"] === FOLDER_NAME.FOLDER_ADD && (
                 <AddFolderModal state={state} />
               )) ||
-              (state["target"] === "삭제하기" && (
+              (state["target"] === FOLDER_NAME.LINK_DELETE && (
                 <LinkDeleteModal state={state} />
               )) ||
-              ((state["target"] === "폴더에 추가" || "추가하기") && (
+              ((state["target"] === FOLDER_NAME.LINK_ADD || FOLDER_NAME.LINK_ADD2) && (
                 <AddLinkModal state={state} data={folderList} link={link} />
               ))}
           </div>
