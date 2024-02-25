@@ -1,4 +1,4 @@
-import { User } from '../signin';
+type User = { email: string; password: string };
 
 export async function getUser() {
   const response = await fetch(
@@ -49,6 +49,36 @@ export async function getLinksById(id = 0) {
 
 export async function postSignin(user: User) {
   const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-in', {
+    method: 'POST',
+    headers: {
+      accept: '*/*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+
+  return response;
+}
+
+export async function checkEmail(userEmail: { email: string }) {
+  const response = await fetch(
+    'https://bootcamp-api.codeit.kr/api/check-email',
+    {
+      method: 'POST',
+      headers: {
+        accept: '*/*',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userEmail),
+    }
+  );
+  const body = await response.json();
+
+  return body;
+}
+
+export async function postSignup(user: User) {
+  const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-up', {
     method: 'POST',
     headers: {
       accept: '*/*',

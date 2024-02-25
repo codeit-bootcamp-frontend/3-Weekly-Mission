@@ -5,6 +5,10 @@ import BaseModal from '../BaseModal/BaseModal';
 import modalStyles from '../BaseModal/BaseModal.module.css';
 import styles from './FolderList.module.css';
 import { Folder, FolderInfo } from '@/pages/folder';
+import classNames from 'classnames/bind';
+
+const cn = classNames.bind(styles);
+const modalCn = classNames.bind(modalStyles);
 
 interface Props {
   onClickFolder: (folder: FolderInfo) => void;
@@ -36,8 +40,8 @@ export default function FolderList({ onClickFolder, id, folderName }: Props) {
 
   return (
     <>
-      <div className={styles['folder-list']}>
-        <div className={styles['buttons']}>
+      <div className={cn('folder-list')}>
+        <div className={cn('buttons')}>
           <FolderListButton
             folderName={folderName}
             onClickFolder={onClickFolder}
@@ -55,23 +59,20 @@ export default function FolderList({ onClickFolder, id, folderName }: Props) {
             );
           })}
         </div>
-        <div className={styles['add-list']}>
-          <input className={styles['add-list-input']} />
-          <div
-            className={styles['add-list-button']}
-            onClick={onClickAddFolder}
-          />
+        <div className={cn('add-list')}>
+          <input className={cn('add-list-input')} />
+          <div className={cn('add-list-button')} onClick={onClickAddFolder} />
         </div>
       </div>
       {openModal && (
         <BaseModal closeModal={closeModal}>
-          <span className={modalStyles['modal__name']}>폴더 추가</span>
-          <div className={modalStyles['modal__folder-add']}>
+          <span className={modalCn('modal__name')}>폴더 추가</span>
+          <div className={modalCn('modal__folder-add')}>
             <input
-              className={modalStyles['modal__input']}
+              className={modalCn('modal__input')}
               placeholder="내용 입력"
             />
-            <button className={`${modalStyles['modal__button']} cta`}>
+            <button className={`${modalCn('modal__button')} cta`}>
               추가하기
             </button>
           </div>

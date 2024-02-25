@@ -12,7 +12,7 @@ interface Props {
 
 export default function Sns({ className, target, rel }: Props) {
   return (
-    <div className={styles[className]}>
+    <div className={cn(className)}>
       <LinkLogo
         href="https://www.facebook.com/"
         logo="facebook"
