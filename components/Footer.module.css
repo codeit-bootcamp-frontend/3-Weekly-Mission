@@ -1,0 +1,63 @@
+.footer {
+  width: 100%;
+  height: 16rem;
+  position: relative;
+  transform: translateY(100%);
+  padding: 3.2rem 10.4rem 6.4rem;
+  background-color: var(--color-black);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* footer{
+  height: (footer높이);
+} */
+.brand-year {
+  font-family: "Abel", sans-serif;
+  font-weight: 400;
+  color: #676767;
+}
+
+.privacy {
+  text-decoration: none;
+  color: #cfcfcf;
+}
+
+.faq {
+  text-decoration: none;
+  color: #cfcfcf;
+}
+
+.policy-and-faq {
+  font-family: "Abel", sans-serif;
+  display: flex;
+  gap: 3rem;
+}
+
+.sns-link {
+  display: flex;
+  gap: 1.2rem;
+}
+
+@media (max-width: 767px) {
+  .footer {
+    padding: 3.2rem 3.2rem 3.2rem;
+    display: grid;
+    grid-template-areas:
+      "policy-and-faq sns-link"
+      "brand-year sns-link";
+    row-gap: 6rem;
+  }
+
+  .brand-year {
+    grid-area: brand-year;
+  }
+
+  .policy-and-faq {
+    grid-area: policy-and-faq;
+  }
+
+  .sns-link {
+    grid-area: sns-link;
+  }
+}

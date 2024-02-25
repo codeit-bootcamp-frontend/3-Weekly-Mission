@@ -1,0 +1,129 @@
+.h2 {
+  margin: 0;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 34rem);
+  grid-template-rows: 33.4rem;
+  justify-content: center;
+  column-gap: 2rem;
+  row-gap: 2.5rem;
+  margin-bottom: 10rem;
+}
+
+@media (max-width: 767px) {
+  .card-container {
+    grid-template-columns: 32.5rem;
+    grid-template-rows: 32.7rem;
+    margin-bottom: 6rem;
+  }
+}
+.button {
+  background-color: inherit;
+  border-style: none;
+}
+
+.content {
+  width: 100%;
+  max-width: 106rem;
+  margin: 0 auto;
+  margin-bottom: 10rem;
+}
+
+.folder-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.folder-title {
+  padding: 0.8rem 1.2rem;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 1.6rem;
+  font-weight: 400;
+  border-radius: 0.5rem;
+  border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.folder-title-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.add-folder-btn-wrapper {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.plus-btn {
+  background-color: inherit;
+  border-style: none;
+}
+
+.selected-category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2.4rem 0;
+}
+
+.folder-edits {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.edit-function {
+  display: flex;
+  align-items: center;
+}
+
+.no-link {
+  padding: 4.1rem 3.5rem;
+  text-align: center;
+}
+
+.selected {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+@media (max-width: 1123px) {
+  .folder-title-container {
+    margin-right: 3.25rem;
+    margin-left: 3.25rem;
+  }
+
+  .selected-category {
+    margin-right: 3.25rem;
+    margin-left: 3.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .add-folder-btn-wrapper {
+    position: fixed;
+    bottom: 10.1rem;
+    color: white;
+    background-color: var(--color-primary);
+    border-radius: 2rem;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0.8rem 2.4rem;
+    left: 50%;
+    transform: translate(-50%);
+  }
+
+  .plus-svg {
+    filter: invert(100%) sepia(1%) saturate(2%) hue-rotate(168deg)
+      brightness(116%) contrast(100%);
+  }
+}

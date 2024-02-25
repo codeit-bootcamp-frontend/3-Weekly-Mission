@@ -1,0 +1,19 @@
+.card-container {
+  width: 100%;
+  max-width: 106rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 34rem);
+  grid-template-rows: 33.4rem;
+  justify-content: center;
+  column-gap: 2rem;
+  row-gap: 2.5rem;
+}
+
+@media (max-width: 767px) {
+  .card-container {
+    grid-template-columns: 32.5rem;
+    grid-template-rows: 32.7rem;
+    margin-bottom: 6rem;
+  }
+}
