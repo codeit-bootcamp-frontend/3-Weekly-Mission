@@ -2,6 +2,7 @@ import { getUser } from "@/lib/api";
 import { User } from "@/lib/types";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import AuthInput from "@/components/AuthInput";
 import Link from "next/link";
 import styles from "@/styles/Home.module.css";
 
@@ -34,6 +35,8 @@ const Home = ({ user }: { user: User }) => {
           <Link href="/folder">폴더 페이지 바로가기</Link>
           <Link href="/share">공유 페이지 바로가기</Link>
         </nav>
+        <h1>로그인 회원가입 공용 컴포넌트</h1>
+        <AuthInput type="password" />
       </main>
       <Footer />
     </>
