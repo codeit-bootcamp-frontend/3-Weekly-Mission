@@ -1,0 +1,31 @@
+import { folderManagementButtons } from './folderManagementButtons';
+import { FolderManagementButton } from './FolderManagementButton';
+import styles from './styles.module.css';
+import { SelectedFolder } from '@/types/Common';
+
+interface Props {
+  selectedFolder: SelectedFolder;
+}
+
+export const FolderManagementMenu = ({ selectedFolder }: Props) => {
+  return (
+    <div className={styles['selected-folder']}>
+      <div className={styles['selected-folder__menu']}>
+        {selectedFolder.name}
+      </div>
+      {selectedFolder.id !== 'all' && (
+        <div className={styles['folder-management-buttons']}>
+          {folderManagementButtons.map(button => {
+            return (
+              <FolderManagementButton
+                selectedFolder={selectedFolder}
+                key={button.text}
+                {...button}
+              />
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};

@@ -1,0 +1,49 @@
+.folder-menu {
+  width: 1060px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.folder-categories {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.folder-menu__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--Linkbrary-primary-color);
+  border-radius: 5px;
+  padding: 8px 12px;
+  height: 35px;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.folder-menu__button:focus {
+  background-color: var(--Linkbrary-primary-color);
+  color: var(--Linkbrary-white);
+}
+
+.selected {
+  background-color: var(--Linkbrary-primary-color);
+  color: var(--Linkbrary-white);
+}
+
+@media (max-width: 1124px) {
+  .folder-menu {
+    width: calc(100vw - 64px);
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .folder-categories {
+    font-size: 1.4rem;
+  }
+}

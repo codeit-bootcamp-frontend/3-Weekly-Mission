@@ -1,0 +1,34 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--Linkbrary-gray--20);
+  height: 100vh;
+  font-size: 2.5rem;
+}
+
+.content {
+  margin: 25px 0 60px;
+  text-align: center;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  max-width: 250px;
+  width: 100%;
+  padding: 12px 20px;
+  background-color: var(--Linkbrary-primary-color);
+  color: var(--Linkbrary-white);
+  border: none;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
