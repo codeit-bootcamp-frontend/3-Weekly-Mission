@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import styles from './style.module.css';
 import Image from 'next/image';
 
@@ -7,15 +7,28 @@ interface Props {
   id?: string;
   label?: string;
   placeholder?: string;
+  inputValue: string;
+  setInputValue: Dispatch<SetStateAction<string>>;
+  handleInputBlur?: () => void;
+  isError?: boolean;
+  errorMessage?: string;
 }
 
-export const Input = ({ type = 'password', id, label, placeholder }: Props) => {
-  const [inputValue, setInputValue] = useState<string>('');
-  const [isError, setIsError] = useState(false);
+export const Input = ({
+  type = 'password',
+  id,
+  label,
+  placeholder,
+  inputValue,
+  setInputValue,
+  handleInputBlur,
+  isError,
+  errorMessage,
+}: Props) => {
   const [typeValue, setTypeValue] = useState<string>(type);
 
-  const handleInputBlur = () => {
-    setIsError(!inputValue);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
   };
 
   const handleEyeIconClick = () => {
@@ -35,9 +48,7 @@ export const Input = ({ type = 'password', id, label, placeholder }: Props) => {
           type={typeValue}
           value={inputValue}
           placeholder={placeholder}
-          onChange={e => {
-            setInputValue(e.target.value);
-          }}
+          onChange={handleInputChange}
           onBlur={handleInputBlur}
           id={id}
         />
@@ -56,9 +67,9 @@ export const Input = ({ type = 'password', id, label, placeholder }: Props) => {
           />
         ) : null}
       </div>
-      {isError && (
-        <p className={styles['error-message']}>내용을 다시 작성해주세요</p>
-      )}
+      {isError ? (
+        <p className={styles['error-message']}>{errorMessage}</p>
+      ) : null}
     </div>
   );
 };
