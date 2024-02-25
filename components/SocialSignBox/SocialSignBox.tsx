@@ -5,6 +5,7 @@ import {
   socialKakaoIcon,
 } from "@/public/img";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 
@@ -18,11 +19,19 @@ export default function SocialSignBox({ text }: Props) {
       <Container>
         <Span>{text}</Span>
         <IconContainer>
-          <IconButton type="button">
+          <IconButton
+            href="https://www.google.com"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             <Image fill src={googleBg} alt="구글로그인 버튼 배경이미지" />
             <Icon width={22} height={22} src={googleIcon} alt="구글아이콘" />
           </IconButton>
-          <IconButton type="button">
+          <IconButton
+            href="https://www.kakaocorp.com/page"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             <Image fill src={socialKakaoBg} alt="구글로그인 버튼 배경이미지" />
             <Icon
               width={22}
@@ -59,7 +68,7 @@ const IconContainer = styled.div`
   display: flex;
   gap: 16px;
 `;
-const IconButton = styled.button`
+const IconButton = styled(Link)`
   position: relative;
   width: 42px;
   height: 42px;
