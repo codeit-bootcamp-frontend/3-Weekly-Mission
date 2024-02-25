@@ -31,7 +31,7 @@ const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName }: TFolder
   const setFolderCategoryList = useFolderStore((state) => state.setFolderCategoryList);
   useEffect(() => {
     setFolderCategoryList(folderCategoryList);
-  }, [folderCategoryList]);
+  }, [folderCategoryList, setFolderCategoryList]);
 
   const { openModal } = useModal();
 

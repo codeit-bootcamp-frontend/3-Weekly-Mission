@@ -1,44 +1,58 @@
-import { ComponentPropsWithRef, HTMLInputTypeAttribute, ImgHTMLAttributes, useState } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+  HTMLInputTypeAttribute,
+  ImgHTMLAttributes,
+  useState,
+} from 'react';
 
 import styled from 'styled-components';
 
-export interface CommonInputProps extends ComponentPropsWithRef<'input'> {
+export interface CommonInputProps extends ComponentPropsWithoutRef<'input'> {
   type?: HTMLInputTypeAttribute;
   isError?: boolean;
   srcOnPasswordType?: ImgHTMLAttributes<HTMLImageElement>['src'];
   srcOnTextType?: ImgHTMLAttributes<HTMLImageElement>['src'];
 }
 
-const CommonInput = ({
-  type: initialType = 'text',
-  value,
-  isError,
-  onChange,
-  onBlur,
-  placeholder = '내용 입력',
-  srcOnPasswordType,
-  srcOnTextType,
-  ...rest
-}: CommonInputProps) => {
-  const [inputType, setInputType] = useState<HTMLInputTypeAttribute>(initialType);
+export type CommonInputType = typeof CommonInput;
 
-  const handleClickIcon = () => {
-    setInputType(inputType === 'password' ? 'text' : 'password');
-  };
+const CommonInput = forwardRef<ElementRef<'input'>, CommonInputProps>(
+  (
+    {
+      type: initialType = 'text',
+      isError,
+      onBlur,
+      placeholder = '내용 입력',
+      srcOnPasswordType,
+      srcOnTextType,
+      ...rest
+    },
+    ref,
+  ) => {
+    const [inputType, setInputType] = useState<HTMLInputTypeAttribute>(initialType);
 
-  return (
-    <StInputWrap $isError={isError}>
-      <StInput type={inputType} value={value} onChange={onChange} onBlur={onBlur} placeholder={placeholder} {...rest} />
-      {initialType === 'password' && (
-        <StInputIcon
-          src={inputType === 'password' ? srcOnPasswordType : srcOnTextType}
-          alt='비밀번호 표시 여부 아이콘'
-          onClick={handleClickIcon}
-        />
-      )}
-    </StInputWrap>
-  );
-};
+    const handleClickIcon = () => {
+      setInputType(inputType === 'password' ? 'text' : 'password');
+    };
+
+    return (
+      <StInputWrap $isError={isError}>
+        <StInput ref={ref} type={inputType} onBlur={onBlur} placeholder={placeholder} {...rest} />
+        {initialType === 'password' && (
+          <StInputIcon
+            src={inputType === 'password' ? srcOnPasswordType : srcOnTextType}
+            alt='비밀번호 표시 여부 아이콘'
+            onClick={handleClickIcon}
+          />
+        )}
+      </StInputWrap>
+    );
+  },
+);
+
+CommonInput.displayName = 'CommonInput';
 
 export default CommonInput;
 
@@ -74,4 +88,6 @@ const StInput = styled.input`
 const StInputIcon = styled.img`
   width: 1.6rem;
   height: 1.6rem;
+
+  cursor: pointer;
 `;

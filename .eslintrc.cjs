@@ -47,6 +47,15 @@ module.exports = {
     },
   ],
   rules: {
+    // @see{@link https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md}
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        labelComponents: ['label'],
+        labelAttributes: ['htmlFor'],
+        controlComponents: ['input'],
+      },
+    ],
     'import/no-cycle': 'off', // TODO: 해결법 알아보기
     'react/react-in-jsx-scope': 'off',
     'import/no-absolute-path': 'off',
