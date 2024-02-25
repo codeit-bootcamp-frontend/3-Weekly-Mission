@@ -1,5 +1,8 @@
 import LinkLogo from '../LinkLogo/LinkLogo';
 import styles from './Sns.module.css';
+import classNames from 'classnames/bind';
+
+const cn = classNames.bind(styles);
 
 interface Props {
   className: string;
