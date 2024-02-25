@@ -1,0 +1,51 @@
+.form {
+  position: relative;
+  display: flex;
+  height: 40px;
+  box-shadow: var(--box-shadow);
+
+  input {
+    flex: 1 1;
+    padding: 12px 30px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    border-radius: 10px;
+    outline: none;
+    background-color: #f5f5f5;
+  }
+
+  input::placeholder {
+    color: #878787;
+  }
+
+  .searchIcon {
+    position: absolute;
+    top: 12.5px;
+    left: 12px;
+    width: 14px;
+    height: 14px;
+    border: none;
+    background-color: #f5f5f5;
+  }
+
+  .resetButton {
+    position: absolute;
+    cursor: pointer;
+    margin: 0;
+    border-style: none;
+    padding: 0;
+    background: none;
+    top: 7px;
+    right: 7px;
+  }
+}
+
+.result {
+  color: #9fa6b2;
+
+  span {
+    color: black;
+  }
+}

@@ -1,0 +1,28 @@
+.footer {
+  position: relative;
+  padding: 15px 0;
+  background-color: #111322;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .info {
+      color: #676767;
+    }
+
+    .links > a {
+      color: #676767;
+      text-decoration: none;
+    }
+
+    .links > :not(:last-child) {
+      margin-right: 30px;
+    }
+
+    .sns :not(:last-child) {
+      margin-right: 13px;
+    }
+  }
+}

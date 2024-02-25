@@ -1,0 +1,22 @@
+ul.popup {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-size: 10px;
+
+  li {
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  li:hover {
+    background-color: #e7effb;
+    color: #6d6afe;
+  }
+}

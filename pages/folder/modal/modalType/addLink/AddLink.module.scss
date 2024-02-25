@@ -1,0 +1,43 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  gap: 15px;
+}
+
+.closeButton {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  top: 15px;
+  right: 15px;
+}
+
+.title {
+  margin: 5px;
+  text-align: center;
+}
+
+.linkUrl {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #9fa6b2;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.folderList {
+  margin-bottom: 20px;
+}
+
+.folderList div {
+  padding: 5px;
+}
+
+.addButton {
+  height: 50px;
+}

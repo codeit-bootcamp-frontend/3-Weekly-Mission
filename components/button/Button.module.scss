@@ -1,0 +1,16 @@
+.button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  background: var(
+    --gra-purpleblue-to-skyblue,
+    linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%)
+  );
+  color: #f5f5f5;
+  gap: 10px;
+}
