@@ -47,13 +47,8 @@ const SearchBar = ({ setFolderPageLinks, setSharedPageLinks, folderId }: SearchP
     setIsSearch(true);
     setResultValue(value);
     const links = filterData((await handleLoadLinks()) ?? []);
-    if (setFolderPageLinks) {
-      setFolderPageLinks(links as FolderLink[]);
-    }
-
-    if (setSharedPageLinks) {
-      setSharedPageLinks(links as SampleFolderLink[]);
-    }
+    setFolderPageLinks && setFolderPageLinks(links as FolderLink[]);
+    setSharedPageLinks && setSharedPageLinks(links as SampleFolderLink[]);
   };
 
   const handelInputClear = () => {
