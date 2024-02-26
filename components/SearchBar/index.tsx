@@ -14,7 +14,6 @@ interface SearchProps {
 const SearchBar = ({ setFolderPageLinks, setSharedPageLinks, folderId }: SearchProps) => {
   const [value, setValue] = useState("");
   const [resultValue, setResultValue] = useState("");
-  const [isSearch, setIsSearch] = useState(false);
   const { pathname } = useRouter();
 
   const handelInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +43,6 @@ const SearchBar = ({ setFolderPageLinks, setSharedPageLinks, folderId }: SearchP
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSearch(true);
     setResultValue(value);
     const links = filterData((await handleLoadLinks()) ?? []);
     setFolderPageLinks && setFolderPageLinks(links as FolderLink[]);
@@ -76,7 +74,7 @@ const SearchBar = ({ setFolderPageLinks, setSharedPageLinks, folderId }: SearchP
           </button>
         )}
       </div>
-      {isSearch && (
+      {resultValue && (
         <div className={styles["SearchBar-result"]}>
           <strong>{resultValue}</strong>으로 검색한 결과입니다.
         </div>

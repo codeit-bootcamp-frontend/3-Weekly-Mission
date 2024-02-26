@@ -118,7 +118,7 @@ const FolderPage = ({ user, folder, folderLinks }: { user: User; folder: Folder[
           </div>
 
           <div className={styles["FolderItem-wrapper"]}>
-            {folderPageLinks.length && folder?.length ? (
+            {folderPageLinks.length > 0 ? (
               <div className={styles["FolderItem-folder-links"]}>
                 {folderPageLinks.map((link) => (
                   <Folders key={link.id} link={link} />
