@@ -22,6 +22,7 @@ export const SignupForm = () => {
     useState<string>('password');
   const [confirmPasswordTypeValue, setConfirmPasswordTypeValue] =
     useState<string>('password');
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -36,10 +37,15 @@ export const SignupForm = () => {
   const password = watch('password');
 
   const checkEmailDuplicate = async () => {
+    if (isLoading) {
+      return;
+    }
     const email = getValues('email');
+    setIsLoading(true);
     try {
       await postDuplicateEmail(email);
       clearErrors('email');
+      setIsLoading(false);
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError.response && axiosError.response.status === 409) {
@@ -47,20 +53,29 @@ export const SignupForm = () => {
           type: 'custom',
           message: ERROR_MESSAGES.DUPLICATE_EMAIL,
         });
+        setIsLoading(false);
+        return;
       }
+      setIsLoading(false);
       throw Error;
     }
   };
 
   const onSubmit = async (data: FormValues) => {
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
     try {
       const response = await postUserSignup(data);
       const { accessToken, refreshToken } = response;
       if (accessToken && refreshToken) {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
+        setIsLoading(false);
         router.push('/folder');
       } else {
+        setIsLoading(false);
         throw new Error('No Token');
       }
     } catch (error) {
@@ -78,9 +93,11 @@ export const SignupForm = () => {
           type: 'custom',
           message: ERROR_MESSAGES.CONFIRM_PASSWORD_CHECK_FAILED,
         });
+        setIsLoading(false);
         return;
       }
       alert(ERROR_MESSAGES.SIGN_UP_FAILED);
+      setIsLoading(false);
       throw Error;
     }
   };

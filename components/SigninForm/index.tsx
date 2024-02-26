@@ -14,6 +14,7 @@ type FormValues = {
 
 export const SigninForm = () => {
   const [typeValue, setTypeValue] = useState<string>('password');
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -23,14 +24,20 @@ export const SigninForm = () => {
   } = useForm<FormValues>({ mode: 'onBlur' });
 
   const onSubmit = async (data: FormValues) => {
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
     try {
       const response = await postUserSignin(data);
       const { accessToken, refreshToken } = response;
       if (accessToken && refreshToken) {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
+        setIsLoading(false);
         router.push('/folder');
       } else {
+        setIsLoading(false);
         throw new Error('No Token');
       }
     } catch (error) {
@@ -44,9 +51,11 @@ export const SigninForm = () => {
           type: 'custom',
           message: ERROR_MESSAGES.PASSWORD_CHECK_FAILED,
         });
+        setIsLoading(false);
         return;
       }
       alert(ERROR_MESSAGES.SIGN_IN_FAILED);
+      setIsLoading(false);
       throw Error;
     }
   };
