@@ -3,8 +3,21 @@ import { AddFolderButton } from './AddFolderButton/AddFolderButton';
 import { EditButtons } from './EditButton/EditButtons';
 import { ToolBarButton } from './ToolBarButton/ToolBarButton';
 import { BUTTONS } from './constant';
+import { useState } from 'react';
+import { InputModal } from '../Modal/InputModal/InputModal';
+import { DeleteModal } from '../Modal/DeleteModal/DeleteModal';
 
 export const FolderToolBar = ({ folders, selectedFolderId, onFolderClick }) => {
+  const [currentModal, setCurrentModal] = useState(null);
+
+  const closeModal = () => setCurrentModal(null);
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      closeModal();
+    }
+  };
+
   const folderName =
     'all' === selectedFolderId
       ? '전체'
@@ -27,14 +40,42 @@ export const FolderToolBar = ({ folders, selectedFolderId, onFolderClick }) => {
         ))}
       </ToolBarButtonWrapper>
       <AddButtonWrapper>
-        <AddFolderButton />
+        <AddFolderButton onClick={() => setCurrentModal('addFolder')} />
+        <InputModal
+          isOpen={currentModal === 'addFolder'}
+          title="폴더 추가"
+          placeholder="내용 입력"
+          buttonText="추가하기"
+          onCloseClick={closeModal}
+          onKeyDown={handleKeyDown}
+        />
       </AddButtonWrapper>
       <FolderName>{folderName}</FolderName>
       {selectedFolderId !== 'all' && (
         <Edit>
-          {BUTTONS.map((buttonData) => (
-            <EditButtons key={buttonData.text} {...buttonData} />
+          {BUTTONS.map(({ iconSource, text, modalId }) => (
+            <EditButtons
+              key={text}
+              iconSource={iconSource}
+              onClick={() => setCurrentModal(modalId)}
+            />
           ))}
+          <InputModal
+            isOpen={currentModal === 'rename'}
+            title="폴더 이름 변경"
+            placeholder="내용 입력"
+            buttonText="변경하기"
+            onCloseClick={closeModal}
+            onKeyDown={handleKeyDown}
+          />
+          <DeleteModal
+            isOpen={currentModal === 'delete'}
+            title="폴더 삭제"
+            description={folderName}
+            buttonText="삭제하기"
+            onCloseClick={closeModal}
+            onKeyDown={handleKeyDown}
+          />
         </Edit>
       )}
     </ToolBarContainer>
