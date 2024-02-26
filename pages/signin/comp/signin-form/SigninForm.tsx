@@ -54,7 +54,7 @@ const SigninForm = ({ router }: SigninFormProps) => {
       <SignForm.Form noValidate method='post' onSubmit={handleSubmit(onSubmitHandler)}>
         <SignForm.InputGap>
           <InputWithLabel
-            id='email'
+            id={SIGN.EMAIL}
             type='email'
             isError={!!errors.email}
             placeholder='이메일을 입력해주세요.'
@@ -66,7 +66,7 @@ const SigninForm = ({ router }: SigninFormProps) => {
           </InputWithLabel>
 
           <InputWithLabel
-            id='password'
+            id={SIGN.PASSWORD}
             type='password'
             isError={!!errors.password}
             placeholder='비밀번호를 입력해 주세요.'
@@ -74,7 +74,7 @@ const SigninForm = ({ router }: SigninFormProps) => {
             srcOnTextType='/images/icon/eye-on.svg'
             autoComplete='current-password'
             label='비밀번호'
-            {...register('password', SIGNIN_REGISTER_OPTIONS.password)}
+            {...register(SIGN.PASSWORD, SIGNIN_REGISTER_OPTIONS.password)}
           >
             <StErrorMsg>{errors.password?.message}</StErrorMsg>
           </InputWithLabel>

@@ -72,7 +72,7 @@ const SignupForm = ({ router }: SignupFormProps) => {
                 try {
                   await checkEmailDuplication(getValues().email);
                 } catch {
-                  setError('email', {
+                  setError(SIGN.EMAIL, {
                     message: '이미 존재하는 이메일입니다.',
                   });
                 }
@@ -91,7 +91,7 @@ const SignupForm = ({ router }: SignupFormProps) => {
             srcOnTextType='/images/icon/eye-on.svg'
             autoComplete='current-password'
             label='비밀번호'
-            {...register('password', SIGNUP_REGISTER_OPTIONS.password)}
+            {...register(SIGN.PASSWORD, SIGNUP_REGISTER_OPTIONS.password)}
           >
             <StErrorMsg>{errors.password?.message}</StErrorMsg>
           </InputWithLabel>
