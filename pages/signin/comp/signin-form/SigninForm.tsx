@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { NextRouter } from 'next/router';
@@ -10,13 +9,8 @@ import SignForm from '@components/ui/molecules/form/sign-form';
 
 import { signin } from '@api/sign/signin';
 
-import { EMAIL_REGEX } from '@/constant/regex';
-import { submitErrorMsg } from '@/constant/sign/submitErrorMsg';
-
-type Inputs = {
-  email: string;
-  password: string;
-};
+import { SIGN, SIGNIN_REGISTER_OPTIONS, SUBMIT_ERROR_MSG } from '@/constant/sign/sign';
+import { SigninInputs } from '@/interface/sign/sign';
 
 type SigninFormProps = {
   router: NextRouter;
@@ -29,7 +23,7 @@ const SigninForm = ({ router }: SigninFormProps) => {
     formState: { errors, isSubmitting },
     setError,
     reset,
-  } = useForm<Inputs>({
+  } = useForm<SigninInputs>({
     mode: 'onBlur',
     defaultValues: {
       email: '',
@@ -37,17 +31,17 @@ const SigninForm = ({ router }: SigninFormProps) => {
     },
   });
 
-  const onSubmitHandler = async (inputs: Inputs) => {
+  const onSubmitHandler = async (inputs: SigninInputs) => {
     try {
       const res = await signin({ email: inputs.email, password: inputs.password });
 
-      if (!(res instanceof Error)) {
+      if (!(res instanceof Error) && typeof window !== 'undefined') {
         localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
         reset();
         router.push('/folder');
       }
     } catch {
-      submitErrorMsg.forEach(({ name, message }) => {
+      SUBMIT_ERROR_MSG.forEach(({ name, message }) => {
         setError(name, {
           message,
         });
@@ -55,62 +49,34 @@ const SigninForm = ({ router }: SigninFormProps) => {
     }
   };
 
-  useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
-      router.push('/folder');
-    }
-  }, [router]);
-
   return (
     <SignForm.FormContainer>
       <SignForm.Form noValidate method='post' onSubmit={handleSubmit(onSubmitHandler)}>
         <SignForm.InputGap>
-          <InputWithLabel>
-            <InputWithLabel.Box>
-              <InputWithLabel.Label htmlFor='email'>이메일</InputWithLabel.Label>
-              <InputWithLabel.InputWithErrorMsg
-                id='email'
-                type='email'
-                isError={!!errors.email}
-                placeholder='이메일을 입력해주세요.'
-                {...register('email', {
-                  pattern: {
-                    value: EMAIL_REGEX,
-                    message: '올바른 이메일 주소가 아닙니다.',
-                  },
-                  required: {
-                    value: true,
-                    message: '이메일을 입력해주세요.',
-                  },
-                })}
-                autoComplete='email'
-              >
-                <StErrorMsg>{errors.email?.message}</StErrorMsg>
-              </InputWithLabel.InputWithErrorMsg>
-            </InputWithLabel.Box>
+          <InputWithLabel
+            id='email'
+            type='email'
+            isError={!!errors.email}
+            placeholder='이메일을 입력해주세요.'
+            autoComplete='email'
+            label='이메일'
+            {...register(SIGN.EMAIL, SIGNIN_REGISTER_OPTIONS.email)}
+          >
+            <StErrorMsg>{errors.email?.message}</StErrorMsg>
           </InputWithLabel>
 
-          <InputWithLabel>
-            <InputWithLabel.Box>
-              <InputWithLabel.Label htmlFor='password'>비밀번호</InputWithLabel.Label>
-              <InputWithLabel.InputWithErrorMsg
-                id='password'
-                type='password'
-                isError={!!errors.password}
-                placeholder='비밀번호를 입력해 주세요.'
-                srcOnPasswordType='/images/icon/eye-off.svg'
-                srcOnTextType='/images/icon/eye-on.svg'
-                {...register('password', {
-                  required: {
-                    value: true,
-                    message: '비밀번호를 입력해주세요.',
-                  },
-                })}
-                autoComplete='current-password'
-              >
-                <StErrorMsg>{errors.password?.message}</StErrorMsg>
-              </InputWithLabel.InputWithErrorMsg>
-            </InputWithLabel.Box>
+          <InputWithLabel
+            id='password'
+            type='password'
+            isError={!!errors.password}
+            placeholder='비밀번호를 입력해 주세요.'
+            srcOnPasswordType='/images/icon/eye-off.svg'
+            srcOnTextType='/images/icon/eye-on.svg'
+            autoComplete='current-password'
+            label='비밀번호'
+            {...register('password', SIGNIN_REGISTER_OPTIONS.password)}
+          >
+            <StErrorMsg>{errors.password?.message}</StErrorMsg>
           </InputWithLabel>
         </SignForm.InputGap>
 
@@ -126,7 +92,7 @@ const SigninForm = ({ router }: SigninFormProps) => {
 
 export default SigninForm;
 
-const StErrorMsg = styled.p`
+export const StErrorMsg = styled.p`
   color: var(--Linkbrary-red, #ff5b56);
 
   font-size: 1.4rem;

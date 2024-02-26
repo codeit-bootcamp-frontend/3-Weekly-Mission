@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
@@ -7,6 +9,12 @@ import SigninForm from './comp/signin-form/SigninForm';
 
 const Signin = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      router.push('/folder');
+    }
+  }, [router]);
 
   return (
     <Wrap>

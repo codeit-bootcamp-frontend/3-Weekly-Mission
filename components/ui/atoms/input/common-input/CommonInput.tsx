@@ -9,12 +9,14 @@ import {
 
 import styled from 'styled-components';
 
-export interface CommonInputProps extends ComponentPropsWithoutRef<'input'> {
-  type?: HTMLInputTypeAttribute;
+export type AppendedCommonInputProps = {
   isError?: boolean;
   srcOnPasswordType?: ImgHTMLAttributes<HTMLImageElement>['src'];
   srcOnTextType?: ImgHTMLAttributes<HTMLImageElement>['src'];
-}
+  type?: HTMLInputTypeAttribute;
+};
+
+export interface CommonInputProps extends ComponentPropsWithoutRef<'input'>, AppendedCommonInputProps {}
 
 export type CommonInputType = typeof CommonInput;
 

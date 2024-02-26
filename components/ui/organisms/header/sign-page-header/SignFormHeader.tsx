@@ -20,7 +20,7 @@ const SignFormHeader = ({ router }: SignFormHeaderProps) => {
       <LinkbraryLogo />
       <p className={cn('header-message')}>
         {path === '/signin' ? '회원이 아니신가요?' : '이미 회원이신가요?'}
-        <Link className={cn('header-link')} href='/signup'>
+        <Link className={cn('header-link')} href={path === '/signin' ? '/signup' : '/signin'}>
           {path === '/signin' ? '회원 가입하기' : '로그인하기'}
         </Link>
       </p>

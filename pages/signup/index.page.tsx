@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useRouter } from 'next/router';
 
 import SignFormHeader from '@components/ui/organisms/header/sign-page-header/SignFormHeader';
@@ -7,6 +9,12 @@ import SignupForm from './comp/signup-form/SignupForm';
 
 const Signup = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      router.push('/folder');
+    }
+  }, [router]);
 
   return (
     <Wrap>

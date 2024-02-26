@@ -1,8 +1,8 @@
-import SignFormProvider from './context/SignFormProvider';
-import Form from './Form';
-import FormContainer from './FormContainer';
-import InputGap from './InputGap';
-import SocialMediaLogin from './SocialMediaLogin';
+import SignFormProvider from './compound-kit/context/SignFormProvider';
+import Form from './compound-kit/Form';
+import FormContainer from './compound-kit/FormContainer';
+import InputGap from './compound-kit/InputGap';
+import SocialMediaLogin from './compound-kit/SocialMediaLogin';
 
 const SignForm = Object.assign(SignFormProvider, {
   FormContainer,
