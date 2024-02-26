@@ -1,16 +1,17 @@
-import { ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 import styles from "./FilterButton.module.css";
 
 interface FilterButtonProps {
   children: ReactNode;
   id?: number;
+  handleButtonClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const FilterButton = ({ children, id }: FilterButtonProps) => {
+const FilterButton = ({ children, id, handleButtonClick }: FilterButtonProps) => {
   return (
-    <div className={styles.FilterButton} id={String(id)}>
+    <button onClick={handleButtonClick} className={styles.FilterButton} id={String(id)}>
       {children}
-    </div>
+    </button>
   );
 };
 
