@@ -1,7 +1,7 @@
 import { Portal } from '@/pages/Portal/Portal';
 import styled from 'styled-components';
 
-export const Modal = ({
+export const ModalContainer = ({
   children,
   isOpen = false,
   onBackdropClick,

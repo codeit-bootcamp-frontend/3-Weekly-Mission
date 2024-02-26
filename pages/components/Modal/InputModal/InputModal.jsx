@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { Modal } from '../../ModalContents/ModalContainer/ModalContainer';
+import {
+  Modal,
+  ModalContainer,
+} from '../../ModalContents/ModalContainer/ModalContainer';
 import { ModalContentBox } from '../../ModalContents/ModalContentBox/ModalContentBox';
 import { ModalContentButton } from '../../ModalContents/ModalContentButton/ModalContentButton';
 import { ModalContentInput } from '../../ModalContents/ModalContentInput/ModalContentInput';
@@ -16,7 +19,11 @@ export const InputModal = ({
   onChange,
 }) => {
   return (
-    <Modal isOpen={isOpen} onBackdropClick={onCloseClick} onKeyDown={onKeyDown}>
+    <ModalContainer
+      isOpen={isOpen}
+      onBackdropClick={onCloseClick}
+      onKeyDown={onKeyDown}
+    >
       <ModalContentBox
         header={<ModalContentTitle>{title}</ModalContentTitle>}
         content={
@@ -31,7 +38,7 @@ export const InputModal = ({
         }
         onCloseClick={onCloseClick}
       />
-    </Modal>
+    </ModalContainer>
   );
 };
 

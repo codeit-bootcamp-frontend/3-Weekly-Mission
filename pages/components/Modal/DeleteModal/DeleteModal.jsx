@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { Modal } from '../../ModalContents/ModalContainer/ModalContainer';
+import {
+  Modal,
+  ModalContainer,
+} from '../../ModalContents/ModalContainer/ModalContainer';
 import { ModalContentBox } from '../../ModalContents/ModalContentBox/ModalContentBox';
 import { ModalContentButton } from '../../ModalContents/ModalContentButton/ModalContentButton';
 import { ModalContentTitle } from '../../ModalContents/ModalContentTitle/ModalContentTitle';
@@ -15,7 +18,11 @@ export const DeleteModal = ({
   onKeyDown,
 }) => {
   return (
-    <Modal isOpen={isOpen} onBackdropClick={onCloseClick} onKeyDown={onKeyDown}>
+    <ModalContainer
+      isOpen={isOpen}
+      onBackdropClick={onCloseClick}
+      onKeyDown={onKeyDown}
+    >
       <ModalContentBox
         header={
           <ModalHeader>
@@ -30,7 +37,7 @@ export const DeleteModal = ({
         }
         onCloseClick={onCloseClick}
       />
-    </Modal>
+    </ModalContainer>
   );
 };
 

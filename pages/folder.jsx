@@ -1,8 +1,5 @@
 import { useGetLinks } from '@/hooks/useGetLinks';
-import { useMemo, useState } from 'react';
-import { NoLink } from './components/NoLink/NoLink';
-import { CardList } from './components/CardList/CardList';
-import { EditableCard } from './components/Card/EditableCard';
+import { useState } from 'react';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import { LinkForm } from './components/LinkForm/LinkForm';
 import { SearchBar } from './components/SearchBar/SearchBar';
@@ -10,22 +7,12 @@ import { Footer } from './components/Footer/Footer';
 import { FolderToolBar } from './components/FolderToolBar/FolderToolBar';
 import { useGetFolders } from '@/hooks/useGetFolders';
 import styled from 'styled-components';
+import { FolderPageCardList } from './components/CardList/FolderPageCardList/FolderPageCardList';
 
 export default function Folder() {
   const { data: folders } = useGetFolders();
   const [selectedFolderId, setSelectedFolderId] = useState('all');
-  const { data: links, loading } = useGetLinks(selectedFolderId);
-  const cardList = useMemo(() => {
-    if (loading) return null;
-    if (links.length === 0) return <NoLink />;
-    return (
-      <CardList>
-        {links.map((link) => (
-          <EditableCard key={link?.id} {...link} />
-        ))}
-      </CardList>
-    );
-  }, [loading, links]);
+  const { data: links } = useGetLinks(selectedFolderId);
 
   return (
     <FolderPageContainer>
@@ -38,7 +25,7 @@ export default function Folder() {
           selectedFolderId={selectedFolderId}
           onFolderClick={setSelectedFolderId}
         />
-        {cardList}
+        <FolderPageCardList links={links} folders={folders} />
       </MainContainer>
       <Footer />
     </FolderPageContainer>
