@@ -1,5 +1,5 @@
+import { User } from '@/pages/folder';
 import styles from './Profile.module.css';
-import { User } from '../Nav/Nav';
 import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
@@ -15,7 +15,7 @@ export default function Profile({ user }: Props) {
         width={28}
         height={28}
         className={cn('profile')}
-        src={user.profileImageSource || user['image_source']}
+        src={user['image_source']}
         alt="프로필 사진"
       />
       <span className={cn('email')}>{user.email}</span>

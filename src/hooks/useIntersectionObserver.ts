@@ -39,7 +39,7 @@ export default function useIntersectionObserver(targets: HTMLDivElement[]) {
         }
       });
     };
-  }, []);
+  }, [targets]);
 
   return showFixedAddLink;
 }

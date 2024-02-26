@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { getFolder } from './api/api';
+import { useEffect, useState } from 'react';
+import { getFolder, getUserByAccessToken } from './api/api';
 import styles from '@/styles/page.module.css';
 import Nav from '@/src/components/header/Nav/Nav';
 import Folder from '@/src/components/header/Folder/Folder';
@@ -7,6 +7,7 @@ import Search from '@/src/components/section/Search/Search';
 import Card from '@/src/components/section/Card/Card';
 import FooterLinks from '@/src/components/footer/FooterLinks/FooterLinks';
 import classNames from 'classnames/bind';
+import { User } from './folder';
 
 const cn = classNames.bind(styles);
 
@@ -21,32 +22,34 @@ export interface SharedLink {
   image_source?: string;
 }
 
-interface Props {
-  links: SharedLink[];
-}
-
-export async function getStaticProps() {
-  const { folder } = await getFolder();
-  const links: SharedLink[] = folder.links;
-
-  return {
-    props: {
-      links,
-    },
-  };
-}
-
-export default function SharePage({ links }: Props) {
+export default function SharePage() {
   const [keyword, setKeyword] = useState('');
+  const [links, setLinks] = useState<SharedLink[]>([]);
+  const [user, setUser] = useState<User>(null);
 
   const handleSearchOnChange = (nextKeyword: string) => {
     setKeyword(nextKeyword);
   };
 
+  useEffect(() => {
+    async function getUser(accessToken: string) {
+      const body = await getUserByAccessToken(accessToken);
+      setUser(body.data[0]);
+    }
+
+    async function getLinks() {
+      const { folder } = await getFolder();
+      setLinks(folder.links);
+    }
+
+    getUser(localStorage.getItem('accessToken'));
+    getLinks();
+  }, []);
+
   return (
     <>
       <header className={cn('header')}>
-        <Nav />
+        <Nav user={user} />
         <Folder />
       </header>
       <section className={cn('section')}>

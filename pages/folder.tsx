@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { getFoldersById, getLinksById } from './api/api';
+import { getFoldersById, getLinksById, getUserByAccessToken } from './api/api';
 import styles from '@/styles/page.module.css';
 import Nav from '@/src/components/header/Nav/Nav';
 import Search from '@/src/components/section/Search/Search';
@@ -11,8 +11,18 @@ import Card from '@/src/components/section/Card/Card';
 import useIntersectionObserver from '@/src/hooks/useIntersectionObserver';
 import 'intersection-observer';
 import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
 
 const cn = classNames.bind(styles);
+
+export interface User {
+  id: number;
+  created_at: string;
+  name: string;
+  image_source: string;
+  email: string;
+  auth_id: string;
+}
 
 export interface LinkType {
   id: number;
@@ -50,58 +60,18 @@ export interface FolderInfo {
   id: Id;
 }
 
-interface InitialData {
-  folderInfo: FolderInfo;
-  userId: number;
-  links: LinkType[];
-  folderList: FolderList[];
-}
-
-interface Props {
-  initialData: InitialData;
-}
-
-export async function getServerSideProps() {
-  const folderInfo: FolderInfo = {
+export default function FolderPage() {
+  const [folderInfo, setFolderInfo] = useState<FolderInfo>({
     name: '전체',
     id: 0,
-  };
-  const userId = 1;
-  let links: LinkType[];
-  let folderList: FolderList[];
-  let data: Folder[];
-
-  links = (await getLinksById(folderInfo.id)).data;
-
-  data = (await getFoldersById(userId)).data;
-  folderList = data.map((element: Folder) => {
-    return { name: element.name, linkCount: element.link.count };
   });
-
-  const initialData = {
-    folderInfo,
-    userId,
-    links,
-    folderList,
-  };
-
-  return {
-    props: { initialData },
-  };
-}
-
-export default function FolderPage({ initialData }: Props) {
-  const [folderInfo, setFolderInfo] = useState<FolderInfo>(
-    initialData.folderInfo
-  );
-  const [folderList, setFolderList] = useState<FolderList[]>(
-    initialData.folderList
-  );
-  const [userId, setUserId] = useState(initialData.userId);
-  const [links, setLinks] = useState<LinkType[]>(initialData.links);
+  const [user, setUser] = useState<User>(null);
+  const [folderList, setFolderList] = useState<FolderList[]>([]);
+  const [links, setLinks] = useState<LinkType[]>([]);
   const [keyword, setKeyword] = useState('');
   const observeTargets = useRef<HTMLDivElement[]>([]);
   const showFixedAddLink = useIntersectionObserver(observeTargets.current);
+  const router = useRouter();
 
   const handleSearchOnChange = (nextKeyword: string) => {
     setKeyword(nextKeyword);
@@ -111,9 +81,20 @@ export default function FolderPage({ initialData }: Props) {
     setFolderInfo({ name: folder.name, id: folder.id });
   };
 
-  const handleSetUserId = (nextUserId: number) => {
-    setUserId(nextUserId);
-  };
+  useEffect(() => {
+    async function getUser(accessToken: string) {
+      const body = await getUserByAccessToken(accessToken);
+      setUser(body.data[0]);
+    }
+
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      router.push('/signin');
+    } else {
+      getUser(accessToken);
+    }
+  }, []);
 
   useEffect(() => {
     async function getFolderLinks() {
@@ -123,7 +104,7 @@ export default function FolderPage({ initialData }: Props) {
     }
 
     async function getFolderLists() {
-      const { data } = await getFoldersById(userId);
+      const { data } = await getFoldersById(user.id);
       if (!data) return;
       setFolderList(
         data.map((element: Folder) => {
@@ -132,18 +113,20 @@ export default function FolderPage({ initialData }: Props) {
       );
     }
 
-    getFolderLinks();
-    getFolderLists();
-  }, [folderInfo.id, userId]);
+    if (user) {
+      getFolderLinks();
+      getFolderLists();
+    }
+  }, [folderInfo.id, user]);
 
   return (
     <>
       <header className={cn('header')}>
-        <Nav className="not-fixed" id={1} setUserId={handleSetUserId} />
+        <Nav className="not-fixed" user={user} />
         <div
           className={cn('observe-target')}
           ref={(element) => {
-            if (element) {
+            if (element && !observeTargets.current.includes(element)) {
               observeTargets.current.push(element);
             }
           }}
@@ -177,7 +160,7 @@ export default function FolderPage({ initialData }: Props) {
                 <EditOption
                   src="/images/share.png"
                   optionName="공유"
-                  userId={userId}
+                  userId={user.id}
                   folder={folderInfo}
                 />
                 <EditOption
@@ -224,7 +207,7 @@ export default function FolderPage({ initialData }: Props) {
         <div
           className={cn('observe-target')}
           ref={(element) => {
-            if (element) {
+            if (element && !observeTargets.current.includes(element)) {
               observeTargets.current.push(element);
             }
           }}

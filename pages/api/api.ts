@@ -1,10 +1,14 @@
 type User = { email: string; password: string };
 
-export async function getUser() {
-  const response = await fetch(
-    'https://bootcamp-api.codeit.kr/api/sample/user'
-  );
-  const body = await response.json();
+export async function getUserByAccessToken(accessToken: string) {
+  const result = await fetch('https://bootcamp-api.codeit.kr/api/users', {
+    method: 'GET',
+    headers: {
+      accept: '*/*',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const body = await result.json();
 
   return body;
 }
