@@ -41,13 +41,10 @@ const FolderPage = ({ user, folder, folderLinks }: { user: User; folder: Folder[
   const [folderId, setFolderId] = useState(0);
   const [folderPageLinks, setFolderPageLinks] = useState<FolderLink[]>(folderLinks);
 
-  const handleButtonClick = async (e: MouseEvent<HTMLButtonElement>) => {
-    const buttonElement = e.target as HTMLButtonElement;
-
-    if (buttonElement && buttonElement.textContent) {
-      setKeyword(buttonElement.textContent);
-      const folderId = Number(buttonElement.id);
-      setFolderId(folderId);
+  const handleButtonClick = async (text: string, folderId: number) => {
+    if (text) {
+      setKeyword(text);
+      setFolderId(Number(folderId));
       const links = await getFolderLinks(folderId);
       setFolderPageLinks(links.data);
     }
@@ -74,12 +71,12 @@ const FolderPage = ({ user, folder, folderLinks }: { user: User; folder: Folder[
           <div className={styles["FilterButton-container"]}>
             <div className={styles["FilterButton-wrapper"]}>
               <li>
-                <FilterButton handleButtonClick={handleButtonClick}>전체</FilterButton>
+                <FilterButton onClick={() => handleButtonClick("전체", 0)}>전체</FilterButton>
               </li>
               {folder?.length &&
                 folder.map((item) => (
                   <li key={item.id}>
-                    <FilterButton handleButtonClick={handleButtonClick} id={item.id}>
+                    <FilterButton id={item.id} onClick={() => handleButtonClick(item.name, item.id)}>
                       {item.name}
                     </FilterButton>
                   </li>

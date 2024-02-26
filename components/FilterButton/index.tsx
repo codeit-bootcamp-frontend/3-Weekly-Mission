@@ -4,12 +4,12 @@ import styles from "./FilterButton.module.css";
 interface FilterButtonProps {
   children: ReactNode;
   id?: number;
-  handleButtonClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const FilterButton = ({ children, id, handleButtonClick }: FilterButtonProps) => {
+const FilterButton = ({ children, id, onClick }: FilterButtonProps) => {
   return (
-    <button onClick={handleButtonClick} className={styles.FilterButton} id={String(id)}>
+    <button onClick={onClick} className={styles.FilterButton} id={String(id)}>
       {children}
     </button>
   );
