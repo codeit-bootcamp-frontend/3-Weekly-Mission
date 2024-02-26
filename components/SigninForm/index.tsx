@@ -5,6 +5,7 @@ import { ERROR_MESSAGES, EMAIL_REGEX } from '@/constants/constants';
 import { postUserSignin } from '@/api/api';
 import Image from 'next/image';
 import { useState } from 'react';
+import { AxiosError } from 'axios';
 
 type FormValues = {
   email: string;
@@ -24,8 +25,17 @@ export const SigninForm = () => {
   const onSubmit = async (data: FormValues) => {
     try {
       const response = await postUserSignin(data);
-
-      if (!response) {
+      const { accessToken, refreshToken } = response;
+      if (accessToken && refreshToken) {
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        router.push('/folder');
+      } else {
+        throw new Error('No Token');
+      }
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response && axiosError.response.status === 400) {
         setError('email', {
           type: 'custom',
           message: ERROR_MESSAGES.EMAIL_CHECK_FAILED,
@@ -36,19 +46,8 @@ export const SigninForm = () => {
         });
         return;
       }
-
-      const { accessToken, refreshToken } = response;
-
-      if (accessToken && refreshToken) {
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        router.push('/folder');
-      } else {
-        throw new Error('No Token');
-      }
-    } catch (error) {
       alert(ERROR_MESSAGES.SIGN_IN_FAILED);
-      console.error(error);
+      throw Error;
     }
   };
 

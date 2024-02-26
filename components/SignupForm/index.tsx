@@ -9,6 +9,7 @@ import {
 import { postDuplicateEmail, postUserSignup } from '@/api/api';
 import Image from 'next/image';
 import { useState } from 'react';
+import { AxiosError } from 'axios';
 
 type FormValues = {
   email: string;
@@ -37,40 +38,24 @@ export const SignupForm = () => {
   const checkEmailDuplicate = async () => {
     const email = getValues('email');
     try {
-      const response = await postDuplicateEmail(email);
-      if (!response) {
+      await postDuplicateEmail(email);
+      clearErrors('email');
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response && axiosError.response.status === 409) {
         setError('email', {
           type: 'custom',
           message: ERROR_MESSAGES.DUPLICATE_EMAIL,
         });
-      } else {
-        clearErrors('email');
       }
-    } catch (error) {
-      console.error(error);
+      throw Error;
     }
   };
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
-
     try {
       const response = await postUserSignup(data);
-
-      if (!response) {
-        setError('email', {
-          type: 'custom',
-          message: ERROR_MESSAGES.EMAIL_CHECK_FAILED,
-        });
-        setError('password', {
-          type: 'custom',
-          message: ERROR_MESSAGES.PASSWORD_CHECK_FAILED,
-        });
-        return;
-      }
-
       const { accessToken, refreshToken } = response;
-
       if (accessToken && refreshToken) {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
@@ -79,8 +64,24 @@ export const SignupForm = () => {
         throw new Error('No Token');
       }
     } catch (error) {
-      alert(ERROR_MESSAGES.SIGN_IN_FAILED);
-      console.error(error);
+      const axiosError = error as AxiosError;
+      if (axiosError.response && axiosError.response.status === 400) {
+        setError('email', {
+          type: 'custom',
+          message: ERROR_MESSAGES.EMAIL_CHECK_FAILED,
+        });
+        setError('password', {
+          type: 'custom',
+          message: ERROR_MESSAGES.PASSWORD_CHECK_FAILED,
+        });
+        setError('confirmPassword', {
+          type: 'custom',
+          message: ERROR_MESSAGES.CONFIRM_PASSWORD_CHECK_FAILED,
+        });
+        return;
+      }
+      alert(ERROR_MESSAGES.SIGN_UP_FAILED);
+      throw Error;
     }
   };
 
@@ -120,7 +121,6 @@ export const SignupForm = () => {
           <p className={styles['error-message']}>{errors.email.message}</p>
         ) : null}
       </div>
-
       <div>
         <label htmlFor="sign-password">비밀번호</label>
         <div className={styles['input-box']}>
@@ -158,7 +158,6 @@ export const SignupForm = () => {
           <p className={styles['error-message']}>{errors.password.message}</p>
         ) : null}
       </div>
-
       <div>
         <label htmlFor="sign-confirm-password">비밀번호 확인</label>
         <div className={styles['input-box']}>
