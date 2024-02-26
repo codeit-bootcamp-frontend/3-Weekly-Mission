@@ -1,6 +1,5 @@
 import { formatDate, afterTimeDate } from "@/lib/utils";
 import { SampleFolderLink } from "@/lib/types";
-import { MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./SharedLinks.module.css";
@@ -31,13 +30,8 @@ interface SharedLinkCardProps {
 const SharedLinkCard = ({ link }: SharedLinkCardProps) => {
   const { createdAt, url, title, description, imageSource } = link;
 
-  const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    window.open(url);
-  };
-
   return (
-    <Link href={url} className={styles["shared-link-box"]} onClick={handleLinkClick}>
+    <Link href={url} className={styles["shared-link-box"]}>
       <div className={styles["link-image-box"]}>
         {imageSource ? (
           <div className={styles["link-image"]}>

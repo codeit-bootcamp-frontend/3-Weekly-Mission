@@ -1,5 +1,4 @@
 import { formatDate, afterTimeDate } from "@/lib/utils";
-import { MouseEvent } from "react";
 import { FolderLink } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,13 +11,8 @@ interface FolderItemProps {
 const FolderItem = ({ link }: FolderItemProps) => {
   const { created_at, url, title, description, image_source } = link;
 
-  const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    window.open(url);
-  };
-
   return (
-    <Link href={url} className={styles["FolderItem-link-box"]} onClick={handleLinkClick}>
+    <Link href={url} className={styles["FolderItem-link-box"]}>
       <div className={styles["link-image-box"]}>
         {image_source ? (
           <div className={styles["link-image"]}>
