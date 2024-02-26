@@ -60,7 +60,7 @@ const SignupForm = ({ router }: SignupFormProps) => {
           <InputWithLabel
             id={SIGN.EMAIL}
             type='email'
-            isError={!!errors.email}
+            isError={!!errors[SIGN.EMAIL]}
             placeholder='이메일을 입력해주세요.'
             autoComplete='email'
             label='이메일'
@@ -79,13 +79,13 @@ const SignupForm = ({ router }: SignupFormProps) => {
               },
             })}
           >
-            <StErrorMsg>{errors.email?.message}</StErrorMsg>
+            <StErrorMsg>{errors[SIGN.EMAIL]?.message}</StErrorMsg>
           </InputWithLabel>
 
           <InputWithLabel
             id={SIGN.PASSWORD}
             type='password'
-            isError={!!errors.password}
+            isError={!!errors[SIGN.PASSWORD]}
             placeholder='비밀번호를 입력해 주세요.'
             srcOnPasswordType='/images/icon/eye-off.svg'
             srcOnTextType='/images/icon/eye-on.svg'
@@ -93,13 +93,13 @@ const SignupForm = ({ router }: SignupFormProps) => {
             label='비밀번호'
             {...register(SIGN.PASSWORD, SIGNUP_REGISTER_OPTIONS.password)}
           >
-            <StErrorMsg>{errors.password?.message}</StErrorMsg>
+            <StErrorMsg>{errors[SIGN.PASSWORD]?.message}</StErrorMsg>
           </InputWithLabel>
 
           <InputWithLabel
             id={SIGN.CONFIRM_PASSWORD}
             type='password'
-            isError={!!errors.confirmPassword}
+            isError={!!errors[SIGN.CONFIRM_PASSWORD]}
             placeholder='비밀번호와 일치하는 값을 입력해 주세요.'
             srcOnPasswordType='/images/icon/eye-off.svg'
             srcOnTextType='/images/icon/eye-on.svg'
@@ -110,7 +110,7 @@ const SignupForm = ({ router }: SignupFormProps) => {
               validate: (value) => value === getValues()[SIGN.PASSWORD] || '비밀번호가 일치하지 않습니다.',
             })}
           >
-            <StErrorMsg>{errors.password?.message}</StErrorMsg>
+            <StErrorMsg>{errors[SIGN.CONFIRM_PASSWORD]?.message}</StErrorMsg>
           </InputWithLabel>
         </SignForm.InputGap>
 

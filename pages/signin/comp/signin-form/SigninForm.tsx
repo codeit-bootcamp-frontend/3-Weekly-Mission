@@ -56,19 +56,19 @@ const SigninForm = ({ router }: SigninFormProps) => {
           <InputWithLabel
             id={SIGN.EMAIL}
             type='email'
-            isError={!!errors.email}
+            isError={!!errors[SIGN.EMAIL]}
             placeholder='이메일을 입력해주세요.'
             autoComplete='email'
             label='이메일'
             {...register(SIGN.EMAIL, SIGNIN_REGISTER_OPTIONS.email)}
           >
-            <StErrorMsg>{errors.email?.message}</StErrorMsg>
+            <StErrorMsg>{errors[SIGN.EMAIL]?.message}</StErrorMsg>
           </InputWithLabel>
 
           <InputWithLabel
             id={SIGN.PASSWORD}
             type='password'
-            isError={!!errors.password}
+            isError={!!errors[SIGN.PASSWORD]}
             placeholder='비밀번호를 입력해 주세요.'
             srcOnPasswordType='/images/icon/eye-off.svg'
             srcOnTextType='/images/icon/eye-on.svg'
@@ -76,7 +76,7 @@ const SigninForm = ({ router }: SigninFormProps) => {
             label='비밀번호'
             {...register(SIGN.PASSWORD, SIGNIN_REGISTER_OPTIONS.password)}
           >
-            <StErrorMsg>{errors.password?.message}</StErrorMsg>
+            <StErrorMsg>{errors[SIGN.PASSWORD]?.message}</StErrorMsg>
           </InputWithLabel>
         </SignForm.InputGap>
 
