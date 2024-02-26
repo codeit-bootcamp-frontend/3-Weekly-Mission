@@ -71,9 +71,9 @@ const SearchBar = ({ setFolderPageLinks, setSharedPageLinks, folderId }: SearchP
           />
         </form>
         {value && (
-          <div className={styles["SearchBar-clear-icon"]}>
-            <Image fill src="/assets/clear.svg" onClick={handelInputClear} alt="내용 지우기 아이콘" />
-          </div>
+          <button onClick={handelInputClear} className={styles["SearchBar-clear-icon"]}>
+            <Image fill src="/assets/clear.svg" alt="내용 지우기 아이콘" />
+          </button>
         )}
       </div>
       {isSearch && (
