@@ -34,7 +34,7 @@
 
 .kebab,
 .star {
-  position: relative;
+  position: absolute;
 }
 
 .kebab {
