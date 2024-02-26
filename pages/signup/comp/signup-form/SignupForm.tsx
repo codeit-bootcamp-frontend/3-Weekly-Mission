@@ -64,13 +64,13 @@ const SignupForm = ({ router }: SignupFormProps) => {
             placeholder='이메일을 입력해주세요.'
             autoComplete='email'
             label='이메일'
-            {...register('email', {
+            {...register(SIGN.EMAIL, {
               ...SIGNUP_REGISTER_OPTIONS.email,
               onBlur: async () => {
                 if (!EMAIL_REGEX.test(getValues().email)) return;
 
                 try {
-                  await checkEmailDuplication(getValues().email);
+                  await checkEmailDuplication(getValues()[SIGN.EMAIL]);
                 } catch {
                   setError(SIGN.EMAIL, {
                     message: '이미 존재하는 이메일입니다.',
@@ -107,7 +107,7 @@ const SignupForm = ({ router }: SignupFormProps) => {
             label='비밀번호 확인'
             {...register(SIGN.CONFIRM_PASSWORD, {
               ...SIGNUP_REGISTER_OPTIONS.confirmPassword,
-              validate: (value) => value === getValues().password || '비밀번호가 일치하지 않습니다.',
+              validate: (value) => value === getValues()[SIGN.PASSWORD] || '비밀번호가 일치하지 않습니다.',
             })}
           >
             <StErrorMsg>{errors.password?.message}</StErrorMsg>
