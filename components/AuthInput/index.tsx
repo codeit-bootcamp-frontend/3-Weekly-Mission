@@ -2,17 +2,13 @@ import { useState } from "react";
 import Image from "next/image";
 import styles from "./AuthInput.module.css";
 
-const AuthInput = ({ type = "password" }: { type: string }) => {
+const AuthInput = ({ type = "password" }: { type: "password" | "text" }) => {
   const [inputValue, setInputValue] = useState("");
   const [isError, setIsError] = useState(false);
   const [typeValue, setTypeValue] = useState("password");
 
   const handleInputBlur = () => {
-    if (!inputValue) {
-      setIsError(true);
-    } else {
-      setIsError(false);
-    }
+    setIsError(!inputValue);
   };
 
   const handleEyeIconClick = () => {
