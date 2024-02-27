@@ -1,6 +1,9 @@
 import { MouseEvent } from 'react';
 import styles from './FolderListButton.module.css';
 import { FolderInfo } from '@/pages/folder';
+import classNames from 'classnames/bind';
+
+const cn = classNames.bind(styles);
 
 interface Props {
   folderName: string;
@@ -16,9 +19,7 @@ export default function FolderListButton({
   id = undefined,
 }: Props) {
   const className =
-    folderName === buttonName
-      ? `${styles['list-button']} ${styles['active']}`
-      : styles['list-button'];
+    folderName === buttonName ? cn('list-button', 'active') : cn('list-button');
   const onClick = (e: MouseEvent) => {
     if (e.currentTarget.textContent) {
       onClickFolder({ name: e.currentTarget.textContent, id });

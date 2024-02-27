@@ -1,74 +1,40 @@
-import { FocusEvent, MouseEvent, useState } from 'react';
+import React, { InputHTMLAttributes, forwardRef } from 'react';
 import styles from './Input.module.css';
+import classNames from 'classnames/bind';
 import Image from 'next/image';
 
-interface Props {
-  type: 'email' | 'password';
+const cn = classNames.bind(styles);
+
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  isError: boolean;
+  errorMessage: string;
+  suffixImage?: {
+    width: number;
+    height: number;
+    className: string;
+    src: string;
+    alt: string;
+    onClick: () => void;
+  };
 }
 
-const CHECK_EMAIL = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]{2,}/;
-const CHECK_PASSWORD = /^(?=.*?[a-zA-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,}$/;
-
-const CHECK = {
-  email: CHECK_EMAIL,
-  password: CHECK_PASSWORD,
-};
-
-export default function Input({ type }: Props) {
-  const [isHide, setIsHide] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  const onClickIcon = (e: MouseEvent) => {
-    const targetElement = e.target as HTMLElement;
-    const inputElement =
-      targetElement.previousElementSibling as HTMLInputElement;
-    inputElement.type = inputElement.type === 'password' ? 'text' : 'password';
-    setIsHide(!isHide);
-  };
-
-  const onBlurInput = (e: FocusEvent<HTMLInputElement>) => {
-    if (!CHECK[type].test(e.target.value)) {
-      e.target.classList.add(styles['error']);
-      setIsError(true);
-    } else {
-      e.target.classList.remove(styles['error']);
-      setIsError(false);
-    }
-  };
-
+const Input = forwardRef<HTMLInputElement, Props>(function Input(
+  { isError, errorMessage, suffixImage, ...rest }: Props,
+  ref
+) {
   return (
-    <div className={styles['input-container']}>
+    <div className={cn('input-container')}>
       <input
-        type={type}
-        className={styles['input']}
-        placeholder="내용 입력"
-        onBlur={onBlurInput}
+        ref={ref}
+        className={isError ? cn('input', 'error') : cn('input')}
+        {...rest}
       />
-      {type === 'password' &&
-        (isHide ? (
-          <Image
-            width={16}
-            height={16}
-            className={styles['password-icon']}
-            src="/images/eye-on.svg"
-            alt="눈모양 아이콘"
-            onClick={onClickIcon}
-          />
-        ) : (
-          <Image
-            width={16}
-            height={16}
-            className={styles['password-icon']}
-            src="/images/eye-off.svg"
-            alt="눈에 빗금친 아이콘"
-            onClick={onClickIcon}
-          />
-        ))}
-      {isError && (
-        <span className={styles['error-message']}>
-          내용을 다시 작성해주세요
-        </span>
+      {suffixImage && (
+        <Image {...suffixImage} className={cn(suffixImage.className)} />
       )}
+      {isError && <span className={cn('error-message')}>{errorMessage}</span>}
     </div>
   );
-}
+});
+
+export default Input;

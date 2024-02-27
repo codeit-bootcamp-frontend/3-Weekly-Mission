@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, ReactNode, useState } from 'react';
 import timeDifferenceCalculate from '../../../utils/timeElapsedCalculate';
 import DropDown from '../DropDown/DropDown';
 import BaseModal from '../BaseModal/BaseModal';
@@ -8,6 +8,10 @@ import { SharedLink } from '@/pages/shared';
 import { LinkType, FolderList } from '@/pages/folder';
 import Link from 'next/link';
 import Image from 'next/image';
+import classNames from 'classnames/bind';
+
+const cn = classNames.bind(styles);
+const modalCn = classNames.bind(modalStyles);
 
 interface Props {
   page: LinkType | SharedLink;
@@ -24,12 +28,8 @@ export default function Card({ page, folderList }: Props) {
   const description = page.description;
 
   const logo = '/images/logo.svg';
-  const divClass = image
-    ? styles['image']
-    : `${styles['image']} ${styles['default']}`;
-  const imgClass = image
-    ? styles['preview']
-    : `${styles['preview']} ${styles['default-image']}`;
+  const divClass = image ? cn('image') : cn('image', 'default');
+  const imgClass = image ? cn('preview') : cn('preview', 'default-image');
 
   const upload = new Date(String(page.createdAt || page['created_at']));
   const timeDiff = timeDifferenceCalculate(upload);
@@ -37,21 +37,17 @@ export default function Card({ page, folderList }: Props) {
   const temp = upload.toLocaleDateString();
   const uploadDate = temp.slice(0, temp.length - 1);
 
-  let modalContent;
+  let modalContent: ReactNode;
 
   switch (selectDropDownItem) {
     case '삭제하기':
       modalContent = (
         <>
-          <div
-            className={`${modalStyles['modal__link-remove']} ${modalStyles['modal--remove']}`}
-          >
-            <span className={modalStyles['modal__name']}>링크 삭제</span>
-            <span className={modalStyles['modal__link']}>{link}</span>
+          <div className={modalCn('modal__link-remove', 'modal--remove')}>
+            <span className={modalCn('modal__name')}>링크 삭제</span>
+            <span className={modalCn('modal__link')}>{link}</span>
           </div>
-          <button
-            className={`${modalStyles['modal__button']} ${modalStyles['modal__button--remove']}`}
-          >
+          <button className={modalCn('modal__button', 'modal__button--remove')}>
             변경하기
           </button>
         </>
@@ -60,17 +56,17 @@ export default function Card({ page, folderList }: Props) {
     case '폴더에 추가':
       modalContent = (
         <>
-          <div className={modalStyles['modal__link-add']}>
-            <span className={modalStyles['modal__name']}>폴더에 추가</span>
-            <span className={modalStyles['modal__link']}>{link}</span>
+          <div className={modalCn('modal__link-add')}>
+            <span className={modalCn('modal__name')}>폴더에 추가</span>
+            <span className={modalCn('modal__link')}>{link}</span>
           </div>
-          <div className={modalStyles['modal__folder-list']}>
+          <div className={modalCn('modal__folder-list')}>
             {folderList &&
               folderList.map((element) => {
                 const className =
                   element.name === folderItem
-                    ? `${modalStyles['modal__folder--item']} ${modalStyles['active']}`
-                    : modalStyles['modal__folder--item'];
+                    ? modalCn('modal__folder--item', 'active')
+                    : modalCn('modal__folder--item');
                 const onClickFolderItem = (e: MouseEvent) => {
                   if (e.currentTarget.firstElementChild?.textContent) {
                     setFolderItem(
@@ -85,17 +81,17 @@ export default function Card({ page, folderList }: Props) {
                     className={className}
                     onClick={onClickFolderItem}
                   >
-                    <span className={modalStyles['modal__item-name']}>
+                    <span className={modalCn('modal__item-name')}>
                       {element.name}
                     </span>
-                    <span className={modalStyles['modal__link-count']}>
+                    <span className={modalCn('modal__link-count')}>
                       {element.linkCount}개 링크
                     </span>
                     {folderItem === element.name && (
                       <Image
                         width={14}
                         height={14}
-                        className={modalStyles['modal__check-icon']}
+                        className={modalCn('modal__check-icon')}
                         src="/images/check.png"
                         alt="체크 아이콘"
                       />
@@ -104,16 +100,14 @@ export default function Card({ page, folderList }: Props) {
                 );
               })}
           </div>
-          <button className={`${modalStyles['modal__button']} cta`}>
+          <button className={`${modalCn('modal__button')} cta`}>
             추가하기
           </button>
         </>
       );
       break;
     default:
-      <span className={modalStyles['modal__name']}>
-        의도치 않은 모달입니다
-      </span>;
+      <span className={modalCn('modal__name')}>의도치 않은 모달입니다</span>;
   }
 
   const handleOpenModal = (type: string) => {
@@ -127,13 +121,8 @@ export default function Card({ page, folderList }: Props) {
   };
 
   return (
-    <div className={styles['card-container']}>
-      <Link
-        href={link}
-        target="_blank"
-        rel="noreferrer"
-        className={styles['card']}
-      >
+    <div className={cn('card-container')}>
+      <Link href={link} target="_blank" rel="noreferrer" className={cn('card')}>
         <div className={divClass}>
           <img
             width={340}
@@ -146,21 +135,21 @@ export default function Card({ page, folderList }: Props) {
             <Image
               width={34}
               height={34}
-              className={styles['star']}
+              className={cn('star')}
               src="/images/star.png"
               alt="별 모양 아이콘"
             />
           </button>
         </div>
-        <div className={styles['card-info']}>
-          <div className={styles['time-difference']}>
-            <span className={styles['upload-ago']}>{timeDiff} ago</span>
-            <div className={styles['card__drop-down']}>
+        <div className={cn('card-info')}>
+          <div className={cn('time-difference')}>
+            <span className={cn('upload-ago')}>{timeDiff} ago</span>
+            <div className={cn('card__drop-down')}>
               <DropDown selectItem={handleOpenModal} />
             </div>
           </div>
-          <span className={styles['description']}>{description}</span>
-          <span className={styles['upload-date']}>{uploadDate}</span>
+          <span className={cn('description')}>{description}</span>
+          <span className={cn('upload-date')}>{uploadDate}</span>
         </div>
       </Link>
       {openModal && (

@@ -1,0 +1,149 @@
+.background {
+  display: flex;
+  width: 100%;
+  padding: 23.8rem 0px 25.3rem 0px;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--linkbrary-bg, #f0f6ff);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.form-signin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.logo {
+  position: relative;
+  width: 21.0583rem;
+  height: 3.8rem;
+}
+
+.goto-signup {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.goto-signup span {
+  color: var(--black, #000);
+
+  /* Linkbrary/body1-regular */
+  font-size: 1.6rem;
+  line-height: 2.4rem; /* 150% */
+}
+
+.goto-signup .link {
+  color: var(--linkbrary-primary-color, #6d6afe);
+  text-decoration: underline;
+
+  /* Linkbrary/body 1-semibold */
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+}
+
+.input-element {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.label {
+  color: var(--black, #000);
+
+  /* Linkbrary/body2-regular */
+  font-size: 1.4rem;
+}
+
+.signin-button {
+  display: flex;
+  width: 40rem;
+  padding: 1.6rem 2rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border: none;
+  cursor: pointer;
+
+  color: var(--Grey-Light, #f5f5f5);
+  font-size: 1.8rem;
+  font-weight: 600;
+
+  border-radius: 8px;
+  background: var(
+    --gra-purpleblue-to-skyblue,
+    linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%)
+  );
+}
+
+.footer {
+  display: flex;
+  width: 40rem;
+  padding: 1.2rem 2.4rem;
+  justify-content: space-between;
+  align-items: center;
+
+  border-radius: 8px;
+  border: 1px solid var(--linkbrary-gray20, #ccd5e3);
+  background: var(--linkbrary-gray10, #e7effb);
+}
+
+.footer span {
+  color: var(--linkbrary-gray100, #373740);
+
+  /* Linkbrary/body2-regular */
+  font-size: 1.4rem;
+}
+
+.social-icons {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+}
+
+@media (max-width: 1024px) {
+  .background {
+    display: flex;
+    padding: 20rem 0 29rem 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .background {
+    display: inline-flex;
+    padding: 12rem 3.2rem 23.3rem 3.3rem;
+    flex-direction: column;
+  }
+
+  .signin-button {
+    width: 32.5rem;
+  }
+
+  .footer {
+    width: 32.5rem;
+  }
+}
