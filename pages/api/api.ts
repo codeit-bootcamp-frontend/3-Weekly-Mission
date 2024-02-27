@@ -22,6 +22,19 @@ export async function getUserById(id: number) {
   return body;
 }
 
+export async function getFoldersByAccessToken(accessToken) {
+  const response = await fetch('https://bootcamp-api.codeit.kr/api/folders', {
+    method: 'GET',
+    headers: {
+      accept: '*/*',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const body = await response.json();
+
+  return body;
+}
+
 export async function getFolderById(folderId: number) {
   const response = await fetch(
     `https://bootcamp-api.codeit.kr/api/folders/${folderId}`
@@ -36,6 +49,19 @@ export async function getFoldersById(id = 1) {
     `https://bootcamp-api.codeit.kr/api/users/${id}/folders`
   );
   const body = await response.json();
+
+  return body;
+}
+
+export async function getLinks(accessToken: string) {
+  const result = await fetch('https://bootcamp-api.codeit.kr/api/links', {
+    method: 'GET',
+    headers: {
+      accept: '*/*',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const body = await result.json();
 
   return body;
 }

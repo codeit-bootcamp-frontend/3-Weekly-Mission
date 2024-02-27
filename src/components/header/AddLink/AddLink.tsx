@@ -3,18 +3,18 @@ import styles from './AddLink.module.css';
 import BaseModal from '../../section/BaseModal/BaseModal';
 import modalStyles from '../../section/BaseModal/BaseModal.module.css';
 import Image from 'next/image';
-import { FolderList } from '@/pages/folder';
 import classNames from 'classnames/bind';
+import { FolderLinkCount } from '@/pages/folder/index';
 
 const cn = classNames.bind(styles);
 const modalCn = classNames.bind(modalStyles);
 
 interface Props {
-  folderList: FolderList[];
+  folderLinkCount: FolderLinkCount[];
   className?: string;
 }
 
-export default function AddLink({ folderList, className = '' }: Props) {
+export default function AddLink({ folderLinkCount, className = '' }: Props) {
   const [openModal, setOpenModal] = useState(false);
   const [folderItem, setFolderItem] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState('');
@@ -59,7 +59,7 @@ export default function AddLink({ folderList, className = '' }: Props) {
               <span className={modalCn('modal__link')}>{inputValue}</span>
             </div>
             <div className={modalCn('modal__folder-list')}>
-              {folderList.map((folder) => {
+              {folderLinkCount.map((folder) => {
                 const className =
                   folder.name === folderItem
                     ? modalCn('modal__folder--item', 'active')

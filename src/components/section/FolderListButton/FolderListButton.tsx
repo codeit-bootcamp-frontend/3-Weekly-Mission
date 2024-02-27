@@ -16,7 +16,7 @@ export default function FolderListButton({
   folderName,
   onClickFolder,
   buttonName,
-  id = undefined,
+  id = 0,
 }: Props) {
   const className =
     folderName === buttonName ? cn('list-button', 'active') : cn('list-button');
