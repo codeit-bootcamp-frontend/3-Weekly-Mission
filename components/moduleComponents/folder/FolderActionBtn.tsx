@@ -1,13 +1,16 @@
-import ModalMessge from "../modal/ModalMessage";
+import ModalMessge from "../../atomicComponents/modal/ModalMessage";
 import { useState } from "react";
-import useUserFolderListData from "../../hook/useUserFolderListData";
 import styles from "./FolderActionBtn.module.css";
-import { UserFolderType } from "../../types/Types";
 import Image from "next/image";
 import { share_svg, pen_svg, delete_svg } from "@/public/image";
+import { UserFolderType } from "@/types/Types";
 
 // 모달에 폴더이름 전달해주기 위핸 props
-function FolderAtionBtns({ folderLists }: { folderLists: UserFolderType[] }) {
+export default function FolderAtionBtn({
+  folderLists,
+}: {
+  folderLists: UserFolderType[];
+}) {
   const [snsmodalOpen, setSnsModalOpen] = useState(false);
   const [namemodalOpen, setNameModalOpen] = useState(false);
   const [folderRemoveModal, setFolderRemoveModal] = useState(false);
@@ -35,12 +38,12 @@ function FolderAtionBtns({ folderLists }: { folderLists: UserFolderType[] }) {
         </button>
 
         <button onClick={handlechangModal}>
-          <Image src={pen_svg} alt="이름 변경 버튼" width={20} height={20}/>
+          <Image src={pen_svg} alt="이름 변경 버튼" width={20} height={20} />
           이름 변경
         </button>
 
         <button onClick={handleRemoveModal}>
-          <Image src={delete_svg} alt="삭제" width={20} height={20}/>
+          <Image src={delete_svg} alt="삭제" width={20} height={20} />
           삭제
         </button>
 
@@ -78,9 +81,3 @@ function FolderAtionBtns({ folderLists }: { folderLists: UserFolderType[] }) {
     </div>
   );
 }
-
-export const FolderAtionBtn = () => {
-  const { folderLists } = useUserFolderListData();
-
-  return <FolderAtionBtns folderLists={folderLists} />;
-};

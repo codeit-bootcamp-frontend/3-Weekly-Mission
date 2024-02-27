@@ -14,13 +14,13 @@
   font-weight: 700;
 }
 
-.modal_folder_name{
+.modal_folder_name {
   width: 100%;
   margin-top: 20px;
   text-align: center;
   font-family: Pretendard;
-  font-size: 18px;
-
+  font-size: 15px;
+  word-wrap: break-word;
 }
 
 .modal_input {
@@ -80,7 +80,7 @@
   margin-top: 50px;
 }
 
-.sns_img_box{
+.sns_img_box {
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,55 +1,53 @@
-.header_Area{
+.header_Area {
   width: 100%;
   display: flex;
   flex-direction: column;
   background-color: #edf7ff;
 }
 
-.nav{
+.nav {
   width: 100%;
   padding: 30px 200px;
   display: flex;
   background-color: #edf7ff;
   justify-content: space-between;
-  position : fixed;
+  position: fixed;
   z-index: 1;
 }
 
-.profile_Box{
+.profile_Box {
   display: flex;
   align-items: center;
   gap: 10px;
-  }
+}
 
-.profile_Image{
+.profile_Image {
   width: 30px;
   border-radius: 50%;
 }
 
-.header_Under{
+.header_Under {
   margin-top: 20px;
-  }
+}
 
-.bookmark_Area{
+.bookmark_Area {
   margin-top: 100px;
   gap: 20px;
   text-align: center;
-
 }
 
-.user_Logo {
+/* .user_Logo {
   height: 60px;
   width: 60px;
-}
+} */
 
-.user_Name{
+.user_Name {
   font-size: 16px;
   font-weight: 400;
 }
 
-.bookmark_Text{
+.bookmark_Text {
   margin-top: 0;
   font-size: 40px;
   font-weight: 600;
 }
-

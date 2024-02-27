@@ -1,9 +1,11 @@
 import styles from "./kebab.module.css";
 import ModalMessge from "../modal/ModalMessage";
 import { useState } from "react";
+import { UserLinkType } from "../../../types/Types";
 
-export default function Kebab() {
+export default function Kebab({ link }: { link: UserLinkType }) {
   const [modalOpen, setModalOpen] = useState(false);
+  console.log(link);
 
   const handlePopMessage = () => {
     setModalOpen(true);
@@ -16,7 +18,7 @@ export default function Kebab() {
       <ModalMessge
         modalOpen={modalOpen}
         headerText={"링크 삭제"}
-        folderName={"링크"}
+        folderName={link.url}
         buttonText={"삭제하기"}
         type={"red"}
         close={setModalOpen}

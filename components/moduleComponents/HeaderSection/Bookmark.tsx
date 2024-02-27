@@ -1,4 +1,4 @@
-import useUserProfileData from "../../hook/useUserProfileData";
+import useUserProfileData from "../../../hook/useUserProfileData";
 import styles from "./HeaderSection.module.css";
 import Image from "next/image";
 

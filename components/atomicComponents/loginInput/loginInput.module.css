@@ -1,0 +1,33 @@
+.login_input_from {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  gap: 10px;
+  position: relative;
+}
+
+.login_input_label {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.login_input {
+  padding: 18px 15px;
+  width: 100%;
+  height: auto;
+  background-color: white;
+  border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.eye_icon{
+  position: absolute;
+  right: 15px;
+  bottom: 36px;
+}
+
+.error_Input{
+  color: red;
+  border-color: red;
+}

@@ -15,6 +15,10 @@ import share_svg from './share.svg';
 import star_jpg from './star.jpg';
 import twitter_svg from './twitter.svg';
 import youtube_svg from './youtube.svg';
+import google_png from './google.png';
+import kakaotalk_svg from './kakaotalk.svg';
+import eyeoff_svg from './eyeoff.svg';
+import eyeon_svg from './eyeon.svg';
 
 export{
     add_svg,
@@ -33,6 +37,10 @@ export{
     share_svg,
     star_jpg,
     twitter_svg,
-    youtube_svg
+    youtube_svg,
+    google_png,
+    kakaotalk_svg,
+    eyeoff_svg,
+    eyeon_svg
 }
 // 이미지를 export 하는 방법은? 

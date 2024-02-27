@@ -1,3 +1,7 @@
+import { HTMLAttributes } from "react";
+import { FieldError } from "react-hook-form";
+import { UseFormRegisterReturn } from "react-hook-form";
+
 export interface UserLinkType {
   id: number;
   created_at: string | null;
@@ -24,34 +28,33 @@ export interface UserFolderType {
   name: string;
   user_id: number;
   favorite: boolean;
-  link: { 
-    count: number 
+  link: {
+    count: number;
   };
 }
 
 export interface UserProfileType {
-  folder:{
+  folder: {
     id: number;
     name: string;
-      owner:{
-        id:number;
-        name:string;
-        profileImageSource:string;
+    owner: {
+      id: number;
+      name: string;
+      profileImageSource: string;
+    };
+    links: [
+      {
+        id: string;
+        createdAt: string;
+        url: string;
+        title: string;
+        description: string;
+        imageSource: string;
       }
-      links: [
-        {
-          id: string;
-          createdAt: string;
-          url: string;
-          title: string;
-          description: string;
-          imageSource:string;
-        }
-      ]
-      count: number; 
-  }
+    ];
+    count: number;
+  };
 }
-
 
 export interface ModalType {
   modalOpen: boolean;
@@ -87,5 +90,11 @@ export type ContentStyle = {
   position: string;
 };
 
-export type onClickEventType = (e: React.MouseEvent<HTMLElement>) => void;
-// 이벤트 객체의 타입을 모듈화해서 사용하는건 굳이 필요 없을것같아요 
+export interface LoginInputProps extends HTMLAttributes<HTMLInputElement> {
+  id: string;
+  label: string;
+  type: string;
+  placeholder: string;
+  register: UseFormRegisterReturn;
+  suffix?: React.ReactNode;
+}

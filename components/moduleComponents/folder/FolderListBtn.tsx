@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { FolderAtionBtn } from "./FolderActionBtn";
-import useUserFolderListData from "../../hook/useUserFolderListData";
+import FolderAtionBtn from "./FolderActionBtn";
+import useUserFolderListData from "../../../hook/useUserFolderListData";
 import styles from "./FolderList.module.css";
 import Card from "../CardSection/Card";
-import ModalMessge from "../modal/ModalMessage";
+import ModalMessge from "../../atomicComponents/modal/ModalMessage";
 import Image from "next/image";
 import { add_svg } from "@/public/image";
 
@@ -59,7 +59,7 @@ export default function FolderListBtn() {
           type={"blue"}
         />
       </div>
-      <FolderAtionBtn />
+      <FolderAtionBtn folderLists={folderLists} />
       {selectedFolderId !== null ? (
         <div className={styles.folder_card_img}>
           <Card selectedFolderId={selectedFolderId} />

@@ -1,0 +1,132 @@
+import React, { use, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { FieldError } from "react-hook-form";
+import { useState } from "react";
+import Image from "next/image";
+import LogoText from "@/components/atomicComponents/logoText";
+import LoginInput from "@/components/atomicComponents/loginInput";
+import LoginButton from "@/components/atomicComponents/loginButton";
+import SnsLogin from "@/components/atomicComponents/snsLogin";
+import { email_reg, password_reg } from "@/src/utils/regexPatterns";
+import { eyeoff_svg, eyeon_svg } from "@/public/image/index";
+import styles from "./signup.module.css";
+import useSignUp from "@/hook/useSignUp";
+import useEmailDuplicate from "@/hook/useEmailDuplicate";
+
+const SingUpModule = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors },
+  } = useForm({ mode: "onBlur" });
+  
+  const getSignUp = useSignUp();
+  const isEmailDuplicate = useEmailDuplicate(setError);
+
+  const [isPasswordVisible, setisPasswordVisible] = useState(false);
+  const [isPasswordConfirmVisible, setisPasswordConfirmVisible] = useState(false);
+
+  const toggleisPasswordVisible = () => {
+    setisPasswordVisible(!isPasswordVisible);
+  };
+
+  const toggleisPasswordConfirmVisible = () => {
+    setisPasswordConfirmVisible(!isPasswordConfirmVisible);
+  };
+
+  return (
+    <div>
+      <LogoText text="이미 회원이신가요?" linkText="로그인 하기" />
+      <form noValidate onSubmit={handleSubmit(getSignUp)}>
+        <LoginInput
+          id="email"
+          type="email"
+          label="이메일"
+          placeholder="이메일을 입력해주세요"
+          register={register("email", {
+            required: "이메일을 입력해주세요",
+            pattern: {
+              value: email_reg,
+              message: "올바른 이메일 주소가 아닙니다.",
+            },
+            onBlur: (e) => isEmailDuplicate(e.target.value),
+          })}
+        />
+        <div className={styles.error_text_wrapper}>
+          {errors.email && (
+            <small className={styles.error_text}>
+              {(errors.email as FieldError).message}
+            </small>
+          )}
+        </div>
+        <LoginInput
+          id="password"
+          type={isPasswordVisible ? "text" : "password"}
+          label="비밀번호"
+          placeholder="영문, 숫자를 조합해서 8자 이상 입력해주세요"
+          register={register("password", {
+            required: "비밀번호를 입력해주세요",
+            pattern: {
+              value: password_reg,
+              message: "영문, 숫자를 조합해서 8자 이상 입력해주세요",
+            },
+          })}
+          suffix={
+            <Image
+              className={styles.eye_icon}
+              src={isPasswordVisible ? eyeon_svg : eyeoff_svg}
+              alt="eye"
+              onClick={toggleisPasswordVisible}
+              width={16}
+              height={16}
+            />
+          }
+        />
+        <div className={styles.error_text_wrapper}>
+          {errors.password && (
+            <small className={styles.error_text}>
+              {(errors.password as FieldError).message}
+            </small>
+          )}
+        </div>
+        <LoginInput
+          id="passwordconfirm"
+          type={isPasswordConfirmVisible ? "text" : "password"}
+          label="비밀번호 확인"
+          placeholder="비밀번호와 일치하는 값을 입력해주세요"
+          register={register("passwordconfirm", {
+            required: "비밀번호를 입력해주세요",
+            validate: (value) =>
+              value === watch("password")
+                ? true
+                : "비밀번호가 일치하지 않습니다.",
+          })}
+          suffix={
+            <Image
+              className={styles.eye_icon}
+              src={isPasswordConfirmVisible ? eyeon_svg : eyeoff_svg}
+              alt="eye"
+              onClick={toggleisPasswordConfirmVisible}
+              width={16}
+              height={16}
+            />
+          }
+        />
+        <div className={styles.error_text_wrapper}>
+          {errors.passwordconfirm && (
+            <small className={styles.error_text}>
+              {(errors.passwordconfirm as FieldError).message}
+            </small>
+          )}
+        </div>
+        <LoginButton children={"회원가입"} />
+      </form>
+      <SnsLogin children={"다른 방식으로 가입하기"} />
+    </div>
+  );
+};
+
+export default SingUpModule;
+

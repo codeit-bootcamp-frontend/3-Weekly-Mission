@@ -1,9 +1,9 @@
-import { createDay, createTime } from "../../src/shared";
+import { createDay, createTime } from "../../../src/utils/timeUtils";
 import { useState } from "react";
-import useUserLinkData from "../../hook/useUserLinkData";
-import Kebab from "../kebab/Kebab";
+import useUserLinkData from "../../../hook/useUserLinkData";
+import Kebab from "../../atomicComponents/kebab/Kebab";
 import { kebab_svg } from "@/public/image";
-import { UserLinkType } from "../../types/Types";
+import { UserLinkType } from "../../../types/Types";
 import Link from "next/link";
 import styles from "./CardSection.module.css";
 import Image from "next/image";
@@ -12,10 +12,10 @@ function CardList({ link }: { link: UserLinkType }) {
   const [kebab, setKebab] = useState(false);
 
   const kebabClick = () => {
-    setKebab(!kebab); 
+    setKebab(!kebab);
   };
   return (
-    <div key={link.id} className={styles.card_Box}> 
+    <div key={link.id} className={styles.card_Box}>
       <div className={styles.imgBox}>
         <Link href={link.url as string} target="blank">
           {link.image_source ? (
@@ -43,9 +43,7 @@ function CardList({ link }: { link: UserLinkType }) {
           className={styles.케밥버튼}
           onClick={kebabClick}
         />
-        {kebab && ( 
-          <Kebab />
-        )}
+        {kebab && <Kebab link={link} />}
         <p className={styles.description}>{link.description}</p>
         <span className={styles.date}>{createDay(link.created_at ?? "")}</span>
       </div>
@@ -56,9 +54,9 @@ function CardList({ link }: { link: UserLinkType }) {
 export default function Card({
   selectedFolderId,
 }: {
-  selectedFolderId?: number;
+  selectedFolderId: number;
 }) {
-  const { linkData } = useUserLinkData(selectedFolderId!); //!인 이유는
+  const { linkData } = useUserLinkData(selectedFolderId); //!인 이유는
   return (
     <>
       {linkData.map((link) => (
@@ -67,3 +65,10 @@ export default function Card({
     </>
   );
 }
+
+//! 는 null이 아닌 어선셜 연산자, 또는 확정할당 연산자
+//null 또는 undefined가 될 수 없다. 라는 의미
+//값이 실제로 null 또는 undefined인지 확인하지 않고 단언 연산자를 사용하면 예상치 못한 결과가 발생할 수 있다
+//?.은 ?.앞의 평가 대상이 undefined나 null이면 평가를 멈추고 undefined를 반환한다.
+
+
