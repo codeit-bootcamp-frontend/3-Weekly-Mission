@@ -1,4 +1,4 @@
-import { Portal } from '@/pages/Portal/Portal';
+import { Portal } from '@/pages/components/Portal/Portal';
 import styled from 'styled-components';
 
 export const ModalContainer = ({

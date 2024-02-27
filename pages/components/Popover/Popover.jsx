@@ -1,4 +1,4 @@
-import { Portal } from '@/pages/Portal/Portal';
+import { Portal } from '@/pages/components/Portal/Portal';
 import { useBackgroundClick } from '@/util/useBackgroundClick';
 import { useCallback, useRef } from 'react';
 import styled from 'styled-components';

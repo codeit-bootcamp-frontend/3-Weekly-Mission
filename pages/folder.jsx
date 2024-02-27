@@ -48,4 +48,5 @@ const MainContainer = styled.div`
   margin-top: 4rem;
   margin-bottom: 4rem;
   padding: 0 3.2rem;
+  min-height: calc(100vh - 60rem);
 `;
