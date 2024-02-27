@@ -1,10 +1,31 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { AddLinkModal } from '../Modal/AddLinkModal/AddLinkModal';
 
-export const LinkForm = () => {
+export const LinkForm = ({ folders }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedFolderId, setSelectedFolderId] = useState(null);
+
+  const closeModal = () => {
+    setSelectedFolderId(null);
+    setIsModalOpen(false);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      closeModal();
+    }
+  };
+
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    setIsModalOpen(true);
+  };
+
   return (
     <LinkFormContainer>
-      <FormWrapper>
+      <FormWrapper onSubmit={handleOnSubmit}>
         <InputBox>
           <InputBoxIcon
             src="/images/link.svg"
@@ -16,6 +37,17 @@ export const LinkForm = () => {
         </InputBox>
         <InputButton>추가하기</InputButton>
       </FormWrapper>
+      <AddLinkModal
+        isOpen={isModalOpen}
+        title="폴더에 추가"
+        buttonText="추가하기"
+        folders={folders}
+        selectedFolderId={selectedFolderId}
+        setSelectedFolderId={setSelectedFolderId}
+        onAddClick={() => {}}
+        onCloseClick={closeModal}
+        onkeyDown={handleKeyDown}
+      />
     </LinkFormContainer>
   );
 };
@@ -32,7 +64,7 @@ const LinkFormContainer = styled.div`
   }
 `;
 
-const FormWrapper = styled.div`
+const FormWrapper = styled.form`
   display: flex;
   align-items: center;
   width: 100%;

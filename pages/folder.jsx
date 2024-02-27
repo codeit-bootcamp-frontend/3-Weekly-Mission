@@ -17,7 +17,7 @@ export default function Folder() {
   return (
     <FolderPageContainer>
       <NavigationBar />
-      <LinkForm />
+      <LinkForm folders={folders} />
       <MainContainer>
         <SearchBar />
         <FolderToolBar
