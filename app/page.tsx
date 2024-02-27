@@ -10,6 +10,9 @@ export default function MainPage() {
       <Link href="/shared">
         <h1>공유 페이지 이동</h1>
       </Link>
+      <Link href="/signin">
+        <h1>로그인 페이지 이동</h1>
+      </Link>
     </>
   );
 }
