@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { ModalContainer } from '../../ModalContents/ModalContainer/ModalContainer';
 import { ModalContentBox } from '../../ModalContents/ModalContentBox/ModalContentBox';
 import { ModalContentButton } from '../../ModalContents/ModalContentButton/ModalContentButton';
@@ -7,6 +8,8 @@ import { ModalFolderItem } from '../../ModalContents/ModalFolderItem/ModalFolder
 
 export const AddLinkModal = ({
   isOpen,
+  title,
+  buttonText,
   folders,
   selectedLinkUrl,
   selectedFolderId,
@@ -23,31 +26,57 @@ export const AddLinkModal = ({
     >
       <ModalContentBox
         header={
-          <div>
-            <ModalContentTitle>폴더에 추가</ModalContentTitle>
+          <ModalHeader>
+            <ModalContentTitle>{title}</ModalContentTitle>
             <ModalDescription>{selectedLinkUrl}</ModalDescription>
-          </div>
+          </ModalHeader>
         }
         content={
-          <div>
-            <div>
+          <ModalContent>
+            <FolderList>
               {folders.map(({ id, name, link }) => (
                 <ModalFolderItem
                   key={id}
                   isSelected={id === selectedFolderId}
                   folderName={name}
                   linkCount={link?.count}
-                  onClick={() => setSelectedFolderId}
+                  onClick={() => setSelectedFolderId(id)}
                 />
               ))}
-            </div>
+            </FolderList>
             <ModalContentButton onClick={onAddClick}>
-              추가하기
+              {buttonText}
             </ModalContentButton>
-          </div>
+          </ModalContent>
         }
         onCloseClick={onCloseClick}
       />
     </ModalContainer>
   );
 };
+
+const ModalHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  row-gap: 0.8rem;
+`;
+
+const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  row-gap: 2.4rem;
+`;
+
+const FolderList = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+  max-height: 17.2rem;
+  overflow-y: auto;
+  row-gap: 0.4rem;
+`;

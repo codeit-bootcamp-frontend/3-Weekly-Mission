@@ -22,6 +22,7 @@ export const EditableCard = ({
   const handleBackgroundClick = useCallback(() => {
     setIsPopoverOpen(false);
   }, []);
+
   const handleKebabClick = (event) => {
     event.preventDefault();
     setIsPopoverOpen(true);
@@ -68,10 +69,10 @@ export const EditableCard = ({
         anchorRef={kebabButtonRef}
         onBackgroundClick={handleBackgroundClick}
       >
-        <ul>
+        <PopoverList>
           <li onClick={handleDeleteClick}>삭제하기</li>
           <li onClick={handleAddToFolderClick}>폼더에 추가</li>
-        </ul>
+        </PopoverList>
       </Popover>
     </CardContainer>
   );
@@ -104,4 +105,31 @@ const KebabImage = styled(Image)`
   position: absolute;
   top: 20.7rem;
   right: 2rem;
+`;
+
+const PopoverList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.2rem;
+  width: 10rem;
+  padding: 0;
+  text-align: left;
+  box-shadow: 0 0.2rem 0.8rem 0 rgba(40, 39, 39, 0.1);
+  border-radius: 0.8rem;
+  background-color: white;
+
+  & > li {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.1rem;
+    font-size: 1.4rem;
+    font-family: 'Pretendard';
+
+    &:hover {
+      background: var(--gray10);
+      color: var(--primary);
+    }
+  }
 `;

@@ -1,6 +1,7 @@
 import { Portal } from '@/pages/Portal/Portal';
 import { useBackgroundClick } from '@/util/useBackgroundClick';
 import { useCallback, useRef } from 'react';
+import styled from 'styled-components';
 
 export const Popover = ({
   children,
@@ -40,7 +41,14 @@ export const Popover = ({
 
   return (
     <Portal container={anchorRef.current}>
-      <div>{children}</div>
+      <PopoverContainer>{children}</PopoverContainer>
     </Portal>
   );
 };
+
+const PopoverContainer = styled.div`
+  position: absolute;
+  top: 23rem;
+  right: -5.7rem;
+  z-index: 50;
+`;

@@ -42,6 +42,8 @@ export const FolderPageCardList = ({ links, folders }) => {
       />
       <AddLinkModal
         isOpen={currenModal === 'AddToFolder'}
+        title="폴더에 추가"
+        buttonText="추가하기"
         folders={folders}
         selectedLinkUrl={selectedLinkUrl}
         selectedFolderId={selectedFolderId}

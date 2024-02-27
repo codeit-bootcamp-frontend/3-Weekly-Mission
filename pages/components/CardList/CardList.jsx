@@ -1,8 +1,9 @@
+import { forwardRef } from 'react';
 import styled from 'styled-components';
 
-export const CardList = ({ children }) => {
-  return <CardListContainer> {children}</CardListContainer>;
-};
+export const CardList = forwardRef(({ children }, ref) => {
+  return <CardListContainer ref={ref}> {children}</CardListContainer>;
+});
 
 const CardListContainer = styled.div`
   display: grid;
