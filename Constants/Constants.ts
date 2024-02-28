@@ -1,3 +1,4 @@
+// Modal
 export const DEFALUT_MODAL_VALUE = {
     type: "",
     folderName: "",
@@ -5,7 +6,19 @@ export const DEFALUT_MODAL_VALUE = {
     url: "",
 };
 
+// fetching
 export const URL_DOMAIN = "bootcamp-api.codeit.kr";
+
+export enum fetchErrorMessages {
+    DuplicateEmail = "이미 존재하는 이메일입니다.",
+    NotValidEmail = "올바른 이메일이 아닙니다.",
+}
+
+// sign
+export const CONFIRM_EMAIL =
+    "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])";
+
+export const CONFIRM_PASSWORD = "(?=.*[A-Za-z])(?=.*[0-9]).{8,}";
 
 export enum SignInputErrorMessages {
     PleaseEnterEmail = "이메일을 입력해주세요.",
@@ -19,12 +32,8 @@ export enum SignInputErrorMessages {
     NoError = "",
 }
 
-export enum fetchErrorMessages {
-    DuplicateEmail = "이미 존재하는 이메일입니다.",
-    NotValidEmail = "올바른 이메일이 아닙니다.",
+// local storage
+// access token, refresh token 등
+export enum LocalStorageKeys {
+    AceessToken = "accessToken",
 }
-
-export const CONFIRM_EMAIL =
-    "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])";
-
-export const CONFIRM_PASSWORD = "(?=.*[A-Za-z])(?=.*[0-9]).{8,}";

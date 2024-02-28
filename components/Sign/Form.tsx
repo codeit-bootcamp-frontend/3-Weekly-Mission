@@ -7,6 +7,7 @@ import { SignInputErrorMessages, URL_DOMAIN } from "@/Constants/Constants";
 import { useRouter } from "next/router";
 import postFetch from "@/utils/postFetch";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { setAccessToken } from "@/utils/setAccessToken";
 
 // Think: 제어컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
 export const Form = ({ currentPath }: { currentPath: string }) => {
@@ -31,7 +32,7 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
             const res = await postFetch(URL_DOMAIN, "api/sign-in", data);
             const result = res.data;
             if (result.accessToken) {
-                localStorage.setItem("accessToken", result.accessToken);
+                setAccessToken(result.accessToken);
                 router.push("/folder");
             }
         } catch (error) {
@@ -56,7 +57,7 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
             const res = await postFetch(URL_DOMAIN, "api/sign-up", data);
             const result = res.data;
             if (result.accessToken) {
-                localStorage.setItem("accessToken", result.accessToken);
+                setAccessToken(result.accessToken);
                 router.push("/folder");
             }
         } catch (error) {
