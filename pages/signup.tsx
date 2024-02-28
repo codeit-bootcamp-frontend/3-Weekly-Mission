@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { checkEmail, postSignup } from './api/api';
 import Input from '@/src/components/Input/Input';
+import { Error } from './signin';
 
 const cn = classNames.bind(styles);
 
@@ -15,43 +16,48 @@ const PASSWORD_CHECK = /^(?=.*?[a-zA-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,}$/;
 export default function signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
-  const [emailErrorMessage, setEmailErrorMessage] = useState('');
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-  const [passwordCheckErrorMessage, setPasswordCheckErrorMessage] =
-    useState('');
-  const [isEmailError, setIsEmailError] = useState(false);
-  const [isPasswordError, setIsPasswordError] = useState(false);
-  const [isPasswordCheckError, setIsPasswordCheckError] = useState(false);
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [emailError, setEmailError] = useState<Error>({
+    message: '',
+    isError: false,
+  });
+  const [passwordError, setPasswordError] = useState<Error>({
+    message: '',
+    isError: false,
+  });
+  const [passwordConfirmError, setPasswordConfirmError] = useState<Error>({
+    message: '',
+    isError: false,
+  });
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [isShowPasswordCheck, setIsShowPasswordCheck] = useState(false);
+  const [isShowPasswordConfirm, setIsShowPasswordConfirm] = useState(false);
 
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
-  const passwordCheckInput = useRef<HTMLInputElement>(null);
+  const passwordConfirmInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   const checkEmailDuplicate = async () => {
     const response = await checkEmail({ email });
     if (response.error) {
-      setEmailErrorMessage('이미 사용 중인 이메일입니다.');
-      setIsEmailError(true);
+      setEmailError({ message: '이미 사용 중인 이메일입니다.', isError: true });
     } else {
-      setIsEmailError(false);
+      setEmailError({ message: '', isError: false });
     }
   };
 
-  const onBlurEmail = () => {
+  const emailCheck = () => {
     let valueError = true;
     if (email === '') {
-      setEmailErrorMessage('이메일을 입력해 주세요.');
-      setIsEmailError(true);
+      setEmailError({ message: '이메일을 입력해 주세요.', isError: true });
     } else if (!EMAIL_CHECK.test(email)) {
-      setEmailErrorMessage('올바른 이메일 주소가 아닙니다.');
-      setIsEmailError(true);
+      setEmailError({
+        message: '올바른 이메일 주소가 아닙니다.',
+        isError: true,
+      });
     } else {
       checkEmailDuplicate();
-      if (!isEmailError) {
+      if (!emailError.isError) {
         valueError = false;
       }
     }
@@ -59,41 +65,49 @@ export default function signup() {
     return valueError;
   };
 
-  const onBlurPassword = () => {
+  const passwordCheck = () => {
     let valueError = true;
     if (!PASSWORD_CHECK.test(password)) {
-      setPasswordErrorMessage(
-        '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.'
-      );
-      setIsPasswordError(true);
+      setPasswordError({
+        message: '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.',
+        isError: true,
+      });
     } else {
-      setIsPasswordError(false);
+      setPasswordError({ message: '', isError: false });
       valueError = false;
     }
 
     return valueError;
   };
 
-  const onBlurPasswordCheck = () => {
+  const passwordConfirmCheck = () => {
     let valueError = true;
-    if (passwordCheck !== password) {
-      setPasswordCheckErrorMessage('비밀번호가 일치하지 않아요.');
-      setIsPasswordCheckError(true);
+    if (passwordConfirm !== password) {
+      setPasswordConfirmError({
+        message: '비밀번호가 일치하지 않아요.',
+        isError: true,
+      });
     } else {
-      setIsPasswordCheckError(false);
+      setPasswordConfirmError({ message: '', isError: false });
       valueError = false;
     }
 
     return valueError;
   };
 
-  const onClickSignup = () => {
+  const onBlurEmail = () => emailCheck();
+
+  const onBlurPassword = () => passwordCheck();
+
+  const onBlurPasswordConfirm = () => passwordConfirmCheck();
+
+  const signup = () => {
     const inputList = {
-      email: { target: emailInput.current, check: onBlurEmail() },
-      password: { target: passwordInput.current, check: onBlurPassword() },
-      passwordCheck: {
-        target: passwordCheckInput.current,
-        check: onBlurPasswordCheck(),
+      email: { target: emailInput.current, check: emailCheck() },
+      password: { target: passwordInput.current, check: passwordCheck() },
+      passwordConfirm: {
+        target: passwordConfirmInput.current,
+        check: passwordConfirmCheck(),
       },
     };
 
@@ -115,14 +129,16 @@ export default function signup() {
       } else {
         onBlurEmail();
         onBlurPassword();
-        onBlurPasswordCheck();
+        onBlurPasswordConfirm();
       }
     }, 100);
   };
 
+  const onClickSignupButton = () => signup();
+
   const onKeydown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      onClickSignup();
+      signup();
     }
   };
 
@@ -162,11 +178,10 @@ export default function signup() {
                 ref={emailInput}
                 type="email"
                 placeholder="이메일을 입력해 주세요"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.currentTarget.value)}
                 onBlur={onBlurEmail}
                 onKeyDown={onKeydown}
-                isError={isEmailError}
-                errorMessage={emailErrorMessage}
+                error={emailError}
               />
             </div>
             <div className={cn('input-element')}>
@@ -174,12 +189,11 @@ export default function signup() {
               <Input
                 ref={passwordInput}
                 type={isShowPassword ? 'text' : 'password'}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.currentTarget.value)}
                 placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요."
                 onBlur={onBlurPassword}
                 onKeyDown={onKeydown}
-                isError={isPasswordError}
-                errorMessage={passwordErrorMessage}
+                error={passwordError}
                 suffixImage={{
                   width: 16,
                   height: 16,
@@ -195,23 +209,25 @@ export default function signup() {
             <div className={cn('input-element')}>
               <label className={cn('label')}>비밀번호 확인</label>
               <Input
-                ref={passwordCheckInput}
-                type={isShowPasswordCheck ? 'text' : 'password'}
+                ref={passwordConfirmInput}
+                type={isShowPasswordConfirm ? 'text' : 'password'}
                 placeholder="비밀번호와 일치하는 값을 입력해 주세요."
-                onChange={(e) => setPasswordCheck(e.target.value)}
-                onBlur={onBlurPasswordCheck}
+                onChange={(e) => setPasswordConfirm(e.currentTarget.value)}
+                onBlur={onBlurPasswordConfirm}
                 onKeyDown={onKeydown}
-                isError={isPasswordCheckError}
-                errorMessage={passwordCheckErrorMessage}
+                error={passwordConfirmError}
                 suffixImage={{
                   width: 16,
                   height: 16,
                   className: 'password-icon',
-                  src: isShowPassword
+                  src: isShowPasswordConfirm
                     ? '/images/eye-on.svg'
                     : '/images/eye-off.svg',
-                  alt: isShowPassword ? '눈모양 아이콘' : '눈에 빗금친 아이콘',
-                  onClick: () => setIsShowPassword(!isShowPassword),
+                  alt: isShowPasswordConfirm
+                    ? '눈모양 아이콘'
+                    : '눈에 빗금친 아이콘',
+                  onClick: () =>
+                    setIsShowPasswordConfirm(!isShowPasswordConfirm),
                 }}
               />
             </div>
@@ -219,7 +235,7 @@ export default function signup() {
           <button
             type="button"
             className={cn('signup-button')}
-            onClick={onClickSignup}
+            onClick={onClickSignupButton}
           >
             회원가입
           </button>
