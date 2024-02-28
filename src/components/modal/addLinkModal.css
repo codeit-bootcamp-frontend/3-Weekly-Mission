@@ -1,0 +1,98 @@
+.AddLinkModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  border-radius: 15px;
+  border: 1px solid var(--Stroke-light, #DEE2E6);
+  background: var(---Gray-White, #FFF);
+}
+.AddLinkModal .titles {
+  display: flex;
+  width: 280px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+.AddLinkModal .titles .title {
+  color: var(--Linkbrary-gray100, #373740);
+  font-family: 'Pretendard-Regular';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.AddLinkModal .titles .subTitle {
+  color: var(--Linkbrary-gray60, #9FA6B2);
+  text-align: center;
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 157.143% */
+}
+.AddLinkModal .folderList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.AddLinkModal .folderList .folder {
+  display: flex;
+  padding: 8px;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 8px;
+  position: relative;
+}
+.AddLinkModal .folderList .folder:hover {
+  border-radius: 8px;  
+  background: var(--Linkbrary-bg, #F0F6FF);
+}
+.AddLinkModal .folderList .folder .check {
+  position: absolute;
+  right: 1rem;
+}
+.AddLinkModal .folderList .folder .textBundle {
+  display: flex;
+  width: 264px;
+  align-items: center;
+  gap: 8px;
+}
+.AddLinkModal .folderList .folder .textBundle .title {
+  color: var(--Linkbrary-gray100, #373740);
+  font-family: 'Pretendard-Regular';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+}
+.AddLinkModal .folderList .folder .textBundle .linksCount {
+  color: var(--Linkbrary-gray60, #9FA6B2);
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.AddLinkModal .button {
+  display: flex;
+  width: 280px;
+  padding: 16px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: var(--gra-purpleblue-to-skyblue, linear-gradient(91deg, #6D6AFE 0.12%, #6AE3FE 101.84%));
+}
+.AddLinkModal .button .text {
+  color: var(--Grey-Light, #F5F5F5);
+  font-family: 'Pretendard-Regular';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+

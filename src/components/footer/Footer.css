@@ -1,4 +1,4 @@
-.Footer {
+.footer {
   display: flex;
   height: 280px;
   padding-top: 60px;
@@ -8,7 +8,7 @@
   border-radius: 30px;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.02);
 }
-.Footer .content {
+.footer .content {
   display: flex;
   height: 160px;
   padding: 32px 104px 64px 104px;
@@ -18,27 +18,27 @@
   align-self: stretch;
   background: #111322;
 }
-.Footer .content .box{
+.footer .content .box{
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
 }
-.Footer .box .item01 {
+.footer .box .item01 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
   color:#676767
 }
-.Footer .box .item02 {
+.footer .box .item02 {
   display: flex;
   width: 181.111px;
   align-items: flex-start;
   gap: 30px;
   color: #676767;
 }
-.Footer .box .item03 {
+.footer .box .item03 {
   display: flex;
   align-items: flex-start;
   gap: 12px;
