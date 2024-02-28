@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
-import { FormEvent, useId, useState } from "react";
+import { FormEvent } from "react";
 import { signFormDataInterface } from "@/interfaces";
 import { SignInputErrorMessages, URL_DOMAIN } from "@/Constants/Constants";
 import { useRouter } from "next/router";
@@ -21,57 +21,53 @@ export const Form = ({ currentPath }: { currentPath: string }) => {
     const router = useRouter();
 
     // 로그인 버튼 클릭
-    const handleLoginSubmit = (e: FormEvent) => {
+    const handleLoginSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        (async () => {
-            try {
-                const data: signFormDataInterface = {
-                    email: watch("email"),
-                    password: watch("password"),
-                };
-                const res = await postFetch(URL_DOMAIN, "api/sign-in", data);
-                const result = res.data;
-                if (result.accessToken) {
-                    localStorage.setItem("accessToken", result.accessToken);
-                    router.push("/folder");
-                }
-            } catch (error) {
-                console.error(error);
-                setError("email", {
-                    message: SignInputErrorMessages.PleaseConfirmEmail,
-                });
-                setError("password", {
-                    message: SignInputErrorMessages.PleaseConfirmPassword,
-                });
+        try {
+            const data: signFormDataInterface = {
+                email: watch("email"),
+                password: watch("password"),
+            };
+            const res = await postFetch(URL_DOMAIN, "api/sign-in", data);
+            const result = res.data;
+            if (result.accessToken) {
+                localStorage.setItem("accessToken", result.accessToken);
+                router.push("/folder");
             }
-        })();
+        } catch (error) {
+            console.error(error);
+            setError("email", {
+                message: SignInputErrorMessages.PleaseConfirmEmail,
+            });
+            setError("password", {
+                message: SignInputErrorMessages.PleaseConfirmPassword,
+            });
+        }
     };
 
     // 회원가입 버튼 클릭
-    const handleRegisterSubmit = (e: FormEvent) => {
+    const handleRegisterSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        (async () => {
-            try {
-                const data: signFormDataInterface = {
-                    email: watch("email"),
-                    password: watch("password"),
-                };
-                const res = await postFetch(URL_DOMAIN, "api/sign-up", data);
-                const result = res.data;
-                if (result.accessToken) {
-                    localStorage.setItem("accessToken", result.accessToken);
-                    router.push("/folder");
-                }
-            } catch (error) {
-                console.error(error);
-                setError("email", {
-                    message: SignInputErrorMessages.PleaseConfirmEmail,
-                });
-                setError("password", {
-                    message: SignInputErrorMessages.PleaseConfirmPassword,
-                });
+        try {
+            const data: signFormDataInterface = {
+                email: watch("email"),
+                password: watch("password"),
+            };
+            const res = await postFetch(URL_DOMAIN, "api/sign-up", data);
+            const result = res.data;
+            if (result.accessToken) {
+                localStorage.setItem("accessToken", result.accessToken);
+                router.push("/folder");
             }
-        })();
+        } catch (error) {
+            console.error(error);
+            setError("email", {
+                message: SignInputErrorMessages.PleaseConfirmEmail,
+            });
+            setError("password", {
+                message: SignInputErrorMessages.PleaseConfirmPassword,
+            });
+        }
     };
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {

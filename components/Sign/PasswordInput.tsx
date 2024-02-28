@@ -2,10 +2,8 @@ import {
     CONFIRM_PASSWORD,
     SignInputErrorMessages,
 } from "@/Constants/Constants";
-import { FormStateProxy, UseFormReturn } from "@/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FieldErrors, FieldValues } from "react-hook-form";
 import styled from "styled-components";
 
 interface PasswordInputProps {
