@@ -1,40 +1,40 @@
-import React, { useState } from "react";
+import classNames from "classnames/bind";
+import styles from "./PasswordInput.module.scss";
 
-const PasswordInput = ({ placeholder, error, onFocusOut }) => {
-  const [value, setValue] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+const cx = classNames.bind(styles);
 
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleFocusOut = () => {
-    setIsFocused(false);
-    if (onFocusOut) {
-      onFocusOut(value);
-    }
-  };
-
+const PasswordInput = ({
+  isVisiblePassword,
+  password,
+  handlePasswordBlur,
+  setPassword,
+  handleTogglePassword,
+  passwordError,
+  placeholder,
+}) => {
   return (
-    <div className={`input-container ${error ? "error" : ""}`}>
+    <div className={cx("password-container")}>
+      <label className={cx("label")} htmlFor="password">
+        비밀번호
+      </label>
       <input
-        type={showPassword ? "text" : "password"}
+        className={cx("input", { "input-error": passwordError })}
+        id="password"
+        type={isVisiblePassword ? "text" : "password"}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        onBlur={handlePasswordBlur}
         placeholder={placeholder}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onFocus={() => setIsFocused(true)}
-        onBlur={handleFocusOut}
       />
-      <i
-        className={`eye-icon ${showPassword ? "active" : ""}`}
+      <img
+        className={cx("passwordEye")}
+        src={isVisiblePassword ? "/images/eye-on.png" : "/images/eye-off.png"}
+        alt="비밀번호 보이게 설정하기"
+        data-img="passwordEye"
         onClick={handleTogglePassword}
-      >
-        {/* Show/hide password icon */}
-      </i>
-      {error && <div className="error-message">{error}</div>}
-      {placeholder && !value && !isFocused && (
-        <div className="placeholder">{placeholder}</div>
+      />
+      {passwordError && (
+        <div className={cx("error-message")}>{passwordError}</div>
       )}
     </div>
   );

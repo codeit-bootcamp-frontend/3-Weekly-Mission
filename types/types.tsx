@@ -6,14 +6,12 @@ export interface LinkSearchInputProps {
 }
 
 export interface FolderListProps {
-  onSelectFolder: (
-    folder: UserFolder | Pick<UserFolder, "id" | "name">
-  ) => void;
-  selectedFolder: UserFolder | Pick<UserFolder, "id" | "name">;
+  onSelectFolder: (folder: UserFolder) => void;
+  selectedFolder: UserFolder;
 }
 
 export interface FolderNameProps {
-  selectedFolder: UserFolder | Pick<UserFolder, "id" | "name">;
+  selectedFolder: UserFolder;
 }
 
 export interface FolderContentCardProps {

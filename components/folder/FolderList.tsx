@@ -11,14 +11,18 @@ export default function FolderList({
   onSelectFolder,
   selectedFolder,
 }: FolderListProps) {
-  const allSee: Pick<UserFolder, "id" | "name"> = {
+  const initialUserFolder: UserFolder = {
     id: undefined,
+    created_at: "",
     name: "전체",
+    user_id: 0,
+    favorite: false,
+    link: {
+      count: 0,
+    },
   };
   const [folderNames, setFolderNames] = useState<UserFolder[]>();
-  const handleFolderClick = (
-    folder: UserFolder | Pick<UserFolder, "id" | "name">
-  ) => {
+  const handleFolderClick = (folder: UserFolder) => {
     onSelectFolder(folder);
   };
   const [isModal, setIsModal] = useState(false);
@@ -39,7 +43,7 @@ export default function FolderList({
       <div className={cx("folder-list-box")}>
         <ul className={cx("folder-list")}>
           <li
-            onClick={() => handleFolderClick(allSee)}
+            onClick={() => handleFolderClick(initialUserFolder)}
             className={cx("folder", {
               folderSelected: selectedFolder.name === "전체",
             })}

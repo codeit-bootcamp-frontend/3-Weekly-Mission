@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "../signin/SignInPage.module.scss";
 import Link from "next/link";
+import SignUpForm from "../../components/signup/SignUpForm";
 
 const cx = classNames.bind(styles);
 
@@ -22,35 +23,7 @@ export default function SignUpPage() {
       </header>
 
       <div className={cx("container")}>
-        <form className={cx("loginForm")} action="" id="signUpForm">
-          <div>
-            <label htmlFor="signup-email">이메일</label>
-            <input id="signup-email" type="email" />
-          </div>
-          <div className={cx("password-container")}>
-            <label htmlFor="signup-password">비밀번호</label>
-            <input id="signup-password" type="password" />
-            <img
-              className={cx("passwordEye")}
-              src="/images/eye-off.png"
-              alt="비밀번호 보이게 설정하기"
-              data-img="passwordEye"
-            />
-          </div>
-          <div className={cx("password-container")}>
-            <label htmlFor="signup-repassword">비밀번호 확인</label>
-            <input id="signup-repassword" type="password" />
-            <img
-              className={cx("passwordEye")}
-              src="/images/eye-off.png"
-              alt="비밀번호 보이게 설정하기"
-              data-img="repasswordEye"
-            />
-          </div>
-          <div>
-            <button type="submit">회원가입</button>
-          </div>
-        </form>
+        <SignUpForm />
         <div className={cx("content-sns")}>
           <div className={cx("content-sns-text")}>다른 방식으로 가입하기</div>
           <div className={cx("content-sns-logo")}>

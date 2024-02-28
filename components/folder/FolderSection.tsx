@@ -1,48 +1,47 @@
 "use client";
 
 import styles from "./FolderSection.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LinkSearchInput from "./LinkSearchInput";
 import FolderList from "./FolderList";
 import FolderName from "./FolderName";
 import FolderContentCard from "./FolderContentCard";
 import { UserFolder, UserLink, getUserLinks } from "../../api/api";
 import classNames from "classnames/bind";
+import { useEffectAfterMount } from "../../hook/useInit";
 
 const cx = classNames.bind(styles);
+const initialUserFolder: UserFolder = {
+  id: undefined,
+  created_at: "",
+  name: "전체",
+  user_id: 0,
+  favorite: false,
+  link: {
+    count: 0,
+  },
+};
 
-export default function FolderSection() {
-  const allSee: Pick<UserFolder, "id" | "name"> = {
-    id: undefined,
-    name: "전체",
-  };
-  const [selectedFolder, setSelectedFolder] = useState<
-    UserFolder | Pick<UserFolder, "id" | "name">
-  >(allSee);
-  const [items, setItems] = useState<UserLink[]>([]);
+export default function FolderSection({ initialItems }) {
+  const [selectedFolder, setSelectedFolder] =
+    useState<UserFolder>(initialUserFolder);
+  const [items, setItems] = useState<UserLink[]>(initialItems);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  useEffect(() => {
+  useEffectAfterMount(() => {
     async function handleload() {
       const { id } = selectedFolder;
-      if (searchTerm) {
-        const response = await getUserLinks(4, id);
-        const filteredLinks = response.filter(
-          (link) =>
-            (link.url && link.url.includes(searchTerm)) ||
-            (link.title && link.title.includes(searchTerm)) ||
-            (link.description && link.description.includes(searchTerm))
-        );
-        setItems(filteredLinks);
-      } else {
-        setItems(await getUserLinks(4, id));
-      }
+      setItems(await getUserLinks(4, id));
     }
     handleload();
-  }, [selectedFolder, searchTerm]);
-  const handleSelectFolder = (
-    folder: UserFolder | Pick<UserFolder, "id" | "name">
-  ) => {
+  }, [selectedFolder]);
+  const filteredLinks = items.filter(
+    (link) =>
+      (link.url && link.url.includes(searchTerm)) ||
+      (link.title && link.title.includes(searchTerm)) ||
+      (link.description && link.description.includes(searchTerm))
+  );
+  const handleSelectFolder = (folder: UserFolder) => {
     setSelectedFolder(folder);
   };
 
@@ -55,7 +54,7 @@ export default function FolderSection() {
           selectedFolder={selectedFolder}
         />
         <FolderName selectedFolder={selectedFolder} />
-        <FolderContentCard items={items} />
+        <FolderContentCard items={filteredLinks} />
       </div>
     </section>
   );
