@@ -1,14 +1,22 @@
 import logo from "../public/logo.svg";
 import styles from "./Header.module.css";
-import useGetUser from "../hooks/useGetUser";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-export default function Header({ isSticky }: { isSticky: boolean }) {
-  const [profileImageSource, email] = useGetUser(!isSticky) || [];
+interface HeaderProps {
+  isSticky?: boolean;
+  profileImageSource: string;
+  email: string;
+}
+
+export default function Header({
+  isSticky = false,
+  profileImageSource,
+  email,
+}: HeaderProps) {
   const router = useRouter();
 
   const handleLogoClick = () => {
@@ -17,9 +25,7 @@ export default function Header({ isSticky }: { isSticky: boolean }) {
   return (
     <div className={cx("nav-wrapper")}>
       <div className={cx(isSticky ? "nav-folder-bg" : "nav-bg")} />
-      <header
-        className={cx(isSticky ? "nav-folder" : "nav")}
-      >
+      <header className={cx(isSticky ? "nav-folder" : "nav")}>
         <Image
           src={logo}
           className={cx("logo")}

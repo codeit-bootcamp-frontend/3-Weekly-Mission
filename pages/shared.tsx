@@ -3,9 +3,9 @@ import SearchBar from "../components/SearchBar";
 import Cards from "../components/Cards";
 import Header from "../components/Header";
 import { useMemo, useState } from "react";
-import { getSampleFolder } from "@/api";
+import { getSampleFolder, getSampleUser } from "@/api";
 import Footer from "@/components/Footer";
-import type{ UserFolderData } from "@/hooks/useGetUserFolder";
+import type { UserFolderData } from "@/hooks/useGetUserFolder";
 
 export interface SampleFolder {
   id: number;
@@ -18,13 +18,24 @@ export interface SampleFolder {
   links: UserFolderData[];
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { folder } = await getSampleFolder();
-
-  return { props: { folder } };
+  const data = await getSampleUser();
+  const { profileImageSource, email } = data;
+  return { props: { profileImageSource, email, folder } };
 }
 
-export default function Shared({ folder: sampleFolderLinkList }: {folder: SampleFolder}) {
+interface SharedProps {
+  folder: SampleFolder;
+  profileImageSource: string;
+  email: string;
+}
+
+export default function Shared({
+  folder: sampleFolderLinkList,
+  profileImageSource,
+  email,
+}: SharedProps) {
   const [searchValue, setsearchValue] = useState("");
   const handleInputChange = (value: any) => {
     setsearchValue(value);
@@ -41,10 +52,9 @@ export default function Shared({ folder: sampleFolderLinkList }: {folder: Sample
       }
     });
   }, [sampleFolderLinkList?.links, searchValue]);
-
   return (
     <>
-      <Header isSticky={false} />
+      <Header profileImageSource={profileImageSource} email={email} />
       <Banner folder={sampleFolderLinkList} />
       <SearchBar handleInputChange={handleInputChange} />
       <Cards data={searchedData} />
