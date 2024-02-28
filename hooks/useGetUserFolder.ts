@@ -3,13 +3,15 @@ import { getUserFolder } from "../api";
 
 export interface UserFolderData {
   id: number;
-  created_at: string;
+  createdAt?: string;
+  created_at?: string;
   updated_at?: string;
   url: string;
   title: string;
   description: string;
+  imageSource?: string;
   image_source?: string;
-  folder_id: number;
+  folder_id?: number;
 }
 
 export default function useGetUserFolder() {

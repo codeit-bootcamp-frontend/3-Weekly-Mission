@@ -4,19 +4,14 @@ import formatDate from "../utils/formatDate";
 import styles from "./Card.module.css";
 import { useState } from "react";
 import Modal from "./modals/Modal";
-import { UserFolderData } from "@/hooks/useGetUserFolder";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames/bind";
-import { Links } from "@/pages/shared";
-
-interface Props {
-  data: UserFolderData & Links;
-}
+import type { UserFolderData } from "@/hooks/useGetUserFolder";
 
 const cx = classNames.bind(styles);
 
-export default function Card({ data: folderLink }: Props ) {
+export default function Card({ data: folderLink }: { data: UserFolderData }) {
   const {
     createdAt,
     created_at,

@@ -132,7 +132,7 @@ export default function Content({
 
       {filteredLinkList?.length ? (
         <div className={cx("card-container")}>
-          {filteredLinkList?.map((data: any) => (
+          {filteredLinkList?.map((data: UserFolderData) => (
             <Card key={data.id} data={data} />
           ))}
         </div>

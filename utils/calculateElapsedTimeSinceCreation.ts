@@ -1,4 +1,6 @@
-export default function calculateElapsedTimeSinceCreation(createdAt: string) {
+export default function calculateElapsedTimeSinceCreation(
+  createdAt: string = ""
+) {
   const now = new Date();
   const formattedDate = new Date(createdAt);
   const mSecDiff = now.getTime() - formattedDate.getTime();

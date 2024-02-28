@@ -5,15 +5,7 @@ import Header from "../components/Header";
 import { useMemo, useState } from "react";
 import { getSampleFolder } from "@/api";
 import Footer from "@/components/Footer";
-
-export interface Links {
-  id: number;
-  createdAt: string;
-  url: string;
-  title: string;
-  description: string;
-  imageSource: string;
-}
+import type{ UserFolderData } from "@/hooks/useGetUserFolder";
 
 export interface SampleFolder {
   id: number;
@@ -23,7 +15,7 @@ export interface SampleFolder {
     name: string;
     profileImageSource: string;
   };
-  links: Links[];
+  links: UserFolderData[];
 }
 
 export async function getStaticProps() {
@@ -39,7 +31,7 @@ export default function Shared({ folder: sampleFolderLinkList }: {folder: Sample
   };
 
   const searchedData = useMemo(() => {
-    return sampleFolderLinkList?.links?.filter((item: Links) => {
+    return sampleFolderLinkList?.links?.filter((item: UserFolderData) => {
       if (
         item.description.includes(searchValue) ||
         item.url.includes(searchValue) ||
