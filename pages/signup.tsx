@@ -42,7 +42,7 @@ export default function signup() {
   };
 
   const onBlurEmail = () => {
-    let focus = true;
+    let valueError = true;
     if (email === '') {
       setEmailErrorMessage('이메일을 입력해 주세요.');
       setIsEmailError(true);
@@ -52,15 +52,15 @@ export default function signup() {
     } else {
       checkEmailDuplicate();
       if (!isEmailError) {
-        focus = false;
+        valueError = false;
       }
     }
 
-    return focus;
+    return valueError;
   };
 
   const onBlurPassword = () => {
-    let focus = true;
+    let valueError = true;
     if (!PASSWORD_CHECK.test(password)) {
       setPasswordErrorMessage(
         '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.'
@@ -68,23 +68,23 @@ export default function signup() {
       setIsPasswordError(true);
     } else {
       setIsPasswordError(false);
-      focus = false;
+      valueError = false;
     }
 
-    return focus;
+    return valueError;
   };
 
   const onBlurPasswordCheck = () => {
-    let focus = true;
+    let valueError = true;
     if (passwordCheck !== password) {
       setPasswordCheckErrorMessage('비밀번호가 일치하지 않아요.');
       setIsPasswordCheckError(true);
     } else {
       setIsPasswordCheckError(false);
-      focus = false;
+      valueError = false;
     }
 
-    return focus;
+    return valueError;
   };
 
   const onClickSignup = () => {

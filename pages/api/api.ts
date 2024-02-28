@@ -1,14 +1,14 @@
 type User = { email: string; password: string };
 
 export async function getUserByAccessToken(accessToken: string) {
-  const result = await fetch('https://bootcamp-api.codeit.kr/api/users', {
+  const response = await fetch('https://bootcamp-api.codeit.kr/api/users', {
     method: 'GET',
     headers: {
       accept: '*/*',
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  const body = await result.json();
+  const body = await response.json();
 
   return body;
 }
@@ -54,14 +54,30 @@ export async function getFoldersById(id = 1) {
 }
 
 export async function getLinks(accessToken: string) {
-  const result = await fetch('https://bootcamp-api.codeit.kr/api/links', {
+  const response = await fetch('https://bootcamp-api.codeit.kr/api/links', {
     method: 'GET',
     headers: {
       accept: '*/*',
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  const body = await result.json();
+  const body = await response.json();
+
+  return body;
+}
+
+export async function getFolderLinks(accessToken: string, folderId: number) {
+  const response = await fetch(
+    `https://bootcamp-api.codeit.kr/api/links?folderId=${folderId}`,
+    {
+      method: 'GET',
+      headers: {
+        accept: '*/*',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  const body = await response.json();
 
   return body;
 }

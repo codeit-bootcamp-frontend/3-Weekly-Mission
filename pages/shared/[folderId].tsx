@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  getFolderById,
-  getLinksById,
-  getUserByAccessToken,
-  getUserById,
-} from '../api/api';
+import { getLinksById } from '../api/api';
 import styles from '@/styles/page.module.css';
 import Nav from '@/src/components/header/Nav/Nav';
 import Folder from '@/src/components/header/Folder/Folder';
@@ -12,36 +7,27 @@ import Search from '@/src/components/section/Search/Search';
 import Card from '@/src/components/section/Card/Card';
 import FooterLinks from '@/src/components/footer/FooterLinks/FooterLinks';
 import classNames from 'classnames/bind';
-import { User } from '../folder';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { userState } from '@/src/state/atoms';
 
 const cn = classNames.bind(styles);
 
-export interface Folder {
-  id: number;
-  created_at: string;
-  name: string;
-  user_id: number;
-  favorite: boolean;
-}
-
 export interface SharedLink {
   id: number;
-  created_at?: string;
+  created_at: string;
   updated_at: string;
   url: string;
   title: string;
   description: string;
-  image_source?: string;
+  image_source: string;
   folder_id: number;
 }
 
 export default function SharePage() {
+  const [user] = useRecoilState(userState);
   const [keyword, setKeyword] = useState('');
   const [linkList, setLinkList] = useState<SharedLink[]>([]);
-  const [user, setUser] = useState<User>(null);
-  const [userId, setUserId] = useState(0);
-  const [folder, setFolder] = useState<Folder>(null);
   const router = useRouter();
   const { folderId } = router.query;
 
@@ -50,39 +36,20 @@ export default function SharePage() {
   };
 
   useEffect(() => {
-    async function getUserId() {
-      const body = await getUserByAccessToken(
-        localStorage.getItem('accessToken')
-      );
-      setUserId(body.data[0].id);
-    }
-
-    async function getUser() {
-      const body = await getUserById(userId);
-      setUser(body.data[0]);
-    }
-
-    async function getFolder() {
-      const body = await getFolderById(+folderId);
-      setFolder(body.data[0]);
-    }
-
     async function getLinks() {
-      const { data } = await getLinksById(user.id, folder.id);
+      const { data } = await getLinksById(user?.id, +folderId);
+      if (!data) return;
       setLinkList(data);
     }
 
-    getUserId();
-    getUser();
-    getFolder();
     getLinks();
-  }, []);
+  }, [folderId]);
 
   return (
     <>
       <header className={cn('header')}>
-        <Nav user={user} />
-        <Folder user={user} folder={folder} />
+        <Nav />
+        <Folder folderId={+folderId} userId={user.id} />
       </header>
       <section className={cn('section')}>
         <Search handleOnChange={handleSearchOnChange} />

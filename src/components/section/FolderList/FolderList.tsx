@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getFoldersById } from '@/pages/api/api';
+import { getFoldersByAccessToken } from '@/pages/api/api';
 import FolderListButton from '../FolderListButton/FolderListButton';
 import BaseModal from '../BaseModal/BaseModal';
 import modalStyles from '../BaseModal/BaseModal.module.css';
@@ -12,11 +12,15 @@ const modalCn = classNames.bind(modalStyles);
 
 interface Props {
   onClickFolder: (folder: FolderInfo) => void;
-  id: number;
+  userId: number;
   folderName: string;
 }
 
-export default function FolderList({ onClickFolder, id, folderName }: Props) {
+export default function FolderList({
+  onClickFolder,
+  userId,
+  folderName,
+}: Props) {
   const [folders, setFolders] = useState([]);
   const [openModal, setOpenModal] = useState(false);
 
@@ -30,13 +34,14 @@ export default function FolderList({ onClickFolder, id, folderName }: Props) {
 
   useEffect(() => {
     async function getFolders() {
-      const { data } = await getFoldersById(id);
+      const { data } = await getFoldersByAccessToken(
+        localStorage.getItem('accessToken')
+      );
       if (!data) return;
-      setFolders(data);
+      setFolders(data.folder);
     }
-
     getFolders();
-  }, [id]);
+  }, [userId]);
 
   return (
     <>
@@ -51,7 +56,7 @@ export default function FolderList({ onClickFolder, id, folderName }: Props) {
             return (
               <FolderListButton
                 key={element.id}
-                id={element.id}
+                folderId={element.id}
                 onClickFolder={onClickFolder}
                 folderName={folderName}
                 buttonName={element.name}

@@ -25,7 +25,7 @@ export default function signin() {
   const router = useRouter();
 
   const onBlurEmail = () => {
-    let focus = true;
+    let valueError = true;
     if (email === '') {
       setEmailErrorMessage('이메일을 입력해 주세요.');
       setIsEmailError(true);
@@ -34,23 +34,23 @@ export default function signin() {
       setIsEmailError(true);
     } else {
       setIsEmailError(false);
-      focus = false;
+      valueError = false;
     }
 
-    return focus;
+    return valueError;
   };
 
   const onBlurPassword = () => {
-    let focus = true;
+    let valueError = true;
     if (password === '') {
       setPasswordErrorMessage('비밀번호를 입력해 주세요.');
       setIsPasswordError(true);
     } else {
       setIsPasswordError(false);
-      focus = false;
+      valueError = false;
     }
 
-    return focus;
+    return valueError;
   };
 
   const onClickSignin = async () => {

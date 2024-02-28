@@ -3,16 +3,33 @@ import styles from './Nav.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
-import { User } from '@/pages/folder';
+import { useRecoilState } from 'recoil';
+import { userState } from '@/src/state/atoms';
+import { useEffect } from 'react';
+import { getUserByAccessToken } from '@/pages/api/api';
 
 const cn = classNames.bind(styles);
 
 interface Props {
   className?: string | undefined;
-  user?: User;
 }
 
-export default function Nav({ className = '', user }: Props) {
+export default function Nav({ className = '' }: Props) {
+  const [user, setUser] = useRecoilState(userState);
+
+  useEffect(() => {
+    if (!localStorage.getItem('accessToken')) return;
+    async function getUser() {
+      const { data } = await getUserByAccessToken(
+        localStorage.getItem('accessToken')
+      );
+      if (!data) return;
+      setUser(data[0]);
+    }
+
+    getUser();
+  }, []);
+
   return (
     <nav className={cn(className, 'nav')}>
       <Link href="/">
@@ -29,7 +46,7 @@ export default function Nav({ className = '', user }: Props) {
       {user ? (
         <Profile user={user} />
       ) : (
-        <Link className={cn('cta', 'cta-short')} href="signin.html">
+        <Link className={cn('cta', 'cta-short')} href="/signin">
           <span>로그인</span>
         </Link>
       )}
