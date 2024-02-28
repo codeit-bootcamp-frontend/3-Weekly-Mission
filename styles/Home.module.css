@@ -1,0 +1,11 @@
+.main {
+  min-height: 70rem;
+  height: 100%;
+}
+
+.Links {
+  font-size: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
