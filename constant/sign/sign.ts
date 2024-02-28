@@ -1,4 +1,4 @@
-import { EMAIL_REGEX } from '../regex';
+import { EMAIL_REGEX, PASSWORD_REGEX } from '../regex';
 
 import {
   SigninInputs,
@@ -49,6 +49,10 @@ export const SIGNUP_REGISTER_OPTIONS: SignupInputsOptions<SignupInputs> = {
       value: true,
       message: '비밀번호를 입력해주세요.',
     },
+    pattern: {
+      value: PASSWORD_REGEX,
+      message: '비밀번호는 8자 이상의 영문, 숫자 조합이어야 합니다.',
+    },
   },
   confirmPassword: {
     required: {
@@ -59,7 +63,7 @@ export const SIGNUP_REGISTER_OPTIONS: SignupInputsOptions<SignupInputs> = {
   },
 };
 
-export const SUBMIT_ERROR_MSG: SubmitErrorMsg[] = [
+export const SUBMIT_ERROR_MSG_LIST: SubmitErrorMsg[] = [
   {
     name: 'email',
     message: '이메일을 확인해주세요.',

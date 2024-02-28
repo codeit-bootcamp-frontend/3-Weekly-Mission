@@ -1,5 +1,3 @@
-import { useForm } from 'react-hook-form';
-
 import { NextRouter } from 'next/router';
 
 import FormSubmitButton from '@components/ui/atoms/button/form-submit-btn/FormSubmitButton';
@@ -8,10 +6,12 @@ import SignForm from '@components/ui/molecules/form/sign-form';
 import { StErrorMsg } from '@pages/signin/comp/signin-form/SigninForm';
 
 import { checkEmailDuplication } from '@api/sign/checkEmailDuplication';
-import { signin } from '@api/sign/signin';
+import { signup } from '@api/sign/signup';
+import { useFormOnSubmit } from '@hooks/useFormOnSubmit';
+import { setAccessToken } from '@utils/local-storage/setAccessToken';
 
 import { EMAIL_REGEX } from '@/constant/regex';
-import { SIGN, SIGNUP_REGISTER_OPTIONS, SUBMIT_ERROR_MSG } from '@/constant/sign/sign';
+import { SIGN, SIGNUP_REGISTER_OPTIONS } from '@/constant/sign/sign';
 import { SignupInputs } from '@/interface/sign/sign';
 
 type SignupFormProps = {
@@ -26,36 +26,38 @@ const SignupForm = ({ router }: SignupFormProps) => {
     setError,
     reset,
     getValues,
-  } = useForm<SignupInputs>({
+  } = useFormOnSubmit<SignupInputs>({
     mode: 'onBlur',
     defaultValues: {
       email: '',
       password: '',
       confirmPassword: '',
     },
-  });
-
-  const onSubmitHandler = async (inputs: SignupInputs) => {
-    try {
-      const res = await signin({ email: inputs.email, password: inputs.password });
-
-      if (!(res instanceof Error) && typeof window !== 'undefined') {
-        localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
+    onSubmit: async (inputs) => {
+      try {
+        const res = await signup({ email: inputs.email, password: inputs.password });
+        setAccessToken(res.data.accessToken);
         reset();
         router.push('/folder');
+      } catch (error) {
+        if (error instanceof Error) {
+          if (Number(error.message) === 400) {
+            setError(SIGN.EMAIL, {
+              message: '이메일을 확인해주세요.',
+            });
+          } else if (Number(error.message) === 422) {
+            setError(SIGN.PASSWORD, {
+              message: '비밀번호를 확인해주세요.',
+            });
+          }
+        }
       }
-    } catch {
-      SUBMIT_ERROR_MSG.forEach(({ name, message }) => {
-        setError(name, {
-          message,
-        });
-      });
-    }
-  };
+    },
+  });
 
   return (
     <SignForm.FormContainer>
-      <SignForm.Form noValidate method='post' onSubmit={handleSubmit(onSubmitHandler)}>
+      <SignForm.Form noValidate method='post' onSubmit={handleSubmit}>
         <SignForm.InputGap>
           <InputWithLabel
             id={SIGN.EMAIL}
@@ -71,10 +73,14 @@ const SignupForm = ({ router }: SignupFormProps) => {
 
                 try {
                   await checkEmailDuplication(getValues()[SIGN.EMAIL]);
-                } catch {
-                  setError(SIGN.EMAIL, {
-                    message: '이미 존재하는 이메일입니다.',
-                  });
+                } catch (error) {
+                  if (error instanceof Error) {
+                    if (Number(error.message) === 409) {
+                      setError(SIGN.EMAIL, {
+                        message: '이미 존재하는 이메일입니다.',
+                      });
+                    }
+                  }
                 }
               },
             })}

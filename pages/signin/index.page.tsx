@@ -5,13 +5,15 @@ import styled from 'styled-components';
 
 import SignFormHeader from '@components/ui/organisms/header/sign-page-header/SignFormHeader';
 
+import { getAccessToken } from '@utils/local-storage/getAccessToken';
+
 import SigninForm from './comp/signin-form/SigninForm';
 
 const Signin = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
+    if (getAccessToken()) {
       router.push('/folder');
     }
   }, [router]);

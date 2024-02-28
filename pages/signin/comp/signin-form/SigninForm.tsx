@@ -1,5 +1,3 @@
-import { useForm } from 'react-hook-form';
-
 import { NextRouter } from 'next/router';
 import styled from 'styled-components';
 
@@ -8,8 +6,10 @@ import InputWithLabel from '@components/ui/atoms/input/input-with-label';
 import SignForm from '@components/ui/molecules/form/sign-form';
 
 import { signin } from '@api/sign/signin';
+import { useFormOnSubmit } from '@hooks/useFormOnSubmit';
+import { setAccessToken } from '@utils/local-storage/setAccessToken';
 
-import { SIGN, SIGNIN_REGISTER_OPTIONS, SUBMIT_ERROR_MSG } from '@/constant/sign/sign';
+import { SIGN, SIGNIN_REGISTER_OPTIONS, SUBMIT_ERROR_MSG_LIST } from '@/constant/sign/sign';
 import { SigninInputs } from '@/interface/sign/sign';
 
 type SigninFormProps = {
@@ -23,35 +23,31 @@ const SigninForm = ({ router }: SigninFormProps) => {
     formState: { errors, isSubmitting },
     setError,
     reset,
-  } = useForm<SigninInputs>({
+  } = useFormOnSubmit<SigninInputs>({
     mode: 'onBlur',
     defaultValues: {
       email: '',
       password: '',
     },
-  });
-
-  const onSubmitHandler = async (inputs: SigninInputs) => {
-    try {
-      const res = await signin({ email: inputs.email, password: inputs.password });
-
-      if (!(res instanceof Error) && typeof window !== 'undefined') {
-        localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
+    onSubmit: async (inputs) => {
+      try {
+        const res = await signin({ email: inputs.email, password: inputs.password });
+        setAccessToken(res.data.accessToken);
         reset();
         router.push('/folder');
-      }
-    } catch {
-      SUBMIT_ERROR_MSG.forEach(({ name, message }) => {
-        setError(name, {
-          message,
+      } catch {
+        SUBMIT_ERROR_MSG_LIST.forEach(({ name, message }) => {
+          setError(name, {
+            message,
+          });
         });
-      });
-    }
-  };
+      }
+    },
+  });
 
   return (
     <SignForm.FormContainer>
-      <SignForm.Form noValidate method='post' onSubmit={handleSubmit(onSubmitHandler)}>
+      <SignForm.Form noValidate method='post' onSubmit={handleSubmit}>
         <SignForm.InputGap>
           <InputWithLabel
             id={SIGN.EMAIL}
