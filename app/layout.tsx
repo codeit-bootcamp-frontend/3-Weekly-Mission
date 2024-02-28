@@ -1,5 +1,3 @@
-import Footer from './components/footer/Footer';
-import Navbar from './components/navbar/Navbar';
 import StyledComponentsRegistry from '../lib/registry';
 import KakaoScript from '../utils/KakaoScript';
 
@@ -23,11 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <StyledComponentsRegistry>
-          <Navbar />
-          {children}
-          <Footer />
-        </StyledComponentsRegistry>
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
       <KakaoScript />
     </html>

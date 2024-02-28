@@ -9,6 +9,12 @@ export default function HomeBody() {
       <div>
         <Link href="/folder">Folder page</Link>
       </div>
+      <div>
+        <Link href="/signup">Signup page</Link>
+      </div>
+      <div>
+        <Link href="/signin">Signin page</Link>
+      </div>
     </>
   );
 }
