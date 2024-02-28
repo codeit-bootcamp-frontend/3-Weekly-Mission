@@ -1,9 +1,8 @@
 import { Form } from "@/components/Sign/Form";
 import { Header } from "@/components/Sign/Header";
 import { SnsLogin } from "@/components/Sign/SnsLogin";
-import useGetPathname from "@/hooks/useGetPathname";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 export default function Signin() {
@@ -15,19 +14,10 @@ export default function Signin() {
         // eslint-disable-next-line
     }, []);
 
-    const { pathname } = useGetPathname();
-    const [currentPath, setCurrentPath] = useState(() => {
-        if (pathname.includes("signin")) {
-            return "signin";
-        } else {
-            return "signup";
-        }
-    });
-
     return (
         <Wrapper>
-            <Header currentPath={currentPath} />
-            <Form currentPath={currentPath} />
+            <Header currentPath="signin" />
+            <Form currentPath="signin" />
             <SnsLogin />
         </Wrapper>
     );
