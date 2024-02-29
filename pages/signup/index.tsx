@@ -10,7 +10,7 @@ import Input from "@/components/sign/Input/Input";
 export default function SignUpPage() {
   const router = useRouter();
   const { inputValue, onChange, existError } = useSignValid("signup");
-  const [isCopied, setIsCopied] = useState(false);
+  const [isDuplicated, setIsDuplicated] = useState(false);
   const {
     email: emailValue,
     password: passwordValue,
@@ -27,10 +27,10 @@ export default function SignUpPage() {
     e.preventDefault();
     const responseCheckEmail = await getCheckEmail(emailValue);
     if (!responseCheckEmail) {
-      setIsCopied(true);
+      setIsDuplicated(true);
       return;
     }
-    setIsCopied(false);
+    setIsDuplicated(false);
     if (passwordValue !== passwordAgainValue) {
       return;
     }
@@ -54,9 +54,11 @@ export default function SignUpPage() {
             placeholder="이메일을 입력해 주세요"
             onChange={onChange}
             value={emailValue}
-            existError={isCopied || existError.email.existError}
+            existError={isDuplicated || existError.email.existError}
             errorMessage={
-              isCopied ? "중복된 이메일입니다!" : existError.email.errorMessage
+              isDuplicated
+                ? "중복된 이메일입니다!"
+                : existError.email.errorMessage
             }
           />
 

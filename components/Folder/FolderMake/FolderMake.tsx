@@ -7,7 +7,7 @@ export default function FolderMake({
 }: {
   onClick: (m: ModalInterface) => void;
 }) {
-  const handleCreate = (id: string) => {
+  const handleCreate = (id: "folderCreate" | string) => {
     if (id === "folderCreate") {
       const newModal: ModalInterface = {
         component: <AddModal />,
