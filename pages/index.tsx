@@ -11,6 +11,8 @@ export default function Home() {
             <LinkWrapper>
                 <Link href="/folder">FolderPage 이동하기</Link>
                 <Link href="/shared">Sharedpage 이동하기</Link>
+                <Link href="/signin">SigninPage 이동하기</Link>
+                <Link href="/signup">SignupPage 이동하기</Link>
             </LinkWrapper>
         </>
     );

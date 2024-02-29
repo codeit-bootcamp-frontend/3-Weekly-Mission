@@ -13,8 +13,6 @@ import Contents from "@/components/Contents/Contents";
 import CardSearchBar from "@/components/Contents/CardSearchBar/CardSearchBar";
 import Footer from "@/components/Footer/Footer";
 import CardList from "@/components/Contents/CardList/CardList";
-import { useEffect } from "react";
-import { getSharedPageFolderData } from "@/data";
 
 export default function SharedPage() {
     const { login, userData } = useSharedPageLogin();
