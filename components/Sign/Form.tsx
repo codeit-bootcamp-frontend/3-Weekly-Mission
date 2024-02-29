@@ -10,7 +10,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { setAccessToken } from "@/utils/setAccessToken";
 
 // Think: 제어컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
-export const Form = ({ currentPath }: { currentPath: string }) => {
+export const Form = ({ currentPath }: { currentPath: "signin" | "signup" }) => {
     const {
         register,
         handleSubmit,

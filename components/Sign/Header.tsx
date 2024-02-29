@@ -2,7 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
-export const Header = ({ currentPath }: { currentPath: string }) => {
+export const Header = ({
+    currentPath,
+}: {
+    currentPath: "signin" | "signup";
+}) => {
     return (
         <SignHeader>
             <Link href="/">
