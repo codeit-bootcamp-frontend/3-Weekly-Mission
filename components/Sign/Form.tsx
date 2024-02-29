@@ -1,13 +1,8 @@
 import styled from "styled-components";
 import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
-import { FormEvent } from "react";
-import { signFormDataInterface } from "@/interfaces";
-import { SignInputErrorMessages, URL_DOMAIN } from "@/Constants/Constants";
-import { useRouter } from "next/router";
-import postFetch from "@/utils/postFetch";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { setAccessToken } from "@/utils/setAccessToken";
+import { useForm } from "react-hook-form";
+import { useAuthForm } from "./Form.hook";
 
 // Think: 제어컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
 export const Form = ({ currentPath }: { currentPath: "signin" | "signup" }) => {
@@ -19,61 +14,10 @@ export const Form = ({ currentPath }: { currentPath: "signin" | "signup" }) => {
         formState: { errors },
     } = useForm({ mode: "onBlur" });
 
-    const router = useRouter();
-
-    // 로그인 버튼 클릭
-    const handleLoginSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        try {
-            const data: signFormDataInterface = {
-                email: watch("email"),
-                password: watch("password"),
-            };
-            const res = await postFetch(URL_DOMAIN, "api/sign-in", data);
-            const result = res.data;
-            if (result.accessToken) {
-                setAccessToken(result.accessToken);
-                router.push("/folder");
-            }
-        } catch (error) {
-            console.error(error);
-            setError("email", {
-                message: SignInputErrorMessages.PleaseConfirmEmail,
-            });
-            setError("password", {
-                message: SignInputErrorMessages.PleaseConfirmPassword,
-            });
-        }
-    };
-
-    // 회원가입 버튼 클릭
-    const handleRegisterSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        try {
-            const data: signFormDataInterface = {
-                email: watch("email"),
-                password: watch("password"),
-            };
-            const res = await postFetch(URL_DOMAIN, "api/sign-up", data);
-            const result = res.data;
-            if (result.accessToken) {
-                setAccessToken(result.accessToken);
-                router.push("/folder");
-            }
-        } catch (error) {
-            console.error(error);
-            setError("email", {
-                message: SignInputErrorMessages.PleaseConfirmEmail,
-            });
-            setError("password", {
-                message: SignInputErrorMessages.PleaseConfirmPassword,
-            });
-        }
-    };
-
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log("Form submitted.", data);
-    };
+    const { handleLoginSubmit, handleRegisterSubmit, onSubmit } = useAuthForm(
+        watch,
+        setError
+    );
 
     return (
         <FormWrapper onSubmit={handleSubmit(onSubmit)}>
