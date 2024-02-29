@@ -4,10 +4,11 @@ import Link from 'next/link';
 
 import { objectFit } from '@style/object-fit/object-fit';
 
+import LoginButton from '@components/ui/atoms/button/login-btn/LoginButton';
+
 import { IProfileData } from '@api/folder-page/getProfileData';
 
 import styles from './CommonHeader.module.css';
-import LoginButton from './comp/login-button/LoginButton';
 import LoginSuccessProfile from './comp/login-success-profile/LoginSuccessProfile';
 
 const cn = classNames.bind(styles);

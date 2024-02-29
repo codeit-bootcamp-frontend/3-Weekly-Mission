@@ -1,4 +1,4 @@
-import CommonHeader from '@components/ui/organisms/header/CommonHeader';
+import CommonHeader from '@components/ui/organisms/header/contents-page-header/CommonHeader';
 
 import { useGetProfileData } from './hooks/useGetProfileData';
 

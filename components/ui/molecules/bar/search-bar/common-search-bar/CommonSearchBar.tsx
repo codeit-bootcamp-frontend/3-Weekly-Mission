@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import MagnifierSvg from '@public/images/icon/magnifier.svg';
+import MagnifierSvg from '@public/images/icon/magnifier.svg?component';
 import { mediaBreakpoint } from '@style/media-breakpoint/mediaBreakpoint';
 import { objectFit } from '@style/object-fit/object-fit';
 
@@ -30,13 +30,7 @@ const CommonSearchBar = ({ input, onChange, clearInput }: TSearchBarProps) => {
 
 export default CommonSearchBar;
 
-const StMagnifierIcon = styled(
-  MagnifierSvg as React.FunctionComponent<
-    React.SVGProps<SVGSVGElement> & {
-      title?: string | undefined;
-    }
-  >,
-).attrs({
+const StMagnifierIcon = styled(MagnifierSvg).attrs({
   'aria-description': '검색창 돋보기 아이콘',
 })`
   width: 1.6rem;

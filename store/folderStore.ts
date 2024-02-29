@@ -1,25 +1,15 @@
+import { FolderCategoryDataWithIdTotal } from '@pages/folder/index.page';
+
 import { createWithEqualityFn } from './custom/traditional';
 import { shallow } from './custom/vanilla/shallow';
 
-// folderCategories: null,
-//     userId: null,
-//     targetLink: null,
-//     currentFolderId: null,
-
-// folderName: '코딩팁', linkCount: 7
-
-type TFolderCategory = {
-  folderName: string;
-  linkCount: number;
-};
-
 type TFolderSlice = {
-  folderCategories: TFolderCategory[];
+  folderCategoryList: FolderCategoryDataWithIdTotal[];
   userId: number | null;
   targetLink: number | null;
   currentFolderId: number | null;
   setUserId: (userId: number) => void;
-  setFolderCategories: (categories: TFolderCategory[]) => void;
+  setFolderCategoryList: (categories: FolderCategoryDataWithIdTotal[]) => void;
   setTargetLink: (targetLink: number) => void;
   setCurrentFolderId: (folderId: number) => void;
 };
@@ -28,10 +18,10 @@ export const useFolderStore = createWithEqualityFn<TFolderSlice>()(
   (set) => ({
     userId: null,
     currentFolderId: null,
-    folderCategories: [],
+    folderCategoryList: [],
     targetLink: null,
     setUserId: (userId) => set({ userId }),
-    setFolderCategories: (categories) => set({ folderCategories: categories }),
+    setFolderCategoryList: (categories) => set({ folderCategoryList: categories }),
     setCurrentFolderId: (folderId: number) => set({ currentFolderId: folderId }),
     setTargetLink: (targetLink: number) => set({ targetLink }),
   }),

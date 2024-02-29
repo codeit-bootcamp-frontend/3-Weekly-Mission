@@ -1,39 +1,33 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
+
+import { FolderCategoryDataWithIdTotal } from '@pages/folder/index.page';
 
 import { getFolderCategory } from '@api/folder-page/getFolderCategory';
 
-type TFolderCategoryDataWithIdTotal = {
-  id: number | 'total';
-  created_at?: string;
-  name: string;
-  user_id?: number;
-  favorite?: boolean;
-  link?: {
-    count: number;
-  };
-};
+/**
+ *
+ * @todo 이거 state랑 fetch 코드 전부 FolderPageServerSidePropContextProvider로 옮겨도 될 듯.
+ */
+const useGetFolderCategoryList = (initialFolderCategoryList: FolderCategoryDataWithIdTotal[]) => {
+  const [folderCategoryList, setFolderCategoryList] =
+    useState<FolderCategoryDataWithIdTotal[]>(initialFolderCategoryList);
 
-const useGetFolderCategoryList = () => {
-  const [folderCategoryList, setFolderCategoryList] = useState<TFolderCategoryDataWithIdTotal[]>([]);
-
-  const fetchAndSetFolderCategory = useCallback(async () => {
-    const res = await getFolderCategory();
+  const fetchAndSetFolderCategory = async (userId: string) => {
+    const res = await getFolderCategory(userId);
 
     if (res) {
       const { data } = res;
-      const flexibleData: TFolderCategoryDataWithIdTotal[] = [];
+      const flexibleData: FolderCategoryDataWithIdTotal[] = [];
 
-      if (data.length) flexibleData.unshift({ name: '전체', id: 'total' });
+      if (data.length) {
+        flexibleData.unshift({ name: '전체', id: 'total' });
+      }
 
       setFolderCategoryList([...flexibleData, ...data]);
     }
-  }, []);
+  };
 
-  useEffect(() => {
-    fetchAndSetFolderCategory();
-  }, [fetchAndSetFolderCategory]);
-
-  return folderCategoryList;
+  return { folderCategoryList, fetchAndSetFolderCategory };
 };
 
 export { useGetFolderCategoryList };
