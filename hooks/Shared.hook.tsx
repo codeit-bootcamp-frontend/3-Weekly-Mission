@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import getFetch from "@/utils/getFetch";
-import getFormattedCamelCaseData from "@/utils/getFormattedCamelCaseData";
 import {
     CardInterface,
     FolderDataInterface,
@@ -17,6 +15,12 @@ import {
 } from "@/data";
 import { getErrorMessage } from "@/utils/getErrorMessage";
 import { ParsedUrlQuery } from "querystring";
+import {
+    getSharedPageFolder,
+    getSharedPageInfo,
+    getSharedPageLinkList,
+    getSharedPageUser,
+} from "@/apis/api";
 
 // Header의 유저 프로필 데이터 및 로그인 여부
 export const useSharedPageLogin = () => {
@@ -26,7 +30,7 @@ export const useSharedPageLogin = () => {
     useEffect(() => {
         try {
             (async () => {
-                const data = await getSharedPageUserData();
+                const data = await getSharedPageUser();
                 setUserData({ ...data });
                 setLogin(true);
             })();
@@ -46,11 +50,8 @@ interface SharedPageUrlQueryInterface extends ParsedUrlQuery {
 // sharedPage의 id와 현재 로그인된 유저의 id를 가져오는 훅
 export const useGetSharedPageIds = () => {
     const router = useRouter();
-    const { user, folder } = router.query as SharedPageUrlQueryInterface;
-
-    const [sharedUserId, setSharedUserId] = useState<SharedUserIdType>(user);
-    const [sharedFolderId, setSharedFolderId] =
-        useState<SharedFolderIdType>(folder);
+    const { user: sharedUserId, folder: sharedFolderId } =
+        router.query as SharedPageUrlQueryInterface;
 
     return { sharedUserId, sharedFolderId };
 };
@@ -68,9 +69,9 @@ export const useGetSharedPageInfo = () => {
         try {
             setIsLoadingSharedPageInfo(true);
             (async () => {
-                const data = await getSharedPageInfoData();
+                const data = await getSharedPageInfo();
                 setSharedPageInfo(() => {
-                    return data;
+                    return data.folder;
                 });
             })();
         } catch (err) {
@@ -96,9 +97,9 @@ export const useGetFolderListData = (
     useEffect(() => {
         try {
             setIsLoadingFolderListData(true);
-            if (sharedFolderId) {
-                (async (sharedUserId) => {
-                    const data = await getSharedPageFolderData(sharedUserId);
+            if (sharedFolderId && sharedUserId) {
+                (async () => {
+                    const { data } = await getSharedPageFolder(sharedUserId);
                     setFolderListData(data);
                 })();
             }
@@ -107,7 +108,7 @@ export const useGetFolderListData = (
         } finally {
             setIsLoadingFolderListData(false);
         }
-    }, [sharedUserId]);
+    }, [sharedFolderId, sharedUserId]);
 
     return { folderListData, isLoadingFolderListData, folderListDataError };
 };
@@ -147,7 +148,7 @@ export const useGetShareCardList = (
             setIsLoadingSetCardListData(true);
             if (sharedFolderId && sharedUserId) {
                 (async () => {
-                    const data = await getSharedPageLinkListData(
+                    const { data } = await getSharedPageLinkList(
                         sharedFolderId,
                         sharedUserId
                     );

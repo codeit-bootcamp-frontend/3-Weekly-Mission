@@ -40,6 +40,7 @@ export default function Folder() {
                 linkCreatorDom={linkCreatorRefs.linkCreatorDom}
                 linkCreatorWrapperDom={linkCreatorRefs.linkCreatorWrapperDom}
             />
+            <button onClick={() => console.log(folderCardData)}>click</button>
             <Contents>
                 <CardSearchBar
                     inputValue={inputValue}

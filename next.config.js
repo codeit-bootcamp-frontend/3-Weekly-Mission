@@ -12,7 +12,7 @@ const nextConfig = {
     },
     compiler: {
         styledComponents: true, // styled-components 사용을 위한 설정
-        removeConsole: true, // 컴파일시 console.log 제거
+        // removeConsole: true, // 컴파일시 console.log 제거
     },
 };
 
