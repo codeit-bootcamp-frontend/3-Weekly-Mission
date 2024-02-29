@@ -1,96 +1,98 @@
 import Link from "next/link";
-import * as S from "./Home.style";
 import ResponsiveImage from "@/components/common/ResponsiveImage/ResponsiveImage";
+import styles from "./Home.module.css";
 
 export default function Home() {
   return (
     <>
-      <S.Header>
-        <S.Title>
-          <S.Highlight>세상의 모든 정보</S.Highlight>를 <br />
+      <header className={styles["header"]}>
+        <h1 className="title">
+          <span className={styles["highlight"]}>세상의 모든 정보</span>를 <br />
           쉽게 저장하고 관리해 보세요
-        </S.Title>
-        <S.Button>
+        </h1>
+        <button className={styles["link-button"]}>
           <Link href="/folder">링크 추가하기</Link>
-        </S.Button>
-        <S.ImageBox>
+        </button>
+        <div className={styles["top-image"]}>
           <ResponsiveImage
             src={"/assets/Images/home-img.png"}
             alt="홈 페이지 첫번째 이미지"
           />
-        </S.ImageBox>
-      </S.Header>
+        </div>
+      </header>
 
-      <S.Section>
-        <S.Content>
-          <S.Article1>
-            <S.SectionTitle>
-              <S.SectionHighlight>원하는 링크</S.SectionHighlight>를 <br />{" "}
-              저장하세요
-            </S.SectionTitle>
-            <S.Description>
+      <section className={styles["container"]}>
+        <div className={styles["content"]}>
+          <article className={styles["article"]} id={styles["article1"]}>
+            <h3 className={styles["section-title"]}>
+              <span className={styles["section-highlight1"]}>원하는 링크</span>
+              를 <br /> 저장하세요
+            </h3>
+            <p className={styles["description"]}>
               나중에 읽고 싶은 글, 다시 보고 싶은 영상, 사고 싶은 옷, 기억하고
               싶은 모든 것을 한 공간에 저장하세요.
-            </S.Description>
-          </S.Article1>
-        </S.Content>
-        <S.Image1>
+            </p>
+          </article>
+        </div>
+        <div className={styles["image"]} id={styles["image1"]}>
           <ResponsiveImage
             src={"/assets/Images/home-img1.png"}
             alt="섹션에 해당하는 첫번째 이미지"
           />
-        </S.Image1>
-        <S.Image2>
+        </div>
+        <div className={styles["image"]} id={styles["image2"]}>
           <ResponsiveImage
             src={"/assets/Images/home-img2.png"}
             alt="섹션에 해당하는 두번째 이미지"
           />
-        </S.Image2>
+        </div>
 
-        <S.Article2>
-          <S.SectionTitle>
+        <article className={styles["article"]} id={styles["article2"]}>
+          <h3 className={styles["section-title"]}>
             링크를 폴더로
-            <br /> <S.SectionHighlight1>관리</S.SectionHighlight1>하세요
-          </S.SectionTitle>
-          <S.Description>
+            <br /> <span className={styles["section-highlight2"]}>관리</span>
+            하세요
+          </h3>
+          <p className={styles["description"]}>
             나만의 폴더를 무제한으로 만들고 다양하게 활용할 수 있습니다.
-          </S.Description>
-        </S.Article2>
+          </p>
+        </article>
 
-        <S.Article3>
-          <S.SectionTitle>
+        <article className={styles["article"]} id={styles["article3"]}>
+          <h3 className={styles["section-title"]}>
             저장한 링크를
             <br />
-            <S.SectionHighlight2>공유</S.SectionHighlight2>해보세요
-          </S.SectionTitle>
-          <S.Description>
+            <span className={styles["section-highlight3"]}>공유</span>해보세요
+          </h3>
+          <p className={styles["description"]}>
             여러 링크를 폴더에 담고 공유할 수 있습니다. 가족, 친구, 동료들에게
             쉽고 빠르게 링크를 공유해 보세요.
-          </S.Description>
-        </S.Article3>
-        <S.Image3>
+          </p>
+        </article>
+        <div className={styles["image"]} id={styles["image3"]}>
           <ResponsiveImage
             src={"/assets/Images/home-img3.png"}
             alt="섹션에 해당하는 세번째 이미지"
           />
-        </S.Image3>
-        <S.Image4>
+        </div>
+        <div className={styles["image"]} id={styles["image4"]}>
           <ResponsiveImage
             src={"/assets/Images/home-img4.png"}
             alt="섹션에 해당하는 네번째 이미지"
           />
-        </S.Image4>
+        </div>
 
-        <S.Article4>
-          <S.SectionTitle>
+        <article className={styles["article"]} id={styles["article4"]}>
+          <h3 className={styles["section-title"]}>
             저장한 링크를
-            <br /> <S.SectionHighlight3>검색</S.SectionHighlight3>해보세요
-          </S.SectionTitle>
-          <S.Description>
+            <br /> <span className={styles["section-highlight4"]}>검색</span>
+            해보세요
+          </h3>
+          <p className={styles["description"]}>
             중요한 정보들을 검색으로 쉽게 찾아보세요.
-          </S.Description>
-        </S.Article4>
-      </S.Section>
+          </p>
+        </article>
+      </section>
     </>
   );
 }
