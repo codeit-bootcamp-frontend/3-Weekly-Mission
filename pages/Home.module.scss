@@ -26,9 +26,11 @@
 .section-highlight1 {
   background: linear-gradient(96deg, #fe8a8a 1.72%, #a4ceff 74.97%);
 }
+
 .section-highlight2 {
   background: linear-gradient(277deg, #6fbaff 59.22%, #ffd88b 93.66%);
 }
+
 .section-highlight3 {
   background: linear-gradient(
     99deg,
@@ -36,6 +38,7 @@
     rgba(82, 136, 133, 0.22) 52.69%
   );
 }
+
 .section-highlight4 {
   background: linear-gradient(271deg, #fe578f -9.84%, #68e8f9 107.18%);
 }
@@ -48,7 +51,7 @@
   padding: 3rem 3rem 0 3rem;
   background-color: var(--color-gray1, #f0f6ff);
 
-  & .title {
+  & h1 {
     font-size: 5rem;
     text-align: center;
     font-weight: 700;
@@ -96,60 +99,57 @@
   justify-items: center;
   align-items: center;
   margin: 3rem auto;
-}
 
-.content {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "article1"
-    "image1"
-    "article2"
-    "iamge2"
-    "article3"
-    "image3"
-    "article4"
-    "image4";
-  margin: 12rem auto;
-  gap: 8rem;
-  padding: 3.2rem;
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "article1"
+      "image1"
+      "article2"
+      "iamge2"
+      "article3"
+      "image3"
+      "article4"
+      "image4";
+    margin: 12rem auto;
+    gap: 8rem;
+    padding: 3.2rem;
 
-  & .article {
-    width: 32rem;
+    & .article {
+      width: 32rem;
 
-    & .image,
-    .description {
-      width: 100%;
+      & div,
+      p {
+        width: 100%;
+      }
     }
-  }
 
-  & .section-title {
-    margin-bottom: 3rem;
-    font-size: 4.8rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: -0.3px;
+    & .section-title {
+      margin-bottom: 3rem;
+      font-size: 4.8rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.3px;
 
-    & .section-highlight1,
-    .section-highlight2,
-    .section-highlight3,
-    .section-highlight4 {
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      & span {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
-  }
 
-  & .description {
-    color: #6b6b6b;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 150%;
-  }
+    & .description {
+      color: #6b6b6b;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 150%;
+    }
 
-  & .image {
-    min-width: 30rem;
+    & .image {
+      min-width: 30rem;
+    }
   }
 }
 
@@ -159,7 +159,7 @@
     margin: 0 auto;
     gap: 4rem;
 
-    & .title {
+    & h1 {
       min-width: 30rem;
       font-size: 6.4rem;
     }

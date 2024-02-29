@@ -1,12 +1,12 @@
 import Link from "next/link";
 import ResponsiveImage from "@/components/common/ResponsiveImage/ResponsiveImage";
-import styles from "./Home.module.css";
+import styles from "./Home.module.scss";
 
 export default function Home() {
   return (
     <>
       <header className={styles["header"]}>
-        <h1 className="title">
+        <h1 className={styles["title"]}>
           <span className={styles["highlight"]}>세상의 모든 정보</span>를 <br />
           쉽게 저장하고 관리해 보세요
         </h1>
