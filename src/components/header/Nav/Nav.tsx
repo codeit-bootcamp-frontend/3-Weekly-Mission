@@ -4,6 +4,9 @@ import Profile from '../Profile/Profile';
 import styles from './Nav.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
+import classNames from 'classnames/bind';
+
+const cn = classNames.bind(styles);
 
 interface Props {
   className?: string | undefined;
@@ -43,9 +46,9 @@ export default function Nav({ className = '', setUserId, id }: Props) {
   }, [id, setUserId]);
 
   return (
-    <nav className={`${styles[className]} ${styles['nav']}`}>
+    <nav className={cn(className, 'nav')}>
       <Link href="/">
-        <div className={styles['logo']}>
+        <div className={cn('logo')}>
           <Image
             fill
             src="/images/logo.svg"
@@ -58,10 +61,7 @@ export default function Nav({ className = '', setUserId, id }: Props) {
       {user ? (
         <Profile user={user} />
       ) : (
-        <Link
-          className={`${styles['cta']} ${styles['cta-short']}`}
-          href="signin.html"
-        >
+        <Link className={cn('cta', 'cta-short')} href="signin.html">
           <span>로그인</span>
         </Link>
       )}

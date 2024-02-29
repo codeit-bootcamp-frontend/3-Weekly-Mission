@@ -1,5 +1,8 @@
 import { MouseEvent, useState } from 'react';
 import styles from './DropDown.module.css';
+import classNames from 'classnames/bind';
+
+const cn = classNames.bind(styles);
 
 interface Props {
   selectItem: (value: string) => void;
@@ -9,9 +12,7 @@ export default function DropDown({ selectItem }: Props) {
   const [dropDown, setDropDown] = useState(false);
   const [dropLeft, setDropLeft] = useState(false);
 
-  const className = dropLeft
-    ? `${styles['drop-down']} ${styles['left']}`
-    : styles['drop-down'];
+  const className = dropLeft ? cn('drop-down', 'left') : cn('drop-down');
 
   const onClickDropDownItem = (e: MouseEvent) => {
     e.preventDefault();
@@ -31,21 +32,15 @@ export default function DropDown({ selectItem }: Props) {
 
   return (
     <>
-      <button className={styles['kebab']} onClick={handleShowDropDown}>
+      <button className={cn('kebab')} onClick={handleShowDropDown}>
         ···
       </button>
       {dropDown && (
         <div className={className}>
-          <div
-            className={styles['drop-down__item']}
-            onClick={onClickDropDownItem}
-          >
+          <div className={cn('drop-down__item')} onClick={onClickDropDownItem}>
             삭제하기
           </div>
-          <div
-            className={styles['drop-down__item']}
-            onClick={onClickDropDownItem}
-          >
+          <div className={cn('drop-down__item')} onClick={onClickDropDownItem}>
             폴더에 추가
           </div>
         </div>

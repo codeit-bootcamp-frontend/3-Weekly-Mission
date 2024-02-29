@@ -4,6 +4,10 @@ import styles from './EditOption.module.css';
 import modalStyles from '../BaseModal/BaseModal.module.css';
 import { FolderInfo } from '@/pages/folder';
 import Image from 'next/image';
+import classNames from 'classnames/bind';
+
+const cn = classNames.bind(styles);
+const modalCn = classNames.bind(modalStyles);
 
 interface Props {
   src: string;
@@ -21,14 +25,14 @@ export default function EditOption({ src, optionName, userId, folder }: Props) {
     case '이름 변경':
       modalContent = (
         <>
-          <span className={modalStyles['modal__name']}>폴더 이름 변경</span>
-          <div className={modalStyles['modal__folder-add']}>
+          <span className={modalCn('modal__name')}>폴더 이름 변경</span>
+          <div className={modalCn('modal__folder-add')}>
             <input
-              className={modalStyles['modal__input']}
+              className={modalCn('modal__input')}
               placeholder="내용 입력"
               defaultValue={folder.name}
             />
-            <button className={`${modalStyles['modal__button']} cta`}>
+            <button className={`${modalCn('modal__button')} cta`}>
               변경하기
             </button>
           </div>
@@ -38,17 +42,11 @@ export default function EditOption({ src, optionName, userId, folder }: Props) {
     case '삭제':
       modalContent = (
         <>
-          <div
-            className={`${modalStyles['modal__folder-remove']} ${modalStyles['modal--remove']}`}
-          >
-            <span className={modalStyles['modal__name']}>폴더 삭제</span>
-            <span className={modalStyles['modal__folder-name']}>
-              {folder.name}
-            </span>
+          <div className={modalCn('modal__folder-remove', 'modal--remove')}>
+            <span className={modalCn('modal__name')}>폴더 삭제</span>
+            <span className={modalCn('modal__folder-name')}>{folder.name}</span>
           </div>
-          <button
-            className={`${modalStyles['modal__button']} ${modalStyles['modal__button--remove']}`}
-          >
+          <button className={modalCn('modal__button', 'modal__button--remove')}>
             삭제하기
           </button>
         </>
@@ -97,51 +95,49 @@ export default function EditOption({ src, optionName, userId, folder }: Props) {
 
       modalContent = (
         <>
-          <div className={modalStyles['modal__folder-share']}>
-            <span className={modalStyles['modal__name']}>폴더 공유</span>
-            <span className={modalStyles['modal__link']}>{folder.name}</span>
+          <div className={modalCn('modal__folder-share')}>
+            <span className={modalCn('modal__name')}>폴더 공유</span>
+            <span className={modalCn('modal__link')}>{folder.name}</span>
           </div>
-          <div className={modalStyles['modal__share-buttons']}>
+          <div className={modalCn('modal__share-buttons')}>
             <div
-              className={`${modalStyles['modal__share-button']} ${modalStyles['kakaotalk']}`}
+              className={modalCn('modal__share-button', 'kakaotalk')}
               onClick={handleShareToKakaotalk}
             >
               <Image
                 width={42}
                 height={42}
-                className={modalStyles['modal__share-icon']}
+                className={modalCn('modal__share-icon')}
                 src="/images/sharekakaotalk.png"
                 alt="카카오톡 아이콘"
               />
-              <span className={modalStyles['modal__share-type']}>카카오톡</span>
+              <span className={modalCn('modal__share-type')}>카카오톡</span>
             </div>
             <div
-              className={`${modalStyles['modal__share-button']} ${modalStyles['facebook']}`}
+              className={modalCn('modal__share-button', 'facebook')}
               onClick={handleShareToFacebook}
             >
               <Image
                 width={42}
                 height={42}
-                className={modalStyles['modal__share-icon']}
+                className={modalCn('modal__share-icon')}
                 src="/images/sharefacebook.png"
                 alt="페이스북 아이콘"
               />
-              <span className={modalStyles['modal__share-type']}>페이스북</span>
+              <span className={modalCn('modal__share-type')}>페이스북</span>
             </div>
             <div
-              className={`${modalStyles['modal__share-button']} ${modalStyles['link-copy']}`}
+              className={modalCn('modal__share-button', 'link-copy')}
               onClick={handleCopyClipBoard}
             >
               <Image
                 width={42}
                 height={42}
-                className={modalStyles['modal__share-icon']}
+                className={modalCn('modal__share-icon')}
                 src="/images/shareclip.png"
                 alt="클립 아이콘"
               />
-              <span className={modalStyles['modal__share-type']}>
-                링크 복사
-              </span>
+              <span className={modalCn('modal__share-type')}>링크 복사</span>
             </div>
           </div>
         </>
@@ -149,9 +145,7 @@ export default function EditOption({ src, optionName, userId, folder }: Props) {
       break;
     }
     default:
-      <span className={modalStyles['modal__name']}>
-        의도치 않은 모달입니다
-      </span>;
+      <span className={modalCn('modal__name')}>의도치 않은 모달입니다</span>;
   }
 
   const onClickEditOption = () => {
@@ -164,9 +158,9 @@ export default function EditOption({ src, optionName, userId, folder }: Props) {
 
   return (
     <>
-      <div className={styles['option']} onClick={onClickEditOption}>
+      <div className={cn('option')} onClick={onClickEditOption}>
         <Image width={18} height={18} src={src} alt={optionName + ' 아이콘'} />
-        <span className={styles['option-name']}>{optionName}</span>
+        <span className={cn('option-name')}>{optionName}</span>
       </div>
       {openModal && (
         <BaseModal closeModal={closeModal}>{modalContent}</BaseModal>

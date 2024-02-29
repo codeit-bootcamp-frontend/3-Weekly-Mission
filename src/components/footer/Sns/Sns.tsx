@@ -1,5 +1,8 @@
 import LinkLogo from '../LinkLogo/LinkLogo';
 import styles from './Sns.module.css';
+import classNames from 'classnames/bind';
+
+const cn = classNames.bind(styles);
 
 interface Props {
   className: string;
@@ -9,7 +12,7 @@ interface Props {
 
 export default function Sns({ className, target, rel }: Props) {
   return (
-    <div className={styles[className]}>
+    <div className={cn(className)}>
       <LinkLogo
         href="https://www.facebook.com/"
         logo="facebook"
