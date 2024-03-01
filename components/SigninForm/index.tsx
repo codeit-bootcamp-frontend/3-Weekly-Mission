@@ -41,7 +41,7 @@ export const SigninForm = () => {
       }
     } catch (error) {
       const axiosError = error as AxiosError;
-      if (axiosError.response && axiosError.response.status === 400) {
+      if (axiosError?.response?.status === 400) {
         setError('email', {
           type: 'custom',
           message: ERROR_MESSAGES.EMAIL_CHECK_FAILED,
