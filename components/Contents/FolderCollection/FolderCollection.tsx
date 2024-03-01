@@ -21,23 +21,20 @@ const FolderCollection = ({
     onFilteredCardButtonClick,
     userData,
 }: FolderCollectionProps) => {
-    const [currentFolder, setCurrentFolder] = useState("전체");
+    const [currentFolderId, setCurrentFolderId] = useState(0);
     const sharingUrl = useRef("");
 
     const createSharingUrl = (userId: number, folderId: number) => {
         sharingUrl.current = `${window.location.origin}/shared?user=${userId}&folder=${folderId}`;
     };
 
-    const setCurrentFolderToOverview = () => {
-        setCurrentFolder("전체");
+    const setCurrentFolderIdToOverview = () => {
+        setCurrentFolderId(0);
         onOverviewCardButtonClick();
     };
 
-    const setCurrentFolderToSelected = (
-        folderName: string,
-        folderId: number
-    ) => {
-        setCurrentFolder(folderName);
+    const setCurrentFolderIdToSelected = (folderId: number) => {
+        setCurrentFolderId(folderId);
         onFilteredCardButtonClick(folderId);
         if (userData !== undefined) {
             createSharingUrl(userData.id, folderId);
@@ -52,30 +49,33 @@ const FolderCollection = ({
         <>
             <FolderWrapper>
                 <div>
-                    <FolderButtonWrapper>
-                        <FolderButtonBox
+                    <FolderButtonContainer>
+                        <FolderButton
                             type="button"
-                            onClick={setCurrentFolderToOverview}
+                            isClicked={0 === currentFolderId ? true : false}
+                            onClick={setCurrentFolderIdToOverview}
                         >
                             전체
-                        </FolderButtonBox>
+                        </FolderButton>
                         {folderData.map((folder) => {
                             return (
-                                <FolderButtonBox
+                                <FolderButton
                                     type="button"
+                                    isClicked={
+                                        folder.id === currentFolderId
+                                            ? true
+                                            : false
+                                    }
                                     key={folder.id}
                                     onClick={() => {
-                                        setCurrentFolderToSelected(
-                                            folder.name,
-                                            folder.id
-                                        );
+                                        setCurrentFolderIdToSelected(folder.id);
                                     }}
                                 >
                                     {folder.name}
-                                </FolderButtonBox>
+                                </FolderButton>
                             );
                         })}
-                    </FolderButtonWrapper>
+                    </FolderButtonContainer>
                     <CreateFolderButton
                         onClick={() => {
                             onButtonClick({
@@ -97,8 +97,8 @@ const FolderCollection = ({
             </FolderWrapper>
 
             <FolderToolbarWrapper>
-                <div>{currentFolder}</div>
-                {currentFolder !== "전체" ? (
+                <div>{currentFolderId}</div>
+                {currentFolderId !== 0 ? (
                     <FolderToolbarBox>
                         <button
                             type="button"
@@ -107,7 +107,7 @@ const FolderCollection = ({
                                 onButtonClick({
                                     ...DEFALUT_MODAL_VALUE,
                                     type: "ShareFolder",
-                                    folderName: currentFolder,
+                                    folderName: currentFolderId,
                                     sharingUrl: sharingUrl.current,
                                 });
                             }}
@@ -126,7 +126,7 @@ const FolderCollection = ({
                                 onButtonClick({
                                     ...DEFALUT_MODAL_VALUE,
                                     type: "ChangeFolderName",
-                                    folderName: currentFolder,
+                                    folderName: currentFolderId,
                                 });
                             }}
                         >
@@ -144,7 +144,7 @@ const FolderCollection = ({
                                 onButtonClick({
                                     ...DEFALUT_MODAL_VALUE,
                                     type: "DeleteFolder",
-                                    folderName: currentFolder,
+                                    folderName: currentFolderId,
                                 });
                             }}
                         >
@@ -183,13 +183,13 @@ const FolderWrapper = styled.div`
     }
 `;
 
-const FolderButtonWrapper = styled.div`
+const FolderButtonContainer = styled.div`
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
 `;
 
-const FolderButtonBox = styled.button`
+const FolderButton = styled.button<{ isClicked: boolean }>`
     display: flex;
     padding: 8px 12px;
     flex-direction: column;
@@ -201,17 +201,11 @@ const FolderButtonBox = styled.button`
     font-family: Pretendard;
     margin: 0 8px 8px 0;
 
-    &:focus {
-        color: #fff;
-        font-family: Pretendard;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        border-radius: 5px;
-        border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
-        background: var(--Linkbrary-primary-color, #6d6afe);
-    }
+    ${(props) =>
+        props.isClicked
+            ? `color: #fff;
+        background: var(--Linkbrary-primary-color, #6d6afe);`
+            : ""}
 
     @media (max-width: 767px) {
         padding: 6px 10px;
