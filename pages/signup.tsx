@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import styles from '@/styles/signup.module.css';
 import Link from 'next/link';
-import { SocialSign } from '@/components/SocialSign';
-import { SignupForm } from '@/components/SignupForm';
+import { SocialSign } from '@/components/SignForm/SocialSign';
+import { SignupForm } from '@/components/SignForm/SignupForm';
 import { MouseEvent } from 'react';
 import { useRouter } from 'next/router';
 
