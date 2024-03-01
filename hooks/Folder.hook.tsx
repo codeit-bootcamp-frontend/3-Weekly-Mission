@@ -6,7 +6,7 @@ import {
     UserDataInterface,
     ModalInterface,
 } from "@/interfaces";
-import { getFolderPageUser } from "@/apis/api";
+import { getUser } from "@/apis/api";
 import {
     getRefinedFilteredLinkList,
     getRefinedLinkList,
@@ -102,7 +102,7 @@ export const useFolderPageLogin = () => {
     useEffect(() => {
         try {
             (async () => {
-                const { data } = await getFolderPageUser();
+                const { data } = await getUser();
                 setUserData({ ...data[0] });
                 setLogin(true);
             })();
@@ -111,7 +111,7 @@ export const useFolderPageLogin = () => {
         }
     }, []);
 
-    return { login };
+    return { login, userData };
 };
 
 export const useScrollingSearchBar = () => {
