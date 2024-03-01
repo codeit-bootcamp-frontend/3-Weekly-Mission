@@ -1,15 +1,13 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
-import { UserDataInterface } from "@/interfaces";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getUser } from "@/apis/api";
 import { getRefinedUser } from "@/apis/services";
 
 // 컴포넌트의 props 타입 정의의 경우 항상 해줘야한다.
 interface HeaderProps {
-    login: boolean;
+    isLogin: boolean;
 }
 
 interface UserInterface {
@@ -19,7 +17,7 @@ interface UserInterface {
     email: string;
 }
 
-const Header = ({ login }: HeaderProps) => {
+const Header = ({ isLogin }: HeaderProps) => {
     const { route } = useRouter();
 
     const [user, setUser] = useState<UserInterface>({
@@ -52,7 +50,7 @@ const Header = ({ login }: HeaderProps) => {
                             height={24}
                         />
                     </HeaderLogoImgBox>
-                    {login ? (
+                    {isLogin ? (
                         <HeaderProfileBox>
                             <Image
                                 src={user?.imageSource}
@@ -84,7 +82,7 @@ const Header = ({ login }: HeaderProps) => {
                             height={24}
                         />
                     </HeaderLogoImgBox>
-                    {login ? (
+                    {isLogin ? (
                         <HeaderProfileBox>
                             <Image
                                 src={user?.imageSource}

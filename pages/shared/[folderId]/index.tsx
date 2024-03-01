@@ -7,15 +7,23 @@ import CardSearchBar from "@/components/Contents/CardSearchBar/CardSearchBar";
 import Footer from "@/components/Footer/Footer";
 import CardList from "@/components/Contents/CardList/CardList";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { getAccessToken } from "@/utils/getAccessToken";
 
 export default function SharedFolderDetail() {
-    const { login } = useSharedPageLogin();
+    const [isLogin, setIsLogin] = useState(false);
+    useEffect(() => {
+        if (getAccessToken()) {
+            setIsLogin(true);
+        }
+    }, []);
 
     const router = useRouter();
     const { folderId } = router.query;
 
     const { cardListData, originalCardListData, setCardListData } =
         useGetShareCardList("1007", folderId);
+
     const { inputValue, handleInputChange, resetInputValue } = useSearchBar(
         originalCardListData,
         setCardListData
@@ -23,7 +31,7 @@ export default function SharedFolderDetail() {
 
     return (
         <>
-            <Header login={login} />
+            <Header isLogin={isLogin} />
             <ShareDescription />
             <Contents>
                 <CardSearchBar
