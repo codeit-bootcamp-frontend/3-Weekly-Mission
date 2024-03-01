@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { DEFALUT_MODAL_VALUE } from "@/Constants/Constants";
+import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
 import getFormattedCamelCaseData from "@/utils/getFormattedCamelCaseData";
 import {
     CardInterface,
@@ -7,7 +7,7 @@ import {
     UserDataInterface,
     ModalInterface,
 } from "@/interfaces";
-import { URL_DOMAIN } from "@/Constants/Constants";
+import { URL_DOMAIN } from "@/constants/constants";
 import {
     getFilteredLinkData,
     getFolderPageUserData,

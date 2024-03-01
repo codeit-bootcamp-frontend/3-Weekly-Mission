@@ -7,16 +7,11 @@ import {
 } from "@/interfaces";
 import { SharedFolderIdType, SharedUserIdType } from "@/types";
 import { useRouter } from "next/router";
-import {
-    getSharedPageFolderData,
-    getSharedPageInfoData,
-    getSharedPageLinkListData,
-    getSharedPageUserData,
-} from "@/data";
 import { getErrorMessage } from "@/utils/getErrorMessage";
 import { ParsedUrlQuery } from "querystring";
 import {
     getSharedPageFolder,
+    getSharedPageFolderInfo,
     getSharedPageInfo,
     getSharedPageLinkList,
     getSharedPageUser,

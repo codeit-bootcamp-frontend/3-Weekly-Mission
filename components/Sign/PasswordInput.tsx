@@ -1,7 +1,7 @@
 import {
     CONFIRM_PASSWORD,
     SignInputErrorMessages,
-} from "@/Constants/Constants";
+} from "@/constants/constants";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";

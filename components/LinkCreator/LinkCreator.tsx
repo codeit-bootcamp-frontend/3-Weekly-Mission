@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import link from "@/public/images/link.svg";
-import { DEFALUT_MODAL_VALUE } from "@/Constants/Constants";
+import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
 import { ShowModal } from "@/types";
 
 interface LinkCreatorProps {

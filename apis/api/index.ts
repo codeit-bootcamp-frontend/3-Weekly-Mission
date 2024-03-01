@@ -58,6 +58,16 @@ export const getSharedPageUser = async () => {
 
 /**
  *
+ * @param { string } id
+ * @returns sharedPageFolderInfo
+ */
+export const getSharedPageFolderInfo = async (id = "41") => {
+    const { data } = await defaultInstance.get(`folders/${id}`);
+    return getFormattedCamelCaseData(data);
+};
+
+/**
+ *
  * @returns SharedPageInfo
  */
 export const getSharedPageInfo = async () => {

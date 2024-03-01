@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
 import styled from "styled-components";
-import { DEFALUT_MODAL_VALUE } from "@/Constants/Constants";
+import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
 import { ShowModal } from "@/types";
 import { FolderDataInterface } from "@/interfaces";
 import Image from "next/image";

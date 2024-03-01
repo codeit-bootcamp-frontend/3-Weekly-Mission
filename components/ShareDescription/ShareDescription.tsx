@@ -1,16 +1,42 @@
 import styled from "styled-components";
-import { SharedPageInfoInterface } from "../../interfaces";
+import {
+    SharedPageFolderInfoInterface,
+    SharedPageInfoInterface,
+} from "../../interfaces";
 import Image from "next/image";
 
+import { useEffect, useState } from "react";
+import { getSharedPageFolderInfo } from "@/apis/api";
+import { useRouter } from "next/router";
+
 interface ShareDescriptionProps {
-    sharedPageInfo: SharedPageInfoInterface | undefined;
-    sharePageFolderName: string | undefined;
+    sharedPageInfo?: SharedPageInfoInterface;
+    sharePageFolderName?: string;
+    SharedPageFolderInfo?: SharedPageFolderInfoInterface;
 }
 
 const ShareDescription = ({
     sharedPageInfo,
     sharePageFolderName,
 }: ShareDescriptionProps) => {
+    const router = useRouter();
+    const { folderId: SharedFolderId } = router.query;
+
+    const [SharedPageFolderInfo, setSharedPageFolderInfo] = useState<
+        SharedPageFolderInfoInterface[]
+    >([{}]);
+
+    useEffect(() => {
+        try {
+            (async () => {
+                const { data } = await getSharedPageFolderInfo(SharedFolderId);
+                return setSharedPageFolderInfo(() => [...data]);
+            })();
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
+
     return (
         <Background>
             <ShareDescriptionWrapper>
@@ -21,7 +47,7 @@ const ShareDescription = ({
                     height={60}
                 />
                 <span>{sharedPageInfo?.owner?.name}</span>
-                <div>{sharePageFolderName}</div>
+                <div>{SharedPageFolderInfo[0].name}</div>
             </ShareDescriptionWrapper>
         </Background>
     );

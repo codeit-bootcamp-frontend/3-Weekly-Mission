@@ -2,7 +2,7 @@ import {
     CONFIRM_EMAIL,
     SignInputErrorMessages,
     URL_DOMAIN,
-} from "@/Constants/Constants";
+} from "@/constants/constants";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 

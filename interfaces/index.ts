@@ -76,3 +76,11 @@ export interface signFormDataInterface {
     email: string;
     password: string;
 }
+
+export interface SharedPageFolderInfoInterface {
+    id: number;
+    created_at: string;
+    name: string;
+    user_id: number;
+    favorite: boolean;
+}

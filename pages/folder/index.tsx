@@ -14,8 +14,19 @@ import FolderCollection from "@/components/Contents/FolderCollection/FolderColle
 import CardList from "@/components/Contents/CardList/CardList";
 import Footer from "@/components/Footer/Footer";
 import Modal from "@/components/Modal/Modal";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { getAccessToken } from "@/utils/getAccessToken";
 
 export default function Folder() {
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!getAccessToken()) {
+            router.push("/signin");
+        }
+    }, []);
+
     const { modal, showModal, closeModal } = useModal();
     const {
         folderData,
@@ -40,7 +51,6 @@ export default function Folder() {
                 linkCreatorDom={linkCreatorRefs.linkCreatorDom}
                 linkCreatorWrapperDom={linkCreatorRefs.linkCreatorWrapperDom}
             />
-            <button onClick={() => console.log(folderCardData)}>click</button>
             <Contents>
                 <CardSearchBar
                     inputValue={inputValue}

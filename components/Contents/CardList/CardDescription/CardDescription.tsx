@@ -3,7 +3,7 @@ import { MouseEvent, useState } from "react";
 import calculatePassedTime from "@/utils/calculatePassedTime";
 import getFormattedDate from "@/utils/getFormattedDate";
 
-import { DEFALUT_MODAL_VALUE } from "@/Constants/Constants";
+import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
 import { CardInterface } from "@/interfaces";
 import { ShowModal } from "@/types";
 import Image from "next/image";
