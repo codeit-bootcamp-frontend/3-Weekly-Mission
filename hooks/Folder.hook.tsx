@@ -1,24 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
-import getFormattedCamelCaseData from "@/utils/getFormattedCamelCaseData";
 import {
     CardInterface,
     FolderDataInterface,
     UserDataInterface,
     ModalInterface,
 } from "@/interfaces";
-import { URL_DOMAIN } from "@/constants/constants";
-import {
-    getFilteredLinkData,
-    getFolderPageUserData,
-    getLinkData,
-} from "@/data";
 import {
     getFilteredLinkList,
-    getFolderList,
+    getFilteredLinkList1,
     getFolderPageUser,
     getLinkList,
+    getLinkList1,
 } from "@/apis/api";
+import {
+    getRefinedFilteredLinkList,
+    getRefinedLinkList,
+} from "@/apis/services";
 
 // Modal을 사용하기 위한 hook
 export const useModal = () => {
@@ -46,27 +44,16 @@ export const useFolder = () => {
     >();
     const originalFolderCardData = useRef<any>([]);
 
-    // 페이지 로드시 폴더 데이터 가지오기
-    useEffect(() => {
-        try {
-            (async () => {
-                const { data } = await getFolderList();
-                return setFolderData(() => data);
-            })();
-        } catch (error) {
-            console.error(error);
-        }
-    }, []);
-
     // 페이지 로드시 전체 링크 데이터 가져오기
     useEffect(() => {
         try {
             (async () => {
-                const { data } = await getLinkList();
+                const refinedLinkList = await getRefinedLinkList();
                 setFolderCardData(() => {
-                    return data;
+                    return refinedLinkList;
                 });
-                originalFolderCardData.current = [...data];
+                console.log(refinedLinkList, "refinedLinkList");
+                originalFolderCardData.current = [...refinedLinkList];
             })();
         } catch (error) {
             console.error(error);
@@ -74,14 +61,14 @@ export const useFolder = () => {
     }, []);
 
     // 폴더의 전체 버튼을 클릭했을 때 가져올 데이터
-    const handleOverviewCardButtonClick = () => {
+    const handleOverviewFolderButtonClick = () => {
         try {
             (async () => {
-                const { data } = await getLinkList();
+                const refinedLinkList = await getRefinedLinkList();
                 setFolderCardData(() => {
-                    return data;
+                    return refinedLinkList;
                 });
-                originalFolderCardData.current = [...data];
+                originalFolderCardData.current = [...refinedLinkList];
             })();
         } catch (error) {
             console.error(error);
@@ -89,12 +76,13 @@ export const useFolder = () => {
     };
 
     // 폴더의 전체 버튼이 아닌 버튼을 클릭했을 때 가져올 데이터
-    const handleFilteredCardButtonClick = (id: number) => {
+    const handleFilteredFolderButtonClick = () => {
         try {
             (async () => {
-                const { data } = await getFilteredLinkList(id);
+                const refinedFilteredLinkList =
+                    await getRefinedFilteredLinkList();
                 setFolderCardData(() => {
-                    return data;
+                    return refinedFilteredLinkList;
                 });
             })();
         } catch (error) {
@@ -105,8 +93,8 @@ export const useFolder = () => {
         folderData,
         folderCardData,
         originalFolderCardData,
-        handleOverviewCardButtonClick,
-        handleFilteredCardButtonClick,
+        handleOverviewFolderButtonClick,
+        handleFilteredFolderButtonClick,
         setFolderCardData,
     };
 };

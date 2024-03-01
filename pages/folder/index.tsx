@@ -17,12 +17,12 @@ import Modal from "@/components/Modal/Modal";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getAccessToken } from "@/utils/getAccessToken";
-import { getFolderList1 } from "@/apis/api";
 import { getRefinedFolderList } from "@/apis/services";
 
 export default function Folder() {
     const router = useRouter();
 
+    // 로그인이 되어있지 않다면 로그인 페이지로 이동한다.
     useEffect(() => {
         if (!getAccessToken()) {
             router.push("/signin");
@@ -31,6 +31,7 @@ export default function Folder() {
 
     const [folderList, setFolderList] = useState([]);
 
+    // 폴더 리스트를 가져온다.
     useEffect(() => {
         (async () => {
             const refinedFolderList = await getRefinedFolderList();
@@ -43,8 +44,8 @@ export default function Folder() {
         folderCardData,
         originalFolderCardData,
         setFolderCardData,
-        handleOverviewCardButtonClick,
-        handleFilteredCardButtonClick,
+        handleOverviewFolderButtonClick,
+        handleFilteredFolderButtonClick,
     } = useFolder();
     const { login, userData } = useFolderPageLogin();
     const { inputValue, handleInputChange, resetInputValue } = useSearchBar(
@@ -71,8 +72,12 @@ export default function Folder() {
                     onButtonClick={showModal}
                     userData={userData}
                     folderList={folderList}
-                    onOverviewCardButtonClick={handleOverviewCardButtonClick}
-                    onFilteredCardButtonClick={handleFilteredCardButtonClick}
+                    onOverviewFolderButtonClick={
+                        handleOverviewFolderButtonClick
+                    }
+                    onFilteredFolderButtonClick={
+                        handleFilteredFolderButtonClick
+                    }
                 />
                 <CardList
                     cardListData={folderCardData}

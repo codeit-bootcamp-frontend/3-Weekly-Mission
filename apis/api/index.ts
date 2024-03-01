@@ -5,42 +5,6 @@ import { getAccessToken } from "@/utils/getAccessToken";
 
 /**
  *
- * @returns FolderList
- */
-export const getFolderList = async (id = 11) => {
-    try {
-        const { data } = await defaultInstance.get(`users/${id}/folders`);
-        return getFormattedCamelCaseData(data);
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-/**
- *
- * @returns linkList
- */
-export const getLinkList = async (id = 11) => {
-    try {
-        const { data } = await defaultInstance.get(`users/${id}/links`);
-        return getFormattedCamelCaseData(data);
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-/**
- *
- * @param { number } id
- * @returns FilteredLinkList
- */
-export const getFilteredLinkList = async (id: number) => {
-    const { data } = await defaultInstance.get(`users/11/links?folderId=${id}`);
-    return getFormattedCamelCaseData(data);
-};
-
-/**
- *
  * @returns FolderPageUser
  */
 export const getFolderPageUser = async (id = 11) => {
@@ -112,8 +76,39 @@ export const getUser = async () => {
     return getFormattedCamelCaseData(data);
 };
 
-export const getFolderList1 = async () => {
+export const getFolderList = async () => {
     const { data } = await defaultInstance.get(`folders`, {
+        headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
+    });
+    return getFormattedCamelCaseData(data);
+};
+
+/**
+ *
+ * @returns linkList
+ */
+export const getLinkList = async () => {
+    try {
+        const { data } = await defaultInstance.get(`links`, {
+            headers: {
+                Authorization: `Bearer ${getAccessToken()}`,
+            },
+        });
+        return getFormattedCamelCaseData(data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+/**
+ *
+ * @param { number } id
+ * @returns FilteredLinkList
+ */
+export const getFilteredLinkList = async () => {
+    const { data } = await defaultInstance.get("links?folderId=1", {
         headers: {
             Authorization: `Bearer ${getAccessToken()}`,
         },

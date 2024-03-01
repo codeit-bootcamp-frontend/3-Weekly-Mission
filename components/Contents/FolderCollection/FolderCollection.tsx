@@ -10,16 +10,16 @@ import { useRouter } from "next/router";
 interface FolderCollectionProps {
     onButtonClick: ShowModal;
     folderList?: FolderDataInterface[];
-    onOverviewCardButtonClick: () => void;
-    onFilteredCardButtonClick: (id: number) => void;
+    onOverviewFolderButtonClick: () => void;
+    onFilteredFolderButtonClick: (id: number) => void;
     userData: any;
 }
 
 const FolderCollection = ({
     onButtonClick,
     folderList,
-    onOverviewCardButtonClick,
-    onFilteredCardButtonClick,
+    onOverviewFolderButtonClick,
+    onFilteredFolderButtonClick,
     userData,
 }: FolderCollectionProps) => {
     // Think currentFolderId와 currentFolderName을 객체로 관리하는 편이 옳은가?
@@ -56,14 +56,14 @@ const FolderCollection = ({
     const handleOverviewFolderClick = () => {
         setCurrentFolderId(0);
         setCurrentFolderName("전체");
-        onOverviewCardButtonClick();
+        onOverviewFolderButtonClick();
     };
 
     // 폴더 클릭
     const handleFolderClick = (folderId: number, folderName: string) => {
         setCurrentFolderId(folderId);
         setCurrentFolderName(folderName);
-        onFilteredCardButtonClick(folderId);
+        onFilteredFolderButtonClick(folderId);
         // URL 생성
         if (userData) {
             createSharingUrl(userData.id, folderId);
