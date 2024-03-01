@@ -1,40 +1,15 @@
-import { useEffect, useState } from "react";
-import getUserProfile from "@/api/getUserProfile";
 import Image from "next/image";
 import Link from "next/link";
 import UserProfile from "@/components/UserProfile";
-import Cta from "@/components/Cta";
+import LoginCTA from "@/components/LoginCTA";
 import styles from "./style.module.css";
 
-export interface UserProfileData {
-  email: string;
-  id: number;
-  name: string;
-  profileImageSource: string;
+interface HeaderProps {
+  userProfile: UserProfileData & FolderUserData;
 }
 
-export default function Header() {
-  const [userProfile, setUserProfile] = useState<UserProfileData | null>(null);
-
-  const loadUserProfile = async () => {
-    try {
-      const userProfile = await getUserProfile();
-      setUserProfile(userProfile);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    loadUserProfile();
-  }, []);
-
-  // null일경우 타입 오류 처리
-  if (userProfile === null) {
-    return null;
-  }
-
-  const { email, profileImageSource }: UserProfileData = userProfile;
+export default function Header({ userProfile }: HeaderProps) {
+  const { email, profileImageSource, image_source } = userProfile;
 
   return (
     <header className={styles["linkbrary-header"]}>
@@ -44,9 +19,12 @@ export default function Header() {
         </Link>
       </h1>
       {userProfile ? (
-        <UserProfile userEmail={email} userImage={profileImageSource} />
+        <UserProfile
+          userEmail={email}
+          userImage={profileImageSource ?? image_source}
+        />
       ) : (
-        <Cta />
+        <LoginCTA />
       )}
     </header>
   );

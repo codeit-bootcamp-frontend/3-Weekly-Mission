@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./style.module.css";
 
-function Footer() {
+export default function Footer() {
   return (
     <footer className={styles["linkbrary-footer"]}>
       <div className={styles["footer-copy"]}>
@@ -49,5 +49,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;

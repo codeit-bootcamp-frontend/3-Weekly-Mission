@@ -63,6 +63,12 @@ const nextConfig = {
         port: "",
         pathname: "/static/www/mobile/edit/2016/0705/**",
       },
+      {
+        protocol: "https",
+        hostname: "jasonwatmore.com",
+        port: "",
+        pathname: "/_content/images/**",
+      },
     ],
   },
 };

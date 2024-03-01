@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-import getSampleFolder from "@/api/getSampleFolder";
 import Image from "next/image";
-import styles from "./style.module.css";
+import styles from "@/styles/titlebar.module.css";
 
 interface SharedTitlebarProps {
   owner: string;
@@ -9,7 +7,7 @@ interface SharedTitlebarProps {
   folderName: string;
 }
 
-function SharedTitlebar({
+export default function SharedTitlebar({
   owner,
   profileImg,
   folderName,
@@ -27,5 +25,3 @@ function SharedTitlebar({
     </section>
   );
 }
-
-export default SharedTitlebar;

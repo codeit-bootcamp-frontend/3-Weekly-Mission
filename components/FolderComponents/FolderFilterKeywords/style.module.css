@@ -1,0 +1,66 @@
+.filter-section .filter-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.filter-section .filter-container img {
+  cursor: pointer;
+}
+
+.filter-keywords-list {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.filter-keywords-list li {
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 36px;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid var(--color-primary);
+}
+
+.filter-keywords-list li.selected {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.folder-add-floating {
+  display: none;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  left: 50%;
+  bottom: 101px;
+  transform: translateX(-50%);
+  z-index: 999;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 30px;
+}
+
+.folder-add-floating img {
+  filter: brightness(100);
+}
+
+@media (max-width: 1199px) {
+  .container.filter-keywords-list {
+    padding: 0;
+  }
+}
+
+/* 모바일 */
+@media (min-width: 375px) and (max-width: 767px) {
+  .folder-add-floating {
+    display: flex;
+  }
+}

@@ -4,6 +4,12 @@
   gap: 1.25em;
 }
 
+.empty-links {
+  padding: 50px 0;
+  text-align: center;
+  grid-column: 1/4;
+}
+
 @media (max-width: 1124px) {
   .cardlist {
     grid-template-columns: 1fr 1fr;

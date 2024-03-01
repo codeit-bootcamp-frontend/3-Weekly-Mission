@@ -2,11 +2,13 @@ import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import styles from "./style.module.css";
 
-type SearchbarProps = {
+interface SearchbarProps {
   handleSearchKeywordChange: (changeSearchKeyword: string) => void;
-};
+}
 
-function Searchbar({ handleSearchKeywordChange }: SearchbarProps) {
+export default function Searchbar({
+  handleSearchKeywordChange,
+}: SearchbarProps) {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,5 +44,3 @@ function Searchbar({ handleSearchKeywordChange }: SearchbarProps) {
     </section>
   );
 }
-
-export default Searchbar;
