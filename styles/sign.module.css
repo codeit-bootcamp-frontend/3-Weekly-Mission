@@ -15,22 +15,3 @@
   padding: 238px 0 100%;
   row-gap: 30px;
 }
-
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-.header__text {
-  font-size: 1.6rem;
-  line-height: 24px;
-}
-
-.header__signup-link {
-  font-weight: 600;
-  line-height: normal;
-  color: var(--Linkbrary-primary-color);
-  text-decoration: underline;
-}
