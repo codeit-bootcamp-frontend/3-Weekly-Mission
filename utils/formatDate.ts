@@ -1,5 +1,5 @@
 import { FolderLink } from '@/types/Common';
-import { TIMES } from '../constants/constants';
+import { TIMES } from '../constants/time';
 
 export const formatDate = (folderLink: FolderLink) => {
   const now: Date = new Date();

@@ -9,6 +9,7 @@ import { Footer } from '@/components/Footer/index';
 import styles from '@/styles/folder.module.css';
 import { FolderLink, SelectedFolder } from '@/types/Common';
 import { GetStaticProps } from 'next';
+import { ALL_CONTENTS_FOLDER } from '@/constants/constants';
 
 interface Props {
   initialData: FolderLink[];
@@ -20,8 +21,8 @@ const Folder = ({ initialData }: Props) => {
   const [initialFolderLinks, setInitialFolderLinks] =
     useState<FolderLink[]>(initialData);
   const [selectedFolder, setSelectedFolder] = useState<SelectedFolder>({
-    name: '전체',
-    id: 'all',
+    name: ALL_CONTENTS_FOLDER.NAME,
+    id: ALL_CONTENTS_FOLDER.ID,
   });
 
   return (

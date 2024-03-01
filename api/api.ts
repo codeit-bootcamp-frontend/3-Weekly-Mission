@@ -7,8 +7,9 @@ import {
   SignUser,
   User,
 } from '@/types/Common';
-import { ERROR_MESSAGES, API } from '@/constants/constants';
-import axios, { AxiosError } from 'axios';
+import { API } from '@/constants/url';
+import axios from 'axios';
+import { ALL_CONTENTS_FOLDER } from '@/constants/constants';
 
 export const getUser: () => Promise<User> = async () => {
   const result = await fetchData(API.USER);
@@ -24,7 +25,7 @@ export const getFolderLinks: (
   folderId: number | string,
 ) => Promise<FolderLink[]> = async folderId => {
   const result = await fetchData(
-    folderId === 'all'
+    folderId === ALL_CONTENTS_FOLDER.ID
       ? API.FOLDER_LINK
       : `${API.FOLDER_LINK}?folderId=${folderId}`,
   );

@@ -1,6 +1,7 @@
 import { Folder, SelectedFolder } from '@/types/Common';
 import { AddFolderButton } from '../AddFolderButton';
 import styles from './styles.module.css';
+import { ALL_CONTENTS_FOLDER } from '@/constants/constants';
 
 interface Props {
   folders: Folder[];
@@ -20,8 +21,13 @@ export const FolderMenu = ({
     <div className={styles['folder-menu']}>
       <div className={styles['folder-categories']}>
         <button
-          className={`${styles['folder-menu__button']} ${selectedFolder.id === 'all' ? styles.selected : null}`}
-          onClick={() => handleFolderMenuClick('all', '전체')}
+          className={`${styles['folder-menu__button']} ${selectedFolder.id === ALL_CONTENTS_FOLDER.ID ? styles.selected : null}`}
+          onClick={() =>
+            handleFolderMenuClick(
+              ALL_CONTENTS_FOLDER.ID,
+              ALL_CONTENTS_FOLDER.NAME,
+            )
+          }
         >
           전체
         </button>

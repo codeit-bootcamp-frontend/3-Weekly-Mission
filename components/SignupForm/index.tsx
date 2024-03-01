@@ -1,11 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import styles from './styles.module.css';
-import {
-  ERROR_MESSAGES,
-  EMAIL_REGEX,
-  PASSWORD_REGEX,
-} from '@/constants/constants';
+import { ERROR_MESSAGES } from '@/constants/error';
+import { EMAIL_REGEX, PASSWORD_REGEX } from '@/constants/regex';
 import { postDuplicateEmail, postUserSignup } from '@/api/api';
 import Image from 'next/image';
 import { useState } from 'react';
