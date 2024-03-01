@@ -3,6 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { UserDataInterface } from "@/interfaces";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { getUser } from "@/apis/api";
+import { getRefinedUser } from "@/apis/services";
 
 // 컴포넌트의 props 타입 정의의 경우 항상 해줘야한다.
 interface HeaderProps {
@@ -12,10 +15,31 @@ interface HeaderProps {
     userData?: UserDataInterface;
 }
 
+interface UserInterface {
+    id: number;
+    name: string;
+    imageSource: string;
+    email: string;
+}
+
 const Header = ({ login, userData }: HeaderProps) => {
     const { route } = useRouter();
 
-    if (!userData) {
+    const [user, setUser] = useState<UserInterface>({
+        id: 0,
+        name: "",
+        imageSource: "",
+        email: "",
+    });
+
+    useEffect(() => {
+        (async () => {
+            const { id, name, email, imageSource } = await getRefinedUser();
+            setUser({ id, name, email, imageSource });
+        })();
+    });
+
+    if (!user) {
         return null;
     }
     // shared 페이지
@@ -34,12 +58,12 @@ const Header = ({ login, userData }: HeaderProps) => {
                     {login ? (
                         <HeaderProfileBox>
                             <Image
-                                src={userData?.profileImageSource}
+                                src={user?.imageSource}
                                 alt="프로필 이미지"
                                 width={28}
                                 height={28}
                             />
-                            <div>{userData?.email}</div>
+                            <div>{user?.email}</div>
                         </HeaderProfileBox>
                     ) : (
                         <HeaderLoginInButton type="button">
@@ -66,12 +90,12 @@ const Header = ({ login, userData }: HeaderProps) => {
                     {login ? (
                         <HeaderProfileBox>
                             <Image
-                                src={userData?.imageSource}
+                                src={user?.imageSource}
                                 alt="프로필 이미지"
                                 width={28}
                                 height={28}
                             />
-                            <div>{userData?.email}</div>
+                            <div>{user?.email}</div>
                         </HeaderProfileBox>
                     ) : (
                         <HeaderLoginInButton type="button">

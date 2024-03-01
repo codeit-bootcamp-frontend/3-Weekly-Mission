@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 
 interface FolderCollectionProps {
     onButtonClick: ShowModal;
-    folderData?: FolderDataInterface[];
+    folderList?: FolderDataInterface[];
     onOverviewCardButtonClick: () => void;
     onFilteredCardButtonClick: (id: number) => void;
     userData: any;
@@ -17,13 +17,13 @@ interface FolderCollectionProps {
 
 const FolderCollection = ({
     onButtonClick,
-    folderData,
+    folderList,
     onOverviewCardButtonClick,
     onFilteredCardButtonClick,
     userData,
 }: FolderCollectionProps) => {
     // Think currentFolderId와 currentFolderName을 객체로 관리하는 편이 옳은가?
-    // 객체로 관리하다면 확장성이 높아질까?
+    // 객체로 관리하다면 확장성이 높아질까? const [currentFolder, setCurrentFolder] = useState({id: 0, name: "전체"}); 이런 느낌?
 
     const router = useRouter();
     const { folderId } = router.query;
@@ -31,31 +31,35 @@ const FolderCollection = ({
     const [currentFolderId, setCurrentFolderId] = useState(0);
     const [currentFolderName, setCurrentFolderName] = useState<string>("전체");
 
+    // 초기 폴더 설정
     useEffect(() => {
         if (!folderId) {
             setCurrentFolderName("전체");
         }
         if (folderId) {
-            const folder = folderData?.find(
+            const folder = folderList?.find(
                 (folder) => folder.id === Number(folderId)
             );
             setCurrentFolderId(Number(folderId));
             setCurrentFolderName(folder?.name);
         }
-    }, [folderData, folderId]);
+    }, [folderList, folderId]);
 
+    // URL 생성
     const sharingUrl = useRef("");
 
     const createSharingUrl = (userId: number, folderId: number) => {
         sharingUrl.current = `${window.location.origin}/shared?user=${userId}&folder=${folderId}`;
     };
 
+    // 전체 폴더 클릭
     const handleOverviewFolderClick = () => {
         setCurrentFolderId(0);
         setCurrentFolderName("전체");
         onOverviewCardButtonClick();
     };
 
+    // 폴더 클릭
     const handleFolderClick = (folderId: number, folderName: string) => {
         setCurrentFolderId(folderId);
         setCurrentFolderName(folderName);
@@ -66,7 +70,7 @@ const FolderCollection = ({
         }
     };
 
-    if (folderData === undefined || userData === undefined) {
+    if (folderList === undefined || userData === undefined) {
         return null;
     }
 
@@ -82,7 +86,7 @@ const FolderCollection = ({
                         >
                             전체
                         </FolderButton>
-                        {folderData.map((folder) => {
+                        {folderList?.map((folder) => {
                             return (
                                 <FolderButton
                                     type="button"

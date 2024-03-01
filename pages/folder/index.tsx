@@ -15,8 +15,10 @@ import CardList from "@/components/Contents/CardList/CardList";
 import Footer from "@/components/Footer/Footer";
 import Modal from "@/components/Modal/Modal";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAccessToken } from "@/utils/getAccessToken";
+import { getFolderList1 } from "@/apis/api";
+import { getRefinedFolderList } from "@/apis/services";
 
 export default function Folder() {
     const router = useRouter();
@@ -27,9 +29,17 @@ export default function Folder() {
         }
     }, []);
 
+    const [folderList, setFolderList] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            const refinedFolderList = await getRefinedFolderList();
+            setFolderList(refinedFolderList);
+        })();
+    }, []);
+
     const { modal, showModal, closeModal } = useModal();
     const {
-        folderData,
         folderCardData,
         originalFolderCardData,
         setFolderCardData,
@@ -60,7 +70,7 @@ export default function Folder() {
                 <FolderCollection
                     onButtonClick={showModal}
                     userData={userData}
-                    folderData={folderData}
+                    folderList={folderList}
                     onOverviewCardButtonClick={handleOverviewCardButtonClick}
                     onFilteredCardButtonClick={handleFilteredCardButtonClick}
                 />

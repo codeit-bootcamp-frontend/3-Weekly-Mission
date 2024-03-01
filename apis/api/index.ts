@@ -1,6 +1,7 @@
 import getFormattedCamelCaseData from "@/utils/getFormattedCamelCaseData";
 import { defaultInstance } from "../utils/instance";
 import { SharedFolderIdType, SharedUserIdType } from "@/types";
+import { getAccessToken } from "@/utils/getAccessToken";
 
 /**
  *
@@ -98,5 +99,24 @@ export const getSharedPageLinkList = async (
     const { data } = await defaultInstance.get(
         `users/${sharedUserId}/links?folderId=${sharedFolderId}`
     );
+    return getFormattedCamelCaseData(data);
+};
+
+// 새로운 api 목록
+export const getUser = async () => {
+    const { data } = await defaultInstance.get("users", {
+        headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
+    });
+    return getFormattedCamelCaseData(data);
+};
+
+export const getFolderList1 = async () => {
+    const { data } = await defaultInstance.get(`folders`, {
+        headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+        },
+    });
     return getFormattedCamelCaseData(data);
 };
