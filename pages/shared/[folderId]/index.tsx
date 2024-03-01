@@ -1,34 +1,21 @@
 import { useSearchBar } from "@/hooks/useSearchBar";
-import {
-    useGetFolderListData,
-    useGetShareCardList,
-    useGetSharePageFolderName,
-    useGetSharedPageIds,
-    useGetSharedPageInfo,
-    useSharedPageFolderInfo,
-    useSharedPageLogin,
-} from "@/hooks/Shared.hook";
+import { useGetShareCardList, useSharedPageLogin } from "@/hooks/Shared.hook";
 import Header from "@/components/Header/Header";
 import ShareDescription from "@/components/ShareDescription/ShareDescription";
 import Contents from "@/components/Contents/Contents";
 import CardSearchBar from "@/components/Contents/CardSearchBar/CardSearchBar";
 import Footer from "@/components/Footer/Footer";
 import CardList from "@/components/Contents/CardList/CardList";
+import { useRouter } from "next/router";
 
 export default function SharedFolderDetail() {
-    const { login, userData } = useSharedPageLogin();
-    const { sharedPageInfo } = useGetSharedPageInfo();
-    const { sharedUserId, sharedFolderId } = useGetSharedPageIds();
-    const { folderListData } = useGetFolderListData(
-        sharedUserId,
-        sharedFolderId
-    );
-    const { sharePageFolderName } = useGetSharePageFolderName(
-        folderListData,
-        sharedFolderId
-    );
+    const { login } = useSharedPageLogin();
+
+    const router = useRouter();
+    const { folderId } = router.query;
+
     const { cardListData, originalCardListData, setCardListData } =
-        useGetShareCardList(sharedFolderId, sharedUserId);
+        useGetShareCardList("1007", folderId);
     const { inputValue, handleInputChange, resetInputValue } = useSearchBar(
         originalCardListData,
         setCardListData
@@ -36,8 +23,8 @@ export default function SharedFolderDetail() {
 
     return (
         <>
-            <Header login={login} userData={userData} />
-            <ShareDescription sharedPageInfo={sharedPageInfo} />
+            <Header login={login} />
+            <ShareDescription />
             <Contents>
                 <CardSearchBar
                     inputValue={inputValue}

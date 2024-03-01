@@ -1,53 +1,47 @@
 import styled from "styled-components";
-import {
-    SharedPageFolderInfoInterface,
-    SharedPageInfoInterface,
-} from "../../interfaces";
 import Image from "next/image";
 
-import { useEffect, useState } from "react";
-import { getSharedPageFolderInfo } from "@/apis/api";
+import { use, useEffect, useState } from "react";
+import { getSharedPageFolderInfo, getSharedPageOwnerInfo } from "@/apis/api";
 import { useRouter } from "next/router";
 
-interface ShareDescriptionProps {
-    sharedPageInfo?: SharedPageInfoInterface;
-    sharePageFolderName?: string;
-    SharedPageFolderInfo?: SharedPageFolderInfoInterface;
-}
+const ShareDescription = () => {
+    const [sharedPageFolderInfo, setSharedPageFolderInfo] = useState();
 
-const ShareDescription = ({
-    sharedPageInfo,
-    sharePageFolderName,
-}: ShareDescriptionProps) => {
     const router = useRouter();
-    const { folderId: SharedFolderId } = router.query;
+    const { folderId } = router.query;
+    // SharedPage의 folder 데이터 가져오기
+    useEffect(() => {
+        (async () => {
+            const refinedSharedPageFolderInfo = await getSharedPageFolderInfo(
+                folderId
+            );
+            setSharedPageFolderInfo(refinedSharedPageFolderInfo);
+        })();
+    }, [folderId]);
 
-    const [SharedPageFolderInfo, setSharedPageFolderInfo] = useState<
-        SharedPageFolderInfoInterface[]
-    >([{}]);
+    const [sharedPageOwnerInfo, setSharedPageOwnerInfo] = useState();
 
     useEffect(() => {
-        try {
-            (async () => {
-                const { data } = await getSharedPageFolderInfo(SharedFolderId);
-                return setSharedPageFolderInfo(() => [...data]);
-            })();
-        } catch (error) {
-            console.error(error);
-        }
+        (async () => {
+            const refinedSharedPageOwnerInfo = await getSharedPageOwnerInfo(
+                "1007"
+            );
+            setSharedPageOwnerInfo(refinedSharedPageOwnerInfo.data[0]);
+        })();
     }, []);
 
     return (
         <Background>
             <ShareDescriptionWrapper>
                 <Image
-                    src={sharedPageInfo?.owner?.profileImageSource || ""}
+                    src={sharedPageOwnerInfo?.imageSource}
                     alt="코드잇 마크"
                     width={60}
                     height={60}
                 />
-                <span>{sharedPageInfo?.owner?.name}</span>
-                <div>{SharedPageFolderInfo[0].name}</div>
+                <span>{sharedPageOwnerInfo?.name}</span>
+                <div>{sharedPageFolderInfo?.name}</div>
             </ShareDescriptionWrapper>
         </Background>
     );

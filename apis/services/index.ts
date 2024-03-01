@@ -2,6 +2,7 @@ import {
     getFilteredLinkList,
     getFolderList,
     getLinkList,
+    getSharedPageFolderInfo,
     getUser,
 } from "../api";
 
@@ -41,6 +42,16 @@ export const getRefinedFilteredLinkList = async () => {
         const FilteredlinkList = await getFilteredLinkList();
         const refinedFilteredFolderList = FilteredlinkList.data.folder;
         return refinedFilteredFolderList;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const getRefinedSharedPageInfo = async (folderId: string) => {
+    try {
+        const sharedPageFolderInfo = await getSharedPageFolderInfo(folderId);
+        const refinedSharedPageFolderInfo = sharedPageFolderInfo.data;
+        return refinedSharedPageFolderInfo;
     } catch (error) {
         console.error(error);
     }

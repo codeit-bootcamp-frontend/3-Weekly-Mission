@@ -10,9 +10,6 @@ import { getRefinedUser } from "@/apis/services";
 // 컴포넌트의 props 타입 정의의 경우 항상 해줘야한다.
 interface HeaderProps {
     login: boolean;
-    // ToDo :userData의 경우 sharedPage와 folderPage에서 사용되는데, FolderPageUserDataInterface와 SharedPageUserDataInterface를
-    // 유니온 타입으로 정의했는데 자꾸 에러가 뜨는 이슈 고치기
-    userData?: UserDataInterface;
 }
 
 interface UserInterface {
@@ -22,7 +19,7 @@ interface UserInterface {
     email: string;
 }
 
-const Header = ({ login, userData }: HeaderProps) => {
+const Header = ({ login }: HeaderProps) => {
     const { route } = useRouter();
 
     const [user, setUser] = useState<UserInterface>({
