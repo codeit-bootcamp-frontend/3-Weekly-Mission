@@ -15,7 +15,7 @@ import CardList from "@/components/Contents/CardList/CardList";
 import Footer from "@/components/Footer/Footer";
 import Modal from "@/components/Modal/Modal";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAccessToken } from "@/utils/getAccessToken";
 
 export default function Folder() {
@@ -45,7 +45,7 @@ export default function Folder() {
 
     return (
         <FolderPageWrapper>
-            <Header login={login} userData={userData} />
+            <Header currentPath="folder" userData={userData} />
             <LinkCreator
                 onUpdateButtonClick={showModal}
                 linkCreatorDom={linkCreatorRefs.linkCreatorDom}

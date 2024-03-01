@@ -56,7 +56,7 @@ export default function Folder() {
 
     return (
         <FolderPageWrapper>
-            <Header login={login} userData={userData} />
+            <Header currentPath="folder" userData={userData} />
             <LinkCreator
                 onUpdateButtonClick={showModal}
                 linkCreatorDom={linkCreatorRefs.linkCreatorDom}

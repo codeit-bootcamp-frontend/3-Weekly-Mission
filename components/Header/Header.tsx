@@ -4,10 +4,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getRefinedUser } from "@/apis/services";
+import { useIsLogin } from "@/hooks/useIsLogin";
 
 // 컴포넌트의 props 타입 정의의 경우 항상 해줘야한다.
 interface HeaderProps {
-    isLogin: boolean;
+    currentPath: string;
 }
 
 interface UserInterface {
@@ -17,8 +18,10 @@ interface UserInterface {
     email: string;
 }
 
-const Header = ({ isLogin }: HeaderProps) => {
+const Header = ({ currentPath }: HeaderProps) => {
     const { route } = useRouter();
+
+    const { isLogin } = useIsLogin();
 
     const [user, setUser] = useState<UserInterface>({
         id: 0,
@@ -38,7 +41,7 @@ const Header = ({ isLogin }: HeaderProps) => {
         return null;
     }
     // shared 페이지
-    if (route.includes("shared")) {
+    if (currentPath === "shared") {
         return (
             <HeaderWrap>
                 <HeaderContainer>
@@ -70,7 +73,7 @@ const Header = ({ isLogin }: HeaderProps) => {
         );
     }
     // folder 페이지
-    if (route.includes("folder")) {
+    if (currentPath === "folder") {
         return (
             <HeaderWrap>
                 <HeaderContainer>

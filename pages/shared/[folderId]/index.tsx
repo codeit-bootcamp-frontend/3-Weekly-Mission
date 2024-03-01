@@ -1,5 +1,5 @@
 import { useSearchBar } from "@/hooks/useSearchBar";
-import { useGetShareCardList, useSharedPageLogin } from "@/hooks/Shared.hook";
+import { useGetShareCardList } from "@/hooks/Shared.hook";
 import Header from "@/components/Header/Header";
 import ShareDescription from "@/components/ShareDescription/ShareDescription";
 import Contents from "@/components/Contents/Contents";
@@ -7,17 +7,8 @@ import CardSearchBar from "@/components/Contents/CardSearchBar/CardSearchBar";
 import Footer from "@/components/Footer/Footer";
 import CardList from "@/components/Contents/CardList/CardList";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { getAccessToken } from "@/utils/getAccessToken";
 
 export default function SharedFolderDetail() {
-    const [isLogin, setIsLogin] = useState(false);
-    useEffect(() => {
-        if (getAccessToken()) {
-            setIsLogin(true);
-        }
-    }, []);
-
     const router = useRouter();
     const { folderId } = router.query;
 
@@ -31,7 +22,7 @@ export default function SharedFolderDetail() {
 
     return (
         <>
-            <Header isLogin={isLogin} />
+            <Header currentPath="shared" />
             <ShareDescription />
             <Contents>
                 <CardSearchBar
