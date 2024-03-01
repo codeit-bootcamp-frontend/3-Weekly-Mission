@@ -84,3 +84,11 @@ export interface SharedPageFolderInfoInterface {
     user_id: number;
     favorite: boolean;
 }
+
+export interface FolderInterface {
+    id: number;
+    created_at: string;
+    favorite: false;
+    name: string;
+    link_count: number;
+}

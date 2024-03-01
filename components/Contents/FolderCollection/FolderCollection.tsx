@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styled from "styled-components";
 import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
 import { ShowModal } from "@/types";
-import { FolderDataInterface } from "@/interfaces";
+import { FolderDataInterface, FolderInterface } from "@/interfaces";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 interface FolderCollectionProps {
     onButtonClick: ShowModal;
@@ -21,22 +22,46 @@ const FolderCollection = ({
     onFilteredCardButtonClick,
     userData,
 }: FolderCollectionProps) => {
+    // Think currentFolderId와 currentFolderName을 객체로 관리하는 편이 옳은가?
+    // 객체로 관리하다면 확장성이 높아질까?
+
+    const router = useRouter();
+    const { folderId } = router.query;
+
     const [currentFolderId, setCurrentFolderId] = useState(0);
+    const [currentFolderName, setCurrentFolderName] = useState<string>("전체");
+
+    useEffect(() => {
+        if (!folderId) {
+            setCurrentFolderName("전체");
+        }
+        if (folderId) {
+            const folder = folderData?.find(
+                (folder) => folder.id === Number(folderId)
+            );
+            setCurrentFolderId(Number(folderId));
+            setCurrentFolderName(folder?.name);
+        }
+    }, [folderData, folderId]);
+
     const sharingUrl = useRef("");
 
     const createSharingUrl = (userId: number, folderId: number) => {
         sharingUrl.current = `${window.location.origin}/shared?user=${userId}&folder=${folderId}`;
     };
 
-    const setCurrentFolderIdToOverview = () => {
+    const handleOverviewFolderClick = () => {
         setCurrentFolderId(0);
+        setCurrentFolderName("전체");
         onOverviewCardButtonClick();
     };
 
-    const setCurrentFolderIdToSelected = (folderId: number) => {
+    const handleFolderClick = (folderId: number, folderName: string) => {
         setCurrentFolderId(folderId);
+        setCurrentFolderName(folderName);
         onFilteredCardButtonClick(folderId);
-        if (userData !== undefined) {
+        // URL 생성
+        if (userData) {
             createSharingUrl(userData.id, folderId);
         }
     };
@@ -52,8 +77,8 @@ const FolderCollection = ({
                     <FolderButtonContainer>
                         <FolderButton
                             type="button"
-                            isClicked={0 === currentFolderId ? true : false}
-                            onClick={setCurrentFolderIdToOverview}
+                            $isClicked={0 === currentFolderId ? true : false}
+                            onClick={handleOverviewFolderClick}
                         >
                             전체
                         </FolderButton>
@@ -61,14 +86,17 @@ const FolderCollection = ({
                             return (
                                 <FolderButton
                                     type="button"
-                                    isClicked={
+                                    $isClicked={
                                         folder.id === currentFolderId
                                             ? true
                                             : false
                                     }
                                     key={folder.id}
                                     onClick={() => {
-                                        setCurrentFolderIdToSelected(folder.id);
+                                        handleFolderClick(
+                                            folder.id,
+                                            folder.name
+                                        );
                                     }}
                                 >
                                     {folder.name}
@@ -97,7 +125,7 @@ const FolderCollection = ({
             </FolderWrapper>
 
             <FolderToolbarWrapper>
-                <div>{currentFolderId}</div>
+                <div>{currentFolderName}</div>
                 {currentFolderId !== 0 ? (
                     <FolderToolbarBox>
                         <button
@@ -189,7 +217,7 @@ const FolderButtonContainer = styled.div`
     flex-wrap: wrap;
 `;
 
-const FolderButton = styled.button<{ isClicked: boolean }>`
+const FolderButton = styled.button<{ $isClicked: boolean }>`
     display: flex;
     padding: 8px 12px;
     flex-direction: column;
@@ -202,7 +230,7 @@ const FolderButton = styled.button<{ isClicked: boolean }>`
     margin: 0 8px 8px 0;
 
     ${(props) =>
-        props.isClicked
+        props.$isClicked
             ? `color: #fff;
         background: var(--Linkbrary-primary-color, #6d6afe);`
             : ""}
