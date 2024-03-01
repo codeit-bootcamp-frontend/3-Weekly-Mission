@@ -65,8 +65,8 @@ export interface SignUser {
 }
 
 export interface SignAccess {
-  accessToken: string | undefined | null;
-  refreshToken?: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface DuplicateEmail {

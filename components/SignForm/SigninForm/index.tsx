@@ -31,15 +31,10 @@ export const SigninForm = () => {
     }
     setIsLoading(true);
     try {
-      const response = await postUserSignin(data);
-      const { accessToken, refreshToken } = response;
-      if (accessToken && refreshToken) {
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        router.push('/folder');
-        return;
-      }
-      throw new Error('No Token');
+      const { accessToken, refreshToken } = await postUserSignin(data);
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      router.push('/folder');
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError?.response?.status === 400) {

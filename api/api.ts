@@ -60,6 +60,9 @@ export const postUserSignin: (
   user: SignUser,
 ) => Promise<SignAccess> = async user => {
   const result = await fetchData(API.SIGN_IN, 'post', user);
+  if (!result.data.accessToken || !result.data.refreshToken) {
+    throw new Error('No Token');
+  }
   return result?.data;
 };
 
@@ -68,7 +71,9 @@ export const postUserSignup: (
   user: SignUser,
 ) => Promise<SignAccess> = async user => {
   const result = await fetchData(API.SIGN_UP, 'post', user);
-  console.log(result);
+  if (!result.data.accessToken || !result.data.refreshToken) {
+    throw new Error('No Token');
+  }
   return result?.data;
 };
 
