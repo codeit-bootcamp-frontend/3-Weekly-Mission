@@ -42,7 +42,6 @@ export const SignupForm = () => {
     try {
       await postDuplicateEmail(email);
       clearErrors('email');
-      setIsLoading(false);
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError.response && axiosError.response.status === 409) {
@@ -50,11 +49,11 @@ export const SignupForm = () => {
           type: 'custom',
           message: ERROR_MESSAGES.DUPLICATE_EMAIL,
         });
-        setIsLoading(false);
         return;
       }
-      setIsLoading(false);
       throw Error;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,10 +68,8 @@ export const SignupForm = () => {
       if (accessToken && refreshToken) {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
-        setIsLoading(false);
         router.push('/folder');
       } else {
-        setIsLoading(false);
         throw new Error('No Token');
       }
     } catch (error) {
@@ -90,12 +87,12 @@ export const SignupForm = () => {
           type: 'custom',
           message: ERROR_MESSAGES.CONFIRM_PASSWORD_CHECK_FAILED,
         });
-        setIsLoading(false);
         return;
       }
       alert(ERROR_MESSAGES.SIGN_UP_FAILED);
-      setIsLoading(false);
       throw Error;
+    } finally {
+      setIsLoading(false);
     }
   };
 

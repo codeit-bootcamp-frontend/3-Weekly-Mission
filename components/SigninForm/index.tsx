@@ -35,10 +35,8 @@ export const SigninForm = () => {
       if (accessToken && refreshToken) {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
-        setIsLoading(false);
         router.push('/folder');
       } else {
-        setIsLoading(false);
         throw new Error('No Token');
       }
     } catch (error) {
@@ -52,12 +50,12 @@ export const SigninForm = () => {
           type: 'custom',
           message: ERROR_MESSAGES.PASSWORD_CHECK_FAILED,
         });
-        setIsLoading(false);
         return;
       }
       alert(ERROR_MESSAGES.SIGN_IN_FAILED);
-      setIsLoading(false);
       throw Error;
+    } finally {
+      setIsLoading(false);
     }
   };
 
