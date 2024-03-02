@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Header from "@/components/Header/Header";
-import LinkCreator from "@/components/LinkCreator/LinkCreator";
-import Contents from "@/components/Contents/Contents";
-import CardSearchBar from "@/components/Contents/CardSearchBar/CardSearchBar";
-import FolderList from "@/components/Contents/FolderList/FolderList";
-import CardList from "@/components/Contents/CardList/CardList";
-import Footer from "@/components/Footer/Footer";
+
 import { useLinkList, useScrollingSearchBar } from "@/hooks/Folder.hook";
 import { useSearchBar } from "@/hooks/useSearchBar";
 import { getAccessToken } from "@/utils/getAccessToken";
+import Header from "@/components/Common/Header/Header";
+import LinkCreator from "@/components/FolderPage/LinkCreator";
+import Contents from "@/components/Common/Contents/Contents";
+import CardSearchBar from "@/components/Common/Contents/CardSearchBar/CardSearchBar";
+import FolderList from "@/components/Common/Contents/FolderList/FolderList";
+import CardList from "@/components/Common/Contents/CardList/CardList";
+import Footer from "@/components/Common/Footer/Footer";
 
 export default function Folder() {
     const router = useRouter();

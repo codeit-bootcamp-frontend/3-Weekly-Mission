@@ -13,7 +13,7 @@ import {
     getRefinedSharedPageOwnerInfo,
 } from "@/apis/services";
 
-const ShareDescription = () => {
+const Description = () => {
     const router = useRouter();
     const { folderId } = router.query as UrlQuery;
     // SharedPage의 folder 데이터 가져오기
@@ -105,4 +105,4 @@ const ShareDescriptionWrapper = styled.div`
     }
 `;
 
-export default ShareDescription;
+export default Description;

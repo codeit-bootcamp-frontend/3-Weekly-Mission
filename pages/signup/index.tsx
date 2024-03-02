@@ -1,6 +1,6 @@
-import { Header } from "@/components/Sign/Shared/Header";
-import { SnsLogin } from "@/components/Sign/Shared/SnsLogin";
-import { SignUpForm } from "@/components/Sign/SignUp/Form";
+import { Header } from "@/components/Common/Sign/Header";
+import { SnsLogin } from "@/components/Common/Sign/SnsLogin";
+import { SignUpForm } from "@/components/SignUpPage/Form";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
