@@ -1,0 +1,18 @@
+.social-sign {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--Linkbrary-gray20);
+  background: var(--Linkbrary-gray10);
+  font-size: 1.4rem;
+  width: 100%;
+}
+
+.social-sign__icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

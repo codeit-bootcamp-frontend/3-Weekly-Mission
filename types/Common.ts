@@ -58,3 +58,17 @@ export interface FolderManagementButton {
   iconSource: string;
   text: string;
 }
+
+export interface SignUser {
+  email: string;
+  password: string;
+}
+
+export interface SignAccess {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface DuplicateEmail {
+  isUsableNickname: boolean;
+}
