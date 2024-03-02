@@ -1,35 +1,52 @@
 import styled from "styled-components";
 import Image from "next/image";
 
-import { use, useEffect, useState } from "react";
-import { getSharedPageFolderInfo, getSharedPageOwnerInfo } from "@/apis/api";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import {
+    SharedPageFolderInfoInterface,
+    SharedPageOwnerInfoInterface,
+    UrlQuery,
+} from "@/interfaces";
+import {
+    getRefinedSharedPageFolderInfo,
+    getRefinedSharedPageOwnerInfo,
+} from "@/apis/services";
 
 const ShareDescription = () => {
-    const [sharedPageFolderInfo, setSharedPageFolderInfo] = useState();
-
     const router = useRouter();
-    const { folderId } = router.query;
+    const { folderId } = router.query as UrlQuery;
     // SharedPage의 folder 데이터 가져오기
+
+    const [SharedPageFolderInfo, setSharedPageFolderInfo] =
+        useState<SharedPageFolderInfoInterface>();
     useEffect(() => {
         (async () => {
-            const refinedSharedPageFolderInfo = await getSharedPageFolderInfo(
-                folderId
-            );
-            setSharedPageFolderInfo(refinedSharedPageFolderInfo);
+            if (folderId) {
+                const refinedSharedPageFolderInfo =
+                    await getRefinedSharedPageFolderInfo(folderId);
+                setSharedPageFolderInfo(refinedSharedPageFolderInfo);
+            }
         })();
     }, [folderId]);
 
-    const [sharedPageOwnerInfo, setSharedPageOwnerInfo] = useState();
+    const [sharedPageOwnerInfo, setSharedPageOwnerInfo] =
+        useState<SharedPageOwnerInfoInterface>();
 
     useEffect(() => {
         (async () => {
-            const refinedSharedPageOwnerInfo = await getSharedPageOwnerInfo(
-                "1007"
-            );
-            setSharedPageOwnerInfo(refinedSharedPageOwnerInfo.data[0]);
+            const refinedSharedPageOwnerInfo =
+                await getRefinedSharedPageOwnerInfo("1007");
+            setSharedPageOwnerInfo(refinedSharedPageOwnerInfo);
         })();
     }, []);
+
+    if (
+        SharedPageFolderInfo === undefined ||
+        sharedPageOwnerInfo === undefined
+    ) {
+        return null;
+    }
 
     return (
         <Background>
@@ -41,7 +58,7 @@ const ShareDescription = () => {
                     height={60}
                 />
                 <span>{sharedPageOwnerInfo?.name}</span>
-                <div>{sharedPageFolderInfo?.name}</div>
+                <div>{SharedPageFolderInfo?.name}</div>
             </ShareDescriptionWrapper>
         </Background>
     );

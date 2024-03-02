@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Header from "@/components/Header/Header";
 import LinkCreator from "@/components/LinkCreator/LinkCreator";
 import Contents from "@/components/Contents/Contents";

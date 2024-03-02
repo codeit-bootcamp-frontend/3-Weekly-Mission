@@ -1,11 +1,11 @@
 import { getSharedPageFolderInfo } from "@/apis/api";
-import { SharedPageFolderInfoInterface } from "@/interfaces";
+import { SharedPageFolderInfoInterface, UrlQuery } from "@/interfaces";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export const useShareDescription = () => {
     const router = useRouter();
-    const { folderId: SharedFolderId } = router.query;
+    const { folderId } = router.query as UrlQuery;
 
     const [SharedPageFolderInfo, setSharedPageFolderInfo] = useState<
         SharedPageFolderInfoInterface[]
@@ -14,9 +14,10 @@ export const useShareDescription = () => {
     useEffect(() => {
         try {
             (async () => {
-                const { data } = await getSharedPageFolderInfo(SharedFolderId);
-                console.log(data);
-                return setSharedPageFolderInfo(() => [...data]);
+                if (folderId) {
+                    const { data } = await getSharedPageFolderInfo(folderId);
+                    return setSharedPageFolderInfo(() => [...data]);
+                }
             })();
         } catch (error) {
             console.error(error);

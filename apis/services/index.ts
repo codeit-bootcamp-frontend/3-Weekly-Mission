@@ -3,6 +3,7 @@ import {
     getFolderList,
     getLinkList,
     getSharedPageFolderInfo,
+    getSharedPageOwnerInfo,
     getUser,
 } from "../api";
 
@@ -10,8 +11,8 @@ import {
 export const getRefinedUser = async () => {
     try {
         const user = await getUser();
-        const { id, name, email, imageSource } = user.data[0];
-        return { id, name, email, imageSource };
+        const refinedUser = user.data[0];
+        return refinedUser;
     } catch (error) {
         console.error(error);
     }
@@ -47,11 +48,21 @@ export const getRefinedFilteredLinkList = async () => {
     }
 };
 
-export const getRefinedSharedPageInfo = async (folderId: string) => {
+export const getRefinedSharedPageFolderInfo = async (folderId: string) => {
     try {
         const sharedPageFolderInfo = await getSharedPageFolderInfo(folderId);
-        const refinedSharedPageFolderInfo = sharedPageFolderInfo.data;
+        const refinedSharedPageFolderInfo = sharedPageFolderInfo.data[0];
         return refinedSharedPageFolderInfo;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const getRefinedSharedPageOwnerInfo = async (folderId: string) => {
+    try {
+        const sharedPageOwnerInfo = await getSharedPageOwnerInfo(folderId);
+        const refinedSharedPageOnwerInfo = sharedPageOwnerInfo.data[0];
+        return refinedSharedPageOnwerInfo;
     } catch (error) {
         console.error(error);
     }

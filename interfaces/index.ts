@@ -1,6 +1,7 @@
 import { RefObject } from "react";
 import { CloseModal } from "../types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { ParsedUrlQuery } from "querystring";
 
 export interface ModalInterface {
     type: string;
@@ -91,4 +92,35 @@ export interface FolderInterface {
     favorite: false;
     name: string;
     link_count: number;
+}
+
+export interface UrlQuery extends ParsedUrlQuery {
+    userId?: string;
+    folderId?: string;
+}
+
+export interface SharedPageOwnerInfoInterface {
+    authId: string;
+    createdAt: string;
+    email: string;
+    id: number;
+    imageSource: string;
+    name: string;
+}
+
+export interface UserInterface {
+    authId: string;
+    createdAt: string;
+    email: string;
+    id: number;
+    imageSource: string;
+    name: string;
+}
+
+export interface SharedPageFolderInfoInterface {
+    createdAt: string;
+    favorite: boolean;
+    id: number;
+    name: string;
+    userId: number;
 }

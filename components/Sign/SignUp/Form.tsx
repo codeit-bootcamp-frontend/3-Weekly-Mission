@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
-import ComfirmPasswordInput from "./ConfirmPasswordInput";
 import { useForm } from "react-hook-form";
 import { useAuthForm } from "./Form.hook";
 import ConfirmPasswordInput from "./ConfirmPasswordInput";

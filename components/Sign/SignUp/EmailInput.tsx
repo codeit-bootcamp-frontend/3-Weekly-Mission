@@ -1,8 +1,4 @@
-import {
-    CONFIRM_EMAIL,
-    SignInputErrorMessages,
-    URL_DOMAIN,
-} from "@/constants/constants";
+import { CONFIRM_EMAIL, SignInputErrorMessages } from "@/constants/constants";
 import styled from "styled-components";
 import { useEmailInput } from "./EmailInput.hook";
 

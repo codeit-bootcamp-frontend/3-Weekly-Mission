@@ -1,6 +1,5 @@
 import getFormattedCamelCaseData from "@/utils/getFormattedCamelCaseData";
 import { defaultInstance, instanceAddedAccessToken } from "../utils/instance";
-import { getAccessToken } from "@/utils/getAccessToken";
 
 /**
  *

@@ -1,41 +1,17 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { getRefinedUser } from "@/apis/services";
 import { useIsLogin } from "@/hooks/useIsLogin";
+import { useGetUser } from "@/hooks/useGetUser";
 
 // 컴포넌트의 props 타입 정의의 경우 항상 해줘야한다.
 interface HeaderProps {
     currentPath: string;
 }
 
-interface UserInterface {
-    id: number;
-    name: string;
-    imageSource: string;
-    email: string;
-}
-
 const Header = ({ currentPath }: HeaderProps) => {
-    const { route } = useRouter();
-
     const { isLogin } = useIsLogin();
-
-    const [user, setUser] = useState<UserInterface>({
-        id: 0,
-        name: "",
-        imageSource: "",
-        email: "",
-    });
-
-    useEffect(() => {
-        (async () => {
-            const { id, name, email, imageSource } = await getRefinedUser();
-            setUser({ id, name, email, imageSource });
-        })();
-    });
+    const { user } = useGetUser();
 
     if (!user) {
         return null;
