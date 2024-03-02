@@ -2,6 +2,29 @@ import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
+declare global {
+  interface Window {
+    Kakao: {
+      init: (apiKey: string | undefined) => void;
+      isInitialized: () => boolean;
+      Share: ShareMethods;
+      Auth: AuthMethods;
+      API: APIMethods;
+    };
+  }
+}
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <>
+      <Head>
+        <title>Linkbrary</title>
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
+}
+
 interface ShareMethods {
   sendDefault: (settings: {
     objectType: 'feed';
@@ -38,27 +61,4 @@ interface APIMethods {
     fail?: (error: Record<string, unknown>) => void;
     always?: (response: Record<string, unknown>) => void;
   }) => void;
-}
-
-declare global {
-  interface Window {
-    Kakao: {
-      init: (apiKey: string | undefined) => void;
-      isInitialized: () => boolean;
-      Share: ShareMethods;
-      Auth: AuthMethods;
-      API: APIMethods;
-    };
-  }
-}
-
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <Head>
-        <title>Linkbrary</title>
-      </Head>
-      <Component {...pageProps} />
-    </>
-  );
 }
