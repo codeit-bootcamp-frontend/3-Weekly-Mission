@@ -19,7 +19,7 @@ export interface UserDataInterface {
     authId: string;
 }
 
-export interface CardInterface {
+export interface LinkInterface {
     id: number;
     createdAt: string;
     updatedAt: string | null;

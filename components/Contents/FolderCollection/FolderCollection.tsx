@@ -3,16 +3,16 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
 import { ShowModal } from "@/types";
-import { FolderDataInterface, FolderInterface } from "@/interfaces";
+import { FolderDataInterface } from "@/interfaces";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { getRefinedUser } from "@/apis/services";
 
 interface FolderCollectionProps {
     onButtonClick: ShowModal;
     folderList?: FolderDataInterface[];
     onOverviewFolderButtonClick: () => void;
     onFilteredFolderButtonClick: (id: number) => void;
-    userData: any;
 }
 
 const FolderCollection = ({
@@ -20,7 +20,6 @@ const FolderCollection = ({
     folderList,
     onOverviewFolderButtonClick,
     onFilteredFolderButtonClick,
-    userData,
 }: FolderCollectionProps) => {
     // Think currentFolderId와 currentFolderName을 객체로 관리하는 편이 옳은가?
     // 객체로 관리하다면 확장성이 높아질까? const [currentFolder, setCurrentFolder] = useState({id: 0, name: "전체"}); 이런 느낌?
@@ -59,18 +58,29 @@ const FolderCollection = ({
         onOverviewFolderButtonClick();
     };
 
+    // userId 가져오기
+    const [userId, setUserId] = useState();
+
+    useEffect(() => {
+        (async () => {
+            const { id } = await getRefinedUser();
+            console.log(id);
+            setUserId(id);
+        })();
+    }, []);
+
     // 폴더 클릭
     const handleFolderClick = (folderId: number, folderName: string) => {
         setCurrentFolderId(folderId);
         setCurrentFolderName(folderName);
         onFilteredFolderButtonClick(folderId);
         // URL 생성
-        if (userData) {
-            createSharingUrl(userData.id, folderId);
+        if (userId) {
+            createSharingUrl(userId, folderId);
         }
     };
 
-    if (folderList === undefined || userData === undefined) {
+    if (folderList === undefined || userId === undefined) {
         return null;
     }
 

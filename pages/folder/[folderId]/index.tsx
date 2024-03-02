@@ -1,12 +1,7 @@
-import Header from "@/components/Header/Header";
 import styled from "styled-components";
-import {
-    useFolder,
-    useFolderPageLogin,
-    useModal,
-    useScrollingSearchBar,
-} from "@/hooks/Folder.hook";
-import { useSearchBar } from "@/hooks/useSearchBar";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import Header from "@/components/Header/Header";
 import LinkCreator from "@/components/LinkCreator/LinkCreator";
 import Contents from "@/components/Contents/Contents";
 import CardSearchBar from "@/components/Contents/CardSearchBar/CardSearchBar";
@@ -14,8 +9,12 @@ import FolderCollection from "@/components/Contents/FolderCollection/FolderColle
 import CardList from "@/components/Contents/CardList/CardList";
 import Footer from "@/components/Footer/Footer";
 import Modal from "@/components/Modal/Modal";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import {
+    useLinkList,
+    useModal,
+    useScrollingSearchBar,
+} from "@/hooks/Folder.hook";
+import { useSearchBar } from "@/hooks/useSearchBar";
 import { getAccessToken } from "@/utils/getAccessToken";
 
 export default function Folder() {
@@ -29,23 +28,21 @@ export default function Folder() {
 
     const { modal, showModal, closeModal } = useModal();
     const {
-        folderData,
-        folderCardData,
-        originalFolderCardData,
-        setFolderCardData,
-        handleOverviewCardButtonClick,
-        handleFilteredCardButtonClick,
-    } = useFolder();
-    const { login, userData } = useFolderPageLogin();
+        LinkList,
+        originalLinkList,
+        handleOverviewFolderButtonClick,
+        handleFilteredFolderButtonClick,
+        setLinkList,
+    } = useLinkList();
     const { inputValue, handleInputChange, resetInputValue } = useSearchBar(
-        originalFolderCardData,
-        setFolderCardData
+        originalLinkList,
+        setLinkList
     );
     const { linkCreatorRefs, footerDom } = useScrollingSearchBar();
 
     return (
         <FolderPageWrapper>
-            <Header currentPath="folder" userData={userData} />
+            <Header currentPath="folder" />
             <LinkCreator
                 onUpdateButtonClick={showModal}
                 linkCreatorDom={linkCreatorRefs.linkCreatorDom}
@@ -59,15 +56,14 @@ export default function Folder() {
                 />
                 <FolderCollection
                     onButtonClick={showModal}
-                    userData={userData}
-                    folderData={folderData}
-                    onOverviewCardButtonClick={handleOverviewCardButtonClick}
-                    onFilteredCardButtonClick={handleFilteredCardButtonClick}
+                    onOverviewFolderButtonClick={
+                        handleOverviewFolderButtonClick
+                    }
+                    onFilteredFolderButtonClick={
+                        handleFilteredFolderButtonClick
+                    }
                 />
-                <CardList
-                    cardListData={folderCardData}
-                    onDeleteButtonClick={showModal}
-                />
+                <CardList LinkList={LinkList} onDeleteButtonClick={showModal} />
             </Contents>
             <Footer ref={footerDom} />
             {modal.type ? (

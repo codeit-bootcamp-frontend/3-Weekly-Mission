@@ -1,5 +1,5 @@
 import { useSearchBar } from "@/hooks/useSearchBar";
-import { useGetShareCardList } from "@/hooks/Shared.hook";
+import { useGetShareLinkList } from "@/hooks/Shared.hook";
 import Header from "@/components/Header/Header";
 import ShareDescription from "@/components/ShareDescription/ShareDescription";
 import Contents from "@/components/Contents/Contents";
@@ -12,12 +12,15 @@ export default function SharedFolderDetail() {
     const router = useRouter();
     const { folderId } = router.query;
 
-    const { cardListData, originalCardListData, setCardListData } =
-        useGetShareCardList("1007", folderId);
+    // 요구사항에 userId가 명확하지 않아 1007으로 고정
+    const { LinkList, setLinkList, originalLinkList } = useGetShareLinkList(
+        "1007",
+        folderId
+    );
 
     const { inputValue, handleInputChange, resetInputValue } = useSearchBar(
-        originalCardListData,
-        setCardListData
+        originalLinkList,
+        setLinkList
     );
 
     return (
@@ -31,7 +34,7 @@ export default function SharedFolderDetail() {
                     resetInputValue={resetInputValue}
                 />
                 {/* @ts-ignore */}
-                <CardList cardListData={cardListData} />
+                <CardList LinkList={LinkList} />
             </Contents>
             <Footer />
         </>

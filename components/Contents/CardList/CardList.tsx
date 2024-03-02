@@ -4,23 +4,23 @@ import CardContent, {
     CardDescriptionWrapper,
 } from "./CardDescription/CardDescription";
 import { ShowModal } from "../../../types";
-import { CardInterface } from "../../../interfaces";
+import { LinkInterface } from "../../../interfaces";
 import Link from "next/link";
 
 interface CardListProps {
     onDeleteButtonClick: ShowModal;
-    cardListData?: CardInterface[];
+    LinkList?: LinkInterface[];
 }
 
-const CardList = ({ onDeleteButtonClick, cardListData }: CardListProps) => {
-    if (!cardListData) {
+const CardList = ({ onDeleteButtonClick, LinkList }: CardListProps) => {
+    if (!LinkList) {
         return null;
     }
 
     return (
         <Container>
-            {cardListData.length !== 0 ? (
-                cardListData.map((link) => {
+            {LinkList.length !== 0 ? (
+                LinkList.map((link) => {
                     return (
                         <Card
                             href={link.url}

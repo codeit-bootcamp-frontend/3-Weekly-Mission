@@ -1,4 +1,4 @@
-import { SignInputErrorMessages, URL_DOMAIN } from "@/constants/Constants";
+import { SignInputErrorMessages, URL_DOMAIN } from "@/constants/constants";
 import { signFormDataInterface } from "@/interfaces";
 import postFetch from "@/utils/postFetch";
 import { setAccessToken } from "@/utils/setAccessToken";

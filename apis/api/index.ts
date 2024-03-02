@@ -1,9 +1,7 @@
 import getFormattedCamelCaseData from "@/utils/getFormattedCamelCaseData";
 import { defaultInstance } from "../utils/instance";
-import { SharedFolderIdType, SharedUserIdType } from "@/types";
 import { getAccessToken } from "@/utils/getAccessToken";
 
-// 새로운 api 목록
 /**
  *
  * @returns User

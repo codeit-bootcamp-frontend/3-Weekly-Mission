@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
-import {
-    CardInterface,
-    FolderDataInterface,
-    UserDataInterface,
-    ModalInterface,
-} from "@/interfaces";
-import { getUser } from "@/apis/api";
+import { LinkInterface, ModalInterface } from "@/interfaces";
 import {
     getRefinedFilteredLinkList,
     getRefinedLinkList,
@@ -28,26 +22,21 @@ export const useModal = () => {
     return { modal, showModal, closeModal, setModal };
 };
 
-// 폴더들을 가지고 있는 데이터
-export const useFolder = () => {
-    const [folderCardData, setFolderCardData] = useState<
-        CardInterface[] | undefined
-    >();
-    const [folderData, setFolderData] = useState<
-        FolderDataInterface[] | undefined
-    >();
-    const originalFolderCardData = useRef<any>([]);
+// 링크 리스트와 관련된 훅
+export const useLinkList = () => {
+    const [LinkList, setLinkList] = useState<LinkInterface[] | undefined>();
+
+    const originalLinkList = useRef<any>([]);
 
     // 페이지 로드시 전체 링크 데이터 가져오기
     useEffect(() => {
         try {
             (async () => {
                 const refinedLinkList = await getRefinedLinkList();
-                setFolderCardData(() => {
+                setLinkList(() => {
                     return refinedLinkList;
                 });
-                console.log(refinedLinkList, "refinedLinkList");
-                originalFolderCardData.current = [...refinedLinkList];
+                originalLinkList.current = [...refinedLinkList];
             })();
         } catch (error) {
             console.error(error);
@@ -59,10 +48,10 @@ export const useFolder = () => {
         try {
             (async () => {
                 const refinedLinkList = await getRefinedLinkList();
-                setFolderCardData(() => {
+                setLinkList(() => {
                     return refinedLinkList;
                 });
-                originalFolderCardData.current = [...refinedLinkList];
+                originalLinkList.current = [...refinedLinkList];
             })();
         } catch (error) {
             console.error(error);
@@ -75,7 +64,7 @@ export const useFolder = () => {
             (async () => {
                 const refinedFilteredLinkList =
                     await getRefinedFilteredLinkList();
-                setFolderCardData(() => {
+                setLinkList(() => {
                     return refinedFilteredLinkList;
                 });
             })();
@@ -84,34 +73,12 @@ export const useFolder = () => {
         }
     };
     return {
-        folderData,
-        folderCardData,
-        originalFolderCardData,
+        LinkList,
+        originalLinkList,
         handleOverviewFolderButtonClick,
         handleFilteredFolderButtonClick,
-        setFolderCardData,
+        setLinkList,
     };
-};
-
-// 폴더 페이지의 로그인 로직과 유저 데이터를 가져오는 훅
-export const useFolderPageLogin = () => {
-    const [login, setLogin] = useState(false);
-    const [userData, setUserData] = useState<UserDataInterface>();
-
-    // Header의 유저 프로필 데이터
-    useEffect(() => {
-        try {
-            (async () => {
-                const { data } = await getUser();
-                setUserData({ ...data[0] });
-                setLogin(true);
-            })();
-        } catch (error) {
-            console.error(error);
-        }
-    }, []);
-
-    return { login, userData };
 };
 
 export const useScrollingSearchBar = () => {

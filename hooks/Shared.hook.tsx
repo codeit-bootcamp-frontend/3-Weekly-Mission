@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { CardInterface } from "@/interfaces";
+import { LinkInterface } from "@/interfaces";
 import { SharedFolderIdType } from "@/types";
 import { getSharedPageLinkList } from "@/apis/api";
 
 // sharedPage의 카드 리스트 데이터를 가져오는 훅
-export const useGetShareCardList = (
+export const useGetShareLinkList = (
     sharedUserId = "1007",
     sharedFolderId: SharedFolderIdType
 ) => {
-    const [cardListData, setCardListData] = useState<CardInterface[]>();
-    const originalCardListData = useRef([]);
+    const [LinkList, setLinkList] = useState<LinkInterface[]>();
+    const originalLinkList = useRef([]);
 
     useEffect(() => {
         try {
@@ -19,8 +19,8 @@ export const useGetShareCardList = (
                         sharedUserId,
                         sharedFolderId
                     );
-                    setCardListData(data);
-                    originalCardListData.current = data;
+                    setLinkList(data);
+                    originalLinkList.current = data;
                 })();
             }
         } catch (err) {
@@ -29,8 +29,8 @@ export const useGetShareCardList = (
     }, [sharedFolderId, sharedUserId]);
 
     return {
-        cardListData,
-        setCardListData,
-        originalCardListData,
+        LinkList,
+        setLinkList,
+        originalLinkList,
     };
 };
