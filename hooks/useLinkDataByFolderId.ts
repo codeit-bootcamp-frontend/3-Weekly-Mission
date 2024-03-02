@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { getLinkDataByFolderId } from "../../app/api/api";
+import { getLinkDataByFolderId } from "@/api/api";
+import { Link } from "@/@types/api/interface";
 
 export function useLinkDataByFolderId(folderId: string) {
-  const [linkData, setLinkData] = useState(null);
+  const [linkData, setLinkData] = useState<Link[] | null>(null);
   // const [loadingError, setLoadingError] = useState(null);
 
   //초기데이터 설정

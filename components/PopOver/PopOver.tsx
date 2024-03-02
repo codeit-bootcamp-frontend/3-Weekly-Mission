@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import styles from "./PopOver.module.css";
-import { Folder } from "@/api/api";
+import { Folder } from "@/@types/api/interface";
 
 interface Props {
   folderData: Folder[] | null;

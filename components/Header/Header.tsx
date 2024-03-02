@@ -8,11 +8,13 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.folderInfo}>
         <span className={styles.folderOwnerProfile}>
-          <Image
-            fill
-            src={folderData?.owner?.profileImageSource}
-            alt="folder-owner-profile-img"
-          />
+          {folderData && (
+            <Image
+              fill
+              src={folderData?.owner?.profileImageSource}
+              alt="folder-owner-profile-img"
+            />
+          )}
         </span>
 
         <span className={styles.folderOwnerName}>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getFolderData, Folder } from "@/api/api";
+import { getFolderData } from "@/api/api";
+import { Folder } from "@/@types/api/interface";
 
 export function useFolderData() {
   const [folderData, setFolderData] = useState<Folder[] | null>(null);

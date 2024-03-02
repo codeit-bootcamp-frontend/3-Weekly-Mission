@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getSampleFolderData, SampleFolder } from "@/api/api";
+import { getSampleFolderData } from "@/api/api";
+import { SampleFolder } from "@/@types/api/interface";
 
 export function useSampleFolderData() {
   const [folderData, setFolderData] = useState<SampleFolder | null>(null);

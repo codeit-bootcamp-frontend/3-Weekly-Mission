@@ -6,8 +6,9 @@ import { ALL_LINKS_ID } from "../Folder/constants";
 import { ALL_LINKS_NAME } from "../Folder/constants";
 import styles from "./Content.module.css";
 import CardList from "../CardList/CardList";
-import { RecoilState, atom, useRecoilState } from "recoil";
+import { RecoilState, atom, useRecoilState, RecoilEnv } from "recoil";
 
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 export const searchKeyword: RecoilState<string> = atom({
   key: "keywordAtom",
   default: "",
