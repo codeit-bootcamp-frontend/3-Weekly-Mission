@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getFolderLinks } from '@/api/api';
 import useStickyState from '@/hooks/useStickyState';
 import { Header } from '@/components/Header/index';
@@ -10,6 +10,8 @@ import styles from '@/styles/folder.module.css';
 import { FolderLink, SelectedFolder } from '@/types/Common';
 import { GetStaticProps } from 'next';
 import { ALL_CONTENTS_FOLDER } from '@/constants/constants';
+import { redirectIfAuth } from '@/utils/redirectIfAuth';
+import { useRouter } from 'next/router';
 
 interface Props {
   initialData: FolderLink[];
@@ -24,6 +26,11 @@ const Folder = ({ initialData }: Props) => {
     name: ALL_CONTENTS_FOLDER.NAME,
     id: ALL_CONTENTS_FOLDER.ID,
   });
+  const router = useRouter();
+
+  useEffect(() => {
+    redirectIfAuth('/signin', router);
+  }, []);
 
   return (
     <div>
