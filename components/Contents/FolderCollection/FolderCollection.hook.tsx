@@ -30,14 +30,14 @@ export const useGetUserId = () => {
 };
 
 export const useHandleFolderClick = (
-    folderId,
-    userId,
-    folderList,
-    setCurrentFolderName,
-    setCurrentFolderId,
-    onOverviewFolderButtonClick,
-    onFilteredFolderButtonClick,
-    createSharingUrl
+    folderId: string,
+    userId: string,
+    folderList: any,
+    setCurrentFolderName: any,
+    setCurrentFolderId: any,
+    onOverviewFolderButtonClick: any,
+    onFilteredFolderButtonClick: any,
+    createSharingUrl: any
 ) => {
     useEffect(() => {
         if (!folderId) {

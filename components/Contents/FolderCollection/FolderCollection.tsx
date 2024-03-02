@@ -1,4 +1,4 @@
-import { use, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
 import { ShowModal } from "@/types";
@@ -8,7 +8,6 @@ import {
     useGetFolderList,
     useGetUserId,
     useHandleFolderClick,
-    useManageFolderState,
 } from "./FolderCollection.hook";
 
 interface FolderCollectionProps {

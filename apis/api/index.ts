@@ -1,5 +1,5 @@
 import getFormattedCamelCaseData from "@/utils/getFormattedCamelCaseData";
-import { defaultInstance } from "../utils/instance";
+import { defaultInstance, instanceAddedAccessToken } from "../utils/instance";
 import { getAccessToken } from "@/utils/getAccessToken";
 
 /**
@@ -7,11 +7,7 @@ import { getAccessToken } from "@/utils/getAccessToken";
  * @returns User
  */
 export const getUser = async () => {
-    const { data } = await defaultInstance.get("users", {
-        headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-        },
-    });
+    const { data } = await instanceAddedAccessToken.get("users");
     return getFormattedCamelCaseData(data);
 };
 
@@ -20,11 +16,7 @@ export const getUser = async () => {
  * @returns FolderList
  */
 export const getFolderList = async () => {
-    const { data } = await defaultInstance.get(`folders`, {
-        headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-        },
-    });
+    const { data } = await instanceAddedAccessToken.get(`folders`);
     return getFormattedCamelCaseData(data);
 };
 
@@ -33,16 +25,8 @@ export const getFolderList = async () => {
  * @returns linkList
  */
 export const getLinkList = async () => {
-    try {
-        const { data } = await defaultInstance.get(`links`, {
-            headers: {
-                Authorization: `Bearer ${getAccessToken()}`,
-            },
-        });
-        return getFormattedCamelCaseData(data);
-    } catch (error) {
-        console.error(error);
-    }
+    const { data } = await instanceAddedAccessToken.get(`links`);
+    return getFormattedCamelCaseData(data);
 };
 
 /**
@@ -51,11 +35,7 @@ export const getLinkList = async () => {
  * @returns filteredLinkList
  */
 export const getFilteredLinkList = async () => {
-    const { data } = await defaultInstance.get("links?folderId=1", {
-        headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-        },
-    });
+    const { data } = await instanceAddedAccessToken.get("links?folderId=1");
     return getFormattedCamelCaseData(data);
 };
 
