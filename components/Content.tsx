@@ -9,8 +9,8 @@ import styles from "./Content.module.css";
 import Modal from "./modals/Modal";
 import useModal from "../hooks/useModal";
 import Image from "next/image";
-import { UserFolderData } from "@/hooks/useGetUserFolder";
 import classNames from "classnames/bind";
+import { UserFolderData } from "@/pages/folder/[id]";
 
 const cx = classNames.bind(styles);
 
@@ -25,7 +25,7 @@ export default function Content({
   });
 
   const [modalState, setModalState, handleModalCancel] = useModal();
-  const folderList = useGetFolderList();
+  const folderList = useGetFolderList("8");
 
   const handleClick = (title: string, id: number) => {
     setTargetFolder({
@@ -53,7 +53,7 @@ export default function Content({
           >
             전체
           </button>
-          {folderList?.map((folder: UserFolderList) => (
+          {folderList?.map((folder) => (
             <button
               className={cx(
                 "button",
@@ -132,7 +132,7 @@ export default function Content({
 
       {filteredLinkList?.length ? (
         <div className={cx("card-container")}>
-          {filteredLinkList?.map((data: UserFolderData) => (
+          {filteredLinkList?.map((data) => (
             <Card key={data.id} data={data} />
           ))}
         </div>

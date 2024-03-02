@@ -12,12 +12,12 @@ export interface UserFolderList {
   };
 }
 
-export default function useGetFolderList(): any {
+export default function useGetFolderList(id:string): UserFolderList[] | undefined {
   const [folderList, setFolderList] = useState<UserFolderList[]>();
 
   useEffect(() => {
     (async () => {
-      const { data } = await getFolderList();
+      const { data } = await getFolderList(id);
       setFolderList(data);
     })();
   }, []);

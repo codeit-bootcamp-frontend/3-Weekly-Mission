@@ -7,7 +7,7 @@ import Modal from "./modals/Modal";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames/bind";
-import type { UserFolderData } from "@/hooks/useGetUserFolder";
+import type { UserFolderData } from "@/pages/folder";
 
 const cx = classNames.bind(styles);
 

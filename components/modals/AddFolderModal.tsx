@@ -6,7 +6,6 @@ export default function AddFolderModal() {
       <input className={styles["modal-input"]} />
       <button
         onClick={(e) => {
-          e.preventDefault();
           e.stopPropagation();
         }}
         className={styles["modal-submit-btn"]}
@@ -16,3 +15,5 @@ export default function AddFolderModal() {
     </>
   );
 }
+// 케밥 바깥 클릭시 닫히게
+// HOC

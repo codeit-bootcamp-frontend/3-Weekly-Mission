@@ -3,9 +3,9 @@ import Link from "next/link";
 export default function index() {
   return (
     <>
-      <Link href="/folder">folder Page</Link>
+      <Link href="/folder/8">folder Page</Link>
       <br />
-      <Link href="/shared">shared Page</Link>
+      <Link href="/shared/8">shared Page</Link>
     </>
   );
 }

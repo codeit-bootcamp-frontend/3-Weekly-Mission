@@ -1,12 +1,11 @@
-import Banner from "../components/Banner";
-import SearchBar from "../components/SearchBar";
-import Cards from "../components/Cards";
-import Header from "../components/Header";
 import { useMemo, useState } from "react";
-import { getSampleFolder, getSampleUser } from "@/api";
+import { getSampleData, getUser } from "@/api";
 import Footer from "@/components/Footer";
-import type { UserFolderData } from "@/hooks/useGetUserFolder";
-
+import Header from "@/components/Header";
+import Banner from "@/components/Banner";
+import SearchBar from "@/components/SearchBar";
+import Cards from "@/components/Cards";
+import type { UserFolderData } from "../folder/[id]";
 export interface SampleFolder {
   id: number;
   name: string;
@@ -18,26 +17,31 @@ export interface SampleFolder {
   links: UserFolderData[];
 }
 
-export async function getServerSideProps() {
-  const { folder } = await getSampleFolder();
-  const data = await getSampleUser();
-  const { profileImageSource, email } = data;
-  return { props: { profileImageSource, email, folder } };
-}
-
 interface SharedProps {
   folder: SampleFolder;
-  profileImageSource: string;
+  image_source: string;
   email: string;
+}
+
+export async function getServerSideProps(context: {
+  query: { id: string };
+}) {
+  const { id } = context.query;
+  const [ {folder} , { image_source, email }] = await Promise.all([
+    getSampleData('/sample/folder'),
+    getUser(id),
+  ]);
+  console.log(folder);
+  return { props: { image_source, email, folder } };
 }
 
 export default function Shared({
   folder: sampleFolderLinkList,
-  profileImageSource,
+  image_source,
   email,
 }: SharedProps) {
   const [searchValue, setsearchValue] = useState("");
-  const handleInputChange = (value: any) => {
+  const handleInputChange = (value: string) => {
     setsearchValue(value);
   };
 
@@ -54,7 +58,7 @@ export default function Shared({
   }, [sampleFolderLinkList?.links, searchValue]);
   return (
     <>
-      <Header profileImageSource={profileImageSource} email={email} />
+      <Header profileImageSource={image_source} email={email} />
       <Banner folder={sampleFolderLinkList} />
       <SearchBar handleInputChange={handleInputChange} />
       <Cards data={searchedData} />

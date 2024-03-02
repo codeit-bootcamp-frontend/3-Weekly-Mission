@@ -1,49 +1,58 @@
+import { UseFormSetError } from "react-hook-form";
+import { FormData } from "./components/account/SigninForm";
+
 const BASE_URL = "https://bootcamp-api.codeit.kr/api";
 
-export async function getSampleUser() {
-  const response = await fetch(`${BASE_URL}/sample/user`);
+// 반복되는 코드 함수로 추상화
+
+export async function getSampleData(url: string) {
+  const response = await fetch(`${BASE_URL}${url}`);
   const body = await response.json();
   return body;
 }
 
-export async function getSampleFolder() {
-  const response = await fetch(`${BASE_URL}/sample/folder`);
+export async function getUserFolderInfo(id: string) {
+  const response = await fetch(`${BASE_URL}/folders/${id}`);
   const body = await response.json();
   return body;
 }
 
-export async function getUser() {
-  const response = await fetch(`${BASE_URL}/users/8`);
+export async function getUser(id: string) {
+  const response = await fetch(`${BASE_URL}/users/${id}`);
+  const { data } = await response.json();
+  console.log(data);
+  return data[0];
+}
+
+export async function getUserFolder(id: string) {
+  const response = await fetch(`${BASE_URL}/users/${id}/links`);
   const body = await response.json();
   return body;
 }
 
-export async function getUserFolder() {
-  const response = await fetch(`${BASE_URL}/users/8/links`);
+export async function getFolderList(id: string) {
+  const response = await fetch(`${BASE_URL}/users/${id}/folders`);
   const body = await response.json();
   return body;
 }
 
-export async function getFolderList() {
-  const response = await fetch(`${BASE_URL}/users/8/folders`);
-  const body = await response.json();
-  return body;
-}
-
-export async function postSignIn({
-  email,
-  password,
-  setError,
-}: {
+interface PostSignData {
   email: string;
-  password: string;
-  setError: any;
-}) {
-  const response = await fetch(`${BASE_URL}/sign-in`, {
+  password?: string;
+  setError: UseFormSetError<FormData>;
+}
+
+async function customFetch(url: string, ...rest: any) {
+  const response = await fetch(`${BASE_URL}/${url}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ ...rest }),
   });
+  return response;
+}
+
+export async function postSignIn({ email, password, setError }: PostSignData) {
+  const response = await customFetch("sign-in", email, password);
 
   if (response.ok) {
     const { data } = await response.json();
@@ -62,40 +71,14 @@ export async function postSignIn({
   }
 }
 
-export async function postSignUp({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) {
-  const response = await fetch(`${BASE_URL}/sign-up`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
-  
-  const {data} = await response.json();
+export async function postSignUp({ email, password }: PostSignData) {
+  const response = await customFetch("sign-up", email, password);
+  const { data } = await response.json();
   return data;
 }
 
-export async function checkEmail({
-  email,
-  setError,
-}: {
-  email: string;
-  setError: any;
-}) {
-  const response = await fetch(
-    "https://bootcamp-api.codeit.kr/api/check-email",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    }
-  );
+export async function checkEmail({ email, setError }: PostSignData) {
+  const response = await customFetch('check-email', email);
 
   if (!response.ok)
     setError("email", {

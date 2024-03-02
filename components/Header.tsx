@@ -1,4 +1,4 @@
-import logo from "../public/logo.svg";
+import logo from "@/public/main-logo.svg";
 import styles from "./Header.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";

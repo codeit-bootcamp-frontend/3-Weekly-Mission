@@ -9,14 +9,15 @@ import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
+export interface FormData {
+  email: string;
+  password: string;
+};
+
 export default function SigninForm() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setError,
-    control,
-  } = useForm({ mode: "onBlur" });
+  const { handleSubmit, watch, setError, control } = useForm<FormData>({
+    mode: "onBlur",
+  });
 
   const router = useRouter();
 
@@ -78,8 +79,8 @@ export default function SigninForm() {
               id="password-input"
               type="password"
               placeholder="비밀번호를 입력해 주세요."
-              {...field} // field 객체에서 제공하는 onChange, onBlur, value를 Input에 전달
-              error={fieldState.error} // fieldState에서 error 상태를 가져와서 Input에 전달
+              {...field}
+              error={fieldState.error}
             />
           )}
         />
