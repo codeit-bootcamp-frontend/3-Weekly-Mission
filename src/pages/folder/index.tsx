@@ -10,7 +10,7 @@ import styles from '@/styles/folder.module.css';
 import { FolderLink, SelectedFolder } from '@/types/Common';
 import { GetStaticProps } from 'next';
 import { ALL_CONTENTS_FOLDER } from '@/constants/constants';
-import { redirectIfAuth } from '@/utils/redirectIfAuth';
+import { redirectTo } from '@/utils/redirectTo';
 import { useRouter } from 'next/router';
 
 interface Props {
@@ -29,7 +29,7 @@ const Folder = ({ initialData }: Props) => {
   const router = useRouter();
 
   useEffect(() => {
-    redirectIfAuth('/signin', router);
+    redirectTo(!localStorage.accessToken, '/signin', router);
   }, []);
 
   return (

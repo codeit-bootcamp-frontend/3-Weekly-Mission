@@ -4,13 +4,13 @@ import { SignupForm } from '@/components/SignPages/SignupForm';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { SignHeader } from '@/components/SignPages/SignHeader';
-import { redirectIfAuth } from '@/utils/redirectIfAuth';
+import { redirectTo } from '@/utils/redirectTo';
 
 const Signup = () => {
   const router = useRouter();
 
   useEffect(() => {
-    redirectIfAuth('/folder', router);
+    redirectTo(localStorage.accessToken, '/folder', router);
   }, []);
 
   return (
