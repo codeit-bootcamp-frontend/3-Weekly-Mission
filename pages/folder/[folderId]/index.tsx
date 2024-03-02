@@ -5,7 +5,7 @@ import Header from "@/components/Header/Header";
 import LinkCreator from "@/components/LinkCreator/LinkCreator";
 import Contents from "@/components/Contents/Contents";
 import CardSearchBar from "@/components/Contents/CardSearchBar/CardSearchBar";
-import FolderCollection from "@/components/Contents/FolderCollection/FolderCollection";
+import FolderList from "@/components/Contents/FolderList/FolderList";
 import CardList from "@/components/Contents/CardList/CardList";
 import Footer from "@/components/Footer/Footer";
 import Modal from "@/components/Modal/Modal";
@@ -54,7 +54,7 @@ export default function Folder() {
                     onInputChange={handleInputChange}
                     resetInputValue={resetInputValue}
                 />
-                <FolderCollection
+                <FolderList
                     onButtonClick={showModal}
                     onOverviewFolderButtonClick={
                         handleOverviewFolderButtonClick

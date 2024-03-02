@@ -8,7 +8,7 @@ import {
     useGetFolderList,
     useGetUserId,
     useHandleFolderClick,
-} from "./FolderCollection.hook";
+} from "./FolderList.hook";
 
 interface FolderCollectionProps {
     onButtonClick: ShowModal;
@@ -16,7 +16,7 @@ interface FolderCollectionProps {
     onFilteredFolderButtonClick: (id: number) => void;
 }
 
-const FolderCollection = ({
+const FolderList = ({
     onButtonClick,
     onOverviewFolderButtonClick,
     onFilteredFolderButtonClick,
@@ -319,4 +319,4 @@ const FolderToolbarBox = styled.div`
     }
 `;
 
-export default FolderCollection;
+export default FolderList;

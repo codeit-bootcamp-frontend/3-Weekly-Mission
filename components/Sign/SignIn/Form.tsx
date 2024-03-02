@@ -4,8 +4,7 @@ import EmailInput from "./EmailInput";
 import { useForm } from "react-hook-form";
 import { useAuthForm } from "./Form.hook";
 
-// Think: 제어컴포넌트로 사용할 것인가, 비제어 컴포넌트로 사용할 것인가?
-export const Form = ({ currentPath }: { currentPath: "signin" | "signup" }) => {
+export const SignInForm = () => {
     const {
         register,
         handleSubmit,
@@ -14,10 +13,7 @@ export const Form = ({ currentPath }: { currentPath: "signin" | "signup" }) => {
         formState: { errors },
     } = useForm({ mode: "onBlur" });
 
-    const { handleLoginSubmit, handleRegisterSubmit, onSubmit } = useAuthForm(
-        watch,
-        setError
-    );
+    const { handleLoginSubmit, onSubmit } = useAuthForm(watch, setError);
 
     return (
         <FormWrapper onSubmit={handleSubmit(onSubmit)}>
@@ -25,49 +21,23 @@ export const Form = ({ currentPath }: { currentPath: "signin" | "signup" }) => {
                 <Label htmlFor="email">이메일</Label>
                 <EmailInput
                     id="email"
-                    currentPath={currentPath}
                     register={register}
                     errors={errors}
                     onLoginSubmit={handleLoginSubmit}
-                    onRegisterSubmit={handleRegisterSubmit}
-                    watch={watch}
-                    setError={setError}
                 />
             </div>
             <div>
                 <Label htmlFor="password">비밀번호</Label>
                 <PasswordInput
                     id="password"
-                    currentPath={currentPath}
                     register={register}
                     errors={errors}
                     onLoginSubmit={handleLoginSubmit}
-                    onRegisterSubmit={handleRegisterSubmit}
                 />
             </div>
-            {currentPath === "signin" ? null : (
-                <div>
-                    <Label htmlFor="confirmPassword">비밀번호 확인</Label>
-                    <PasswordInput
-                        id="confirmPassword"
-                        currentPath={currentPath}
-                        register={register}
-                        errors={errors}
-                        onLoginSubmit={handleLoginSubmit}
-                        onRegisterSubmit={handleRegisterSubmit}
-                        watch={watch}
-                    />
-                </div>
-            )}
-            {currentPath === "signin" ? (
-                <SubmitButton type="submit" onClick={handleLoginSubmit}>
-                    로그인
-                </SubmitButton>
-            ) : (
-                <SubmitButton type="submit" onClick={handleRegisterSubmit}>
-                    회원가입
-                </SubmitButton>
-            )}
+            <SubmitButton type="submit" onClick={handleLoginSubmit}>
+                로그인
+            </SubmitButton>
         </FormWrapper>
     );
 };

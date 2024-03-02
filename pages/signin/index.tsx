@@ -1,6 +1,7 @@
 import { Form } from "@/components/Sign/Form";
-import { Header } from "@/components/Sign/Header";
-import { SnsLogin } from "@/components/Sign/SnsLogin";
+import { Header } from "@/components/Sign/Shared/Header";
+import { SnsLogin } from "@/components/Sign/Shared/SnsLogin";
+import { SignInForm } from "@/components/Sign/SignIn/Form";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
@@ -17,7 +18,7 @@ export default function Signin() {
     return (
         <Wrapper>
             <Header currentPath="signin" />
-            <Form currentPath="signin" />
+            <SignInForm />
             <SnsLogin />
         </Wrapper>
     );

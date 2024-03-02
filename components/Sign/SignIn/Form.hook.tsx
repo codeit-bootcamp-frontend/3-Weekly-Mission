@@ -34,34 +34,9 @@ export const useAuthForm = (watch: any, setError: any) => {
         }
     };
 
-    // 회원가입 버튼 클릭
-    const handleRegisterSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        try {
-            const data: signFormDataInterface = {
-                email: watch("email"),
-                password: watch("password"),
-            };
-            const res = await postFetch(URL_DOMAIN, "api/sign-up", data);
-            const result = res.data;
-            if (result.accessToken) {
-                setAccessToken(result.accessToken);
-                router.push("/folder");
-            }
-        } catch (error) {
-            console.error(error);
-            setError("email", {
-                message: SignInputErrorMessages.PleaseConfirmEmail,
-            });
-            setError("password", {
-                message: SignInputErrorMessages.PleaseConfirmPassword,
-            });
-        }
-    };
-
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         console.log("Form submitted.", data);
     };
 
-    return { handleLoginSubmit, handleRegisterSubmit, onSubmit };
+    return { handleLoginSubmit, onSubmit };
 };
