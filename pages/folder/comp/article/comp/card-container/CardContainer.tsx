@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import classNames from 'classnames/bind';
 
-import { filterMatchedDatas } from '@utils/search/filterMatchedDatas';
+import { useMatchedLinks } from '@hooks/useMatchedLinks';
 
 import styles from './CardContainer.module.css';
 import CardContainerOptions from './comp/card-container-options/CardContainerOptions';
@@ -24,6 +24,8 @@ const CardContainer = ({ input }: TCardContainerProps) => {
 
   const sortedLinks = useGetSortedFolderLinksData(folderIdAndName.folderId === 'total' ? '' : folderIdAndName.folderId);
 
+  const matchedLinks = useMatchedLinks(sortedLinks, input, ['title', 'description', 'url']);
+
   return (
     <div className={cn('card-container-wrapper')}>
       <div className={cn('card-container-controllers')}>
@@ -35,11 +37,9 @@ const CardContainer = ({ input }: TCardContainerProps) => {
       </div>
       {sortedLinks?.length ? (
         <section className={cn('card-container')}>
-          {sortedLinks
-            .filter((l) => filterMatchedDatas(l, input, ['title', 'description', 'url']))
-            .map((link) => (
-              <Card key={link.id} link={link} />
-            ))}
+          {matchedLinks.map((link) => (
+            <Card key={link.id} link={link} />
+          ))}
         </section>
       ) : (
         <div className={cn('no-links')}>저장된 링크가 없습니다.</div>

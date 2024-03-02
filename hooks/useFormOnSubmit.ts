@@ -11,8 +11,10 @@ export const useFormOnSubmit = <T extends FieldValues>(useFormProps?: UseFormOnS
     }
   };
 
+  const { handleSubmit, ...rest } = useForm<T>(useFormProps);
+
   return {
-    ...useForm<T>(useFormProps),
-    handleSubmit: useForm<T>(useFormProps).handleSubmit(onSubmitHandler),
+    ...rest,
+    handleSubmit: handleSubmit(onSubmitHandler),
   };
 };
