@@ -25,7 +25,7 @@ export const AddLinkModal = ({
     >
       <div className={styles.modal}>
         <div className={styles['folder-list']}>
-          {folders.map(folder => (
+          {folders.map((folder) => (
             <button
               className={styles['folder-list__button']}
               type="button"
@@ -34,7 +34,7 @@ export const AddLinkModal = ({
               <div className={styles['folder-item']}>
                 <p className={styles['folder-item-name']}>{folder.name}</p>
                 <p className={styles['folder-item-count']}>
-                  {folder.link.count}개 링크
+                  {folder.link_count}개 링크
                 </p>
               </div>
               <Image

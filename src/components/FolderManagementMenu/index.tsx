@@ -16,7 +16,7 @@ export const FolderManagementMenu = ({ selectedFolder }: Props) => {
       </div>
       {selectedFolder.id !== ALL_CONTENTS_FOLDER.ID && (
         <div className={styles['folder-management-buttons']}>
-          {folderManagementButtons.map(button => {
+          {folderManagementButtons.map((button) => {
             return (
               <FolderManagementButton
                 selectedFolder={selectedFolder}

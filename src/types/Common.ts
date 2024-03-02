@@ -30,20 +30,6 @@ export interface User {
   name: string;
 }
 
-// getFolderSample
-// export interface FolderSample {
-//   count: number;
-//   id: number;
-//   links: FolderLink[];
-//   name: string;
-//   owner: Owner;
-// }
-// interface Owner {
-//   id: number;
-//   name: string;
-//   profileImageSource: string;
-// }
-
 // Types
 export interface SelectedFolder {
   id: string | number;

@@ -34,7 +34,7 @@ export const Modal = ({
           <button
             className={styles['close-button']}
             type="button"
-            onClick={e => handleModalClose(e)}
+            onClick={(e) => handleModalClose(e)}
           >
             <Image
               width={24}

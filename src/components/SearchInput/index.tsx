@@ -31,7 +31,7 @@ export const SearchInput = ({
 
     if (inputValue) {
       const filteredFolderLinks: FolderLink[] = folderLinks?.filter(
-        folderLink => {
+        (folderLink) => {
           return (
             folderLink?.url?.includes(inputValue) ||
             folderLink?.title?.includes(inputValue) ||
