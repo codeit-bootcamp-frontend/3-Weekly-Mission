@@ -1,17 +1,13 @@
 import styled from "styled-components";
 import Image from "next/image";
 import link from "@/public/images/link.svg";
-import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
-import { ShowModal } from "@/types";
 
 interface LinkCreatorProps {
-    onUpdateButtonClick: ShowModal;
     linkCreatorDom: React.RefObject<HTMLDivElement>;
     linkCreatorWrapperDom: React.RefObject<HTMLDivElement>;
 }
 
 const LinkCreator = ({
-    onUpdateButtonClick,
     linkCreatorDom,
     linkCreatorWrapperDom,
 }: LinkCreatorProps) => {
@@ -31,15 +27,7 @@ const LinkCreator = ({
                             placeholder="링크를 추가하세요"
                         />
                     </div>
-                    <CreateLinkButton
-                        type="button"
-                        onClick={() => {
-                            onUpdateButtonClick({
-                                ...DEFALUT_MODAL_VALUE,
-                                type: "UpdateFolder",
-                            });
-                        }}
-                    >
+                    <CreateLinkButton type="button" onClick={() => {}}>
                         추가하기
                     </CreateLinkButton>
                 </Form>

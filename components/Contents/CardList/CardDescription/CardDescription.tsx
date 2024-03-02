@@ -2,26 +2,23 @@ import styled from "styled-components";
 import { MouseEvent, useState } from "react";
 import calculatePassedTime from "@/utils/calculatePassedTime";
 import getFormattedDate from "@/utils/getFormattedDate";
-
-import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
-import { ShowModal } from "@/types";
 import Image from "next/image";
 import { LinkInterface } from "@/interfaces";
 
 interface CardDescriptionProps {
     link: LinkInterface;
-    onDeleteButtonClick: ShowModal;
 }
 
-const CardDescription = ({
-    link,
-    onDeleteButtonClick,
-}: CardDescriptionProps) => {
+const CardDescription = ({ link }: CardDescriptionProps) => {
     const [kebabToggle, setKebabToggle] = useState(false);
 
     const handleKebabToggle = () => {
         setKebabToggle(!kebabToggle);
     };
+
+    const handleDeleteLinkClick = () => {};
+
+    const handleAddLinkToFolderClick = () => {};
 
     return (
         <CardDescriptionWrapper>
@@ -44,20 +41,22 @@ const CardDescription = ({
                     <KebabMenuBox>
                         <KebabMenuDeleteButton
                             type="button"
-                            onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                            onClick={(e) => {
                                 e.preventDefault();
-                                onDeleteButtonClick({
-                                    ...DEFALUT_MODAL_VALUE,
-                                    type: "DeleteLink",
-                                    url: link.url,
-                                });
+                                handleDeleteLinkClick();
                             }}
                         >
                             삭제하기
                         </KebabMenuDeleteButton>
-                        <KebabMenuAddFolderBtn>
+                        <KebabMenuAddFolderButton
+                            type="button"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleAddLinkToFolderClick();
+                            }}
+                        >
                             폴더에 추가
-                        </KebabMenuAddFolderBtn>
+                        </KebabMenuAddFolderButton>
                     </KebabMenuBox>
                 ) : null}
             </TimePassedBox>
@@ -139,18 +138,28 @@ const KebabMenuDeleteButton = styled.button`
     font-family: Pretendard;
     background: var(--gray-light-gray-00, #fff);
     box-shadow: 0px 2px 8px 0px rgba(51, 50, 54, 0.1);
+
+    &:hover {
+        background: var(--Linkbrary-gray10, #e7effb);
+        color: var(--Linkbrary-primary-color, #6d6afe);
+    }
 `;
 
-const KebabMenuAddFolderBtn = styled.button`
+const KebabMenuAddFolderButton = styled.button`
     display: flex;
     padding: 7px 12px;
     justify-content: center;
-
     gap: 10px;
     align-self: stretch;
-    background: var(--Linkbrary-gray10, #e7effb);
-    color: var(--Linkbrary-primary-color, #6d6afe);
+    color: var(--gray-light-gray-100, #333236);
     font-family: Pretendard;
+    background: var(--gray-light-gray-00, #fff);
+    box-shadow: 0px 2px 8px 0px rgba(51, 50, 54, 0.1);
+
+    &:hover {
+        background: var(--Linkbrary-gray10, #e7effb);
+        color: var(--Linkbrary-primary-color, #6d6afe);
+    }
 `;
 
 export default CardDescription;

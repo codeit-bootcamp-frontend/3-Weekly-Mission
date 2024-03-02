@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
 import { ShowModal } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -12,13 +11,11 @@ import {
 import { FolderInterface, UrlQuery } from "@/interfaces";
 
 interface FolderCollectionProps {
-    onButtonClick: ShowModal;
     onOverviewFolderButtonClick: () => void;
     onFilteredFolderButtonClick: (id: number) => void;
 }
 
 const FolderList = ({
-    onButtonClick,
     onOverviewFolderButtonClick,
     onFilteredFolderButtonClick,
 }: FolderCollectionProps) => {
@@ -86,15 +83,7 @@ const FolderList = ({
                             );
                         })}
                     </FolderButtonContainer>
-                    <CreateFolderButton
-                        onClick={() => {
-                            onButtonClick({
-                                ...DEFALUT_MODAL_VALUE,
-                                type: "CreateFolder",
-                                folderName: "",
-                            });
-                        }}
-                    >
+                    <CreateFolderButton onClick={() => {}}>
                         <span>폴더추가</span>
                         <Image
                             src="/images/add.svg"
@@ -110,18 +99,7 @@ const FolderList = ({
                 <div>{currentFolderName}</div>
                 {Number(currentFolderId) !== 0 ? (
                     <FolderToolbarBox>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                // data에 title, description, sourceImg가 들어가야한다.
-                                onButtonClick({
-                                    ...DEFALUT_MODAL_VALUE,
-                                    type: "ShareFolder",
-                                    folderName: currentFolderId,
-                                    sharingUrl: sharingUrl.current,
-                                });
-                            }}
-                        >
+                        <button type="button" onClick={() => {}}>
                             <Image
                                 src="/images/share.svg"
                                 alt="폴더 도구 모음 공유 버튼"
@@ -130,16 +108,7 @@ const FolderList = ({
                             />
                             <span>공유</span>
                         </button>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                onButtonClick({
-                                    ...DEFALUT_MODAL_VALUE,
-                                    type: "ChangeFolderName",
-                                    folderName: currentFolderId,
-                                });
-                            }}
-                        >
+                        <button type="button" onClick={() => {}}>
                             <Image
                                 src="/images/pen.svg"
                                 alt="폴더 도구 모음 수정 버튼"
@@ -148,16 +117,7 @@ const FolderList = ({
                             />
                             <span>이름 변경</span>
                         </button>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                onButtonClick({
-                                    ...DEFALUT_MODAL_VALUE,
-                                    type: "DeleteFolder",
-                                    folderName: currentFolderId,
-                                });
-                            }}
-                        >
+                        <button type="button" onClick={() => {}}>
                             <Image
                                 src="/images/trash_can.svg"
                                 alt="폴더 도구 모음 삭제 버튼"

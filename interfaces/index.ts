@@ -3,13 +3,6 @@ import { CloseModal } from "../types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { ParsedUrlQuery } from "querystring";
 
-export interface ModalInterface {
-    type: string;
-    folderName: string;
-    sharingUrl: string;
-    url: string;
-}
-
 export interface UserDataInterface {
     id: number;
     createdAt: string;
@@ -135,5 +128,12 @@ export interface Linkinterface {
     imageSource: string;
     title: string;
     updatedAt: string;
+    url: string;
+}
+
+export interface ModalInterface {
+    type: string;
+    folderName: string;
+    sharingUrl: string;
     url: string;
 }

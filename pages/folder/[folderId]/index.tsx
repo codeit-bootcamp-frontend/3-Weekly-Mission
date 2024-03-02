@@ -8,12 +8,7 @@ import CardSearchBar from "@/components/Contents/CardSearchBar/CardSearchBar";
 import FolderList from "@/components/Contents/FolderList/FolderList";
 import CardList from "@/components/Contents/CardList/CardList";
 import Footer from "@/components/Footer/Footer";
-import Modal from "@/components/Modal/Modal";
-import {
-    useLinkList,
-    useModal,
-    useScrollingSearchBar,
-} from "@/hooks/Folder.hook";
+import { useLinkList, useScrollingSearchBar } from "@/hooks/Folder.hook";
 import { useSearchBar } from "@/hooks/useSearchBar";
 import { getAccessToken } from "@/utils/getAccessToken";
 
@@ -26,7 +21,6 @@ export default function Folder() {
         }
     }, []);
 
-    const { modal, showModal, closeModal } = useModal();
     const {
         LinkList,
         originalLinkList,
@@ -44,7 +38,6 @@ export default function Folder() {
         <FolderPageWrapper>
             <Header currentPath="folder" />
             <LinkCreator
-                onUpdateButtonClick={showModal}
                 linkCreatorDom={linkCreatorRefs.linkCreatorDom}
                 linkCreatorWrapperDom={linkCreatorRefs.linkCreatorWrapperDom}
             />
@@ -55,7 +48,6 @@ export default function Folder() {
                     resetInputValue={resetInputValue}
                 />
                 <FolderList
-                    onButtonClick={showModal}
                     onOverviewFolderButtonClick={
                         handleOverviewFolderButtonClick
                     }
@@ -63,12 +55,9 @@ export default function Folder() {
                         handleFilteredFolderButtonClick
                     }
                 />
-                <CardList LinkList={LinkList} onDeleteButtonClick={showModal} />
+                <CardList LinkList={LinkList} />
             </Contents>
             <Footer ref={footerDom} />
-            {modal.type ? (
-                <Modal modal={modal} onCloseModalButtonClick={closeModal} />
-            ) : null}
         </FolderPageWrapper>
     );
 }

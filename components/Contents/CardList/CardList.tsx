@@ -8,11 +8,10 @@ import { LinkInterface } from "../../../interfaces";
 import Link from "next/link";
 
 interface CardListProps {
-    onDeleteButtonClick: ShowModal;
     LinkList?: LinkInterface[];
 }
 
-const CardList = ({ onDeleteButtonClick, LinkList }: CardListProps) => {
+const CardList = ({ LinkList }: CardListProps) => {
     if (!LinkList) {
         return null;
     }
@@ -29,10 +28,7 @@ const CardList = ({ onDeleteButtonClick, LinkList }: CardListProps) => {
                             rel="noreferrer"
                         >
                             <CardImg link={link} />
-                            <CardContent
-                                link={link}
-                                onDeleteButtonClick={onDeleteButtonClick}
-                            />
+                            <CardContent link={link} />
                         </Card>
                     );
                 })
