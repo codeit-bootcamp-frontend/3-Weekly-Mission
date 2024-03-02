@@ -9,6 +9,7 @@ import {
     useGetUserId,
     useHandleFolderClick,
 } from "./FolderList.hook";
+import { FolderInterface, UrlQuery } from "@/interfaces";
 
 interface FolderCollectionProps {
     onButtonClick: ShowModal;
@@ -25,7 +26,7 @@ const FolderList = ({
     // 객체로 관리하다면 확장성이 높아질까? const [currentFolder, setCurrentFolder] = useState({id: 0, name: "전체"}); 이런 느낌?
 
     const router = useRouter();
-    const { folderId } = router.query;
+    const { folderId } = router.query as UrlQuery;
     const { folderList } = useGetFolderList();
     const { userId } = useGetUserId();
 
@@ -41,19 +42,15 @@ const FolderList = ({
 
     const { handleOverviewFolderClick, handleFolderClick } =
         useHandleFolderClick(
-            folderId,
-            userId,
             folderList,
             setCurrentFolderName,
             setCurrentFolderId,
             onOverviewFolderButtonClick,
             onFilteredFolderButtonClick,
-            createSharingUrl
+            createSharingUrl,
+            folderId,
+            userId
         );
-
-    if (folderList === undefined || userId === undefined) {
-        return null;
-    }
 
     return (
         <>
@@ -67,7 +64,7 @@ const FolderList = ({
                         >
                             전체
                         </FolderButton>
-                        {folderList?.map((folder) => {
+                        {folderList?.map((folder: FolderInterface) => {
                             return (
                                 <FolderButton
                                     type="button"
@@ -111,7 +108,7 @@ const FolderList = ({
 
             <FolderToolbarWrapper>
                 <div>{currentFolderName}</div>
-                {currentFolderId !== 0 ? (
+                {Number(currentFolderId) !== 0 ? (
                     <FolderToolbarBox>
                         <button
                             type="button"

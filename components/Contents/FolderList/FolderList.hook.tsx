@@ -1,4 +1,5 @@
 import { getRefinedFolderList, getRefinedUser } from "@/apis/services";
+import { FolderInterFace } from "@/interfaces";
 import { useEffect, useState } from "react";
 
 export const useGetFolderList = () => {
@@ -30,14 +31,14 @@ export const useGetUserId = () => {
 };
 
 export const useHandleFolderClick = (
-    folderId: string,
-    userId: string,
     folderList: any,
     setCurrentFolderName: any,
     setCurrentFolderId: any,
     onOverviewFolderButtonClick: any,
     onFilteredFolderButtonClick: any,
-    createSharingUrl: any
+    createSharingUrl: any,
+    folderId?: string,
+    userId?: string
 ) => {
     useEffect(() => {
         if (!folderId) {
@@ -45,12 +46,12 @@ export const useHandleFolderClick = (
         }
         if (folderId) {
             const folder = folderList?.find(
-                (folder) => folder.id === Number(folderId)
+                (folder: FolderInterFace) => folder.id === Number(folderId)
             );
             setCurrentFolderId(Number(folderId));
             setCurrentFolderName(folder?.name);
         }
-    }, [folderList, folderId]);
+    }, [folderId]);
 
     // 전체 폴더 클릭
     const handleOverviewFolderClick = () => {

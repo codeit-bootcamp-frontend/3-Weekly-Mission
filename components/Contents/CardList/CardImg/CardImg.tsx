@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { CardInterface } from "@/interfaces";
 import Image from "next/image";
+import { Linkinterface } from "@/interfaces";
 
 interface CardImgProps {
-    link: CardInterface;
+    link: Linkinterface;
 }
 
-// ToDo: Image 컴포넌트 사용시 styled-components에서 width, height를 지정할 수 있는지 알아봐야할것
 const CardImg = ({ link }: CardImgProps) => {
     return (
         <Wrapper>

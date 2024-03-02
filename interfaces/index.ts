@@ -86,13 +86,7 @@ export interface SharedPageFolderInfoInterface {
     favorite: boolean;
 }
 
-export interface FolderInterface {
-    id: number;
-    created_at: string;
-    favorite: false;
-    name: string;
-    link_count: number;
-}
+// ToDo 정리 예정
 
 export interface UrlQuery extends ParsedUrlQuery {
     userId?: string;
@@ -123,4 +117,23 @@ export interface SharedPageFolderInfoInterface {
     id: number;
     name: string;
     userId: number;
+}
+
+export interface FolderInterface {
+    createdAt: string;
+    favorite: boolean;
+    id: number;
+    name: string;
+    userId: number;
+}
+
+export interface Linkinterface {
+    createdAt: string;
+    description: string;
+    folderId: number;
+    id: number;
+    imageSource: string;
+    title: string;
+    updatedAt: string;
+    url: string;
 }

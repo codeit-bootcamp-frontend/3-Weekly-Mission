@@ -15,6 +15,7 @@ interface ModalProps {
 }
 
 const Modal = ({ modal, onCloseModalButtonClick }: ModalProps) => {
+    console.log(modal);
     switch (modal.type) {
         case "CreateFolder": {
             return (
