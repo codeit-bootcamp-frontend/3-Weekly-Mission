@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getFolderLinks, getSelectedFolder } from '@/api/getData';
 import useStickyState from '@/hooks/useStickyState';
 import { Header } from '@/components/Header/index';
@@ -9,9 +9,8 @@ import { Footer } from '@/components/Footer/index';
 import styles from '@/styles/folder.module.css';
 import { Folder, FolderLink, SelectedFolder } from '@/types/Common';
 import { GetServerSideProps } from 'next';
-import { redirectTo } from '@/utils/redirectTo';
-import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
+import { redirectIfNotAuth } from '@/utils/redirectIfNotAuth';
+import { extractAccessToken } from '@/utils/extractAccessToken';
 
 interface Props {
   initialSelectedFolder: Folder;
@@ -27,12 +26,6 @@ const Folder = ({ initialSelectedFolder, initialLinks }: Props) => {
     id: initialSelectedFolder?.id,
     name: initialSelectedFolder?.name,
   });
-  const router = useRouter();
-
-  useEffect(() => {
-    const hasAccessToken = Boolean(Cookies.get('accessToken'));
-    redirectTo(!hasAccessToken, '/signin', router);
-  }, []);
 
   return (
     <div>
@@ -62,16 +55,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!context.params) {
     return { notFound: true };
   }
-  const cookies = context.req.headers.cookie;
-  if (!cookies) {
-    return { notFound: true };
+  const redirect = redirectIfNotAuth(context, '/signin');
+  if (redirect) {
+    return redirect;
   }
 
   const folderId = context.params['folderId'] as string | number;
-  const accessToken = cookies
-    .split('; ')
-    .find((row) => row.startsWith('accessToken='))
-    ?.split('=')[1];
+  const accessToken = extractAccessToken(context);
 
   try {
     const selectedFolderData: Folder = await getSelectedFolder(folderId);

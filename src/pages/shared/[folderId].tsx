@@ -9,6 +9,8 @@ import { FolderLink } from '@/types/Common';
 import { GetServerSideProps } from 'next';
 import styles from '@/styles/folder.module.css';
 import { getSharedFolderLinks } from '@/api/getData';
+import { redirectIfNotAuth } from '@/utils/redirectIfNotAuth';
+import { extractAccessToken } from '@/utils/extractAccessToken';
 
 interface Props {
   initialLinksData: FolderLink[];
@@ -42,6 +44,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!context.params) {
     return { notFound: true };
   }
+  const redirect = redirectIfNotAuth(context, '/signin');
+  if (redirect) {
+    return redirect;
+  }
+
   const folderId = context.params['folderId'] as string | number;
   const folderLinksData: FolderLink[] = await getSharedFolderLinks(folderId);
 
