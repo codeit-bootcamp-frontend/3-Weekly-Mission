@@ -28,16 +28,6 @@ export default function Folder() {
         }
     }, []);
 
-    const [folderList, setFolderList] = useState([]);
-
-    // 폴더 리스트를 가져온다.
-    useEffect(() => {
-        (async () => {
-            const refinedFolderList = await getRefinedFolderList();
-            setFolderList(refinedFolderList);
-        })();
-    }, []);
-
     const { modal, showModal, closeModal } = useModal();
     const {
         LinkList,
@@ -68,7 +58,6 @@ export default function Folder() {
                 />
                 <FolderCollection
                     onButtonClick={showModal}
-                    folderList={folderList}
                     onOverviewFolderButtonClick={
                         handleOverviewFolderButtonClick
                     }

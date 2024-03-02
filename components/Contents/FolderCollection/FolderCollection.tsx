@@ -1,23 +1,24 @@
-import { useEffect, useRef, useState } from "react";
-
+import { use, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
 import { ShowModal } from "@/types";
-import { FolderDataInterface } from "@/interfaces";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { getRefinedUser } from "@/apis/services";
+import {
+    useGetFolderList,
+    useGetUserId,
+    useHandleFolderClick,
+    useManageFolderState,
+} from "./FolderCollection.hook";
 
 interface FolderCollectionProps {
     onButtonClick: ShowModal;
-    folderList?: FolderDataInterface[];
     onOverviewFolderButtonClick: () => void;
     onFilteredFolderButtonClick: (id: number) => void;
 }
 
 const FolderCollection = ({
     onButtonClick,
-    folderList,
     onOverviewFolderButtonClick,
     onFilteredFolderButtonClick,
 }: FolderCollectionProps) => {
@@ -26,23 +27,11 @@ const FolderCollection = ({
 
     const router = useRouter();
     const { folderId } = router.query;
+    const { folderList } = useGetFolderList();
+    const { userId } = useGetUserId();
 
     const [currentFolderId, setCurrentFolderId] = useState(0);
     const [currentFolderName, setCurrentFolderName] = useState<string>("전체");
-
-    // 초기 폴더 설정
-    useEffect(() => {
-        if (!folderId) {
-            setCurrentFolderName("전체");
-        }
-        if (folderId) {
-            const folder = folderList?.find(
-                (folder) => folder.id === Number(folderId)
-            );
-            setCurrentFolderId(Number(folderId));
-            setCurrentFolderName(folder?.name);
-        }
-    }, [folderList, folderId]);
 
     // URL 생성
     const sharingUrl = useRef("");
@@ -51,34 +40,17 @@ const FolderCollection = ({
         sharingUrl.current = `${window.location.origin}/shared?user=${userId}&folder=${folderId}`;
     };
 
-    // 전체 폴더 클릭
-    const handleOverviewFolderClick = () => {
-        setCurrentFolderId(0);
-        setCurrentFolderName("전체");
-        onOverviewFolderButtonClick();
-    };
-
-    // userId 가져오기
-    const [userId, setUserId] = useState();
-
-    useEffect(() => {
-        (async () => {
-            const { id } = await getRefinedUser();
-            console.log(id);
-            setUserId(id);
-        })();
-    }, []);
-
-    // 폴더 클릭
-    const handleFolderClick = (folderId: number, folderName: string) => {
-        setCurrentFolderId(folderId);
-        setCurrentFolderName(folderName);
-        onFilteredFolderButtonClick(folderId);
-        // URL 생성
-        if (userId) {
-            createSharingUrl(userId, folderId);
-        }
-    };
+    const { handleOverviewFolderClick, handleFolderClick } =
+        useHandleFolderClick(
+            folderId,
+            userId,
+            folderList,
+            setCurrentFolderName,
+            setCurrentFolderId,
+            onOverviewFolderButtonClick,
+            onFilteredFolderButtonClick,
+            createSharingUrl
+        );
 
     if (folderList === undefined || userId === undefined) {
         return null;
