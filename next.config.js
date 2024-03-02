@@ -216,6 +216,30 @@ const nextConfig = {
         port: '',
         pathname: '/images/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'static.scarf.sh',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.inflearn.com',
+        port: '',
+        pathname: '/assets/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'legacy.reactjs.org',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.codeit.kr',
+        port: '',
+        pathname: '/meta/**',
+      },
     ],
   },
 };

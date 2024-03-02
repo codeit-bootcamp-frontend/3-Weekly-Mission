@@ -3,11 +3,12 @@ import { useRouter } from 'next/router';
 import styles from './styles.module.css';
 import { ERROR_MESSAGES } from '@/constants/error';
 import { EMAIL_REGEX } from '@/constants/regex';
-import { postUserSignin } from '@/api/api';
+import { postUserSignin } from '@/api/postSignData';
 import Image from 'next/image';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import Cookies from 'js-cookie';
 
 type FormValues = {
   email: string;
@@ -32,8 +33,8 @@ export const SigninForm = () => {
     setIsLoading(true);
     try {
       const { accessToken, refreshToken } = await postUserSignin(data);
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+      Cookies.set('accessToken', accessToken, { expires: 1 });
+      Cookies.set('refreshToken', refreshToken, { expires: 7 });
       router.push('/folder');
     } catch (error) {
       const axiosError = error as AxiosError;

@@ -3,11 +3,12 @@ import { useRouter } from 'next/router';
 import styles from './styles.module.css';
 import { ERROR_MESSAGES } from '@/constants/error';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '@/constants/regex';
-import { postDuplicateEmail, postUserSignup } from '@/api/api';
+import { postDuplicateEmail, postUserSignup } from '@/api/postSignData';
 import Image from 'next/image';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import Cookies from 'js-cookie';
 
 type FormValues = {
   email: string;
@@ -63,8 +64,8 @@ export const SignupForm = () => {
     setIsLoading(true);
     try {
       const { accessToken, refreshToken } = await postUserSignup(data);
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+      Cookies.set('accessToken', accessToken, { expires: 1 });
+      Cookies.set('refreshToken', refreshToken, { expires: 7 });
       router.push('/folder');
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -244,7 +245,7 @@ const ConfirmPasswordInput = ({
         placeholder="비밀번호와 일치하는 값을 입력해 주세요."
         {...register('confirmPassword', {
           required: ERROR_MESSAGES.CONFIRM_PASSWORD_REQUIRED,
-          validate: value =>
+          validate: (value) =>
             value === watch('password') ||
             ERROR_MESSAGES.INVALID_CONFIRM_PASSWORD,
         })}

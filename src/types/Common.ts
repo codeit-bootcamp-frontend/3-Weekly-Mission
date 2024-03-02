@@ -2,9 +2,9 @@
 
 // getFolder
 export interface Folder {
-  id: number;
+  id: string | number;
   name: string;
-  link: { count: number };
+  link_count: number;
   favorite: boolean;
   user_id: number;
   created_at: string;
@@ -12,22 +12,18 @@ export interface Folder {
 
 // getFolderLinks
 export interface FolderLink {
-  createdAt?: string | undefined;
   created_at: string;
   description: string | null;
-  folder_id: number | null;
+  favorite: boolean;
   id: string | number;
-  imageSource?: string | null | undefined;
   image_source: string | null;
   title: string | null;
-  updated_at: string | null;
   url: string | null;
 }
 
 // getUser
 export interface User {
-  auth_id: string;
-  created_at: string;
+  created_at?: string;
   email: string;
   id: number;
   image_source: string;
@@ -35,23 +31,23 @@ export interface User {
 }
 
 // getFolderSample
-export interface FolderSample {
-  count: number;
-  id: number;
-  links: FolderLink[];
-  name: string;
-  owner: Owner;
-}
-interface Owner {
-  id: number;
-  name: string;
-  profileImageSource: string;
-}
+// export interface FolderSample {
+//   count: number;
+//   id: number;
+//   links: FolderLink[];
+//   name: string;
+//   owner: Owner;
+// }
+// interface Owner {
+//   id: number;
+//   name: string;
+//   profileImageSource: string;
+// }
 
 // Types
 export interface SelectedFolder {
-  name: string;
   id: string | number;
+  name: string;
 }
 
 export interface FolderManagementButton {

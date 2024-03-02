@@ -14,7 +14,7 @@ export const CardList = ({ folderLinks }: Props) => {
     <>
       <div className={styles['card-list']}>
         {folderLinks?.length > 0 ? (
-          folderLinks.map(folderLink => (
+          folderLinks.map((folderLink) => (
             <Card
               key={folderLink.id}
               folderLink={folderLink}

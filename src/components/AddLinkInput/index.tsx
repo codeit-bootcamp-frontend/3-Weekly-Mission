@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, MouseEvent } from 'react';
-import { getFolders } from '@/api/api';
+import { getFolders } from '@/api/getData';
 import styles from './styles.module.css';
 import Image from 'next/image';
 import { Folder } from '@/types/Common';
@@ -14,11 +14,11 @@ export const AddLinkInput = () => {
     setInputValue(e.target.value);
   };
 
-  const handleAddLinkButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleAddLinkButtonClick = () => {
     setVisible(!visible);
   };
 
-  const handleModalClose = (e: MouseEvent<HTMLElement>) => {
+  const handleModalClose = () => {
     setVisible(false);
   };
 

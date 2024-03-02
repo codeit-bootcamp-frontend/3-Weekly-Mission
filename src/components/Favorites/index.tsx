@@ -1,16 +1,35 @@
-import { getFolderSample } from '@/api/api';
+import { getFolderInformation, getFolderOwner } from '@/api/getData';
 import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import Image from 'next/image';
-import { FolderSample } from '@/types/Common';
+import { User, Folder } from '@/types/Common';
+import { useRouter } from 'next/router';
+import { AxiosError } from 'axios';
 
 export const Favorites = () => {
-  const [favorites, setFavorites] = useState<FolderSample | undefined>();
+  const [owner, setOwner] = useState<User | undefined>();
+  const [folder, setFolder] = useState<Folder | undefined>();
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
-      const data = await getFolderSample();
-      setFavorites(data);
+      const folderId = router.query['folderId'] as string | number;
+      const OwnerData = await getFolderOwner(1);
+      setOwner(OwnerData);
+      try {
+        const folderData = await getFolderInformation(folderId);
+        setFolder(folderData);
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        if (axiosError?.response?.status === 404) {
+          setErrorMessage(
+            (axiosError.response.data as { message: string }).message,
+          );
+          return;
+        }
+        throw error;
+      }
     })();
   }, []);
 
@@ -20,18 +39,14 @@ export const Favorites = () => {
         <Image
           width={60}
           height={60}
-          src={
-            favorites
-              ? favorites.owner?.profileImageSource
-              : '/images/no-image.svg'
-          }
+          src={owner ? owner.image_source : '/images/no-image.svg'}
           alt="프로필 이미지"
         />
 
-        <p className={styles['favorites__owner-name']}>
-          {favorites?.owner?.name}
+        <p className={styles['favorites__owner-name']}>{owner?.name}</p>
+        <p className={styles['favorites-name']}>
+          {folder ? folder.name : errorMessage}
         </p>
-        <p className={styles['favorites-name']}>{favorites?.name}</p>
       </div>
     </div>
   );

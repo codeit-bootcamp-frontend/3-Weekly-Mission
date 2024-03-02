@@ -5,20 +5,21 @@ import { Favorites } from '@/components/Favorites/index';
 import { SearchInput } from '@/components/SearchInput/index';
 import { SharedCardList } from '@/components/SharedCardList';
 import { Footer } from '@/components/Footer/index';
-import { FolderLink, FolderSample } from '@/types/Common';
-import { GetStaticProps } from 'next';
-import { getFolderSample } from '@/api/api';
+import { FolderLink } from '@/types/Common';
+import { GetServerSideProps } from 'next';
 import styles from '@/styles/folder.module.css';
+import { getSharedFolderLinks } from '@/api/getData';
 
 interface Props {
-  initialData: FolderLink[];
+  initialLinksData: FolderLink[];
 }
 
-const Shared = ({ initialData }: Props) => {
+const Shared = ({ initialLinksData }: Props) => {
   const [isSticky, setIsSticky] = useStickyState(true);
-  const [folderLinks, setFolderLinks] = useState<FolderLink[]>(initialData);
+  const [folderLinks, setFolderLinks] =
+    useState<FolderLink[]>(initialLinksData);
   const [initialFolderLinks, setInitialFolderLinks] =
-    useState<FolderLink[]>(initialData);
+    useState<FolderLink[]>(initialLinksData);
 
   return (
     <>
@@ -37,16 +38,16 @@ const Shared = ({ initialData }: Props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const folderSampleData: FolderSample = await getFolderSample();
-  const folderSampleLinksData: FolderLink[] = folderSampleData.links;
-  const processedData = folderSampleLinksData.map(folderSampleLink => ({
-    ...folderSampleLink,
-    image_source: folderSampleLink.image_source || null,
-  }));
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (!context.params) {
+    return { notFound: true };
+  }
+  const folderId = context.params['folderId'] as string | number;
+  const folderLinksData: FolderLink[] = await getSharedFolderLinks(folderId);
+
   return {
     props: {
-      initialData: processedData,
+      initialLinksData: folderLinksData,
     },
   };
 };

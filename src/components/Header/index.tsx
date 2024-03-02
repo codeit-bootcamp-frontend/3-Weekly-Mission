@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUserSample, getUser } from '@/api/api';
+import { getUser } from '@/api/getData';
 import { NextRouter, useRouter } from 'next/router';
 import styles from './styles.module.css';
 import Image from 'next/image';
@@ -12,25 +12,13 @@ interface Props {
 
 export const Header = ({ isSticky }: Props) => {
   const router: NextRouter = useRouter();
-  const [user, setUser] = useState<User>({
-    auth_id: '',
-    created_at: '',
-    email: '',
-    id: 0,
-    image_source: '',
-    name: '',
-  });
+  const [user, setUser] = useState<User | undefined>();
 
   useEffect(() => {
     const getUserData = async () => {
       try {
-        if (router.pathname === '/shared') {
-          const userData = await getUserSample();
-          setUser(userData);
-        } else if (router.pathname === '/folder') {
-          const userData = await getUser();
-          setUser(userData);
-        }
+        const userData = await getUser();
+        setUser(userData);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -50,7 +38,7 @@ export const Header = ({ isSticky }: Props) => {
             alt="홈으로 연결된 Linkbrary 로고"
           />
         </Link>
-        {user.email ? (
+        {user?.email ? (
           <div className={styles['nav__profile']}>
             <Image
               width={28}

@@ -5,12 +5,14 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { SignHeader } from '@/components/SignPages/SignHeader';
 import { redirectTo } from '@/utils/redirectTo';
+import Cookies from 'js-cookie';
 
 const Signup = () => {
   const router = useRouter();
 
   useEffect(() => {
-    redirectTo(localStorage.accessToken, '/folder', router);
+    const hasAccessToken = Boolean(Cookies.get('accessToken'));
+    redirectTo(hasAccessToken, '/folder', router);
   }, []);
 
   return (

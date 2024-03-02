@@ -3,7 +3,7 @@ import { CardList } from '../CardList/index';
 import { FolderMenu } from '../FolderMenu';
 import { FolderManagementMenu } from '../FolderManagementMenu';
 import { AddFolderFloatingButton } from '../AddFolderButton/FloatingButton/index';
-import { getFolders, getFolderLinks } from '@/api/api';
+import { getFolders, getFolderLinks } from '@/api/getData';
 import styles from './styles.module.css';
 import { Folder, FolderLink, SelectedFolder } from '@/types/Common';
 
@@ -30,7 +30,7 @@ export const FolderCardList = ({
     if (isLoading) {
       return;
     }
-
+    console.log(folderId, folderName);
     setSelectedFolder({ id: folderId, name: folderName });
     setIsLoading(true);
     const Links = await getFolderLinks(folderId);

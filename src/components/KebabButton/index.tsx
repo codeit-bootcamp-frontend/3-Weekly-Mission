@@ -1,7 +1,7 @@
 import { useState, useEffect, MouseEvent } from 'react';
 import { Modal } from '../Modal/index';
 import { ModalSubmitButton } from '../Modal/ModalSubmitButton/index';
-import { getFolders } from '@/api/api';
+import { getFolders } from '@/api/getData';
 import styles from './styles.module.css';
 import Image from 'next/image';
 import { Folder, FolderLink } from '@/types/Common';
@@ -40,7 +40,7 @@ export const KebabButton = ({ folderLink }: Props) => {
         content = (
           <div className={styles.modal}>
             <div className={styles['folder-list']}>
-              {folders.map(folder => (
+              {folders.map((folder) => (
                 <button
                   className={styles['folder-list__button']}
                   key={folder.id}
@@ -49,7 +49,7 @@ export const KebabButton = ({ folderLink }: Props) => {
                   <div className={styles['folder-item']}>
                     <p className={styles['folder-item-name']}>{folder.name}</p>
                     <p className={styles['folder-item-count']}>
-                      {folder.link.count}개 링크
+                      {folder.link_count}개 링크
                     </p>
                   </div>
                   <Image

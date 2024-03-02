@@ -31,7 +31,7 @@ export const FolderMenu = ({
         >
           전체
         </button>
-        {folders?.map(folder => (
+        {folders?.map((folder) => (
           <button
             className={`${styles['folder-menu__button']} ${selectedFolder.id === folder.id ? styles.selected : null}`}
             key={folder.id}

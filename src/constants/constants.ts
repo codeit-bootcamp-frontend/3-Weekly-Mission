@@ -28,6 +28,6 @@ export const SOCIAL_LINKS = {
 } as const;
 
 export const ALL_CONTENTS_FOLDER = {
-  NAME: '전체',
   ID: 'all',
+  NAME: '전체',
 } as const;
