@@ -1,5 +1,10 @@
-import imageData from "@/public/imageData";
-
+import {
+  facebookIcon,
+  instagramIcon,
+  twitterIcon,
+  youtubeIcon,
+} from "@/public/img";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -28,7 +33,7 @@ export default function Footer() {
             rel="noreferrer noopener"
             target="_blank"
           >
-            <img src={imageData.facebookIcon.src} alt="페이스북 이동 아이콘" />
+            <Image src={facebookIcon} alt="페이스북 이동 아이콘" />
           </Link>
         </li>
         <li>
@@ -37,7 +42,7 @@ export default function Footer() {
             rel="noreferrer noopener"
             target="_blank"
           >
-            <img src={imageData.twitterIcon.src} alt="트위터 이동 아이콘" />
+            <Image src={twitterIcon} alt="트위터 이동 아이콘" />
           </Link>
         </li>
         <li>
@@ -46,7 +51,7 @@ export default function Footer() {
             rel="noreferrer noopener"
             target="_blank"
           >
-            <img src={imageData.youtubeIcon.src} alt="유튜브 이동 아이콘" />
+            <Image src={youtubeIcon} alt="유튜브 이동 아이콘" />
           </Link>
         </li>
         <li>
@@ -55,10 +60,7 @@ export default function Footer() {
             rel="noreferrer noopener"
             target="_blank"
           >
-            <img
-              src={imageData.instagramIcon.src}
-              alt="인스타그램 이동 아이콘"
-            />
+            <Image src={instagramIcon} alt="인스타그램 이동 아이콘" />
           </Link>
         </li>
       </ul>

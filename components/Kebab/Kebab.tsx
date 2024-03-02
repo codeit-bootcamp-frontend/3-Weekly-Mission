@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import imageData from "@/public/imageData";
 import styled from "styled-components";
 import { ModalButtonClickType } from "../../types/types";
 import Image from "next/image";
+import { kebabIcon } from "@/public/img";
 
 interface Props {
   handleModalButtonClick: ModalButtonClickType | null;
@@ -35,12 +35,7 @@ export default function Kebab({ handleModalButtonClick, url }: Props) {
   return (
     <Wrapper>
       <ContainerBtn type="button" onClick={handleKebabClick}>
-        <Image
-          width={21}
-          height={17}
-          src={imageData.kebabIcon}
-          alt="케밥모양 아이콘"
-        />
+        <Image width={21} height={17} src={kebabIcon} alt="케밥모양 아이콘" />
       </ContainerBtn>
       {isClicked && (
         <ToggleContainer>

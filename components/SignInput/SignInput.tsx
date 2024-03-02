@@ -1,57 +1,61 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import { VoidFunc } from "@/types/functionType";
-import imageData from "@/public/imageData";
 import Image from "next/image";
+import { eyeOff, eyeOn } from "@/public/img";
+import { FieldValues, UseFormRegister } from "react-hook-form";
+import { ValidatorType } from "@/types/types";
 
 interface Props {
   placeholder?: string;
   type: string;
-  handler?: (value: string) => string;
-  errorMassage?: string;
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  labelName: string;
+  register: UseFormRegister<FieldValues>;
+  registerName: string;
+  validator: ValidatorType;
+  errorMessage?: string;
+  changeMessage: (
+    e: ChangeEvent<HTMLInputElement>,
+    registerName: string
+  ) => void;
 }
 
 export default function SignInput({
   type,
-  handler,
   placeholder = "내용입력",
-  value,
-  setValue,
+  labelName,
+  register,
+  registerName,
+  validator,
+  errorMessage,
+  changeMessage,
 }: Props) {
-  const eyeOn = { src: imageData.eyeOn.src, alt: "비밀번호 보이는 아이콘" };
-  const eyeOff = { src: imageData.eyeOff.src, alt: "비밀번호 안보이는 아이콘" };
-  const [eye, setEye] = useState(eyeOff);
+  const EYE_ON = { src: eyeOn.src, alt: "비밀번호가 보이는 중인 아이콘" };
+  const EYE_OFF = { src: eyeOff.src, alt: "비밀번호가 안보이 중인 아이콘" };
+  const [eye, setEye] = useState(EYE_OFF);
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMassage, setErrorMessage] = useState("");
 
   const toggleEyeImg = () => {
-    if (eye.alt === eyeOn.alt) {
-      setEye(eyeOff);
+    if (eye.alt === EYE_ON.alt) {
+      setEye(EYE_OFF);
       setShowPassword(false);
       return;
     }
     setShowPassword(true);
-    setEye(eyeOn);
-  };
-  const checkFocusOut = () => {
-    if (!handler) return;
-    const massage = handler(value);
-    setErrorMessage(massage);
+    setEye(EYE_ON);
   };
 
   return (
     <Wrapper>
       <Container>
+        <Label htmlFor={labelName}>{labelName}</Label>
         <Input
-          onBlur={checkFocusOut}
-          $error={errorMassage !== ""}
+          id={labelName}
+          $error={errorMessage !== ""}
           type={showPassword ? "text" : type}
           placeholder={placeholder}
           autoComplete="on"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          {...register(registerName, validator)}
+          onBlur={(e) => changeMessage(e, registerName)}
         />
         {type === "password" ? (
           <EyeButton type="button" onClick={toggleEyeImg}>
@@ -59,7 +63,7 @@ export default function SignInput({
           </EyeButton>
         ) : null}
       </Container>
-      <ErrorMessage>{errorMassage}</ErrorMessage>
+      <ErrorMessage>{errorMessage}</ErrorMessage>
     </Wrapper>
   );
 }
@@ -69,15 +73,13 @@ const EyeButton = styled.button`
   height: 16px;
   position: absolute;
   right: 15px;
-  top: 18px;
+  top: 50px;
   outline: none;
   border: none;
   background-color: #000;
 `;
 
 const Wrapper = styled.div`
-  margin: 0 auto;
-  max-width: 350px;
   display: flex;
   gap: 6px;
   flex-direction: column;
@@ -85,6 +87,9 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 interface InputProps {
@@ -111,4 +116,10 @@ const ErrorMessage = styled.span`
   font-size: 1.4rem;
   font-weight: 400;
   text-align: left;
+`;
+
+const Label = styled.label`
+  color: #000;
+  font-size: 1.4rem;
+  font-weight: 400;
 `;

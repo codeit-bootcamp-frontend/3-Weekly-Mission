@@ -1,6 +1,6 @@
+import { modalCheckedIcon } from "@/public/img";
 import React from "react";
 import styled from "styled-components";
-import imageData from "@/public/imageData";
 
 interface Props {
   name: string;
@@ -23,9 +23,7 @@ export default function AddFolderListBox({
     <>
       <Box onClick={handleClick}>
         <Name>{name}</Name> <Count>{count}개 링크</Count>
-        {checked && (
-          <Image src={imageData.modalCheckedIcon.src} alt={name + "체크됨"} />
-        )}
+        {checked && <Image src={modalCheckedIcon} alt={name + "체크됨"} />}
       </Box>
     </>
   );

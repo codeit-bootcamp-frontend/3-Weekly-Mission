@@ -85,32 +85,28 @@ export default function FolderPage({ user }: Props) {
           setCardListItem={setCardListItem}
         />
         {isSearch ? <SearchResult searchName={searchName} /> : null}
-        {folderNameList ? (
-          <Container>
-            <FolderListButton
+        <Container>
+          <FolderListButton
+            handleModalButtonClick={handleModalButtonClick}
+            itemList={folderNameList}
+            setFolderName={setFolderName}
+            setCardListItem={setCardListItem}
+            folderName={folderName}
+          />
+          <FolderNameLine
+            handleModalButtonClick={handleModalButtonClick}
+            folderName={folderName}
+          />
+          {cardListItem ? (
+            <CardList
               handleModalButtonClick={handleModalButtonClick}
-              itemList={folderNameList}
-              setFolderName={setFolderName}
-              setCardListItem={setCardListItem}
-              folderName={folderName}
+              itemList={cardListItem}
+              toggle={true}
             />
-            <FolderNameLine
-              handleModalButtonClick={handleModalButtonClick}
-              folderName={folderName}
-            />
-            {cardListItem ? (
-              <CardList
-                handleModalButtonClick={handleModalButtonClick}
-                itemList={cardListItem}
-                toggle={true}
-              />
-            ) : (
-              <NoLinkBlock />
-            )}
-          </Container>
-        ) : (
-          <NoLinkBlock />
-        )}
+          ) : (
+            <NoLinkBlock />
+          )}
+        </Container>
         <FloatingActionButton modalOnClick={handleModalButtonClick} />
       </LinkBoard>
     </Main>

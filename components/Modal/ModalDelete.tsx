@@ -9,7 +9,7 @@ import {
 
 interface Props {
   nameType: string;
-  deleteName: string | null;
+  deleteName?: string;
 }
 
 export default function ModalDelete({ nameType, deleteName }: Props) {

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import imageData from "@/public/imageData";
 import ModalShare from "./ModalShare/ModalShare";
 import ModalDelete from "./ModalDelete";
 import ModalForm from "./ModalForm";
@@ -9,12 +8,14 @@ import { VoidFunc } from "../../types/functionType";
 import { FolderData } from "../../types/dataTypes";
 import { NavbarUserInfo } from "../../types/userType";
 import Image from "next/image";
+import { closeButton } from "@/public/img";
+import { ModalFormType } from "@/types/modalTypes";
 
 interface Props {
   folderName: string;
   modalId: string;
   toggleModalClick?: VoidFunc;
-  modalUrl: string | null;
+  modalUrl?: string;
   itemList: FolderData[];
   user?: NavbarUserInfo;
 }
@@ -34,7 +35,7 @@ export default function Modal({
           <Image
             width={24}
             height={24}
-            src={imageData.closeButton.src}
+            src={closeButton}
             alt="모달창 닫기 버튼"
           />
         </ModalCloseButton>
@@ -44,6 +45,35 @@ export default function Modal({
   );
 }
 
+const modalForm: ModalFormType = {
+  addFolder: {
+    type: "form",
+    title: "폴더 추가",
+    defaultPlace: "내용 입력",
+    buttonContent: "추가하기",
+  },
+  editFolder: {
+    type: "form",
+    title: "폴더 이름 변경",
+    defaultPlace: "내용 입력",
+    buttonContent: "변경하기",
+  },
+  shareFolder: {
+    type: "share",
+  },
+  deleteFolder: {
+    type: "delete",
+    nameType: "폴더",
+  },
+  deleteLink: {
+    type: "delete",
+    nameType: "링크",
+  },
+  addLink: {
+    type: "add",
+  },
+};
+
 const getModalContent = ({
   modalId,
   folderName,
@@ -51,41 +81,37 @@ const getModalContent = ({
   itemList,
   user,
 }: Props) => {
-  switch (modalId) {
-    case "addFolder":
-      return (
-        <ModalForm
-          title={"폴더 추가"}
-          defaultPlace={"내용 입력"}
-          buttonContent={"추가하기"}
-        />
-      );
-    case "editFolder":
-      return (
-        <ModalForm
-          title={"폴더 이름 변경"}
-          defaultPlace={folderName}
-          buttonContent={"변경하기"}
-        />
-      );
-    case "shareFolder":
-      return (
-        <ModalShare
-          userId={user?.id}
-          folderName={folderName}
-          itemList={itemList}
-        />
-      );
-    case "deleteFolder":
-      return <ModalDelete nameType={"폴더"} deleteName={folderName} />;
-    case "deleteLink":
-      return <ModalDelete nameType={"링크"} deleteName={modalUrl} />;
-    case "addLink":
-      return <ModalAddLink itemList={itemList} url={modalUrl} />;
-
-    default:
-      return;
+  const modalInfo = modalForm[modalId];
+  if (modalInfo.type === "form") {
+    return (
+      <ModalForm
+        title={modalInfo.title}
+        defaultPlace={modalInfo.defaultPlace}
+        buttonContent={modalInfo.buttonContent}
+      />
+    );
   }
+  if (modalInfo.type === "share") {
+    return (
+      <ModalShare
+        userId={user?.id}
+        folderName={folderName}
+        itemList={itemList}
+      />
+    );
+  }
+
+  if (modalInfo.type === "delete") {
+    const deleteName = modalId === "deleteFolder" ? folderName : modalUrl;
+    return (
+      <ModalDelete nameType={modalInfo.nameType} deleteName={deleteName} />
+    );
+  }
+
+  if (modalInfo.type === "add") {
+    return <ModalAddLink itemList={itemList} url={modalUrl} />;
+  }
+  return;
 };
 
 const ModalCloseButton = styled.button`

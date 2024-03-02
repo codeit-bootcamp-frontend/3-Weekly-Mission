@@ -1,9 +1,9 @@
 import { FormEvent } from "react";
-import imageData from "@/public/imageData";
 import styled from "styled-components";
 import { CardItem } from "../../types/dataTypes";
 import { VoidFunc } from "../../types/functionType";
 import Image from "next/image";
+import { closeButton, searchIcon } from "@/public/img";
 
 interface Props {
   searchName: string;
@@ -47,12 +47,7 @@ export default function LinkSearchForm({
 
   return (
     <Form onSubmit={handleSubmit} onReset={handleCloseClick}>
-      <Image
-        width={16}
-        height={16}
-        src={imageData.searchIcon}
-        alt="돋보기 아이콘"
-      />
+      <Image width={16} height={16} src={searchIcon} alt="돋보기 아이콘" />
       <Input
         type="search"
         name="search"
@@ -62,7 +57,7 @@ export default function LinkSearchForm({
       />
       {searchName ? (
         <CloseButton type="reset">
-          <Image src={imageData.closeButton} alt="검색어 삭제하기 버튼" />
+          <Image src={closeButton} alt="검색어 삭제하기 버튼" />
         </CloseButton>
       ) : null}
     </Form>

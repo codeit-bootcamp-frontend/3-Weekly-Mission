@@ -31,3 +31,9 @@ export interface CardItem {
   imageSource: string | null;
   folderId: number | null;
 }
+
+export interface SignUpDataType {
+  email: string;
+  password: string;
+  passwordRepeat: string;
+}

@@ -10,7 +10,10 @@ export async function fetchJson(url: string) {
   return body;
 }
 
-export async function getUser(userId: string = "11") {
+export async function getUser(userId?: string) {
+  if (!userId) {
+    return;
+  }
   const url = `${BASE_URL}users/${userId}`;
   const response = await fetchJson(url);
   return response;

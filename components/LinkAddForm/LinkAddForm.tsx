@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import imageData from "@/public/imageData";
 import CtaButton from "../CtaButton/CtaButton";
 import { FormEvent } from "react";
 import Image from "next/image";
+import { chainIcon } from "@/public/img";
 
 export default function LinkAddForm() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -14,7 +14,7 @@ export default function LinkAddForm() {
         <Image
           width={16}
           height={16}
-          src={imageData.chainIcon}
+          src={chainIcon}
           alt="링크 추가하기 아이콘"
         />
       </div>

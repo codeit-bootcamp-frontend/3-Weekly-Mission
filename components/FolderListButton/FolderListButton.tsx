@@ -1,11 +1,11 @@
 import React from "react";
 import { getFolderData } from "../../apis/api";
-import imageData from "@/public/imageData";
 import { VoidFunc } from "../../types/functionType";
 import { FolderData } from "./../../types/dataTypes";
 import styled from "styled-components";
 import { ModalButtonClickType } from "../../types/types";
 import Image from "next/image";
+import { plusIcon } from "@/public/img";
 
 interface Props {
   handleModalButtonClick: ModalButtonClickType;
@@ -61,7 +61,7 @@ export default function FolderListButton({
         );
       })}
       <AddButton id="addFolder" type="button" onClick={handleModalButtonClick}>
-        <Image src={imageData.plusIcon} alt="더하기 아이콘" />
+        <Image src={plusIcon} alt="더하기 아이콘" />
       </AddButton>
     </Container>
   );
