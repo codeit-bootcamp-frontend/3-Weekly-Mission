@@ -8,12 +8,12 @@ export const Footer = () => {
   return (
     <FooterContainer>
       <FooterItems>
-        <Footer_copyright>{TEXT.codeit}</Footer_copyright>
-        <Footer_links>
+        <FooterCopyright>{TEXT.codeit}</FooterCopyright>
+        <FooterLinks>
           <Link href={ROUTE.개인정보처리방침}>{TEXT.privarcyPolicy}</Link>
           <Link href={ROUTE.FAQ}>{TEXT.faq}</Link>
-        </Footer_links>
-        <Footer_SNS>
+        </FooterLinks>
+        <FooterSNS>
           <Link
             href="https://www.facebook.com/"
             target="_blank"
@@ -62,7 +62,7 @@ export const Footer = () => {
               alt="instagram 홈페이지로 연결된 instagram 로고"
             />
           </Link>
-        </Footer_SNS>
+        </FooterSNS>
       </FooterItems>
     </FooterContainer>
   );
@@ -95,14 +95,14 @@ const FooterItems = styled.div`
   }
 `;
 
-const Footer_copyright = styled.span`
+const FooterCopyright = styled.span`
   grid-area: copyright;
   color: #676767;
   font-family: Arial;
   font-size: 1.6rem;
 `;
 
-const Footer_links = styled.div`
+const FooterLinks = styled.div`
   grid-area: links;
   display: flex;
   column-gap: 3rem;
@@ -112,7 +112,7 @@ const Footer_links = styled.div`
   font-size: 1.6rem;
 `;
 
-const Footer_SNS = styled.div`
+const FooterSNS = styled.div`
   grid-area: sns;
   display: flex;
   column-gap: 1.2rem;

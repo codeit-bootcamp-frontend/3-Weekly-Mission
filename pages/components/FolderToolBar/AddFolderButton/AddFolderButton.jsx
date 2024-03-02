@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-export const AddFolderButton = () => {
+export const AddFolderButton = ({ onClick }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <span>폴더 추가</span>
       <Image
         src="/images/add.svg"

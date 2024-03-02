@@ -3,7 +3,7 @@ import { ROUTE } from '../../../util/constant';
 import Profile from './Profile/Profile';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { useGetUser } from '@/api-access/useGetUser';
+import { useGetUser } from '@/hooks/useGetUser';
 
 export default function NavigationBar() {
   const { data } = useGetUser();

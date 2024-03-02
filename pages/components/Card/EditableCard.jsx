@@ -3,6 +3,8 @@ import { CardImage } from './CardImage/CardImage';
 import { CardContent } from './CardContent/CardContent';
 import Image from 'next/image';
 import styled from 'styled-components';
+import { useCallback, useRef, useState } from 'react';
+import { Popover } from '../Popover/Popover';
 
 export const EditableCard = ({
   url,
@@ -11,7 +13,31 @@ export const EditableCard = ({
   elapsedTime,
   description,
   createdAt,
+  onDeleteClick,
+  onAddToFolderClick,
 }) => {
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const kebabButtonRef = useRef(null);
+
+  const handleBackgroundClick = useCallback(() => {
+    setIsPopoverOpen(false);
+  }, []);
+
+  const handleKebabClick = (event) => {
+    event.preventDefault();
+    setIsPopoverOpen(true);
+  };
+  const handleDeleteClick = (event) => {
+    event.preventDefault();
+    onDeleteClick();
+    setIsPopoverOpen(false);
+  };
+  const handleAddToFolderClick = (event) => {
+    event.preventDefault();
+    onAddToFolderClick();
+    setIsPopoverOpen(false);
+  };
+
   return (
     <CardContainer>
       <Link href={url} target="_blank" rel="noopener noreferrer">
@@ -21,23 +47,33 @@ export const EditableCard = ({
           description={description}
           createdAt={createdAt}
         />
-        <button onClick={(event) => event.preventDefault()}>
-          <StarImage
-            src="/images/star.svg"
-            width={34}
-            height={34}
-            alt="즐겨찾기 별"
-          />
-        </button>
-        <button onClick={(event) => event.preventDefault()}>
-          <KebabImage
-            src="/images/kebab.svg"
-            width={21}
-            height={17}
-            alt="더보기 점"
-          />
-        </button>
       </Link>
+      <button onClick={(event) => event.preventDefault()}>
+        <StarImage
+          src="/images/star.svg"
+          width={34}
+          height={34}
+          alt="즐겨찾기 별"
+        />
+      </button>
+      <button ref={kebabButtonRef} onClick={handleKebabClick}>
+        <KebabImage
+          src="/images/kebab.svg"
+          width={21}
+          height={17}
+          alt="더보기 점"
+        />
+      </button>
+      <Popover
+        isOpen={isPopoverOpen}
+        anchorRef={kebabButtonRef}
+        onBackgroundClick={handleBackgroundClick}
+      >
+        <PopoverList>
+          <li onClick={handleDeleteClick}>삭제하기</li>
+          <li onClick={handleAddToFolderClick}>폼더에 추가</li>
+        </PopoverList>
+      </Popover>
     </CardContainer>
   );
 };
@@ -69,4 +105,31 @@ const KebabImage = styled(Image)`
   position: absolute;
   top: 20.7rem;
   right: 2rem;
+`;
+
+const PopoverList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.2rem;
+  width: 10rem;
+  padding: 0;
+  text-align: left;
+  box-shadow: 0 0.2rem 0.8rem 0 rgba(40, 39, 39, 0.1);
+  border-radius: 0.8rem;
+  background-color: white;
+
+  & > li {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.1rem;
+    font-size: 1.4rem;
+    font-family: 'Pretendard';
+
+    &:hover {
+      background: var(--gray10);
+      color: var(--primary);
+    }
+  }
 `;

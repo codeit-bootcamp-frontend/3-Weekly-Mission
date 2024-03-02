@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-export const EditButtons = ({ iconSource, text }) => {
+export const EditButtons = ({ iconSource, text, onClick }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Icon src={iconSource} width={18} height={18} alt={`${text} 아이콘`} />
       <EditText>{text}</EditText>
     </Container>
