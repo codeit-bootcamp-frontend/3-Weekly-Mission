@@ -23,6 +23,10 @@ interface Props {
 
 export default function FolderPage({ user }: Props) {
   const router = useRouter();
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) {
+    router.push("/signin");
+  }
   const {
     data: cardListItem,
     fetchData: setCardListItem,

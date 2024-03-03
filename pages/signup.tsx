@@ -4,7 +4,6 @@ import CtaButton, { CTAButton } from "@/components/CtaButton/CtaButton";
 import SignInput from "@/components/SignInput/SignInput";
 import SocialSignBox from "@/components/SocialSignBox/SocialSignBox";
 import { logoImg } from "@/public/img";
-import { NavbarUserInfo } from "@/types/userType";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
@@ -19,15 +18,11 @@ import { SignUpDataType } from "@/types/dataTypes";
 import { EMAIL, PASSWORD, PASSWORD_REPEAT } from "@/constants/sign";
 import { getEmailCheck, postSignUp } from "@/apis/user";
 
-interface Props {
-  user: NavbarUserInfo;
-}
-
-export default function SignUpPage({ user }: Props) {
+export default function SignUpPage() {
   const router = useRouter();
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("accessToken");
-    if (user || token) {
+    if (token) {
       router.push("/folder");
     }
   }

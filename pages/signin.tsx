@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import SignInput from "@/components/SignInput/SignInput";
 import { logoImg } from "@/public/img";
-import { NavbarUserInfo } from "@/types/userType";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -16,19 +15,14 @@ import {
   passwordValidator,
 } from "@/utils/signValidator";
 import { ChangeEvent } from "react";
-import axios from "@/apis/axios";
 import { EMAIL, PASSWORD } from "@/constants/sign";
 import { postSignIn } from "@/apis/user";
 
-interface Props {
-  user: NavbarUserInfo;
-}
-
-export default function SignInPage({ user }: Props) {
+export default function SignInPage() {
   const router = useRouter();
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("accessToken");
-    if (user || token) {
+    if (token) {
       router.push("/folder");
     }
   }

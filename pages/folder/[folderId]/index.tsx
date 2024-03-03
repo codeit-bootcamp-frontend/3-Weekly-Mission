@@ -1,6 +1,6 @@
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function FolderPage() {
   const router = useRouter();
