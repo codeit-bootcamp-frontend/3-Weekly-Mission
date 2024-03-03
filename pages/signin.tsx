@@ -8,6 +8,7 @@ import Logo from "@/components/Logo";
 import AuthInput from "@/components/AuthInput";
 import AuthButton from "@/components/AuthButton";
 import styles from "@/styles/signin.module.css";
+import SocialLogin from "@/components/SocialLogin";
 
 const Signin = () => {
   const router = useRouter();
@@ -59,6 +60,7 @@ const Signin = () => {
         </div>
 
         <AuthButton>로그인</AuthButton>
+        <SocialLogin />
       </form>
     </article>
   );
