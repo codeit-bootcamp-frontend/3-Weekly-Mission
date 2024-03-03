@@ -85,6 +85,11 @@ const StInput = styled.input`
   max-width: 100%;
   border: none;
   padding: 0;
+
+  /* @see{@link https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete} */
+  &:is(:-webkit-autofill, :-webkit-autofill:hover, :-webkit-autofill:focus, :-webkit-autofill:active) {
+    -webkit-background-clip: text;
+  }
 `;
 
 const StInputIcon = styled.img`
