@@ -7,7 +7,10 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-export default function ShareModal({ state }: any) {
+interface Props {
+  state: { folderName: string };
+}
+export default function ShareModal({ state }: Props) {
   // 호스트주소/shared?user={현재 로그인 중인 유저ID}&folder={현재 열려있는 폴더ID}
   return (
     <>
@@ -16,11 +19,7 @@ export default function ShareModal({ state }: any) {
       <div className={cx("share-icon-wrapper")}>
         <button className={cx("share-icon-btn")}>
           <div className={cx("img-container", "kakao")}>
-            <Image
-              className={cx("share-icon")}
-              src={kakao}
-              alt="kakao-icon"
-            />
+            <Image className={cx("share-icon")} src={kakao} alt="kakao-icon" />
           </div>
           <span className={cx("share-icon-name")}>카카오톡</span>
         </button>

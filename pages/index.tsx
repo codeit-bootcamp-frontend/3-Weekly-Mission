@@ -22,15 +22,17 @@ interface Props {
 export default function index({ result }: { result: Props[] }) {
   return (
     <>
-    <h1>Shared Folders</h1>
-      {result.map((item: any) => (
+      <h1>Shared Folders</h1>
+      {result.map((item) => (
         <Link key={item.id} href={`/shared/${item.id}`}>
           <h2>{item.name} Page</h2>
         </Link>
       ))}
 
       <br />
-      <Link href="/folder"><h1>folder Page</h1></Link>
+      <Link href="/folder">
+        <h1>folder Page</h1>
+      </Link>
     </>
   );
 }

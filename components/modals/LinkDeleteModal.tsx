@@ -2,7 +2,10 @@ import styles from "./Modal.module.css";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
-export default function LinkDeleteModal({ state }: any) {
+interface Props {
+  state: { url: string };
+}
+export default function LinkDeleteModal({ state }: Props) {
   return (
     <>
       <h2 className={cx("modal-title", "having-folder-and-link")}>링크 삭제</h2>

@@ -7,18 +7,18 @@ import Modal from "./modals/Modal";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames/bind";
-import type { UserFolderData } from "@/pages/folder/[id]";
+import type { UserFolder, UserFolderLinkData } from "@/api/api";
 
 const cx = classNames.bind(styles);
 
-export default function Card({ data: folderLink }: { data: UserFolderData }) {
-  const {
-    created_at,
-    url,
-    description,
-    image_source,
-    title,
-  } = folderLink;
+export default function Card({
+  data: folderLink,
+  folderList,
+}: {
+  data: UserFolderLinkData;
+  folderList: UserFolder[];
+}) {
+  const { created_at, url, description, image_source, title } = folderLink;
   const formattedDate = formatDate(created_at);
   const timeAgo = calculateElapsedTimeSinceCreation(created_at);
   const imageUrl = image_source || null;
@@ -40,7 +40,11 @@ export default function Card({ data: folderLink }: { data: UserFolderData }) {
         }}
       >
         <>
-          <Modal state={modalState} onClick={handleModalCancel} />
+          <Modal
+            state={modalState}
+            onClick={handleModalCancel}
+            folderList={folderList}
+          />
           <div className={cx("card-img-container")}>
             <div className={cx("card-img", { "no-img": !imageUrl })}>
               <Image

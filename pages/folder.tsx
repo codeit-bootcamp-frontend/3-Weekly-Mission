@@ -4,29 +4,20 @@ import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import Footer from "@/components/Footer";
-import {
-  getUser,
-  getUserFolder,
-  getUserFolderList,
-  getUserLinkList,
-} from "@/api/api";
-import { USER_ID, UserData } from "./shared/[folderid]";
+import { UserData, UserFolderLinkData, UserFolder, getUser, getUserFolderList, getUserLinkList } from "@/api/api";
+import { USER_ID } from "./shared/[folderId]";
 
-export interface UserFolderData {
-  id: number;
-  created_at?: string;
-  url: string;
-  title: string;
-  description: string;
-  image_source?: string;
-}
-type Props = { linkList: UserFolderData[]; user: UserData; folderList: any[] };
+type Props = {
+  linkList: UserFolderLinkData[];
+  user: UserData;
+  folderList: UserFolder[];
+};
 
 export async function getServerSideProps() {
   const [linkList, user, folderList] = await Promise.all([
     getUserLinkList(),
     getUser(USER_ID),
-    getUserFolderList("8"),
+    getUserFolderList(USER_ID),
   ]);
   return { props: { linkList, user, folderList } };
 }
@@ -40,7 +31,6 @@ export default function Folder({
   const handleInputChange = (value: string) => {
     setsearchValue(value);
   };
-
   const searchedData = useMemo(() => {
     return userFolderLinks?.filter((item) => {
       if (
@@ -60,7 +50,7 @@ export default function Folder({
         profileImageSource={user.image_source}
         email={user.email}
       />
-      <AddLinkBar />
+      <AddLinkBar folderList={folderList}/>
       <SearchBar handleInputChange={handleInputChange} />
       <Content folderLinkList={searchedData} folderList={folderList} />
       <Footer />

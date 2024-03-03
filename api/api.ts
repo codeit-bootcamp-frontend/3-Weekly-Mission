@@ -1,9 +1,17 @@
 import { axiosInstance } from "./axios";
 import { UseFormSetError } from "react-hook-form";
 
+//테스트 하려고 임시로 저장해놨습니다.
 const Authorization =
   "Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6IktLNE05TGFmMXkzWEI0M0kiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzEwMDQzNzg2LCJpYXQiOjE3MDk0Mzg5ODYsImlzcyI6Imh0dHBzOi8vanB2ZG9weWdibHJlZnpvbmV2ZnEuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6Ijk1NTgwMWE4LTg1YzUtNDY3Mi1iNzI5LTYxMmU2NDZhNjQwYSIsImVtYWlsIjoidGVzdEBjb2RlaXQuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6e30sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3MDk0Mzg5ODZ9XSwic2Vzc2lvbl9pZCI6ImI2MDczMTc3LWJiNjEtNDdhNS1iYTc1LWU3ZmE4NDA0MWJjNCJ9.p5Pw2-hlSU5I1KblhlVdbo-AAm9dlehittV57c3C01o";
 
+export interface FolderData {
+  id: number;
+  created_at: string;
+  favorite: boolean;
+  name: string;
+  user_id: number;
+}
 // 폴더 정보
 export async function getUserFolder(folderId: string) {
   const response = await axiosInstance.get(`/folders/${folderId}`, {
@@ -14,38 +22,68 @@ export async function getUserFolder(folderId: string) {
   return response.data[0];
 }
 
+export interface UserData {
+  id: number;
+  created_at: string;
+  name: string;
+  image_source: string;
+  email: string;
+  auth_id: string;
+}
 // 유저 정보
 export async function getUser(userId: string) {
   const response = await axiosInstance.get(`/users/${userId}`);
   return response.data[0];
 }
 
+export interface UserFolderLinkData {
+  id: number;
+  favorite: boolean;
+  created_at: string;
+  url: string;
+  title: string;
+  image_source: string;
+  description: string;
+}
 // 유저가 가진 폴더의 링크리스트
 export async function getUserFolderLinkList(folderId: string) {
   const response = await axiosInstance.get(`/folders/${folderId}/links`);
   return response.data;
 }
-
+export interface UserFolder {
+  id: number;
+  created_at: string;
+  favorite: boolean;
+  name: string;
+  link_count: number;
+}
 // 유저가 가진 폴더 리스트
-export async function getUserFolderList(folderId: string) {
-  const response = await axiosInstance.get(`/users/${folderId}/folders`);
-  console.log(response.data)
-  return response.data;
+export async function getUserFolderList(userId: string) {
+  const {data} = await axiosInstance.get<UserFolder[]>(`/users/${userId}/folders`);
+  return data;
 }
 
+export interface UserLinkData {
+  id: number;
+  created_at: string;
+  url: string;
+  title: string;
+  image_source: string;
+  description: string;
+}
 // 유저가 가진 링크 리스트
 export async function getUserLinkList() {
-  const response = await axiosInstance.get("/links", {
+  const {data} = await axiosInstance.get<UserLinkData[]>("/links", {
     headers: { Authorization },
   });
-  return response.data;
+  return data;
 }
+
 interface PostSignData {
   email: string;
   password?: string;
   setError: UseFormSetError<FormData>;
 }
-
 export async function postSignIn({ email, password, setError }: PostSignData) {
   try {
     const response = await axiosInstance.post("/auth/sign-in", {

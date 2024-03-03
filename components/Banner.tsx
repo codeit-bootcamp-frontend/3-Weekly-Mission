@@ -1,7 +1,8 @@
 import Image from "next/image";
 import styles from "./Banner.module.css";
 import classNames from "classnames/bind";
-import type{ FolderData, UserData } from "@/pages/shared/[folderid]";
+import type { FolderData, UserData } from "@/api/api";
+
 
 const cx = classNames.bind(styles);
 

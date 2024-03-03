@@ -6,17 +6,17 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-interface HeaderProps {
+interface Props {
   isSticky?: boolean;
   profileImageSource: string;
   email: string;
 }
 
 export default function Header({
-  isSticky = false,
+  isSticky,
   profileImageSource,
   email,
-}: HeaderProps) {
+}: Props) {
   const router = useRouter();
 
   const handleLogoClick = () => {

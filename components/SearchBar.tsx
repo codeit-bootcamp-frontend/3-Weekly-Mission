@@ -6,7 +6,10 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-export default function SearchBar({ handleInputChange }: any) {
+interface Props {
+  handleInputChange: (value: string) => void;
+}
+export default function SearchBar({ handleInputChange }: Props) {
   const [inputValue, setInputValue] = useState("");
 
   const clear = () => {

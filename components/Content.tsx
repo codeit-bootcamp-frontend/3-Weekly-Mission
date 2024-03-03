@@ -2,7 +2,6 @@ import penIcon from "../public/pen.svg";
 import shareIcon from "../public/share.svg";
 import deleteIcon from "../public/delete.svg";
 import plusImg from "../public/plus_img.svg";
-import useGetFolderList, { UserFolderList } from "../hooks/useGetFolderList";
 import Card from "./Card";
 import { useState } from "react";
 import styles from "./Content.module.css";
@@ -10,8 +9,7 @@ import Modal from "./modals/Modal";
 import useModal from "../hooks/useModal";
 import Image from "next/image";
 import classNames from "classnames/bind";
-import { UserFolderData } from "@/pages/folder/[id]";
-import { getUserFolderList } from "@/api/api";
+import type { UserFolder, UserFolderLinkData } from "@/api/api";
 
 const cx = classNames.bind(styles);
 
@@ -19,8 +17,8 @@ export default function Content({
   folderLinkList,
   folderList: folderList,
 }: {
-  folderLinkList: UserFolderData[] | undefined;
-  folderList: any[];
+  folderLinkList: UserFolderLinkData[];
+  folderList: UserFolder[];
 }) {
   const [targetFolder, setTargetFolder] = useState({
     title: "전체",
@@ -34,14 +32,16 @@ export default function Content({
       id: id,
     });
   };
-  const filteredLinkList = folderLinkList?.filter(
-    (data: any) =>
-      data.folder_id === targetFolder["id"] || targetFolder["id"] === 0
+  const filteredLinkList = folderLinkList.filter(
+    (data) => data.id === targetFolder["id"] || targetFolder["id"] === 0
   );
 
   return (
     <section className={cx("content")}>
-      <Modal state={modalState} onClick={handleModalCancel} />
+      <Modal
+        state={modalState}
+        onClick={handleModalCancel}
+      />
       <div className={cx("folder-title-container")}>
         <div className={cx("folder-title-wrapper")}>
           <button
@@ -134,7 +134,7 @@ export default function Content({
       {filteredLinkList?.length ? (
         <div className={cx("card-container")}>
           {filteredLinkList?.map((data) => (
-            <Card key={data.id} data={data} />
+            <Card key={data.id} data={data} folderList={folderList}/>
           ))}
         </div>
       ) : (

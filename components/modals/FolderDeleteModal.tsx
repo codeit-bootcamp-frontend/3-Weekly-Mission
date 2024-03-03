@@ -2,7 +2,12 @@ import styles from "./Modal.module.css";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
-export default function FolderDeleteModal({ state }: any) {
+
+interface Props {
+  state: { folderName: string };
+}
+
+export default function FolderDeleteModal({ state }: Props) {
   return (
     <>
       <h2 className={cx("modal-title", "having-folder-and-link")}>폴더 삭제</h2>
