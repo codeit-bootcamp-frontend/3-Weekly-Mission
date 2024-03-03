@@ -15,6 +15,7 @@ type Folder = {
 
 export default function FolderSelector({ className, onClick }: any) {
   const [folders, setFolders] = useState<Folder[]>([]);
+
   const router = useRouter();
 
   const handleClick = () => {
@@ -25,7 +26,7 @@ export default function FolderSelector({ className, onClick }: any) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await getFoldersByUserId(1);
+        const data = await getFoldersByUserId(1);
         if (!data) return;
         setFolders(data);
       } catch (error) {

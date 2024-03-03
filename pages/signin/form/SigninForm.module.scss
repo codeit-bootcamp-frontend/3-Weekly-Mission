@@ -1,0 +1,27 @@
+.signinForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    gap: 6px;
+
+    .inputLabel {
+      font-size: 1rem;
+      font-weight: 300;
+    }
+
+    .errorMsg {
+      color: red;
+    }
+  }
+
+  .signinButton {
+    margin-top: 6px;
+    height: 53px;
+    font-size: 18px;
+  }
+}

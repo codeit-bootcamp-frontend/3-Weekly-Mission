@@ -36,7 +36,7 @@ export default function ShareFolder() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const folder = await getFolderInfoByFolderId(folderId);
+        const folder = await getFolderInfoByFolderId(folderId as string);
         if (!folder) return;
         setFolder(folder);
       } catch (error) {

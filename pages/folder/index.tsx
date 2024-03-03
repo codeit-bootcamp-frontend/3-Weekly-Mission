@@ -38,10 +38,8 @@ export default function Folders() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await getLinksByUserIdAndFolderId(
-          1,
-          folderId as string
-        );
+        const data = await getLinksByUserIdAndFolderId(1, folderId as string);
+        console.log(data);
         if (!data) return;
         const filteredLinks = filterLinks(data, keyword);
         setLinks(filteredLinks);
