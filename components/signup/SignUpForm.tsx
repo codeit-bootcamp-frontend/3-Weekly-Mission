@@ -2,23 +2,28 @@
 
 import classNames from "classnames/bind";
 import styles from "./SignUpForm.module.scss";
-import { useState } from "react";
-import EmailInput from "../common/EmailInput";
-import PasswordInput from "../common/PasswordInput";
-import ConfirmPasswordInput from "./ConfirmPasswordInput";
 import { checkEmail, signUpAPI } from "../../api/signApi";
 import { useRouter } from "next/navigation";
+import Input from "../common/Input";
+import { useForm } from "react-hook-form";
 
 const cx = classNames.bind(styles);
+interface FormData {
+  email: string;
+  password: string;
+  confirmPassword?: string;
+}
 
 export default function SignUpForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    getValues,
+    watch,
+    clearErrors,
+  } = useForm<FormData>({ mode: "onBlur" });
 
   const router = useRouter();
   if (typeof localStorage !== "undefined") {
@@ -27,57 +32,22 @@ export default function SignUpForm() {
     }
   }
 
-  const handleEmailBlur = () => {
-    if (!email) {
-      setEmailError("이메일을 입력해 주세요.");
-    } else if (!validateEmail(email)) {
-      setEmailError("올바른 이메일 주소가 아닙니다.");
-    } else {
-      setEmailError("");
-    }
-  };
-
-  const handlePasswordBlur = () => {
-    if (!password) {
-      setPasswordError("비밀번호를 입력해 주세요.");
-    } else if (
-      password.length < 8 ||
-      !/\d/.test(password) ||
-      !/[a-zA-Z]/.test(password)
-    ) {
-      setPasswordError("비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.");
-    } else {
-      setPasswordError("");
-    }
-  };
-
-  const handleConfirmPasswordBlur = () => {
-    if (password !== confirmPassword) {
-      setConfirmPasswordError("비밀번호가 일치하지 않아요.");
-    } else {
-      setConfirmPasswordError("");
-    }
-  };
-
-  const handleTogglePassword = () => {
-    setPasswordError("");
-    setIsVisiblePassword((prevState) => !prevState);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !password || password !== confirmPassword) {
-      // 필수 입력값이 없거나 비밀번호가 일치하지 않는 경우 에러 처리
+  const handleEmailCheckOnblur = async () => {
+    const response = await checkEmail(getValues("email"));
+    console.log(response.status);
+    if (response.status === 409) {
+      setError("email", {
+        type: "manual",
+        message: "이미 사용 중인 이메일입니다.",
+      });
       return;
     }
-    try {
-      // 중복된 이메일 확인
-      const isEmailTaken = await checkEmail(email);
-      if (isEmailTaken) {
-        setEmailError("이미 사용 중인 이메일입니다.");
-        return;
-      }
+  };
 
+  const onSubmit = async (data) => {
+    handleEmailCheckOnblur();
+    const { email, password } = data;
+    try {
       // 회원가입 요청
       const response = await signUpAPI(email, password);
       if (response.ok) {
@@ -95,40 +65,42 @@ export default function SignUpForm() {
     }
   };
 
-  const validateEmail = (email: string): boolean => {
-    const emailPattern = /\S+@\S+\.\S+/;
-    return emailPattern.test(email);
-  };
-
   return (
     <form
       className={cx("loginForm")}
-      action=""
       id="loginForm"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
-      <EmailInput
-        email={email}
-        handleEmailBlur={handleEmailBlur}
-        setEmail={setEmail}
-        emailError={emailError}
+      <Input
+        type="email"
+        name="email"
+        label="이메일"
+        register={register}
+        required={true}
+        pattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+        error={errors.email}
+        onBlur={handleEmailCheckOnblur}
+        clearErrors={clearErrors}
       />
-      <PasswordInput
-        isVisiblePassword={isVisiblePassword}
-        password={password}
-        handlePasswordBlur={handlePasswordBlur}
-        setPassword={setPassword}
-        handleTogglePassword={handleTogglePassword}
-        passwordError={passwordError}
-        placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요"
+      <Input
+        type="password"
+        name="password"
+        label="비밀번호"
+        register={register}
+        required={true}
+        minLength={8}
+        error={errors.password}
+        clearErrors={clearErrors}
       />
-      <ConfirmPasswordInput
-        confirmPassword={confirmPassword}
-        setConfirmPassword={setConfirmPassword}
-        handleConfirmPasswordBlur={handleConfirmPasswordBlur}
-        confirmPasswordError={confirmPasswordError}
-        isVisiblePassword={isVisiblePassword}
-        handleTogglePassword={handleTogglePassword}
+      <Input
+        type="password"
+        name="confirmPassword"
+        label="비밀번호 확인"
+        register={register}
+        required={true}
+        error={errors.confirmPassword}
+        watch={watch}
+        clearErrors={clearErrors}
       />
       <div>
         <button id="loginButton" type="submit">
