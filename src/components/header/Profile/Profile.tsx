@@ -1,14 +1,13 @@
-import { User } from '@/pages/folder';
 import styles from './Profile.module.css';
 import classNames from 'classnames/bind';
+import { useRecoilState } from 'recoil';
+import { userState } from '@/src/state/atoms';
 
 const cn = classNames.bind(styles);
 
-interface Props {
-  user: User;
-}
+export default function Profile() {
+  const [user] = useRecoilState(userState);
 
-export default function Profile({ user }: Props) {
   return (
     <div className={cn('user')}>
       <img

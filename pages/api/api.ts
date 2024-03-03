@@ -53,7 +53,7 @@ export async function getFoldersById(id = 1) {
   return body;
 }
 
-export async function getLinks(accessToken: string) {
+export async function getLinksByAccessToken(accessToken: string) {
   const response = await fetch('https://bootcamp-api.codeit.kr/api/links', {
     method: 'GET',
     headers: {

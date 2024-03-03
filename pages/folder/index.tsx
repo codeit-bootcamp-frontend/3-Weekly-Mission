@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import {
-  getFoldersByAccessToken,
   getFoldersById,
-  getLinks,
+  getLinksByAccessToken,
   getUserByAccessToken,
 } from '../api/api';
 import styles from '@/styles/page.module.css';
@@ -94,7 +93,7 @@ export default function FolderPage() {
     }
 
     async function getFolderLinks(accessToken: string) {
-      const { data } = await getLinks(accessToken);
+      const { data } = await getLinksByAccessToken(accessToken);
       if (!data) return;
       setLinks(data.folder);
     }
