@@ -22,10 +22,11 @@ const SignUp = () => {
   } = useForm<FormInput>({ mode: "onBlur" });
 
   const onSubmit = async (data: FormInput) => {
-    const { email, password } = data;
+    console.log(data);
+    const { emailSignup, password } = data;
     let result;
     try {
-      result = await postSignup(email, password);
+      result = await postSignup(emailSignup, password);
       const accessToken = result.data.accessToken;
       localStorage.setItem("accessToken", accessToken);
 

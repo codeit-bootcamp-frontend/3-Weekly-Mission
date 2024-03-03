@@ -47,7 +47,7 @@ const AuthInput = ({ type = "email", register, watch, errors, isSubmit }: AuthIn
 
   return (
     <>
-      {(type === "email" || type === "emailSignup") && (
+      {type === "email" && (
         <div className={styles["input-box"]}>
           <label className={styles.label} htmlFor="email">
             이메일
@@ -57,37 +57,52 @@ const AuthInput = ({ type = "email", register, watch, errors, isSubmit }: AuthIn
             {...register("email", {
               required: true,
               pattern: EMAIL_REGEX,
-              validate: async (value) => await checkEmail(value),
             })}
             id="email"
             name="email"
             type={type}
             placeholder={ERROR_MESSAGE.email.input}
           />
-          {type === "emailSignup" ? (
+          {isSubmit ? (
+            <p className={styles["error-message"]}>{ERROR_MESSAGE.email.check}</p>
+          ) : (
             <>
+              {errors?.email?.type === "required" && (
+                <p className={styles["error-message"]}>{ERROR_MESSAGE.email.input}</p>
+              )}
               {errors?.email?.type === "pattern" && (
                 <p className={styles["error-message"]}>{ERROR_MESSAGE.email.correct}</p>
               )}
-              {errors?.email?.type === "validate" && (
-                <p className={styles["error-message"]}>{ERROR_MESSAGE.email.duplication}</p>
-              )}
             </>
-          ) : (
-            <>
-              {isSubmit ? (
-                <p className={styles["error-message"]}>{ERROR_MESSAGE.email.check}</p>
-              ) : (
-                <>
-                  {errors?.email?.type === "required" && (
-                    <p className={styles["error-message"]}>{ERROR_MESSAGE.email.input}</p>
-                  )}
-                  {errors?.email?.type === "pattern" && (
-                    <p className={styles["error-message"]}>{ERROR_MESSAGE.email.correct}</p>
-                  )}
-                </>
-              )}
-            </>
+          )}
+        </div>
+      )}
+
+      {type === "emailSignup" && (
+        <div className={styles["input-box"]}>
+          <label className={styles.label} htmlFor="emailSignup">
+            이메일
+          </label>
+          <input
+            className={styles.input}
+            {...register("emailSignup", {
+              required: true,
+              pattern: EMAIL_REGEX,
+              validate: async (value) => await checkEmail(value),
+            })}
+            id="emailSignup"
+            name="emailSignup"
+            type={type}
+            placeholder={ERROR_MESSAGE.email.input}
+          />
+          {errors?.emailSignup?.type === "required" && (
+            <p className={styles["error-message"]}>{ERROR_MESSAGE.email.input}</p>
+          )}
+          {errors?.emailSignup?.type === "pattern" && (
+            <p className={styles["error-message"]}>{ERROR_MESSAGE.email.correct}</p>
+          )}
+          {errors?.emailSignup?.type === "validate" && (
+            <p className={styles["error-message"]}>{ERROR_MESSAGE.email.duplication}</p>
           )}
         </div>
       )}
@@ -95,9 +110,15 @@ const AuthInput = ({ type = "email", register, watch, errors, isSubmit }: AuthIn
       {(type === "password" || type === "passwordSignup" || type === "passwordConfirm") && (
         <div className={styles["passwordInput-container"]}>
           <div className={styles["input-box"]}>
-            <label className={styles.label} htmlFor="password">
-              비밀번호
-            </label>
+            {type === "passwordConfirm" ? (
+              <label className={styles.label} htmlFor="passwordConfirm">
+                비밀번호 확인
+              </label>
+            ) : (
+              <label className={styles.label} htmlFor="password">
+                비밀번호
+              </label>
+            )}
 
             {type === "password" && (
               <>

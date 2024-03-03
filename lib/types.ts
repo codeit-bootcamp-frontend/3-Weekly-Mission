@@ -60,6 +60,7 @@ export interface Token {
 
 export interface FormInput {
   email: string;
+  emailSignup: string;
   password: string;
   passwordConfirm: string;
 }
