@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface FolderLink {
   id: number;
   created_at: Date;
@@ -49,4 +51,18 @@ export interface SampleFolder {
   name: string;
   owner: Owner;
   links: SampleFolderLink[];
+}
+
+export interface Token {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface FormInput {
+  email: string;
+  password: string;
+}
+
+export interface AuthButtonProps {
+  children: ReactNode;
 }
