@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
-import CardList from "../components/CardList/CardList";
-import { getFolderData, getFolderList, getOwner } from "../apis/api";
-import LinkSearchForm from "../components/LinkSearchForm/LinkSearchForm";
-import useFetchData from "../hooks/useFetchData";
+import CardList from "@/components/CardList/CardList";
+import { getFolderData, getFolderList, getOwner } from "@/apis/api";
+import LinkSearchForm from "@/components/LinkSearchForm/LinkSearchForm";
+import useFetchData from "@/hooks/useFetchData";
 import {
   CardItem,
   FolderData,
   FolderOwnerData,
   OwnerData,
-} from "../types/dataTypes";
-import { VoidFunc } from "../types/functionType";
-import SearchResult from "../components/SearchResult/SearchResult";
+} from "@/types/dataTypes";
+import { VoidFunc } from "@/types/functionType";
+import SearchResult from "@/components/SearchResult/SearchResult";
 import Image from "next/image";
 import { GetServerSidePropsContext } from "next";
 import Spinner from "@/components/Spinner/Spinner";
 import { codeitLogo } from "@/public/img";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const userId = context.query?.user;
-  const folderId = context.query?.folder;
+  // 아직 userId가 명확하지 않아 11로 고정
+  const userId = "11";
+  const folderId = context.params?.folderId;
 
   return {
     props: {
