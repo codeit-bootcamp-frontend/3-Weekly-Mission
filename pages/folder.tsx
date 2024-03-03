@@ -4,6 +4,7 @@ import SearchBar from "../components/SearchBar";
 import Header from "../components/Header";
 import useGetUserFolder from "../hooks/useGetUserFolder";
 import { useMemo, useState } from "react";
+import Footer from "@/components/Footer";
 
 export default function Folder() {
   const [searchValue, setsearchValue] = useState("");
@@ -30,6 +31,7 @@ export default function Folder() {
       <AddLinkBar />
       <SearchBar handleInputChange={handleInputChange} />
       <Content userFolderLinks={searchedData} />
+      <Footer />
     </>
   );
 }
