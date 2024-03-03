@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import PasswordInput from "./PasswordInput";
-import EmailInput from "./EmailInput";
+import PasswordInput from "./PasswordInput/PasswordInput";
+import EmailInput from "./EmailInput/EmailInput";
 import { useForm } from "react-hook-form";
 import { useAuthForm } from "./Form.hook";
 

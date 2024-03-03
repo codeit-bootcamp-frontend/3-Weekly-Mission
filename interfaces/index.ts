@@ -61,11 +61,6 @@ export interface LinkCreatorRefsInterface {
     linkCreatorWrapperDom: RefObject<HTMLDivElement> | null;
 }
 
-export interface ModalProps {
-    modal?: ModalInterface;
-    onCloseModalButtonClick: CloseModal;
-}
-
 export interface signFormDataInterface {
     email: string;
     password: string;
