@@ -1,3 +1,3 @@
 export { debounce } from './debounce';
 
-export { useDebounce } from './useDebounce';
+export type { FunctionWithArguments, DebouncedFunction, DebouceReturn } from './types';

@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 
 import { TSampleFolderLink } from '@api/shared-page/getSampleUserFolders';
-import { useMatchedLinks } from '@hooks/useMatchedLinks';
+import { useMatchedLinksWithDebounce } from '@hooks/useMatchedLinksWithDebounce';
 
 import styles from './CardContainer.module.css';
 import Card from './comp/card/Card';
@@ -14,7 +14,7 @@ type TCardContainerProps = {
 };
 
 const CardContainer = ({ links, input }: TCardContainerProps) => {
-  const matchedLinks = useMatchedLinks(links, input, ['title', 'description', 'url']);
+  const matchedLinks = useMatchedLinksWithDebounce(links, input, ['title', 'description', 'url']);
 
   return (
     <section className={cn('card-container')}>

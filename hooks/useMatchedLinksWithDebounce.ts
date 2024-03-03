@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { useDebounce } from '@utils/debounce';
 import { filterMatchedDatas } from '@utils/search/filterMatchedDatas';
+
+import { useDebounce } from './useDebounce';
 
 type Obj = Record<string | number | symbol, any>;
 type TotalLinks = Array<Obj>;
 type MatchingFields<T extends TotalLinks> = T extends Array<infer U> ? Array<keyof U & string> : never;
 
-export const useMatchedLinks = <T extends TotalLinks>(
+export const useMatchedLinksWithDebounce = <T extends TotalLinks>(
   links: T,
   input: string | undefined,
   matchingFields: MatchingFields<T>,

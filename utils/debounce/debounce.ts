@@ -1,6 +1,6 @@
 import { DebouceReturn, DebouncedFunction, FunctionWithArguments } from './types';
 
-export const debounce = <T extends FunctionWithArguments>(callback: T, wait: number): DebouceReturn<T> => {
+export const debounce = <T extends FunctionWithArguments>(callback: T, wait?: number): DebouceReturn<T> => {
   let timer: ReturnType<typeof setTimeout> | undefined;
 
   const debouncedFunc: DebouncedFunction<T> = (...args) =>

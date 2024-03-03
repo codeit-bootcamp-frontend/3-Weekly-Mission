@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import classNames from 'classnames/bind';
 
-import { useMatchedLinks } from '@hooks/useMatchedLinks';
+import { useMatchedLinksWithDebounce } from '@hooks/useMatchedLinksWithDebounce';
 
 import styles from './CardContainer.module.css';
 import CardContainerOptions from './comp/card-container-options/CardContainerOptions';
@@ -24,7 +24,7 @@ const CardContainer = ({ input }: TCardContainerProps) => {
 
   const sortedLinks = useGetSortedFolderLinksData(folderIdAndName.folderId === 'total' ? '' : folderIdAndName.folderId);
 
-  const matchedLinks = useMatchedLinks(sortedLinks, input, ['title', 'description', 'url']);
+  const matchedLinks = useMatchedLinksWithDebounce(sortedLinks, input, ['title', 'description', 'url']);
 
   return (
     <div className={cn('card-container-wrapper')}>
