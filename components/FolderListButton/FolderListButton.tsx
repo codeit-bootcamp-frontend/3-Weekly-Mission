@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { ModalButtonClickType } from "../../types/types";
 import Image from "next/image";
 import { plusIcon } from "@/public/img";
+import { useRouter } from "next/router";
 
 interface Props {
   handleModalButtonClick: ModalButtonClickType;
@@ -22,17 +23,20 @@ export default function FolderListButton({
   setCardListItem,
   folderName,
 }: Props) {
+  const router = useRouter();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const { target } = event;
     if (target instanceof HTMLButtonElement) {
       setFolderName(target.name);
       setCardListItem(() => getFolderData(target.id));
+      router.push(`/folder`, `/folder/${target.id}`);
     }
   };
 
   const handleEntireClick = () => {
     setFolderName("전체");
     setCardListItem();
+    router.push("/folder");
   };
 
   return (
