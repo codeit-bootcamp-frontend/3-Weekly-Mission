@@ -16,9 +16,8 @@ import {
 } from "@/utils/signValidator";
 import { ChangeEvent } from "react";
 import { SignUpDataType } from "@/types/dataTypes";
-import axios from "@/apis/axios";
 import { EMAIL, PASSWORD, PASSWORD_REPEAT } from "@/constants/sign";
-import { AxiosError } from "axios";
+import { getEmailCheck, postSignUp } from "@/apis/user";
 
 interface Props {
   user: NavbarUserInfo;
@@ -40,25 +39,11 @@ export default function signUp({ user }: Props) {
   } = useForm();
 
   const checkEmail = async (email: object) => {
-    let message = "";
-    try {
-      const res = await axios.post("check-email", email);
-      if (res.status === 200) {
-        return;
-      }
-    } catch (error) {
-      const axiosError = error as AxiosError;
-      if (axiosError?.response?.status === 409) {
-        message = "이미 사용 중인 이메일입니다.";
-        return;
-      }
-      message = "올바른 이메일 주소가 아닙니다.";
-    } finally {
-      setError(EMAIL, {
-        type: "custom",
-        message,
-      });
-    }
+    const message = (await getEmailCheck(email)) || "";
+    setError(EMAIL, {
+      type: "custom",
+      message,
+    });
   };
 
   const changeMessage = (
@@ -84,14 +69,11 @@ export default function signUp({ user }: Props) {
       });
       return;
     }
-    try {
-      const res = await axios.post("sign-up", { email, password });
-      console.log(res);
-      if (res.status === 200) {
-        localStorage.setItem("accessToken", res.data.data.accessToken);
-        router.push("/folder");
-      }
-    } catch (e) {}
+    const result = { email, password };
+    const res = await postSignUp(result);
+    if (res.status === 200) {
+      router.push("/folder");
+    }
   };
 
   return (
