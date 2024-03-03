@@ -1,6 +1,6 @@
 import React from "react";
 import { getFolderData } from "../../apis/api";
-import { VoidFunc } from "../../types/functionType";
+import { ApiFunc, VoidFunc } from "../../types/functionType";
 import { FolderData } from "./../../types/dataTypes";
 import styled from "styled-components";
 import { ModalButtonClickType } from "../../types/types";
@@ -12,7 +12,7 @@ interface Props {
   handleModalButtonClick: ModalButtonClickType;
   itemList?: FolderData[];
   setFolderName: React.Dispatch<React.SetStateAction<string>>;
-  setCardListItem: (callback?: VoidFunc) => void;
+  setCardListItem: (callback?: ApiFunc) => void;
   folderName: string;
 }
 

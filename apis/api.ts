@@ -10,10 +10,7 @@ export async function fetchJson(url: string) {
   return body;
 }
 
-export async function getUser(userId?: string) {
-  if (!userId) {
-    return;
-  }
+export async function getUser(userId: string = "11") {
   const url = `${BASE_URL}users/${userId}`;
   const response = await fetchJson(url);
   return response;
@@ -42,7 +39,7 @@ export async function getLinkList(userId: string = "11") {
   return response;
 }
 
-export async function getFolderData(id?: string | null, userId: string = "11") {
+export async function getFolderData(id: string, userId: string = "11") {
   const url = `${BASE_URL}users/${userId}/links?folderId=${id}`;
   const response = await fetchJson(url);
   return response;

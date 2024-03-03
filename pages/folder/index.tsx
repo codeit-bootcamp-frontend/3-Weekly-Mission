@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LinkSearchForm from "@/components/LinkSearchForm/LinkSearchForm";
 import LinkAddForm from "@/components/LinkAddForm/LinkAddForm";
-import { getFolderList, getLinkList } from "@/apis/api";
+import { getFolderData, getFolderList, getLinkList } from "@/apis/api";
 import FolderListButton from "@/components/FolderListButton/FolderListButton";
 import CardList from "@/components/CardList/CardList";
 import useFetchData from "@/hooks/useFetchData";
@@ -15,12 +15,14 @@ import { ApiFunc, VoidFunc } from "@/types/functionType";
 import { CardItem, FolderData } from "@/types/dataTypes";
 import SearchResult from "@/components/SearchResult/SearchResult";
 import Spinner from "@/components/Spinner/Spinner";
+import { useRouter } from "next/router";
 
 interface Props {
   user?: NavbarUserInfo;
 }
 
 export default function FolderPage({ user }: Props) {
+  const router = useRouter();
   const {
     data: cardListItem,
     fetchData: setCardListItem,
@@ -28,7 +30,7 @@ export default function FolderPage({ user }: Props) {
     isLoading: cardLisLoading,
   }: {
     data: CardItem[] | null;
-    fetchData: ApiFunc;
+    fetchData: (callback?: ApiFunc) => void;
     setData: React.Dispatch<React.SetStateAction<CardItem[] | null>>;
     isLoading: boolean;
   } = useFetchData(() => getLinkList(user?.id));
@@ -52,6 +54,19 @@ export default function FolderPage({ user }: Props) {
     setModalUrl(url);
     toggleModalClick();
   };
+
+  useEffect(() => {
+    if (router.asPath.length > 7) {
+      const folderId = router.asPath.slice(8);
+      const findFolder = folderNameList.find(
+        (folder) => folder.id === +folderId
+      );
+      if (findFolder) {
+        setCardListItem(() => getFolderData(folderId));
+      }
+      setFolderName(findFolder?.name || "전체");
+    }
+  }, [folderNameList]);
 
   if (cardLisLoading) {
     return (
