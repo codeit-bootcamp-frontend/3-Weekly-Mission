@@ -23,7 +23,7 @@ interface Props {
   user: NavbarUserInfo;
 }
 
-export default function signUp({ user }: Props) {
+export default function SignUpPage({ user }: Props) {
   const router = useRouter();
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("accessToken");

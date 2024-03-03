@@ -24,7 +24,7 @@ interface Props {
   user: NavbarUserInfo;
 }
 
-export default function signIn({ user }: Props) {
+export default function SignInPage({ user }: Props) {
   const router = useRouter();
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("accessToken");
