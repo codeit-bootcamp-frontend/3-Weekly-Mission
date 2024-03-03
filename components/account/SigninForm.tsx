@@ -1,11 +1,11 @@
 import { Input } from "@/components/account/Input";
 import styles from "@/styles/accountPage.module.css";
 import classNames from "classnames/bind";
-import { postSignIn } from "@/api";
 import { Controller, useForm } from "react-hook-form";
 import { EMAIL_REG } from "./SignupForm";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { postSignIn } from "@/api/api";
 
 const cx = classNames.bind(styles);
 

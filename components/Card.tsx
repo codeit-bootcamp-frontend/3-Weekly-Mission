@@ -7,23 +7,21 @@ import Modal from "./modals/Modal";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames/bind";
-import type { UserFolderData } from "@/pages/folder";
+import type { UserFolderData } from "@/pages/folder/[id]";
 
 const cx = classNames.bind(styles);
 
 export default function Card({ data: folderLink }: { data: UserFolderData }) {
   const {
-    createdAt,
     created_at,
     url,
     description,
-    imageSource,
     image_source,
     title,
   } = folderLink;
-  const formattedDate = formatDate(createdAt || created_at);
-  const timeAgo = calculateElapsedTimeSinceCreation(createdAt || created_at);
-  const imageUrl = imageSource || image_source || null;
+  const formattedDate = formatDate(created_at);
+  const timeAgo = calculateElapsedTimeSinceCreation(created_at);
+  const imageUrl = image_source || null;
   const [popoverState, setPopoverState] = useState(false);
   const [modalState, setModalState, handleModalCancel] = useModal();
   const [isHover, setIsHover] = useState(false);
@@ -47,7 +45,7 @@ export default function Card({ data: folderLink }: { data: UserFolderData }) {
             <div className={cx("card-img", { "no-img": !imageUrl })}>
               <Image
                 fill
-                src={imageSource || image_source || "/no-img-logo.svg"}
+                src={image_source || "/no-img-logo.svg"}
                 alt={title}
               />
             </div>

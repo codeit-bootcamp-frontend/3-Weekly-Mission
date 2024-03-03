@@ -4,7 +4,13 @@ import SearchBar from "@/components/SearchBar";
 import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import Footer from "@/components/Footer";
-import { getUser, getUserFolder, getUserFolderList } from "@/api/api";
+import {
+  getUser,
+  getUserFolder,
+  getUserFolderList,
+  getUserLinkList,
+} from "@/api/api";
+import { USER_ID, UserData } from "./shared/[folderid]";
 
 export interface UserFolderData {
   id: number;
@@ -14,37 +20,22 @@ export interface UserFolderData {
   description: string;
   image_source?: string;
 }
-interface FolderProps {
-  image_source: string;
-  email: string;
-  data: UserFolderData[];
-  linkList: any[];
-}
+type Props = { linkList: UserFolderData[]; user: UserData; folderList: any[] };
 
-export async function getServerSideProps(context: { query: { id: string } }) {
-  const { id } = context.query;
-  const [{ data }, { image_source, email }, linkList] = await Promise.all([
-    getUserFolder(id),
-    getUser(id),
-    getUserFolderList(id),
+export async function getServerSideProps() {
+  const [linkList, user, folderList] = await Promise.all([
+    getUserLinkList(),
+    getUser(USER_ID),
+    getUserFolderList("8"),
   ]);
-
-  return {
-    props: {
-      image_source,
-      email,
-      data,
-      linkList,
-    },
-  };
+  return { props: { linkList, user, folderList } };
 }
 
 export default function Folder({
-  image_source,
-  email,
-  data: userFolderLinks,
-  linkList,
-}: FolderProps) {
+  linkList: userFolderLinks,
+  user,
+  folderList,
+}: Props) {
   const [searchValue, setsearchValue] = useState("");
   const handleInputChange = (value: string) => {
     setsearchValue(value);
@@ -64,10 +55,14 @@ export default function Folder({
 
   return (
     <>
-      <Header isSticky profileImageSource={image_source} email={email} />
+      <Header
+        isSticky
+        profileImageSource={user.image_source}
+        email={user.email}
+      />
       <AddLinkBar />
       <SearchBar handleInputChange={handleInputChange} />
-      <Content folderLinkList={searchedData} linkList={linkList} />
+      <Content folderLinkList={searchedData} folderList={folderList} />
       <Footer />
     </>
   );

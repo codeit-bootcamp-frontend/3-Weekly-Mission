@@ -1,11 +1,10 @@
+import { getUserFolderList } from "@/api/api";
 import { useEffect, useState } from "react";
-import { getFolderList } from "../api";
 
 export interface UserFolderList {
   id: number;
   created_at: string;
   name: string;
-  user_id: number;
   favorite: boolean;
   link: {
     count: number;
@@ -17,10 +16,10 @@ export default function useGetFolderList(id:string): UserFolderList[] | undefine
 
   useEffect(() => {
     (async () => {
-      const { data } = await getFolderList(id);
+      const { data } = await getUserFolderList(id);
       setFolderList(data);
     })();
-  }, []);
+  });
 
   return folderList;
 }

@@ -11,13 +11,16 @@ import useModal from "../hooks/useModal";
 import Image from "next/image";
 import classNames from "classnames/bind";
 import { UserFolderData } from "@/pages/folder/[id]";
+import { getUserFolderList } from "@/api/api";
 
 const cx = classNames.bind(styles);
 
 export default function Content({
   folderLinkList,
+  folderList: folderList,
 }: {
   folderLinkList: UserFolderData[] | undefined;
+  folderList: any[];
 }) {
   const [targetFolder, setTargetFolder] = useState({
     title: "전체",
@@ -25,8 +28,6 @@ export default function Content({
   });
 
   const [modalState, setModalState, handleModalCancel] = useModal();
-  const folderList = useGetFolderList("8");
-
   const handleClick = (title: string, id: number) => {
     setTargetFolder({
       title: title,
