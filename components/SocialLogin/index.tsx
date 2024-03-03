@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import { SocialLoginProps } from "@/lib/types";
 import styles from "./SocialLogin.module.css";
 
-const SocialLogin = () => {
+const SocialLogin = ({ children }: SocialLoginProps) => {
   return (
     <div className={styles.SocialLogin}>
-      <span className={styles.text}>소셜 로그인</span>
+      <span className={styles.text}>{children}</span>
       <div className={styles.links}>
         <Link href="https://www.google.com">
           <div className={`${styles["icon-box"]} ${styles.google}`}>

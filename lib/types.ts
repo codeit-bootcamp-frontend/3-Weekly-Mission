@@ -61,8 +61,18 @@ export interface Token {
 export interface FormInput {
   email: string;
   password: string;
+  passwordConfirm: string;
 }
 
 export interface AuthButtonProps {
   children: ReactNode;
+}
+
+export interface SocialLoginProps {
+  children: ReactNode;
+}
+
+export interface CheckEmail {
+  isUsableNickname: boolean;
+  error: string;
 }
