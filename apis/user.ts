@@ -35,3 +35,16 @@ export async function postSignUp(data: object) {
     return error.request;
   }
 }
+
+export async function postSignIn(data: object) {
+  try {
+    const res = await axios.post("sign-in", data);
+    if (res.status === 200) {
+      localStorage.setItem("accessToken", res.data.data.accessToken);
+    }
+    return res;
+  } catch (e) {
+    const error = e as AxiosError;
+    return error.request;
+  }
+}
