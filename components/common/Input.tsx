@@ -1,11 +1,6 @@
 import classNames from "classnames/bind";
 import React from "react";
-import {
-  FieldError,
-  UseFormClearErrors,
-  UseFormRegister,
-  UseFormWatch,
-} from "react-hook-form";
+import { FieldError, UseFormRegister, UseFormWatch } from "react-hook-form";
 import styles from "./input.module.scss";
 
 const cx = classNames.bind(styles);
@@ -14,6 +9,7 @@ interface InputProps {
   type: string;
   name: string;
   label: string;
+  placeholder?: string;
   register: UseFormRegister<any>;
   required?: boolean;
   minLength?: number;
@@ -21,13 +17,13 @@ interface InputProps {
   onBlur?: () => void;
   error?: FieldError | undefined;
   watch?: UseFormWatch<any>;
-  clearErrors?: UseFormClearErrors<any>;
 }
 
 const Input: React.FC<InputProps> = ({
   type,
   name,
   label,
+  placeholder,
   register,
   required = false,
   minLength,
@@ -35,13 +31,7 @@ const Input: React.FC<InputProps> = ({
   onBlur,
   error,
   watch,
-  clearErrors,
 }) => {
-  const handleFocusIn = () => {
-    if (clearErrors) {
-      clearErrors(name);
-    }
-  };
   return (
     <div>
       <label className={cx("label")} htmlFor={name}>
@@ -51,7 +41,7 @@ const Input: React.FC<InputProps> = ({
         className={cx("input", { "input-error": error })}
         type={type}
         id={name}
-        onFocus={handleFocusIn}
+        placeholder={placeholder}
         {...register(name, {
           required: required && {
             value: required,

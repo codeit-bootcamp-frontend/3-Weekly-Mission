@@ -22,7 +22,6 @@ export default function SignUpForm() {
     setError,
     getValues,
     watch,
-    clearErrors,
   } = useForm<FormData>({ mode: "onBlur" });
 
   const router = useRouter();
@@ -75,32 +74,32 @@ export default function SignUpForm() {
         type="email"
         name="email"
         label="이메일"
+        placeholder="이메일을 입력해 주세요"
         register={register}
         required={true}
         pattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
         error={errors.email}
         onBlur={handleEmailCheckOnblur}
-        clearErrors={clearErrors}
       />
       <Input
         type="password"
         name="password"
         label="비밀번호"
+        placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요"
         register={register}
         required={true}
         minLength={8}
         error={errors.password}
-        clearErrors={clearErrors}
       />
       <Input
         type="password"
         name="confirmPassword"
         label="비밀번호 확인"
+        placeholder="비밀번호와 일치하는 값을 입력해 주세요"
         register={register}
         required={true}
         error={errors.confirmPassword}
         watch={watch}
-        clearErrors={clearErrors}
       />
       <div>
         <button id="loginButton" type="submit">

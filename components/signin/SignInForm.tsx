@@ -20,7 +20,6 @@ export default function SignInForm() {
     handleSubmit,
     formState: { errors },
     setError,
-    clearErrors,
   } = useForm<FormData>({ mode: "onBlur" });
 
   const router = useRouter();
@@ -70,21 +69,21 @@ export default function SignInForm() {
         type="email"
         name="email"
         label="이메일"
+        placeholder="이메일을 입력해 주세요"
         register={register}
         required={true}
         pattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
         error={errors.email}
-        clearErrors={clearErrors}
       />
       <Input
         type="password"
         name="password"
         label="비밀번호"
+        placeholder="비밀번호를 입력해 주세요"
         register={register}
         required={true}
         minLength={8}
         error={errors.password}
-        clearErrors={clearErrors}
       />
       <div>
         <button id="loginButton" type="submit">
