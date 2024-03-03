@@ -1,5 +1,5 @@
 import Image from "next/image";
-import close from "../public/close.svg";
+import close from "@/public/close.svg";
 import styles from "./SearchBar.module.css";
 import { ChangeEvent, useState } from "react";
 import classNames from "classnames/bind";

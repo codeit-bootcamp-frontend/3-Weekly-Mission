@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import useModal from "../hooks/useModal";
+import useModal from "../../hooks/useModal";
 import styles from "./AddLinkBar.module.css";
-import Modal from "./modals/Modal";
+import Modal from "../modals/Modal";
 import classNames from "classnames/bind";
 import { UserFolder } from "@/api/api";
 
 const cx = classNames.bind(styles);
 
-export default function AddLinkBar({folderList}: {folderList: UserFolder[]}) {
+export default function AddLinkBar({
+  folderList,
+}: {
+  folderList: UserFolder[];
+}) {
   const [modalState, setModalState, handleModalCancel] = useModal();
   const [inputValue, setInputValue] = useState("");
 
@@ -16,7 +20,12 @@ export default function AddLinkBar({folderList}: {folderList: UserFolder[]}) {
 
   return (
     <div className={cx("form-container")}>
-      <Modal state={modalState} onClick={handleModalCancel} link={inputValue} folderList={folderList} />
+      <Modal
+        state={modalState}
+        onClick={handleModalCancel}
+        link={inputValue}
+        folderList={folderList}
+      />
       <div className={cx("add-link-form")}>
         <input
           className={cx("add-link-input")}

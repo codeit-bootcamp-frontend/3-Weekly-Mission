@@ -1,9 +1,9 @@
-import useModal from "../hooks/useModal";
-import calculateElapsedTimeSinceCreation from "../utils/calculateElapsedTimeSinceCreation";
-import formatDate from "../utils/formatDate";
+import useModal from "../../hooks/useModal";
+import calculateElapsedTimeSinceCreation from "../../utils/calculateElapsedTimeSinceCreation";
+import formatDate from "../../utils/formatDate";
 import styles from "./Card.module.css";
 import { useState } from "react";
-import Modal from "./modals/Modal";
+import Modal from "../modals/Modal";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames/bind";

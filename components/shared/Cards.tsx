@@ -1,5 +1,5 @@
 import styles from "./Cards.module.css";
-import Card from "./Card";
+import Card from "../common/Card";
 import type { UserFolderLinkData } from "@/api/api";
 
 export default function Cards({
@@ -10,7 +10,9 @@ export default function Cards({
   return (
     <div className={styles["card-container"]}>
       {folderLinkList.length ? (
-        folderLinkList.map((link) => <Card key={link.id} data={link} folderList={[]} />)
+        folderLinkList.map((link) => (
+          <Card key={link.id} data={link} folderList={[]} />
+        ))
       ) : (
         <div className={styles["no-link"]}>저장된 링크가 없습니다</div>
       )}

@@ -1,10 +1,17 @@
-import AddLinkBar from "@/components/AddLinkBar";
-import Content from "@/components/Content";
-import SearchBar from "@/components/SearchBar";
-import Header from "@/components/Header";
+import AddLinkBar from "@/components/folder/AddLinkBar";
+import Content from "@/components/folder/Content";
+import SearchBar from "@/components/common/SearchBar";
+import Header from "@/components/common/Header";
 import { useMemo, useState } from "react";
-import Footer from "@/components/Footer";
-import { UserData, UserFolderLinkData, UserFolder, getUser, getUserFolderList, getUserLinkList } from "@/api/api";
+import Footer from "@/components/common/Footer";
+import {
+  UserData,
+  UserFolderLinkData,
+  UserFolder,
+  getUser,
+  getUserFolderList,
+  getUserLinkList,
+} from "@/api/api";
 import { USER_ID } from "./shared/[folderId]";
 
 type Props = {
@@ -50,7 +57,7 @@ export default function Folder({
         profileImageSource={user.image_source}
         email={user.email}
       />
-      <AddLinkBar folderList={folderList}/>
+      <AddLinkBar folderList={folderList} />
       <SearchBar handleInputChange={handleInputChange} />
       <Content folderLinkList={searchedData} folderList={folderList} />
       <Footer />

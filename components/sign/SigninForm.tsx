@@ -1,4 +1,4 @@
-import { Input } from "@/components/account/Input";
+import { Input } from "@/components/sign/Input";
 import styles from "@/styles/accountPage.module.css";
 import classNames from "classnames/bind";
 import { Controller, useForm } from "react-hook-form";
@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 export interface FormData {
   email: string;
   password: string;
-};
+}
 
 export default function SigninForm() {
   const { handleSubmit, watch, setError, control } = useForm<FormData>({

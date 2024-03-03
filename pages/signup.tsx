@@ -1,8 +1,8 @@
 import styles from "@/styles/accountPage.module.css";
 import classNames from "classnames/bind";
-import SignUpForm from "@/components/account/SignupForm";
-import SocialLoginForm from "@/components/account/SocialLoginForm";
-import AccountHeader from "@/components/account/AccountHeader";
+import SignUpForm from "@/components/sign/SignupForm";
+import SocialLoginForm from "@/components/sign/SocialLoginForm";
+import AccountHeader from "@/components/sign/AccountHeader";
 
 const cx = classNames.bind(styles);
 

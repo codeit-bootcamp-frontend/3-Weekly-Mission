@@ -9,7 +9,6 @@ import AddLinkModal from "./AddLinkModal";
 import FolderDeleteModal from "./FolderDeleteModal";
 import LinkDeleteModal from "./LinkDeleteModal";
 import classNames from "classnames/bind";
-import { UserFolder } from "@/api/api";
 
 const cx = classNames.bind(styles);
 enum FOLDER_NAME {

@@ -57,7 +57,7 @@
 .kebab-btn {
   width: 2.1rem;
   height: 1.7rem;
-  background-image: url("../public/kebab.png");
+  background-image: url("/public/kebab.png");
   background-position: center;
   background-color: inherit;
   border-style: none;
