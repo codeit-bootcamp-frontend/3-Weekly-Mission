@@ -1,3 +1,4 @@
+import Error from "next/error";
 import { axiosInstance } from "./axios";
 import { UseFormSetError } from "react-hook-form";
 
@@ -59,7 +60,9 @@ export interface UserFolder {
 }
 // 유저가 가진 폴더 리스트
 export async function getUserFolderList(userId: string) {
-  const {data} = await axiosInstance.get<UserFolder[]>(`/users/${userId}/folders`);
+  const { data } = await axiosInstance.get<UserFolder[]>(
+    `/users/${userId}/folders`
+  );
   return data;
 }
 
@@ -73,7 +76,7 @@ export interface UserLinkData {
 }
 // 유저가 가진 링크 리스트
 export async function getUserLinkList() {
-  const {data} = await axiosInstance.get<UserLinkData[]>("/links", {
+  const { data } = await axiosInstance.get<UserLinkData[]>("/links", {
     headers: { Authorization },
   });
   return data;
@@ -81,8 +84,8 @@ export async function getUserLinkList() {
 
 interface PostSignData {
   email: string;
-  password?: string;
-  setError: UseFormSetError<FormData>;
+  password: string;
+  setError: (email: string, object: {type: string, message: string} ) => void;
 }
 export async function postSignIn({ email, password, setError }: PostSignData) {
   try {

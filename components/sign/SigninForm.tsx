@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 export interface FormData {
   email: string;
   password: string;
+  passwordCheck?: string;
 }
 
 export default function SigninForm() {

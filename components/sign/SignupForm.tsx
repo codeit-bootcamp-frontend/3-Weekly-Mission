@@ -5,13 +5,14 @@ import { Controller, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { checkEmail, postSignUp } from "@/api/api";
+import { FormData } from "./SigninForm";
 
 export const EMAIL_REG = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
 const PASSWD_REG = /(?=.*[0-9])(?=.*[A-Za-z])^.{8,}$/;
 
 const cx = classNames.bind(styles);
 export default function SignUpForm() {
-  const { handleSubmit, watch, setError, control } = useForm({
+  const { handleSubmit, watch, setError, control } = useForm<FormData>({
     mode: "onBlur",
   });
 
