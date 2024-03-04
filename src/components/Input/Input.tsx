@@ -2,12 +2,12 @@ import React, { InputHTMLAttributes, forwardRef } from 'react';
 import styles from './Input.module.css';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
+import { Error } from '@/pages/signin';
 
 const cn = classNames.bind(styles);
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  isError: boolean;
-  errorMessage: string;
+  error: Error;
   suffixImage?: {
     width: number;
     height: number;
@@ -19,20 +19,22 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(function Input(
-  { isError, errorMessage, suffixImage, ...rest }: Props,
+  { error, suffixImage, ...rest }: Props,
   ref
 ) {
   return (
     <div className={cn('input-container')}>
       <input
         ref={ref}
-        className={isError ? cn('input', 'error') : cn('input')}
+        className={error.isError ? cn('input', 'error') : cn('input')}
         {...rest}
       />
       {suffixImage && (
         <Image {...suffixImage} className={cn(suffixImage.className)} />
       )}
-      {isError && <span className={cn('error-message')}>{errorMessage}</span>}
+      {error.isError && (
+        <span className={cn('error-message')}>{error.message}</span>
+      )}
     </div>
   );
 });

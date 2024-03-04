@@ -11,52 +11,65 @@ const cn = classNames.bind(styles);
 
 const EMAIL_CHECK = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]{2,}/;
 
+export interface Error {
+  message: string;
+  isError: boolean;
+}
+
 export default function signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [emailErrorMessage, setEmailErrorMessage] = useState('');
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-  const [isEmailError, setIsEmailError] = useState(false);
-  const [isPasswordError, setIsPasswordError] = useState(false);
+  const [emailError, setEmailError] = useState<Error>({
+    message: '',
+    isError: false,
+  });
+  const [passwordError, setPasswordError] = useState<Error>({
+    message: '',
+    isError: false,
+  });
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const onBlurEmail = () => {
-    let focus = true;
+  const emailCheck = () => {
+    let valueError = true;
     if (email === '') {
-      setEmailErrorMessage('이메일을 입력해 주세요.');
-      setIsEmailError(true);
+      setEmailError({ message: '이메일을 입력해 주세요.', isError: true });
     } else if (!EMAIL_CHECK.test(email)) {
-      setEmailErrorMessage('올바른 이메일 주소가 아닙니다.');
-      setIsEmailError(true);
+      setEmailError({
+        message: '올바른 이메일 주소가 아닙니다.',
+        isError: true,
+      });
     } else {
-      setIsEmailError(false);
-      focus = false;
+      setEmailError({ message: '', isError: false });
+      valueError = false;
     }
 
-    return focus;
+    return valueError;
   };
 
-  const onBlurPassword = () => {
-    let focus = true;
+  const passwordCheck = () => {
+    let valueError = true;
     if (password === '') {
-      setPasswordErrorMessage('비밀번호를 입력해 주세요.');
-      setIsPasswordError(true);
+      setPasswordError({ message: '비밀번호를 입력해 주세요.', isError: true });
     } else {
-      setIsPasswordError(false);
-      focus = false;
+      setPasswordError({ message: '', isError: false });
+      valueError = false;
     }
 
-    return focus;
+    return valueError;
   };
 
-  const onClickSignin = async () => {
+  const onBlurEmail = () => emailCheck();
+
+  const onBlurPassword = () => passwordCheck();
+
+  const signin = async () => {
     const inputList = {
-      email: { target: emailInput.current, check: onBlurEmail() },
-      password: { target: passwordInput.current, check: onBlurPassword() },
+      email: { target: emailInput.current, check: emailCheck() },
+      password: { target: passwordInput.current, check: passwordCheck() },
     };
 
     for (let input in inputList) {
@@ -74,16 +87,16 @@ export default function signin() {
       localStorage.setItem('accessToken', body.data.accessToken);
       router.push('/folder');
     } else {
-      setEmailErrorMessage('이메일을 확인해 주세요.');
-      setIsEmailError(true);
-      setPasswordErrorMessage('비밀번호를 확인해 주세요.');
-      setIsPasswordError(true);
+      setEmailError({ message: '이메일을 확인해 주세요.', isError: true });
+      setPasswordError({ message: '비밀번호를 확인해 주세요.', isError: true });
     }
   };
 
+  const onClickSigninButton = () => signin();
+
   const onKeydown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      onClickSignin();
+      signin();
     }
   };
 
@@ -123,11 +136,10 @@ export default function signin() {
                 ref={emailInput}
                 type="email"
                 placeholder="이메일을 입력해 주세요."
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.currentTarget.value)}
                 onBlur={onBlurEmail}
                 onKeyDown={onKeydown}
-                isError={isEmailError}
-                errorMessage={emailErrorMessage}
+                error={emailError}
               />
             </div>
             <div className={cn('input-element')}>
@@ -136,11 +148,10 @@ export default function signin() {
                 ref={passwordInput}
                 type={isShowPassword ? 'text' : 'password'}
                 placeholder="비밀번호를 입력해 주세요."
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.currentTarget.value)}
                 onBlur={onBlurPassword}
                 onKeyDown={onKeydown}
-                isError={isPasswordError}
-                errorMessage={passwordErrorMessage}
+                error={passwordError}
                 suffixImage={{
                   width: 16,
                   height: 16,
@@ -157,7 +168,7 @@ export default function signin() {
           <button
             type="button"
             className={cn('signin-button')}
-            onClick={onClickSignin}
+            onClick={onClickSigninButton}
           >
             로그인
           </button>

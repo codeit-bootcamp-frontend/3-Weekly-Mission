@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { getFoldersById, getLinksById } from './api/api';
+import {
+  getFolderLinks,
+  getFoldersByAccessToken,
+  getFoldersById,
+  getUserByAccessToken,
+} from '../api/api';
 import styles from '@/styles/page.module.css';
 import Nav from '@/src/components/header/Nav/Nav';
 import Search from '@/src/components/section/Search/Search';
@@ -11,97 +16,26 @@ import Card from '@/src/components/section/Card/Card';
 import useIntersectionObserver from '@/src/hooks/useIntersectionObserver';
 import 'intersection-observer';
 import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { folderInfoState, userState } from '@/src/state/atoms';
+import { Folder, FolderInfo, FolderLinkCount, LinkType } from '.';
 
 const cn = classNames.bind(styles);
 
-export interface LinkType {
-  id: number;
-  created_at?: string;
-  createdAt?: string;
-  updated_at: string | null;
-  url: string;
-  title: string | null;
-  description: string | null;
-  image_source?: string | null;
-  imageSource?: string;
-  folder_id: number | null;
-}
-
-export interface Folder {
-  id: number;
-  created_at: string;
-  name: string;
-  user_id: number;
-  favorite: boolean;
-  link: {
-    count: number;
-  };
-}
-
-export interface FolderList {
-  name: string;
-  linkCount: number;
-}
-
-export type Id = number | undefined;
-
-export interface FolderInfo {
-  name: string;
-  id: Id;
-}
-
-interface InitialData {
-  folderInfo: FolderInfo;
-  userId: number;
-  links: LinkType[];
-  folderList: FolderList[];
-}
-
-interface Props {
-  initialData: InitialData;
-}
-
-export async function getServerSideProps() {
-  const folderInfo: FolderInfo = {
-    name: '전체',
-    id: 0,
-  };
-  const userId = 1;
-  let links: LinkType[];
-  let folderList: FolderList[];
-  let data: Folder[];
-
-  links = (await getLinksById(folderInfo.id)).data;
-
-  data = (await getFoldersById(userId)).data;
-  folderList = data.map((element: Folder) => {
-    return { name: element.name, linkCount: element.link.count };
-  });
-
-  const initialData = {
-    folderInfo,
-    userId,
-    links,
-    folderList,
-  };
-
-  return {
-    props: { initialData },
-  };
-}
-
-export default function FolderPage({ initialData }: Props) {
-  const [folderInfo, setFolderInfo] = useState<FolderInfo>(
-    initialData.folderInfo
-  );
-  const [folderList, setFolderList] = useState<FolderList[]>(
-    initialData.folderList
-  );
-  const [userId, setUserId] = useState(initialData.userId);
-  const [links, setLinks] = useState<LinkType[]>(initialData.links);
+export default function FolderPage() {
+  const router = useRouter();
+  const { folderId } = router.query;
+  const [folderInfo, setFolderInfo] = useRecoilState(folderInfoState);
+  const [user, setUser] = useRecoilState(userState);
+  const [folderList, setFolderList] = useState<Folder[]>([]);
+  const [links, setLinks] = useState<LinkType[]>([]);
+  const [folderLinkCount, setFolderLinkCount] = useState<FolderLinkCount[]>([]);
   const [keyword, setKeyword] = useState('');
+  const [isShowFixedAddLink, setIsShowFIxedAddLink] = useState(false);
   const observeTargets = useRef<HTMLDivElement[]>([]);
-  const showFixedAddLink = useIntersectionObserver(observeTargets.current);
+
+  useIntersectionObserver(observeTargets.current, setIsShowFIxedAddLink);
 
   const handleSearchOnChange = (nextKeyword: string) => {
     setKeyword(nextKeyword);
@@ -111,47 +45,79 @@ export default function FolderPage({ initialData }: Props) {
     setFolderInfo({ name: folder.name, id: folder.id });
   };
 
-  const handleSetUserId = (nextUserId: number) => {
-    setUserId(nextUserId);
-  };
-
   useEffect(() => {
-    async function getFolderLinks() {
-      const { data } = await getLinksById(folderInfo.id);
+    async function getUser(accessToken: string) {
+      const { data } = await getUserByAccessToken(accessToken);
       if (!data) return;
-      setLinks(data);
+      setUser(data[0]);
     }
 
-    async function getFolderLists() {
-      const { data } = await getFoldersById(userId);
+    async function getFolderList(accessToken: string) {
+      const { data } = await getFoldersByAccessToken(accessToken);
       if (!data) return;
-      setFolderList(
+      setFolderList(data.folder);
+    }
+
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      router.push('/signin');
+    } else {
+      getUser(accessToken);
+      getFolderList(accessToken);
+    }
+  }, []);
+
+  useEffect(() => {
+    const folderName = folderList.find((element: Folder) => {
+      return element.id === +folderId;
+    })?.name;
+
+    if (folderName) {
+      setFolderInfo({ name: folderName, id: +folderId });
+    }
+
+    async function getLinks() {
+      const { data } = await getFolderLinks(
+        localStorage.getItem('accessToken'),
+        +folderId
+      );
+      if (!data) return;
+      setLinks(data.folder);
+    }
+
+    async function getFolderLinkCount() {
+      const { data } = await getFoldersById(user.id);
+      if (!data) return;
+      setFolderLinkCount(
         data.map((element: Folder) => {
           return { name: element.name, linkCount: element.link.count };
         })
       );
     }
 
-    getFolderLinks();
-    getFolderLists();
-  }, [folderInfo.id, userId]);
+    getLinks();
+    if (user) {
+      getFolderLinkCount();
+    }
+  }, [user, folderId, folderList]);
 
   return (
     <>
       <header className={cn('header')}>
-        <Nav className="not-fixed" id={1} setUserId={handleSetUserId} />
+        <Nav className="not-fixed" />
         <div
           className={cn('observe-target')}
           ref={(element) => {
-            if (element) {
+            if (element && !observeTargets.current.includes(element)) {
               observeTargets.current.push(element);
             }
           }}
         >
-          <AddLink folderList={folderList} />
+          <AddLink folderLinkCount={folderLinkCount} />
         </div>
-        {showFixedAddLink && (
-          <AddLink folderList={folderList} className="fixed" />
+        {isShowFixedAddLink && (
+          <AddLink folderLinkCount={folderLinkCount} className="fixed" />
         )}
       </header>
       <section className={cn('section')}>
@@ -166,7 +132,7 @@ export default function FolderPage({ initialData }: Props) {
           <FolderList
             folderName={folderInfo.name}
             onClickFolder={handleChangeFolder}
-            id={1}
+            userId={user?.id}
           />
           <div className={cn('folders__folder-info')}>
             <span className={cn('folders__folder-name')}>
@@ -177,7 +143,7 @@ export default function FolderPage({ initialData }: Props) {
                 <EditOption
                   src="/images/share.png"
                   optionName="공유"
-                  userId={userId}
+                  userId={user?.id}
                   folder={folderInfo}
                 />
                 <EditOption
@@ -193,7 +159,7 @@ export default function FolderPage({ initialData }: Props) {
               </div>
             )}
           </div>
-          {links.length > 0 ? (
+          {links?.length > 0 ? (
             <div className="pages">
               {links
                 .filter((element) => {
@@ -210,7 +176,7 @@ export default function FolderPage({ initialData }: Props) {
                     <Card
                       key={element.id}
                       page={element}
-                      folderList={folderList}
+                      folderLinkCount={folderLinkCount}
                     />
                   );
                 })}
@@ -224,7 +190,7 @@ export default function FolderPage({ initialData }: Props) {
         <div
           className={cn('observe-target')}
           ref={(element) => {
-            if (element) {
+            if (element && !observeTargets.current.includes(element)) {
               observeTargets.current.push(element);
             }
           }}

@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import BaseModal from '../BaseModal/BaseModal';
 import styles from './EditOption.module.css';
 import modalStyles from '../BaseModal/BaseModal.module.css';
 import { FolderInfo } from '@/pages/folder';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
 
 const cn = classNames.bind(styles);
 const modalCn = classNames.bind(modalStyles);
@@ -18,6 +19,7 @@ interface Props {
 
 export default function EditOption({ src, optionName, userId, folder }: Props) {
   const [openModal, setOpenModal] = useState(false);
+  const router = useRouter();
   const { Kakao } = window;
 
   let modalContent;
@@ -53,7 +55,7 @@ export default function EditOption({ src, optionName, userId, folder }: Props) {
       );
       break;
     case '공유': {
-      const currentUrl = window.location.href;
+      const currentUrl = router.asPath;
       const pathNameIndex = currentUrl.lastIndexOf('/');
       const hostName = currentUrl.slice(0, pathNameIndex);
       const shareLink = hostName + `/shared?user=${userId}&folder=${folder.id}`;

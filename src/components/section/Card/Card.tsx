@@ -4,34 +4,35 @@ import DropDown from '../DropDown/DropDown';
 import BaseModal from '../BaseModal/BaseModal';
 import modalStyles from '../BaseModal/BaseModal.module.css';
 import styles from './Card.module.css';
-import { SharedLink } from '@/pages/shared';
-import { LinkType, FolderList } from '@/pages/folder';
+import { SharedLink } from '@/pages/shared/[folderId]';
+import { LinkType } from '@/pages/folder';
 import Link from 'next/link';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
+import { FolderLinkCount } from '@/pages/folder/index';
 
 const cn = classNames.bind(styles);
 const modalCn = classNames.bind(modalStyles);
 
 interface Props {
   page: LinkType | SharedLink;
-  folderList?: FolderList[];
+  folderLinkCount?: FolderLinkCount[];
 }
 
-export default function Card({ page, folderList }: Props) {
+export default function Card({ page, folderLinkCount }: Props) {
   const [openModal, setOpenModal] = useState(false);
   const [selectDropDownItem, setSelectDropDownItem] = useState('');
   const [folderItem, setFolderItem] = useState('');
 
   const link = page.url;
-  const image = page.imageSource || page['image_source'];
+  const image = page['image_source'];
   const description = page.description;
 
   const logo = '/images/logo.svg';
   const divClass = image ? cn('image') : cn('image', 'default');
   const imgClass = image ? cn('preview') : cn('preview', 'default-image');
 
-  const upload = new Date(String(page.createdAt || page['created_at']));
+  const upload = new Date(String(page['created_at']));
   const timeDiff = timeDifferenceCalculate(upload);
 
   const temp = upload.toLocaleDateString();
@@ -61,8 +62,8 @@ export default function Card({ page, folderList }: Props) {
             <span className={modalCn('modal__link')}>{link}</span>
           </div>
           <div className={modalCn('modal__folder-list')}>
-            {folderList &&
-              folderList.map((element) => {
+            {folderLinkCount &&
+              folderLinkCount.map((element) => {
                 const className =
                   element.name === folderItem
                     ? modalCn('modal__folder--item', 'active')

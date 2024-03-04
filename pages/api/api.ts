@@ -1,9 +1,13 @@
 type User = { email: string; password: string };
 
-export async function getUser() {
-  const response = await fetch(
-    'https://bootcamp-api.codeit.kr/api/sample/user'
-  );
+export async function getUserByAccessToken(accessToken: string) {
+  const response = await fetch('https://bootcamp-api.codeit.kr/api/users', {
+    method: 'GET',
+    headers: {
+      accept: '*/*',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   const body = await response.json();
 
   return body;
@@ -18,9 +22,22 @@ export async function getUserById(id: number) {
   return body;
 }
 
-export async function getFolder() {
+export async function getFoldersByAccessToken(accessToken) {
+  const response = await fetch('https://bootcamp-api.codeit.kr/api/folders', {
+    method: 'GET',
+    headers: {
+      accept: '*/*',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const body = await response.json();
+
+  return body;
+}
+
+export async function getFolderById(folderId: number) {
   const response = await fetch(
-    'https://bootcamp-api.codeit.kr/api/sample/folder'
+    `https://bootcamp-api.codeit.kr/api/folders/${folderId}`
   );
   const body = await response.json();
 
@@ -36,11 +53,38 @@ export async function getFoldersById(id = 1) {
   return body;
 }
 
-export async function getLinksById(id = 0) {
+export async function getLinksByAccessToken(accessToken: string) {
+  const response = await fetch('https://bootcamp-api.codeit.kr/api/links', {
+    method: 'GET',
+    headers: {
+      accept: '*/*',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const body = await response.json();
+
+  return body;
+}
+
+export async function getFolderLinks(accessToken: string, folderId: number) {
   const response = await fetch(
-    `https://bootcamp-api.codeit.kr/api/users/1/links${
-      id ? `?folderId=${id}` : ''
-    }`
+    `https://bootcamp-api.codeit.kr/api/links?folderId=${folderId}`,
+    {
+      method: 'GET',
+      headers: {
+        accept: '*/*',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  const body = await response.json();
+
+  return body;
+}
+
+export async function getLinksById(userId: number, folderId = 0) {
+  const response = await fetch(
+    `https://bootcamp-api.codeit.kr/api/users/${userId}/links?folderId=${folderId}`
   );
   const body = await response.json();
 

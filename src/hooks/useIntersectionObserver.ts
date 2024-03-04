@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function useIntersectionObserver(targets: HTMLDivElement[]) {
-  const [showFixedAddLink, setShowFixedAddLink] = useState(false);
+export default function useIntersectionObserver(
+  targets: HTMLDivElement[],
+  setIsShow: (vlaue: boolean) => void
+) {
   const observer = useRef<IntersectionObserver>();
 
   useEffect(() => {
@@ -11,7 +13,7 @@ export default function useIntersectionObserver(targets: HTMLDivElement[]) {
         const element = entry.target.innerHTML;
         if (entry.isIntersecting) {
           isIntersecting[element] = true;
-          setShowFixedAddLink(false);
+          setIsShow(false);
           break;
         } else {
           isIntersecting[element] = false;
@@ -22,7 +24,7 @@ export default function useIntersectionObserver(targets: HTMLDivElement[]) {
               return !element;
             })
           ) {
-            setShowFixedAddLink(true);
+            setIsShow(true);
           }
         }
       }
@@ -39,7 +41,5 @@ export default function useIntersectionObserver(targets: HTMLDivElement[]) {
         }
       });
     };
-  }, []);
-
-  return showFixedAddLink;
+  }, [targets]);
 }

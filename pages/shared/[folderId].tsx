@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { getFolder } from './api/api';
+import { useEffect, useState } from 'react';
+import { getLinksById } from '../api/api';
 import styles from '@/styles/page.module.css';
 import Nav from '@/src/components/header/Nav/Nav';
 import Folder from '@/src/components/header/Folder/Folder';
@@ -7,47 +7,49 @@ import Search from '@/src/components/section/Search/Search';
 import Card from '@/src/components/section/Card/Card';
 import FooterLinks from '@/src/components/footer/FooterLinks/FooterLinks';
 import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { userState } from '@/src/state/atoms';
 
 const cn = classNames.bind(styles);
 
 export interface SharedLink {
   id: number;
-  createdAt?: string;
-  created_at?: string;
+  created_at: string;
+  updated_at: string;
   url: string;
   title: string;
   description: string;
-  imageSource?: string;
-  image_source?: string;
+  image_source: string;
+  folder_id: number;
 }
 
-interface Props {
-  links: SharedLink[];
-}
-
-export async function getStaticProps() {
-  const { folder } = await getFolder();
-  const links: SharedLink[] = folder.links;
-
-  return {
-    props: {
-      links,
-    },
-  };
-}
-
-export default function SharePage({ links }: Props) {
+export default function SharePage() {
+  const [user] = useRecoilState(userState);
   const [keyword, setKeyword] = useState('');
+  const [linkList, setLinkList] = useState<SharedLink[]>([]);
+  const router = useRouter();
+  const { folderId } = router.query;
 
   const handleSearchOnChange = (nextKeyword: string) => {
     setKeyword(nextKeyword);
   };
 
+  useEffect(() => {
+    async function getLinks() {
+      const { data } = await getLinksById(user?.id, +folderId);
+      if (!data) return;
+      setLinkList(data);
+    }
+
+    getLinks();
+  }, [folderId]);
+
   return (
     <>
       <header className={cn('header')}>
         <Nav />
-        <Folder />
+        <Folder folderId={+folderId} userId={user.id} />
       </header>
       <section className={cn('section')}>
         <Search handleOnChange={handleSearchOnChange} />
@@ -57,7 +59,7 @@ export default function SharePage({ links }: Props) {
           </span>
         )}
         <div className="pages">
-          {links
+          {linkList
             .filter((element) => {
               const { title, url, description } = element;
               return (

@@ -1,41 +1,37 @@
-import { useEffect, useState } from 'react';
-import { getFolder } from '@/pages/api/api';
 import styles from './Folder.module.css';
 import classNames from 'classnames/bind';
+import { User } from '@/pages/folder';
+import { Folder } from '@/pages/folder';
+import { useEffect, useState } from 'react';
+import { getFolderById, getUserById } from '@/pages/api/api';
 
 const cn = classNames.bind(styles);
 
-interface FolderType {
-  id: number;
-  name: string;
-  owner: {
-    id: number;
-    name: string;
-    profileImageSource: string;
-  };
-  links: {
-    id: number;
-    createdAt: string;
-    url: string;
-    title: string;
-    description: string;
-    imageSource: string;
-  }[];
-  count: number;
+interface Props {
+  folderId: number;
+  userId: number;
 }
 
-export default function Folder() {
-  const [folder, setFolder] = useState<FolderType | null>(null);
+export default function Folder({ folderId, userId }: Props) {
+  const [user, setUser] = useState<User>(null);
+  const [folder, setFolder] = useState<Folder>(null);
 
   useEffect(() => {
-    async function applyGetFolder() {
-      const nextFolder = await getFolder();
-      if (!nextFolder) return;
-      setFolder(nextFolder.folder);
+    async function getUser() {
+      const { data } = await getUserById(userId);
+      if (!data) return;
+      setUser(data[0]);
     }
 
-    applyGetFolder();
-  }, []);
+    async function getFolder() {
+      const { data } = await getFolderById(+folderId);
+      if (!data) return;
+      setFolder(data[0]);
+    }
+
+    getFolder();
+    getUser();
+  }, [userId, folderId]);
 
   return (
     <div className={cn('information')}>
@@ -43,12 +39,10 @@ export default function Folder() {
         <div className={cn('user-info')}>
           <img
             className={cn('owner-profile')}
-            src={folder?.owner.profileImageSource || '/images/logo.svg'}
+            src={user?.image_source || '/images/logo.svg'}
             alt="소유자 프로필"
           />
-          <span className={cn('owner-name')}>
-            {folder?.owner.name || 'anonymous'}
-          </span>
+          <span className={cn('owner-name')}>{user?.name || 'anonymous'}</span>
         </div>
         <div className={cn('folder-name')}>{folder?.name || 'Linkbrary'}</div>
       </div>
