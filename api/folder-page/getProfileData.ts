@@ -1,6 +1,4 @@
-import { fetchWithGet } from '@api/instance/fetchWithGet';
-
-const GET_PROFILE_DATA_API = '/api/users/1';
+import { getWithAccessToken } from '@api/instance/getWithAccessToken';
 
 export interface IProfileData {
   id: number;
@@ -15,8 +13,10 @@ interface IProfileDataResponse {
   data: IProfileData[];
 }
 
+const GET_PROFILE_DATA_API = '/api/users';
+
 const getProfileData = async () => {
-  return fetchWithGet<IProfileDataResponse>(GET_PROFILE_DATA_API);
+  return getWithAccessToken<IProfileDataResponse>(GET_PROFILE_DATA_API);
 };
 
 export { getProfileData };

@@ -2,11 +2,11 @@ import { AxiosRequestConfig } from 'axios';
 
 import { getObjectTypeError } from '@api/util/getObjectTypeError';
 
-import { axiosInstance } from './axiosInstance';
+import { axiosToken } from './axiosToken';
 
-const fetchWithGet = async <T>(endPoint: string, qs?: AxiosRequestConfig['params']): Promise<T> => {
+const getWithAccessToken = async <T>(endPoint: string, qs?: AxiosRequestConfig['params']): Promise<T> => {
   try {
-    const response = await axiosInstance.get<T>(endPoint, {
+    const response = await axiosToken.get<T>(endPoint, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -16,10 +16,10 @@ const fetchWithGet = async <T>(endPoint: string, qs?: AxiosRequestConfig['params
 
     return response.data;
   } catch (error) {
-    console.error('🚀 ~ fetchWithGet ~ error:', error);
+    console.error('🚀 ~ getWithAccessToken ~ error:', error);
 
     throw getObjectTypeError(error);
   }
 };
 
-export { fetchWithGet };
+export { getWithAccessToken };

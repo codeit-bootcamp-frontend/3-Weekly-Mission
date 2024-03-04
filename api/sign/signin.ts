@@ -1,4 +1,4 @@
-import { fetchWithPost } from '@api/instance/fetachWithPost';
+import { fetchWithPost } from '@api/instance/fetchWithPost';
 
 interface SigninParams {
   email: string;

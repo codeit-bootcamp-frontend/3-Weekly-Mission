@@ -1,9 +1,4 @@
-import { fetchWithGet } from '@api/instance/fetchWithGet';
-
-/**
- * 유저가 가지고 있는 링크 읽기(선택한 폴더 링크들 가져옴)
- */
-const GET_FOLDER_LINKS_DATA_API = '/api/users/1/links';
+import { getWithAccessToken } from '@api/instance/getWithAccessToken';
 
 export type TFolderLink = {
   id: number;
@@ -17,13 +12,20 @@ export type TFolderLink = {
 };
 
 interface ISortedFolderLinksDataResponse {
-  data: TFolderLink[];
+  data: {
+    folder: TFolderLink[];
+  };
 }
 
+/**
+ * 유저가 가지고 있는 링크 읽기(선택한 폴더 링크들 가져옴)
+ */
+const GET_FOLDER_LINKS_DATA_API = '/api/links';
+
 const getSortedFolderLinksData = async (folderId: '' | number) => {
-  return fetchWithGet<ISortedFolderLinksDataResponse>(
+  return getWithAccessToken<ISortedFolderLinksDataResponse>(
     GET_FOLDER_LINKS_DATA_API,
-    (folderId && `folderId=${folderId}`) as string,
+    folderId ? { folderId } : undefined,
   );
 };
 

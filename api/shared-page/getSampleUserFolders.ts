@@ -13,9 +13,15 @@ export type TSampleFolderLink = {
 
 export type TSampleFolderUserInfo = {
   id: number;
+  /**
+   * 폴더명
+   */
   name: string;
   owner: {
     id: number;
+    /**
+     * 폴더 주인 이름
+     */
     name: string;
     profileImageSource: string;
   };
