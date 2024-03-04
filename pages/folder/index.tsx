@@ -66,11 +66,14 @@ export default function FolderPage({ user }: Props) {
     toggleModalClick();
   };
   useEffect(() => {
-    if (router.asPath.length > 7) {
+    if (router.asPath.length > 7 && folderNameList) {
       const folderId = router.asPath.slice(8);
-      const findFolder = folderNameList?.find(
+      const findFolder = folderNameList.find(
         (folder) => folder.id === +folderId
       );
+      if (!findFolder) {
+        router.push("/404");
+      }
       const nextName = { name: findFolder?.name, id: folderId };
       setFolderName((prev) => nextName || prev);
     }
