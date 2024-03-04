@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import getAllCard from "@/api/getAllCard";
 import getFolderList from "@/api/getFolderList";
-import AddLink from "@/components/folder/AddLink/AddLink";
+import AddLink from "@/components/Folder/AddLink/AddLink";
 import ModalCreate from "@/components/modals/ModalCreate";
 import useModal from "@/hooks/useModal";
 import { CardInterface, FolderInterface } from "@/types/types";
@@ -8,10 +9,12 @@ import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 import * as S from "./FolderPage.style";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
-import FolderTag from "@/components/folder/FolderTag/FolderTag";
-import FolderMake from "@/components/folder/FolderMake/FolderMake";
-import FolderModify from "@/components/folder/FolderModify/FolderModify";
+import FolderTag from "@/components/Folder/FolderTag/FolderTag";
+import FolderMake from "@/components/Folder/FolderMake/FolderMake";
+import FolderModify from "@/components/Folder/FolderModify/FolderModify";
 import CardList from "@/components/common/CardList/CardList";
+import useAuth from "@/hooks/useAuth";
+import { useRouter } from "next/router";
 
 const INITIAL: FolderInterface = {
   id: "",
@@ -24,14 +27,16 @@ export default function FolderPage() {
   const [current, setCurrent] = useState(INITIAL);
   const [keyword, setKeyword] = useState("");
   const { modal, handleOpen, handleClose } = useModal();
+  const { user } = useAuth(true);
+  const router = useRouter();
 
   const getFolderTag = useCallback(async () => {
-    const { data } = await getFolderList();
-    setFolderList(() => [INITIAL, ...data]);
+    const { data } = await getFolderList(user?.id);
+    setFolderList(() => [INITIAL, ...data?.folder]);
   }, []);
 
   const getCard = useCallback(async (current: FolderInterface) => {
-    const data = await getAllCard(current.id);
+    const data = await getAllCard(user?.id, current.id);
     if (data) {
       const next = {
         id: current.id,
@@ -48,6 +53,10 @@ export default function FolderPage() {
   }, []);
 
   useEffect(() => {
+    if (!user) {
+      router.push("/signin");
+      return;
+    }
     getFolderTag();
     getCard(current);
   }, [getFolderTag, getCard, current]);
