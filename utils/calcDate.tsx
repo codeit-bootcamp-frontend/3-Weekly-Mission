@@ -10,7 +10,7 @@ export default function calcDate(value: string = "") {
     return "";
   };
 
-  let minute: number = (current.getTime() - +createdDate) / 1000 / 60;
+  let minute: number = (current.getTime() - createdDate.getTime()) / 1000 / 60;
   let unit = subCalc(minute, 60, "minute");
   if (unit) return unit;
 
