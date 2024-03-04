@@ -39,7 +39,6 @@ export default function Navbar({ user }: Props) {
 function NavProfile({ user }: Props) {
   const userEmail = user?.email;
   const source = user?.imageSource;
-  console.log(user);
 
   return (
     <div className="userProfile">

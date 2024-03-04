@@ -1,5 +1,5 @@
 import React from "react";
-import { getFolderData } from "../../apis/api";
+import { getFolderData, getLinkList } from "../../apis/api";
 import { ApiFunc, VoidFunc } from "../../types/functionType";
 import { FolderData } from "./../../types/dataTypes";
 import styled from "styled-components";
@@ -14,6 +14,7 @@ interface Props {
   setFolderName: React.Dispatch<React.SetStateAction<string>>;
   setCardListItem: (callback?: ApiFunc) => void;
   folderName: string;
+  userId?: string;
 }
 
 export default function FolderListButton({
@@ -22,6 +23,7 @@ export default function FolderListButton({
   setFolderName,
   setCardListItem,
   folderName,
+  userId,
 }: Props) {
   const router = useRouter();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,7 +37,7 @@ export default function FolderListButton({
 
   const handleEntireClick = () => {
     setFolderName("전체");
-    setCardListItem();
+    setCardListItem(() => getLinkList(userId));
     router.push("/folder");
   };
 

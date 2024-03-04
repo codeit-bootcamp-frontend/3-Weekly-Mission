@@ -23,9 +23,10 @@ interface Props {
 
 export default function FolderPage({ user }: Props) {
   const router = useRouter();
-  const accessToken = localStorage.getItem("accessToken");
-  if (!accessToken) {
-    router.push("/signin");
+  let getFolderDataFunc = () => getLinkList(user?.id);
+  if (router.asPath.length > 7) {
+    const folderId = router.asPath.slice(8);
+    getFolderDataFunc = () => getFolderData(folderId);
   }
   const {
     data: cardListItem,
@@ -37,7 +38,7 @@ export default function FolderPage({ user }: Props) {
     fetchData: (callback?: ApiFunc) => void;
     setData: React.Dispatch<React.SetStateAction<CardItem[] | null>>;
     isLoading: boolean;
-  } = useFetchData(() => getLinkList(user?.id));
+  } = useFetchData(getFolderDataFunc);
   const folderNameList: FolderData[] =
     useFetchData(() => getFolderList()).data || [];
   const [folderName, setFolderName] = useState("전체");
@@ -65,10 +66,11 @@ export default function FolderPage({ user }: Props) {
       const findFolder = folderNameList.find(
         (folder) => folder.id === +folderId
       );
-      if (findFolder) {
-        setCardListItem(() => getFolderData(folderId));
-      }
       setFolderName(findFolder?.name || "전체");
+    }
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      router.push("/signin");
     }
   }, [folderNameList]);
 
@@ -111,6 +113,7 @@ export default function FolderPage({ user }: Props) {
             setFolderName={setFolderName}
             setCardListItem={setCardListItem}
             folderName={folderName}
+            userId={user?.id}
           />
           <FolderNameLine
             handleModalButtonClick={handleModalButtonClick}
