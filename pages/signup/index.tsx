@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import getCheckEmail from "@/api/getCheckEmail";
 import getSignUp from "@/api/getSignUp";
 import SignForm from "@/components/sign/SignForm/SignForm";
 import useSignValid from "@/hooks/useSignValid";
 import * as S from "./SignUpPage.style";
 import Input from "@/components/sign/Input/Input";
+import useAuth from "@/hooks/useAuth";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -16,30 +17,20 @@ export default function SignUpPage() {
     password: passwordValue,
     passwordAgain: passwordAgainValue,
   } = inputValue;
-
-  useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      router.push("/folder");
-    }
-  });
+  const { user, login } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const responseCheckEmail = await getCheckEmail(emailValue);
-    if (!responseCheckEmail) {
-      setIsDuplicated(true);
-      return;
-    }
     setIsDuplicated(false);
     if (passwordValue !== passwordAgainValue) {
       return;
     }
-    const responseSignup = await getSignUp(emailValue, passwordValue);
-    if (!responseSignup) {
-      return;
-    } else {
-      localStorage.setItem("accessToken", responseSignup.data.accessToken);
+    try {
+      const { data } = await getSignUp(emailValue, passwordValue);
+      await login(emailValue, passwordValue);
       router.push("/folder");
+    } catch {
+      return;
     }
   };
 
