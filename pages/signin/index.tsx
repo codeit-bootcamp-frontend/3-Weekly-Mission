@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import getSignIn from "@/api/getSignIn";
@@ -5,6 +6,7 @@ import useSignValid from "@/hooks/useSignValid";
 import * as S from "./SignInPage.style";
 import SignForm from "@/components/sign/SignForm/SignForm";
 import Input from "@/components/sign/Input/Input";
+import useAuth from "@/hooks/useAuth";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -15,27 +17,28 @@ export default function SignInPage() {
     password: passwordValue,
     passwordAgain: passwordAgainValue,
   } = inputValue;
-
-  useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      router.push("/folder");
-    }
-  });
+  const { user, login } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (existError.email.existError) {
       return;
     }
-    const responseSignin = await getSignIn(emailValue, passwordValue);
-    if (!responseSignin) {
+    try {
+      await login(emailValue, passwordValue);
+      setWrong(false);
+      router.push("/folder");
+    } catch {
       setWrong(true);
       return;
     }
-    setWrong(false);
-    localStorage.setItem("accessToken", responseSignin.data.accessToken);
-    router.push("/folder");
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push("/folder");
+    }
+  }, [user]);
 
   return (
     <>
