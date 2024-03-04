@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { signInAPI } from "../../api/signApi";
 import Input from "../common/Input";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signInValidation } from "../../utils/validationSchemas";
 
 const cx = classNames.bind(styles);
 interface FormData {
@@ -20,7 +22,10 @@ export default function SignInForm() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<FormData>({ mode: "onBlur" });
+  } = useForm<FormData>({
+    mode: "onBlur",
+    resolver: yupResolver(signInValidation),
+  });
 
   const router = useRouter();
   if (typeof localStorage !== "undefined") {
@@ -71,8 +76,6 @@ export default function SignInForm() {
         label="이메일"
         placeholder="이메일을 입력해 주세요"
         register={register}
-        required={true}
-        pattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
         error={errors.email}
       />
       <Input
@@ -81,8 +84,6 @@ export default function SignInForm() {
         label="비밀번호"
         placeholder="비밀번호를 입력해 주세요"
         register={register}
-        required={true}
-        minLength={8}
         error={errors.password}
       />
       <div>

@@ -6,6 +6,8 @@ import { checkEmail, signUpAPI } from "../../api/signApi";
 import { useRouter } from "next/navigation";
 import Input from "../common/Input";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signUpValidation } from "../../utils/validationSchemas";
 
 const cx = classNames.bind(styles);
 interface FormData {
@@ -21,8 +23,10 @@ export default function SignUpForm() {
     formState: { errors },
     setError,
     getValues,
-    watch,
-  } = useForm<FormData>({ mode: "onBlur" });
+  } = useForm<FormData>({
+    mode: "onBlur",
+    resolver: yupResolver(signUpValidation),
+  });
 
   const router = useRouter();
   if (typeof localStorage !== "undefined") {
@@ -76,8 +80,6 @@ export default function SignUpForm() {
         label="이메일"
         placeholder="이메일을 입력해 주세요"
         register={register}
-        required={true}
-        pattern={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
         error={errors.email}
         onBlur={handleEmailCheckOnblur}
       />
@@ -87,8 +89,6 @@ export default function SignUpForm() {
         label="비밀번호"
         placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요"
         register={register}
-        required={true}
-        minLength={8}
         error={errors.password}
       />
       <Input
@@ -97,9 +97,7 @@ export default function SignUpForm() {
         label="비밀번호 확인"
         placeholder="비밀번호와 일치하는 값을 입력해 주세요"
         register={register}
-        required={true}
         error={errors.confirmPassword}
-        watch={watch}
       />
       <div>
         <button id="loginButton" type="submit">

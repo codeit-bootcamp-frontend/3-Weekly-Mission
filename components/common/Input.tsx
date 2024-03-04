@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import React from "react";
-import { FieldError, UseFormRegister, UseFormWatch } from "react-hook-form";
+import { FieldError, UseFormRegister } from "react-hook-form";
 import styles from "./input.module.scss";
 
 const cx = classNames.bind(styles);
@@ -11,12 +11,8 @@ interface InputProps {
   label: string;
   placeholder?: string;
   register: UseFormRegister<any>;
-  required?: boolean;
-  minLength?: number;
-  pattern?: RegExp;
   onBlur?: () => void;
   error?: FieldError | undefined;
-  watch?: UseFormWatch<any>;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -25,12 +21,9 @@ const Input: React.FC<InputProps> = ({
   label,
   placeholder,
   register,
-  required = false,
-  minLength,
-  pattern,
   onBlur,
   error,
-  watch,
+  ...props
 }) => {
   return (
     <div>
@@ -43,25 +36,9 @@ const Input: React.FC<InputProps> = ({
         id={name}
         placeholder={placeholder}
         {...register(name, {
-          required: required && {
-            value: required,
-            message: `${label}을(를) 입력해주세요.`,
-          },
-          minLength: minLength && {
-            value: minLength,
-            message: `${label}은(는) 최소 ${minLength}자 이상 입력해주세요.`,
-          },
-          pattern: pattern && {
-            value: pattern,
-            message: `${label}의 형식이 올바르지 않습니다.`,
-          },
-          validate: (value: string) => {
-            if (watch && watch("password") !== value) {
-              return "비밀번호가 일치하지 않아요";
-            }
-          },
           onBlur: onBlur && onBlur,
         })}
+        {...props}
       />
       {error && <div className={cx("error-message")}>{error.message}</div>}
     </div>
