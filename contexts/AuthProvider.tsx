@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await getMyUser();
   }
 
-  // 로그아웃 API?
+  // ㄹ그아웃 유저 정보 삭제 -> 로그아웃 API??
   async function logout() {
     setValues((prev) => ({
       ...prev,
