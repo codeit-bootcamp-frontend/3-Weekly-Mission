@@ -7,7 +7,7 @@ import SignForm from '@components/ui/molecules/form/sign-form';
 
 import { signin } from '@api/sign/signin';
 import { useFormOnSubmit } from '@hooks/useFormOnSubmit';
-import { setAccessToken } from '@utils/local-storage/setAccessToken';
+import { setToken } from '@utils/local-storage/setToken';
 
 import { SIGN, SIGNIN_REGISTER_OPTIONS, SUBMIT_ERROR_MSG_LIST } from '@/constant/sign/sign';
 import { SigninInputs } from '@/interface/sign/sign';
@@ -32,10 +32,11 @@ const SigninForm = ({ router }: SigninFormProps) => {
     onSubmit: async (inputs) => {
       try {
         const res = await signin({ email: inputs.email, password: inputs.password });
-        setAccessToken(res.data.accessToken);
+        setToken({ accessToken: res.data.accessToken, refreshToken: res.data.refreshToken });
         reset();
         router.push('/folder');
-      } catch {
+      } catch (error) {
+        console.log(error);
         SUBMIT_ERROR_MSG_LIST.forEach(({ name, message }) => {
           setError(name, {
             message,
