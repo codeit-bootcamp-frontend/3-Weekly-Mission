@@ -1,6 +1,5 @@
 import { AxiosError } from "axios";
 import axios from "./axios";
-import { SignUpDataType } from "@/types/dataTypes";
 
 export async function getEmailCheck(email: object) {
   let message = "";
@@ -43,6 +42,16 @@ export async function postSignIn(data: object) {
       localStorage.setItem("accessToken", res.data.data.accessToken);
     }
     return res;
+  } catch (e) {
+    const error = e as AxiosError;
+    return error.request;
+  }
+}
+
+export async function getUser() {
+  try {
+    const res = await axios.get(`/users`);
+    return res.data;
   } catch (e) {
     const error = e as AxiosError;
     return error.request;

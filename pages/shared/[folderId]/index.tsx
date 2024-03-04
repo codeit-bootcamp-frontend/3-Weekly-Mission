@@ -18,7 +18,7 @@ import { codeitLogo } from "@/public/img";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   // 아직 userId가 명확하지 않아 11로 고정
-  const userId = "11";
+  const userId = "25";
   const folderId = context.params?.folderId;
 
   return {
@@ -47,7 +47,7 @@ export default function SharedPage({ userId, folderId }: Props) {
     isLoading: boolean;
   } = useFetchData(() => getFolderData(folderId, userId!));
   const folderData: FolderData[] =
-    useFetchData(() => getFolderList(userId!)).data || [];
+    useFetchData(() => getFolderList(userId)).data || [];
 
   const ownerData: OwnerData[] =
     useFetchData(() => getOwner(userId!)).data || [];

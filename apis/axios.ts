@@ -17,4 +17,14 @@ axios.interceptors.request.use(
   }
 );
 
+axios.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  (error) => {
+    console.error(error);
+    return Promise.reject(error);
+  }
+);
+
 export default axios;

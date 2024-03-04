@@ -30,7 +30,7 @@ export default function FolderListButton({
     const { target } = event;
     if (target instanceof HTMLButtonElement) {
       setFolderName(target.name);
-      setCardListItem(() => getFolderData(target.id));
+      setCardListItem(() => getFolderData(target.id, userId));
       router.push(`/folder`, `/folder/${target.id}`);
     }
   };

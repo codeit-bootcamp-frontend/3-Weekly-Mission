@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import LinkSearchForm from "@/components/LinkSearchForm/LinkSearchForm";
 import LinkAddForm from "@/components/LinkAddForm/LinkAddForm";
 import { getFolderData, getFolderList, getLinkList } from "@/apis/api";
@@ -18,15 +18,15 @@ import Spinner from "@/components/Spinner/Spinner";
 import { useRouter } from "next/router";
 
 interface Props {
-  user?: NavbarUserInfo;
+  user: NavbarUserInfo;
 }
 
 export default function FolderPage({ user }: Props) {
   const router = useRouter();
-  let getFolderDataFunc = () => getLinkList(user?.id);
+  let getFolderDataFunc = () => getLinkList(user.id);
   if (router.asPath.length > 7) {
     const folderId = router.asPath.slice(8);
-    getFolderDataFunc = () => getFolderData(folderId);
+    getFolderDataFunc = () => getFolderData(folderId, user.id);
   }
   const {
     data: cardListItem,
@@ -39,8 +39,11 @@ export default function FolderPage({ user }: Props) {
     setData: React.Dispatch<React.SetStateAction<CardItem[] | null>>;
     isLoading: boolean;
   } = useFetchData(getFolderDataFunc);
-  const folderNameList: FolderData[] =
-    useFetchData(() => getFolderList()).data || [];
+  const {
+    data: folderNameList,
+    fetchData,
+  }: { data: FolderData[]; fetchData: (callback?: ApiFunc) => void } =
+    useFetchData(() => getFolderList(user?.id));
   const [folderName, setFolderName] = useState("전체");
   const [isModalClicked, setIsModalClicked] = useState(false);
   const [modalId, setModalId] = useState("");
@@ -59,22 +62,31 @@ export default function FolderPage({ user }: Props) {
     setModalUrl(url);
     toggleModalClick();
   };
-
   useEffect(() => {
     if (router.asPath.length > 7) {
       const folderId = router.asPath.slice(8);
-      const findFolder = folderNameList.find(
+      const findFolder = folderNameList?.find(
         (folder) => folder.id === +folderId
       );
-      setFolderName(findFolder?.name || "전체");
+      console.log(findFolder);
+      setFolderName((prev) => findFolder?.name || prev);
     }
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
       router.push("/signin");
+      return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderNameList]);
+  useEffect(() => {
+    if (user) {
+      fetchData();
+      setCardListItem();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
-  if (cardLisLoading) {
+  if (cardLisLoading || !user || !folderNameList) {
     return (
       <SpinnerContainer>
         <Spinner />
