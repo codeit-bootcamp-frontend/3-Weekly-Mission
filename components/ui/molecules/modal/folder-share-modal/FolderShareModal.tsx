@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { useSNSShare } from '@hooks/useSNSShare';
+import { getUserId } from '@utils/session-storage/getUserId';
 
 import Modal from '..';
 import { StModalSubText } from '../StModalSubText';
-
-import { useFolderStore } from '@/store/folderStore';
 
 type TFolderShareModalProps = {
   modalName?: string;
@@ -20,15 +20,16 @@ type TFolderShareModalProps = {
  */
 const FolderShareModal = ({ modalName = '폴더 공유', folderName, closeModal }: TFolderShareModalProps) => {
   const [origin, setOriginAfterMount] = useState('');
-  // const [url, setUrlAfterMount] = useState('');
 
+  // /shared?user=1&folder=307
   // 지금 위치한 곳은 /folder인데 {호스트 주소}/shared?user={현재 로그인 중인 유저 ID}&folder={현재 열려있는 폴더 ID}
   useEffect(() => {
     setOriginAfterMount(window.location.origin);
   }, []);
 
-  // TODO: useFolderStore에 state 담는 작업은 아직 안했음.
-  const { userId, folderId } = useFolderStore((state) => ({ userId: state.userId, folderId: state.currentFolderId }));
+  const router = useRouter();
+  const folderId = useMemo(() => router.query?.folderId?.toString?.() ?? '', [router.query?.folderId]);
+  const userId = getUserId();
 
   const { shareToFacebook, shareToKakaotalk, copyFolderUrl } = useSNSShare({
     title: 'Linkbrary',

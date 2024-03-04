@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useContext } from 'react';
 
 export type TCardProviderContext = {
-  //   [key: string]: any;
+  [key: string]: any;
   linkId: number;
   createdAt: string;
   description: string | null;

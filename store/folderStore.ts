@@ -1,4 +1,4 @@
-import { FolderCategoryDataWithIdTotal } from '@pages/folder/index.page';
+import { FolderCategoryDataWithIdTotal } from '@pages/folder/comp/article/comp/card-container/comp/folder-link-category/hooks/useGetFolderCategoryList';
 
 import { createWithEqualityFn } from './custom/traditional';
 import { shallow } from './custom/vanilla/shallow';
