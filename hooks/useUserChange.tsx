@@ -20,7 +20,6 @@ const useUserChange = (setUser: SetUser) => {
       if (!userInfo) {
         throw new Error("유저 정보가 없습니다!");
       }
-      console.log(userInfo);
       const camelUserInfo = camelcaseKeys(userInfo, { deep: true });
       setUser(camelUserInfo);
     } catch (error) {

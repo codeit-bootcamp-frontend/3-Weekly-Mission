@@ -14,7 +14,7 @@ import { FolderData } from "@/types/dataTypes";
 import { kakaoIcon, modalFacebookIcon, modalShareIcon } from "@/public/img";
 
 interface Props {
-  folderName: string;
+  folderName?: string;
   itemList?: FolderData[];
   userId?: string;
 }

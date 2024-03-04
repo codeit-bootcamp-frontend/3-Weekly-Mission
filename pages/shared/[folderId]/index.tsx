@@ -17,7 +17,7 @@ import Spinner from "@/components/Spinner/Spinner";
 import { codeitLogo } from "@/public/img";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  // 아직 userId가 명확하지 않아 11로 고정
+  // 아직 userId가 명확하지 않아 25로 고정
   const userId = "25";
   const folderId = context.params?.folderId;
 

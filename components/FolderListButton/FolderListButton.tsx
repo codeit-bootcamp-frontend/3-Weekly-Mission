@@ -1,7 +1,7 @@
 import React from "react";
 import { getFolderData, getLinkList } from "../../apis/api";
-import { ApiFunc, VoidFunc } from "../../types/functionType";
-import { FolderData } from "./../../types/dataTypes";
+import { ApiFunc } from "../../types/functionType";
+import { FolderData, FolderNameType } from "./../../types/dataTypes";
 import styled from "styled-components";
 import { ModalButtonClickType } from "../../types/types";
 import Image from "next/image";
@@ -11,9 +11,9 @@ import { useRouter } from "next/router";
 interface Props {
   handleModalButtonClick: ModalButtonClickType;
   itemList?: FolderData[];
-  setFolderName: React.Dispatch<React.SetStateAction<string>>;
+  setFolderName: React.Dispatch<React.SetStateAction<FolderNameType>>;
   setCardListItem: (callback?: ApiFunc) => void;
-  folderName: string;
+  folderName: FolderNameType;
   userId?: string;
 }
 
@@ -29,14 +29,15 @@ export default function FolderListButton({
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const { target } = event;
     if (target instanceof HTMLButtonElement) {
-      setFolderName(target.name);
+      const nextFolderName = { name: target.name, id: target.id };
+      setFolderName(nextFolderName);
       setCardListItem(() => getFolderData(target.id, userId));
       router.push(`/folder`, `/folder/${target.id}`);
     }
   };
 
   const handleEntireClick = () => {
-    setFolderName("전체");
+    setFolderName({ name: "전체", id: "전체" });
     setCardListItem(() => getLinkList(userId));
     router.push("/folder");
   };
@@ -44,7 +45,7 @@ export default function FolderListButton({
   return (
     <Container>
       <Button
-        $same={folderName === "전체"}
+        $same={folderName.name === "전체"}
         type="button"
         onClick={handleEntireClick}
         as="button"
@@ -54,7 +55,7 @@ export default function FolderListButton({
       {itemList?.map((item) => {
         return (
           <Button
-            $same={folderName === item.name}
+            $same={folderName.id === String(item.id)}
             type="button"
             name={item.name}
             id={String(item.id)}

@@ -1,4 +1,5 @@
 import { modalCheckedIcon } from "@/public/img";
+import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 
@@ -6,7 +7,8 @@ interface Props {
   name: string;
   count: string | number;
   folderChecked: string;
-  onClick: (name: string) => void;
+  onClick: (id: string) => void;
+  id: string;
 }
 
 export default function AddFolderListBox({
@@ -14,16 +16,17 @@ export default function AddFolderListBox({
   count,
   folderChecked,
   onClick,
+  id,
 }: Props) {
-  const checked: boolean = name === folderChecked;
+  const checked: boolean = id === folderChecked;
   const handleClick = () => {
-    onClick(name);
+    onClick(id);
   };
   return (
     <>
       <Box onClick={handleClick}>
         <Name>{name}</Name> <Count>{count}개 링크</Count>
-        {checked && <Image src={modalCheckedIcon} alt={name + "체크됨"} />}
+        {checked && <Img src={modalCheckedIcon} alt={name + "체크됨"} />}
       </Box>
     </>
   );
@@ -51,6 +54,6 @@ const Count = styled.span`
   color: #9fa6b2;
 `;
 
-const Image = styled.img`
+const Img = styled(Image)`
   margin-left: auto;
 `;

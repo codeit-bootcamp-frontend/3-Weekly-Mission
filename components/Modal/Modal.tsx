@@ -12,7 +12,7 @@ import { closeButton } from "@/public/img";
 import { ModalFormType } from "@/types/modalTypes";
 
 interface Props {
-  folderName: string;
+  folderName?: string;
   modalId: string;
   toggleModalClick?: VoidFunc;
   modalUrl?: string;
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export default function Modal({
-  folderName,
+  folderName = "",
   modalId,
   toggleModalClick,
   modalUrl,

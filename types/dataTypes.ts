@@ -9,6 +9,11 @@ export interface FolderData {
   };
 }
 
+export interface FolderNameType {
+  name?: string;
+  id?: string;
+}
+
 export interface FolderOwnerData {
   name: string;
   imageSource: string;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LinkSearchForm from "@/components/LinkSearchForm/LinkSearchForm";
 import LinkAddForm from "@/components/LinkAddForm/LinkAddForm";
 import { getFolderData, getFolderList, getLinkList } from "@/apis/api";
@@ -12,7 +12,7 @@ import Modal from "@/components/Modal/Modal";
 import styled from "styled-components";
 import { NavbarUserInfo } from "@/types/userType";
 import { ApiFunc, VoidFunc } from "@/types/functionType";
-import { CardItem, FolderData } from "@/types/dataTypes";
+import { CardItem, FolderData, FolderNameType } from "@/types/dataTypes";
 import SearchResult from "@/components/SearchResult/SearchResult";
 import Spinner from "@/components/Spinner/Spinner";
 import { useRouter } from "next/router";
@@ -44,7 +44,10 @@ export default function FolderPage({ user }: Props) {
     fetchData,
   }: { data: FolderData[]; fetchData: (callback?: ApiFunc) => void } =
     useFetchData(() => getFolderList(user?.id));
-  const [folderName, setFolderName] = useState("전체");
+  const [folderName, setFolderName] = useState<FolderNameType>({
+    name: "전체",
+    id: "전체",
+  });
   const [isModalClicked, setIsModalClicked] = useState(false);
   const [modalId, setModalId] = useState("");
   const [modalUrl, setModalUrl] = useState("");
@@ -68,8 +71,8 @@ export default function FolderPage({ user }: Props) {
       const findFolder = folderNameList?.find(
         (folder) => folder.id === +folderId
       );
-      console.log(findFolder);
-      setFolderName((prev) => findFolder?.name || prev);
+      const nextName = { name: findFolder?.name, id: folderId };
+      setFolderName((prev) => nextName || prev);
     }
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
@@ -101,7 +104,7 @@ export default function FolderPage({ user }: Props) {
           user={user}
           itemList={folderNameList}
           modalUrl={modalUrl}
-          folderName={folderName}
+          folderName={folderName.name}
           modalId={modalId}
           toggleModalClick={toggleModalClick}
         />
@@ -129,7 +132,7 @@ export default function FolderPage({ user }: Props) {
           />
           <FolderNameLine
             handleModalButtonClick={handleModalButtonClick}
-            folderName={folderName}
+            folderName={folderName.name}
           />
           {cardListItem ? (
             <CardList

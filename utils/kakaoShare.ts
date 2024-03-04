@@ -4,7 +4,7 @@ declare global {
   }
 }
 
-export const shareKakao = (url: string, folderName: string) => {
+export const shareKakao = (url: string, folderName?: string) => {
   if (!window.Kakao.isInitialized()) {
     const key = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
     if (!key) {
