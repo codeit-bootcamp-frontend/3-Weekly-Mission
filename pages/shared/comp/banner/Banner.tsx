@@ -1,13 +1,17 @@
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 
-import { TSampleFolderUserInfo } from '@api/shared-page/getSampleUserFolders';
+import { ProcessedFolderOwnerProfile } from '@pages/shared/[folderId].page';
 
 import styles from './Banner.module.css';
 
 const cn = classNames.bind(styles);
 
-const Banner = ({ userInfo }: { userInfo: TSampleFolderUserInfo | null }) => {
+const Banner = ({
+  folderOwnerInfo: { name, image_source, folderName },
+}: {
+  folderOwnerInfo: ProcessedFolderOwnerProfile;
+}) => {
   return (
     <div className={cn('hero-banner')}>
       <div className={cn('avatar-box')}>
@@ -16,12 +20,12 @@ const Banner = ({ userInfo }: { userInfo: TSampleFolderUserInfo | null }) => {
             fill
             className={cn('avatar')}
             alt='아바타'
-            src={!userInfo ? '/images/shared/shared-avatar.svg' : userInfo.owner.profileImageSource}
+            src={!image_source ? '/images/shared/shared-avatar.svg' : image_source}
           />
         </div>
-        <span className={cn('folder-owner')}>{userInfo ? userInfo.owner.name : '@코드잇'}</span>
+        <span className={cn('folder-owner')}>{name}</span>
       </div>
-      <h1 className={cn('folder-name')}>{userInfo ? userInfo.name : '⭐️ 즐겨찾기'}</h1>
+      <h1 className={cn('folder-name')}>{folderName}</h1>
     </div>
   );
 };
