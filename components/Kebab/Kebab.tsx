@@ -5,7 +5,7 @@ import Image from "next/image";
 import { kebabIcon } from "@/public/img";
 
 interface Props {
-  handleModalButtonClick: ModalButtonClickType | null;
+  handleModalButtonClick?: ModalButtonClickType;
   url: string;
 }
 

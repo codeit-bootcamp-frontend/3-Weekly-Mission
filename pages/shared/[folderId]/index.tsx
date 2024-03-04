@@ -98,11 +98,7 @@ export default function SharedPage({ userId, folderId }: Props) {
         />
         {isSearch ? <SearchResult searchName={searchName} /> : null}
         {cardListItem ? (
-          <CardList
-            itemList={cardListItem}
-            toggle={false}
-            handleModalButtonClick={null}
-          />
+          <CardList itemList={cardListItem} toggle={false} />
         ) : null}
       </div>
     </main>

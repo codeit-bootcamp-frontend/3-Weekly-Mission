@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import styled from "styled-components";
 import { CardItem } from "../../types/dataTypes";
-import { ApiFunc, VoidFunc } from "../../types/functionType";
+import { ApiFunc } from "../../types/functionType";
 import Image from "next/image";
 import { closeButton, searchIcon } from "@/public/img";
 

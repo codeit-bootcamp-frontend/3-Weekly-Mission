@@ -9,7 +9,7 @@ import Image from "next/image";
 import { defaultImg, starIcon } from "@/public/img";
 
 interface Props {
-  handleModalButtonClick: ModalButtonClickType | null;
+  handleModalButtonClick?: ModalButtonClickType;
   item: CardItem;
   toggle: boolean;
 }

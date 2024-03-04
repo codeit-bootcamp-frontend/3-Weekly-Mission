@@ -9,5 +9,5 @@ export default function FolderPage() {
     router.push("/folder", `/folder/${folderId}`);
   }
 
-  return <div>???</div>;
+  return null;
 }
