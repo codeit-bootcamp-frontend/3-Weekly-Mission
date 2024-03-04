@@ -1,17 +1,17 @@
+import { ParsedUrlQuery } from 'querystring';
+
 import { Dispatch, SetStateAction, useEffect } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { NextRouter } from 'next/router';
 
 import FolderAddModal from '@components/ui/molecules/modal/folder-add-modal/FolderAddModal';
-import { useFolderPageServerSideProp } from '@pages/folder/context/folderPageContext';
 
 import { useModal } from '@hooks/useModal';
 
 import styles from './FolderLinkCategory.module.css';
 import { useGetFolderCategoryList } from './hooks/useGetFolderCategoryList';
-
-import { useFolderStore } from '@/store/folderStore';
 
 type TFolderLinkCategoryProps = {
   selectedFolderId: number | 'total';
@@ -21,22 +21,28 @@ type TFolderLinkCategoryProps = {
       folderName: string;
     }>
   >;
+  router: NextRouter;
 };
 
-const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName }: TFolderLinkCategoryProps) => {
-  // ssr로 받아온 폴더 카테고리 리스트 state에 initial state로 주입시킴
-  // prerendering 이용하면서 폴더 추가했을 때 client 쪽에서 ajax로 처리하는 방식
-  const initialFolderCategoryList = useFolderPageServerSideProp();
-  const { folderCategoryList } = useGetFolderCategoryList(initialFolderCategoryList);
-  const setFolderCategoryList = useFolderStore((state) => state.setFolderCategoryList);
-  useEffect(() => {
-    setFolderCategoryList(folderCategoryList);
-  }, [folderCategoryList, setFolderCategoryList]);
+interface FolderIdQuery extends ParsedUrlQuery {
+  folderId?: string[];
+}
+
+const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName, router }: TFolderLinkCategoryProps) => {
+  const folderCategoryList = useGetFolderCategoryList();
 
   const { openModal } = useModal();
 
-  // userId는 걍 로컬 스토리지에 저장하고 가져오는 게 좋을까?
-  const userId = useFolderStore((state) => state.userId);
+  useEffect(() => {
+    const { folderId } = router.query as FolderIdQuery;
+
+    handleFolderIdAndName({
+      folderId: folderId ? Number(folderId) : 'total',
+      folderName: folderId
+        ? (folderCategoryList.find((folderCategory) => folderCategory.id === Number(folderId[0]))?.name as string)
+        : '전체',
+    });
+  }, [folderCategoryList, router]);
 
   return (
     <>
@@ -46,7 +52,9 @@ const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName }: TFolder
             {folderCategoryList.map((folder) => (
               <Link
                 // ? userId에는 현재 로그인 중인 유저 id를 넣기. 가 맞나?
-                href={{ search: `user=${userId}&folder=${folder.id}` }}
+                // ? 페이지 url path 경로만 바꾸고 페이지 전환은 하지 않는 방법은 없나?
+                // href={{ pathname: `/folder${folder.id === 'total' ? '' : `/${encodeURIComponent(folder.id)}`}` }}
+                href={`/folder${folder.id === 'total' ? '' : `/${encodeURIComponent(folder.id)}`}`}
                 type='button'
                 className={`${styles['folder-link-category-btn']} ${
                   selectedFolderId === folder.id ? styles.selected : ''
