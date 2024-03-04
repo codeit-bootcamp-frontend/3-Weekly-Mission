@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { NavbarUserInfo } from "@/types/userType";
 import { getUser } from "@/apis/api";
 import Script from "next/script";
+import camelcaseKeys from "camelcase-keys";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState<NavbarUserInfo>();
@@ -21,7 +22,8 @@ export default function App({ Component, pageProps }: AppProps) {
       if (!userInfo) {
         throw new Error("유저 정보가 없습니다!");
       }
-      setUser(userInfo);
+      const camelUserInfo = camelcaseKeys(userInfo, { deep: true });
+      setUser(camelUserInfo);
     } catch (error) {
       console.log(error);
     }
