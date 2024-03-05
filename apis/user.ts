@@ -12,14 +12,21 @@ export async function getEmailCheck(email: object) {
 
     return message;
   } catch (e) {
-    const error = e as AxiosError;
-    if (error.response?.status === 409) {
-      message = "이미 사용 중인 이메일입니다.";
-      return message;
+    if (e instanceof AxiosError) {
+      if (e.response?.status === 409) {
+        message = "이미 사용 중인 이메일입니다.";
+        return message;
+      }
     }
     message = "올바른 이메일 주소가 아닙니다.";
     return message;
   }
+}
+function getErrorRequest(e: unknown) {
+  if (e instanceof AxiosError) {
+    return e.request;
+  }
+  throw new Error(`AxiosError와 다른 오류 발생!! : ${e}`);
 }
 
 export async function postSignUp(data: object) {
@@ -30,8 +37,7 @@ export async function postSignUp(data: object) {
     }
     return res;
   } catch (e) {
-    const error = e as AxiosError;
-    return error.request;
+    return getErrorRequest(e);
   }
 }
 
@@ -43,8 +49,7 @@ export async function postSignIn(data: object) {
     }
     return res;
   } catch (e) {
-    const error = e as AxiosError;
-    return error.request;
+    return getErrorRequest(e);
   }
 }
 
@@ -53,7 +58,6 @@ export async function getUser() {
     const res = await axios.get(`/users`);
     return res.data;
   } catch (e) {
-    const error = e as AxiosError;
-    return error.request;
+    return getErrorRequest(e);
   }
 }
