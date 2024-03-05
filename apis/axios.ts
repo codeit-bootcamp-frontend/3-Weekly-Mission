@@ -7,7 +7,9 @@ const axios = baseAxios.create({
 axios.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("accessToken");
-    config.headers.Authorization = `Bearer ${accessToken}`;
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
 
     return config;
   },
