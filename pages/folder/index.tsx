@@ -23,6 +23,12 @@ interface Props {
 
 export default function FolderPage({ user }: Props) {
   const router = useRouter();
+  if (typeof window !== "undefined") {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      router.push("/signin");
+    }
+  }
   let getFolderDataFunc = () => getLinkList(user.id);
   if (router.asPath.length > 7) {
     const folderId = router.asPath.slice(8);
@@ -80,11 +86,6 @@ export default function FolderPage({ user }: Props) {
       }
       const nextName = { name: findFolder?.name, id: folderId };
       setFolderName((prev) => nextName || prev);
-    }
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      router.push("/signin");
-      return;
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
