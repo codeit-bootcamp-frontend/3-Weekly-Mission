@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export interface FolderLink {
   id: number;
   created_at: Date;
@@ -63,14 +61,6 @@ export interface FormInput {
   emailSignup: string;
   password: string;
   passwordConfirm: string;
-}
-
-export interface AuthButtonProps {
-  children: ReactNode;
-}
-
-export interface SocialLoginProps {
-  children: ReactNode;
 }
 
 export interface CheckEmail {

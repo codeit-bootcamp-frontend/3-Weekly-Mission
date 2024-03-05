@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SocialLoginProps } from "@/lib/types";
 import styles from "./SocialLogin.module.css";
 
-const SocialLogin = ({ children }: SocialLoginProps) => {
+const SocialLogin = ({ children = "소셜 로그인" }: { children: string }) => {
   return (
     <div className={styles.SocialLogin}>
       <span className={styles.text}>{children}</span>
