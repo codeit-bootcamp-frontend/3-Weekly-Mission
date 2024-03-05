@@ -66,6 +66,10 @@ export default function FolderPage({ user }: Props) {
     toggleModalClick();
   };
   useEffect(() => {
+    if (user) {
+      fetchData();
+      setCardListItem();
+    }
     if (router.asPath.length > 7 && folderNameList) {
       const folderId = router.asPath.slice(8);
       const findFolder = folderNameList.find(
@@ -82,13 +86,7 @@ export default function FolderPage({ user }: Props) {
       router.push("/signin");
       return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [folderNameList]);
-  useEffect(() => {
-    if (user) {
-      fetchData();
-      setCardListItem();
-    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
