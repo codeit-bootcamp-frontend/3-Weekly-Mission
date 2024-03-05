@@ -15,10 +15,10 @@ const ModalContentBox = ({ children }) => {
   return <div className={cx("modalContent")}>{children}</div>;
 };
 
-const ModalButton = ({ buttonColor, onClick, children }) => {
+const ModalButton = ({ buttonColor, onClick, text }) => {
   return (
     <button className={cx(`modal-button-${buttonColor}`)} onClick={onClick}>
-      {children}
+      {text}
     </button>
   );
 };
@@ -34,6 +34,22 @@ const ModalCloseButton = ({ closeModal }) => {
   );
 };
 
+const Modal = ({ children, closeModal, buttonColor, text }) => {
+  return (
+    <ModalLayout>
+      <ModalContentBox>
+        <ModalCloseButton closeModal={closeModal} />
+        {children}
+        <ModalButton
+          buttonColor={buttonColor}
+          onClick={closeModal}
+          text={text}
+        />
+      </ModalContentBox>
+    </ModalLayout>
+  );
+};
+
 export const AddToFolderModal = ({ closeModal }: ModalProps) => {
   const [FolderList, setFolderList] = useState<UserFolder[]>();
   useEffect(() => {
@@ -43,131 +59,93 @@ export const AddToFolderModal = ({ closeModal }: ModalProps) => {
     handleload();
   }, []);
   return (
-    <ModalLayout>
-      <ModalContentBox>
-        <ModalCloseButton closeModal={closeModal} />
-        <div className={cx("modal-title-box")}>
-          <div className={cx("modal-title")}>폴더에 추가하기</div>
-          <div className={cx("modal-title-subtitle")}>링크 주소</div>
-        </div>
-        <ul className={cx("addToFolderModal-folderList")}>
-          {FolderList?.map((folder) => {
-            return (
-              <li
-                className={cx("addToFolderModal-folderName-box")}
-                key={folder.id}
-              >
-                <div className={cx("addToFolderModal-folderName")}>
-                  {folder.name}
-                </div>
-                <div
-                  className={cx("addToFolderModal-folderLinkLength")}
-                >{`${folder.link.count}개 링크`}</div>
-              </li>
-            );
-          })}
-        </ul>
-        <ModalButton buttonColor="blue" onClick={closeModal}>
-          추가하기
-        </ModalButton>
-      </ModalContentBox>
-    </ModalLayout>
+    <Modal closeModal={closeModal} buttonColor="blue" text="추가하기">
+      <div className={cx("modal-title-box")}>
+        <div className={cx("modal-title")}>폴더에 추가하기</div>
+        <div className={cx("modal-title-subtitle")}>링크 주소</div>
+      </div>
+      <ul className={cx("addToFolderModal-folderList")}>
+        {FolderList?.map((folder) => {
+          return (
+            <li
+              className={cx("addToFolderModal-folderName-box")}
+              key={folder.id}
+            >
+              <div className={cx("addToFolderModal-folderName")}>
+                {folder.name}
+              </div>
+              <div
+                className={cx("addToFolderModal-folderLinkLength")}
+              >{`${folder.link.count}개 링크`}</div>
+            </li>
+          );
+        })}
+      </ul>
+    </Modal>
   );
 };
 
 export const AddFolderModal = ({ closeModal }: ModalProps) => (
-  <ModalLayout>
-    <ModalContentBox>
-      <ModalCloseButton closeModal={closeModal} />
-      <div className={cx("modal-title")}>폴더 추가</div>
-      <input className={cx("modal-input")} />
-      <ModalButton buttonColor="blue" onClick={closeModal}>
-        추가하기
-      </ModalButton>
-    </ModalContentBox>
-  </ModalLayout>
+  <Modal closeModal={closeModal} buttonColor="blue" text="추가하기">
+    <div className={cx("modal-title")}>폴더 추가</div>
+    <input className={cx("modal-input")} />
+  </Modal>
 );
 
 export const ShareModal = ({ closeModal, selectedModalName }: ModalProps) => (
-  <ModalLayout>
-    <ModalContentBox>
-      <ModalCloseButton closeModal={closeModal} />
-      <div className={cx("modal-title-box")}>
-        <div className={cx("modal-title")}>폴더 공유</div>
-        <div className={cx("modal-title-subtitle")}>{selectedModalName}</div>
+  <Modal closeModal={closeModal} buttonColor="blue" text="닫기">
+    <div className={cx("modal-title-box")}>
+      <div className={cx("modal-title")}>폴더 공유</div>
+      <div className={cx("modal-title-subtitle")}>{selectedModalName}</div>
+    </div>
+    <div className={cx("shareIcon-box")}>
+      <div className={cx("shareIcon")}>
+        <img src="/images/카카오톡아이콘.png" alt="카카오톡" />
+        카카오톡
       </div>
-      <div className={cx("shareIcon-box")}>
-        <div className={cx("shareIcon")}>
-          <img src="/images/카카오톡아이콘.png" alt="카카오톡" />
-          카카오톡
-        </div>
-        <div className={cx("shareIcon")}>
-          <img src="/images/페이스북아이콘.png" alt="페이스북" />
-          페이스북
-        </div>
-        <div className={cx("shareIcon")}>
-          <img
-            onClick={copyToClipboard}
-            src="/images/링크복사아이콘.png"
-            alt="링크복사"
-          />
-          링크 복사
-        </div>
+      <div className={cx("shareIcon")}>
+        <img src="/images/페이스북아이콘.png" alt="페이스북" />
+        페이스북
       </div>
-      <ModalButton buttonColor="blue" onClick={closeModal}>
-        닫기
-      </ModalButton>
-    </ModalContentBox>
-  </ModalLayout>
+      <div className={cx("shareIcon")}>
+        <img
+          onClick={copyToClipboard}
+          src="/images/링크복사아이콘.png"
+          alt="링크복사"
+        />
+        링크 복사
+      </div>
+    </div>
+  </Modal>
 );
 
 export const RenameModal = ({ closeModal, selectedModalName }: ModalProps) => (
-  <ModalLayout>
-    <ModalContentBox>
-      <ModalCloseButton closeModal={closeModal} />
-      <div className={cx("modal-title")}>폴더 이름 변경</div>
-      <input className={cx("modal-input")} defaultValue={selectedModalName} />
-      <ModalButton buttonColor="blue" onClick={closeModal}>
-        변경하기
-      </ModalButton>
-    </ModalContentBox>
-  </ModalLayout>
+  <Modal closeModal={closeModal} buttonColor="blue" text="변경하기">
+    <div className={cx("modal-title")}>폴더 이름 변경</div>
+    <input className={cx("modal-input")} defaultValue={selectedModalName} />
+  </Modal>
 );
 
 export const DeleteFolderModal = ({
   closeModal,
   selectedModalName,
 }: ModalProps) => (
-  <ModalLayout>
-    <ModalContentBox>
-      <ModalCloseButton closeModal={closeModal} />
-      <div className={cx("modal-title-box")}>
-        <div className={cx("modal-title")}>폴더 삭제</div>
-        <div className={cx("modal-title-subtitle")}>{selectedModalName}</div>
-      </div>
-      <ModalButton buttonColor="red" onClick={closeModal}>
-        삭제하기
-      </ModalButton>
-    </ModalContentBox>
-  </ModalLayout>
+  <Modal closeModal={closeModal} buttonColor="red" text="삭제하기">
+    <div className={cx("modal-title-box")}>
+      <div className={cx("modal-title")}>폴더 삭제</div>
+      <div className={cx("modal-title-subtitle")}>{selectedModalName}</div>
+    </div>
+  </Modal>
 );
 
 export const DeleteItemModal = ({
   closeModal,
   selectedModalItem,
 }: ModalProps) => (
-  <ModalLayout>
-    <ModalContentBox>
-      <ModalCloseButton closeModal={closeModal} />
-      <div className={cx("modal-title-box")}>
-        <div className={cx("modal-title")}>링크 삭제</div>
-        <div className={cx("modal-title-subtitle")}>
-          {selectedModalItem?.url}
-        </div>
-      </div>
-      <ModalButton buttonColor="red" onClick={closeModal}>
-        삭제하기
-      </ModalButton>
-    </ModalContentBox>
-  </ModalLayout>
+  <Modal closeModal={closeModal} buttonColor="red" text="삭제하기">
+    <div className={cx("modal-title-box")}>
+      <div className={cx("modal-title")}>링크 삭제</div>
+      <div className={cx("modal-title-subtitle")}>{selectedModalItem?.url}</div>
+    </div>
+  </Modal>
 );

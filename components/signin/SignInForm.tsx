@@ -2,49 +2,37 @@
 
 import classNames from "classnames/bind";
 import styles from "./SignInForm.module.scss";
-import { useState } from "react";
-import EmailInput from "../common/EmailInput";
-import PasswordInput from "../common/PasswordInput";
 import { useRouter } from "next/navigation";
 import { signInAPI } from "../../api/signApi";
+import Input from "../common/Input";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signInValidation } from "../../utils/validationSchemas";
 
 const cx = classNames.bind(styles);
+interface FormData {
+  email: string;
+  password: string;
+  confirmPassword?: string;
+}
 
 export default function SignInForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<FormData>({
+    mode: "onBlur",
+    resolver: yupResolver(signInValidation),
+  });
+
   const router = useRouter();
   if (typeof localStorage !== "undefined") {
     if (localStorage.getItem("accessToken")) {
       router.replace("/folder");
     }
   }
-
-  const handleEmailBlur = () => {
-    if (!email) {
-      setEmailError("이메일을 입력해 주세요.");
-    } else if (!validateEmail(email)) {
-      setEmailError("올바른 이메일 주소가 아닙니다.");
-    } else {
-      setEmailError("");
-    }
-  };
-
-  const handlePasswordBlur = () => {
-    if (!password) {
-      setPasswordError("비밀번호를 입력해 주세요.");
-    } else {
-      setPasswordError("");
-    }
-  };
-
-  const handleTogglePassword = () => {
-    setPasswordError("");
-    setIsVisiblePassword((prevState) => !prevState);
-  };
 
   const handleLogin = async (email: string, password: string) => {
     try {
@@ -55,46 +43,48 @@ export default function SignInForm() {
         localStorage.setItem("accessToken", data.accessToken);
         router.push("/folder");
       } else {
-        const data = await response.json();
-        setEmailError(data.error && "이메일을 확인해 주세요.");
-        setPasswordError(data.error && "비밀번호를 확인해 주세요.");
+        if (response.status > 200) {
+          setError("email", {
+            type: "400",
+            message: "이메일을 확인해 주세요",
+          });
+          setError("password", {
+            type: "400",
+            message: "비밀번호를 확인해 주세요",
+          });
+        }
       }
     } catch (error) {
       console.error("로그인 오류:", error);
     }
   };
 
-  const validateEmail = (email: string): boolean => {
-    const emailPattern = /\S+@\S+\.\S+/;
-    return emailPattern.test(email);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = (data: FormData) => {
+    const { email, password } = data;
     handleLogin(email, password);
   };
 
   return (
     <form
       className={cx("loginForm")}
-      action=""
       id="loginForm"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
-      <EmailInput
-        email={email}
-        handleEmailBlur={handleEmailBlur}
-        setEmail={setEmail}
-        emailError={emailError}
+      <Input
+        type="email"
+        name="email"
+        label="이메일"
+        placeholder="이메일을 입력해 주세요"
+        register={register}
+        error={errors.email}
       />
-      <PasswordInput
-        isVisiblePassword={isVisiblePassword}
-        password={password}
-        handlePasswordBlur={handlePasswordBlur}
-        setPassword={setPassword}
-        handleTogglePassword={handleTogglePassword}
-        passwordError={passwordError}
-        placeholder="비밀번호를 입력해주세요"
+      <Input
+        type="password"
+        name="password"
+        label="비밀번호"
+        placeholder="비밀번호를 입력해 주세요"
+        register={register}
+        error={errors.password}
       />
       <div>
         <button id="loginButton" type="submit">

@@ -24,19 +24,8 @@
   border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
 }
 
-.password-container {
-  position: relative;
-}
-
-.password-container img {
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  top: 47px;
-  right: 15px;
-}
-
 .input-error {
+  display: inline;
   border: 1px solid var(--Linkbrary-red, #ff5b56);
 }
 

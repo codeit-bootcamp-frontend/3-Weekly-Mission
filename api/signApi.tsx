@@ -9,7 +9,7 @@ export async function signInAPI(email: string, password: string) {
   return response;
 }
 
-export async function checkEmail(email: string): Promise<boolean> {
+export async function checkEmail(email: string) {
   const response = await fetch(
     "https://bootcamp-api.codeit.kr/api/check-email",
     {
@@ -20,8 +20,7 @@ export async function checkEmail(email: string): Promise<boolean> {
       body: JSON.stringify({ email }),
     }
   );
-  const { error } = await response.json();
-  return error;
+  return response;
 }
 
 export async function signUpAPI(email: string, password: string) {
