@@ -1,31 +1,15 @@
 import styles from './cardlist.module.css'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Card } from '@/components/atomicComponents/Card'
 import DeleteModal from '@/components/atomicComponents/Modals/DeleteModal'
-import { MODALS_ID } from '@/components/FolderBar/constants'
+import { MODALS_ID } from '@/constants/folder'
 import AddLinkToFolder from '@/components/atomicComponents/Modals/AddLinkToFolder'
 import { useGetFolders } from '@/libs/client/useGetFolders'
-type CardListProps = {
-  links: {
-    id: string
-    title: string
-    url: string
-    image_source: string
-    alt: string
-    description: string
-    elapsedTime: string
-    created_at: string
-  }[]
-}
-interface Folder {
-  id: string
-  createdAt: string
-  name: string
-  userId: number
-  linkCount: number
-}
-export const CardList = ({ links }: CardListProps) => {
-  const cardListRef = useRef(null)
+import { Folder, Links } from '@/types/folder'
+import NoLink from '@/components/NoLink'
+import { FETCH_FOLDER_DATA_ERROR } from '@/constants/errorMessage'
+
+export const CardList = ({ links }: { links: Links[] }) => {
   const [selectedFolderId, setSelectedFolderId] = useState<string>('all')
   const [currentModal, setCurrentModal] = useState<string>('')
   const [selectedLinkUrl, setSelectedLinkUrl] = useState<string>('')
@@ -37,17 +21,19 @@ export const CardList = ({ links }: CardListProps) => {
         const folders = await useGetFolders()
         setFolders(folders)
       } catch (error) {
-        console.error('폴더를 가져오는데 실패했습니다:', error)
+        console.error(FETCH_FOLDER_DATA_ERROR, error)
       }
     }
     fetchFolders()
   }, [])
   const closeModal = () => setCurrentModal('')
+
+  if (links === undefined || links.length === 0) return <NoLink />
   return (
-    <div className={styles.container} ref={cardListRef}>
+    <div className={styles.container}>
       {links.map((link, index) => (
         <Card
-          key={link?.id}
+          key={index}
           {...link}
           onDeleteClick={() => {
             setSelectedLinkUrl(link?.url ?? '')
@@ -72,7 +58,6 @@ export const CardList = ({ links }: CardListProps) => {
         isOpen={currentModal === MODALS_ID.addToFolder}
         folders={folders}
         description={selectedLinkUrl}
-        onAddClick={() => {}}
         onCloseClick={() => {
           setSelectedFolderId('all')
           closeModal()

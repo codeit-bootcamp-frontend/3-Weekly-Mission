@@ -2,23 +2,14 @@ import React, { MouseEventHandler, useRef, useState } from 'react'
 import { CardContent } from '@/components/atomicComponents/CardContent'
 import styles from './card.module.css'
 import { convertDate, timeSince } from '@/utils/dateUtils'
-
-type CardProps = {
-  url: string
-  image_source: string
-  alt: string
-  description: string
-  created_at: string
-  onDeleteClick: () => void
-  onAddToFolderClick: () => void
-}
+import { CardProps } from '@/types/card'
 
 export const Card = ({
   url,
-  image_source,
+  imageSource,
   alt,
   description,
-  created_at,
+  createdAt,
   onDeleteClick,
   onAddToFolderClick,
 }: CardProps) => {
@@ -47,14 +38,14 @@ export const Card = ({
     <a href={url} target="_blank" rel="noopener noreferrer">
       <div className={styles.container}>
         <img
-          src={image_source || DEFAULT_IMAGE}
-          className={styles.cardImage}
+          src={imageSource || DEFAULT_IMAGE}
+          className={styles.card_image}
           alt={alt}
         />
         <CardContent
-          elapsedTime={timeSince(created_at)}
+          elapsedTime={timeSince(createdAt)}
           description={description}
-          createdAt={convertDate(created_at)}
+          createdAt={convertDate(createdAt)}
         />
         <button
           className={styles.star}

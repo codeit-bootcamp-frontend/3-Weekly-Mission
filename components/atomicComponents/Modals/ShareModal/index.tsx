@@ -1,56 +1,45 @@
 import styles from './shareModal.module.css'
-import { FC, MouseEventHandler } from 'react'
+import Modal from '@/components/atomicComponents/Modals/modal'
+import Link from 'next/link'
+import { ShareModalProps } from '@/types/modal'
 
-type ShareModalProps = {
-  isOpen: boolean
-  folderName: string
-  onKakaoClick: MouseEventHandler<HTMLButtonElement>
-  onFacebookClick: MouseEventHandler<HTMLButtonElement>
-  onLinkCopyClick: MouseEventHandler<HTMLButtonElement>
-  onCloseClick: MouseEventHandler<HTMLDivElement | HTMLButtonElement>
-}
-
-const Modal: FC<ShareModalProps> = ({
+const ShareModal = ({
   isOpen,
   folderName,
   onKakaoClick,
-  onFacebookClick,
+  shareLink,
   onLinkCopyClick,
   onCloseClick,
-}) => {
+}: ShareModalProps) => {
   if (!isOpen) return null
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContainer}>
-        <button onClick={onCloseClick}>
-          <img
-            className={styles.close}
-            src="/images/close.svg"
-            alt="X모양 닫기 버튼"
-          />
-        </button>
-        <div className={styles.items}>
-          <h2 className={styles.title}>폴더 공유</h2>
-          <p className={styles.description}>{folderName}</p>
-          <div className={styles.modalContent}>
-            <button className={styles.button} onClick={onKakaoClick}>
-              <img src="/images/modal/kakao.svg" alt="Kakao Icon" />
-              <span>카카오톡</span>
-            </button>
-            <button className={styles.button} onClick={onFacebookClick}>
+    <Modal onCloseClick={onCloseClick}>
+      <div className={styles.items}>
+        <h2 className={styles.title}>폴더 공유</h2>
+        <p className={styles.description}>{folderName}</p>
+        <div className={styles.modal_content}>
+          <button className={styles.button} onClick={onKakaoClick}>
+            <img src="/images/modal/kakao.svg" alt="Kakao Icon" />
+            <span>카카오톡</span>
+          </button>
+          <Link
+            href={`https://www.facebook.com/sharer/sharer.php?u=${shareLink}`}
+            target="_blank"
+          >
+            <button className={styles.button}>
               <img src="/images/modal/facebook.svg" alt="Facebook Icon" />
               <span>페이스북</span>
             </button>
-            <button className={styles.button} onClick={onLinkCopyClick}>
-              <img src="/images/modal/link.svg" alt="Link Icon" />
-              <span>링크 복사</span>
-            </button>
-          </div>
+          </Link>
+          <button className={styles.button} onClick={onLinkCopyClick}>
+            <img src="/images/modal/link.svg" alt="Link Icon" />
+            <span>링크 복사</span>
+          </button>
         </div>
       </div>
-    </div>
+    </Modal>
   )
 }
 
-export default Modal
+export default ShareModal

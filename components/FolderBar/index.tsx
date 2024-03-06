@@ -2,38 +2,37 @@ import styles from './folderbar.module.css'
 import FolderButton from '@/components/atomicComponents/FolderButton'
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { BUTTONS, MODALS_ID } from '@/components/FolderBar/constants'
+import { BUTTONS, MODALS_ID } from '@/constants/folder'
 import InputModal from '@/components/atomicComponents/Modals/InputModal'
 import DeleteModal from '@/components/atomicComponents/Modals/DeleteModal'
 import ShareModal from '@/components/atomicComponents/Modals/ShareModal'
+import { FolderBarProps } from '@/types/folder'
 
-interface FolderBarProps {
-  folders: {
-    folder: {
-      id: string
-      name: string
-    }[]
-  }
-  selectedFolderId: String
-  onFolderClick: React.Dispatch<React.SetStateAction<string>>
-  openModal: (modalId: string) => void
-}
-const FolderBar: React.FC<FolderBarProps> = ({
+const FolderBar = ({
   folders,
   selectedFolderId,
   onFolderClick,
-}) => {
+  shareLink,
+}: FolderBarProps) => {
   const folderName =
     'all' === selectedFolderId
       ? '전체'
-      : folders.folder?.find(({ id }) => id === selectedFolderId)?.name ?? ''
+      : folders.find(({ id }) => id === selectedFolderId)?.name ?? ''
   const [currentModal, setCurrentModal] = useState<string | null>(null)
   const [inputValue, setInputValue] = useState<string>('')
-  const closeModal = () => setCurrentModal(null)
-  const handleKakaoClick = () => {}
-  const handleFacebookClick = () => {}
+  shareLink += `/${selectedFolderId}`
 
-  const handleLinkCopyClick = () => {}
+  const closeModal = () => setCurrentModal(null)
+  const handleKakaoClick = () => {
+    alert('아직 제공되지 않습니다.')
+  }
+
+  const handleLinkCopyClick = () => {
+    navigator.clipboard
+      .writeText(shareLink)
+      .then(() => alert('폴더 URL이 복사되었습니다: '))
+      .catch((error) => console.error('클립보드 복사 실패:', error))
+  }
 
   return (
     <div className={styles.container}>
@@ -41,10 +40,10 @@ const FolderBar: React.FC<FolderBarProps> = ({
         <FolderButton
           key="all"
           text="전체"
-          onClick={(id) => onFolderClick('all')}
+          onClick={() => onFolderClick('all')}
           isSelected={'all' === selectedFolderId}
         />
-        {folders.folder?.map(({ id, name }) => (
+        {folders?.map(({ id, name }) => (
           <FolderButton
             key={id}
             text={name}
@@ -53,8 +52,8 @@ const FolderBar: React.FC<FolderBarProps> = ({
           />
         ))}
       </div>
-      <div
-        className={styles.addButton}
+      <button
+        className={styles.add_button}
         onClick={() => setCurrentModal(MODALS_ID.addFolder)}
       >
         <span>폴더 추가</span>
@@ -64,8 +63,8 @@ const FolderBar: React.FC<FolderBarProps> = ({
           width={16}
           alt="폴더추가 버튼"
         />
-      </div>
-      <div className={styles.folderName}>
+      </button>
+      <div className={styles.folder_name}>
         <h2>{folderName}</h2>
       </div>
 
@@ -87,46 +86,45 @@ const FolderBar: React.FC<FolderBarProps> = ({
               <span className={styles.buttons_container_text}>{text}</span>
             </button>
           ))}
-
-          <InputModal
-            isOpen={currentModal === MODALS_ID.addFolder}
-            title="폴더 추가"
-            placeholder="내용 입력"
-            buttonText="추가하기"
-            onCloseClick={closeModal}
-            value={inputValue}
-            themeColor="blue"
-            onChange={(event) => setInputValue(event.target.value)}
-          />
-
-          <InputModal
-            isOpen={currentModal === MODALS_ID.rename}
-            title="폴더 이름 변경"
-            placeholder="내용 입력"
-            buttonText="변경하기"
-            onCloseClick={closeModal}
-            themeColor="blue"
-            value={folderName}
-            onChange={(event) => setInputValue(event.target.value)}
-          />
-          <DeleteModal
-            isOpen={currentModal === MODALS_ID.delete}
-            title="폴더 삭제"
-            description={folderName}
-            buttonText="삭제하기"
-            onCloseClick={closeModal}
-            themeColor="red"
-          />
-          <ShareModal
-            isOpen={currentModal === MODALS_ID.share}
-            folderName={folderName}
-            onKakaoClick={handleKakaoClick}
-            onFacebookClick={handleFacebookClick}
-            onLinkCopyClick={handleLinkCopyClick}
-            onCloseClick={closeModal}
-          />
         </div>
       )}
+      <InputModal
+        isOpen={currentModal === MODALS_ID.addFolder}
+        title="폴더 추가"
+        placeholder="내용 입력"
+        buttonText="추가하기"
+        onCloseClick={closeModal}
+        value={inputValue}
+        themeColor="blue"
+        onChange={(event) => setInputValue(event.target.value)}
+      />
+
+      <InputModal
+        isOpen={currentModal === MODALS_ID.rename}
+        title="폴더 이름 변경"
+        placeholder="내용 입력"
+        buttonText="변경하기"
+        onCloseClick={closeModal}
+        themeColor="blue"
+        value={folderName}
+        onChange={(event) => setInputValue(event.target.value)}
+      />
+      <DeleteModal
+        isOpen={currentModal === MODALS_ID.delete}
+        title="폴더 삭제"
+        description={folderName}
+        buttonText="삭제하기"
+        onCloseClick={closeModal}
+        themeColor="red"
+      />
+      <ShareModal
+        isOpen={currentModal === MODALS_ID.share}
+        folderName={folderName}
+        onKakaoClick={handleKakaoClick}
+        shareLink={shareLink}
+        onLinkCopyClick={handleLinkCopyClick}
+        onCloseClick={closeModal}
+      />
     </div>
   )
 }

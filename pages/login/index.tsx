@@ -7,6 +7,13 @@ import useSignUpForm from '@/hooks/useSignUpForm'
 import { LoginForm } from '@/types/sign'
 import Input from '@/components/atomicComponents/Input'
 import { emailPattern, passwordPattern } from '@/utils/regexPatterns'
+import { withAuth } from '@/contexts/AuthProvider'
+import {
+  EMAIL_FORMAT_INVALID,
+  EMAIL_IS_EMPTY,
+  PASSWORD_FORMAT_INVALID,
+  PASSWORD_IS_EMPTY,
+} from '@/constants/errorMessage'
 import { useLoginUser } from '@/libs/client/useLoginUser'
 
 const Login: NextPage = () => {
@@ -25,7 +32,7 @@ const Login: NextPage = () => {
       <div className={styles.sign_box}>
         <form
           id="sign_form"
-          className={styles.signForm}
+          className={styles.sign_form}
           onSubmit={handleSubmit(onValid)}
         >
           <div className={styles.sign_box_inputs}>
@@ -35,10 +42,10 @@ const Login: NextPage = () => {
               name="email"
               register={register}
               validationRules={{
-                required: '이메일을 입력해주세요.',
+                required: EMAIL_IS_EMPTY,
                 pattern: {
                   value: emailPattern,
-                  message: '올바른 이메일 형식이 아닙니다.',
+                  message: EMAIL_FORMAT_INVALID,
                 },
               }}
               error={errors.email?.message}
@@ -49,10 +56,10 @@ const Login: NextPage = () => {
               name="password"
               register={register}
               validationRules={{
-                required: '패스워드를 입력해주세요.',
+                required: PASSWORD_IS_EMPTY,
                 pattern: {
                   value: passwordPattern,
-                  message: '영문, 숫자 조합 8자 이상 입력해주세요.',
+                  message: PASSWORD_FORMAT_INVALID,
                 },
               }}
               error={errors.password?.message}
@@ -66,5 +73,10 @@ const Login: NextPage = () => {
     </main>
   )
 }
-
+export const getServerSideProps = withAuth(
+  async (context, user) => {
+    return { props: {} }
+  },
+  { reverseRedirect: true },
+)
 export default Login

@@ -1,5 +1,5 @@
 import styles from '@/styles/signin.module.css'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { NextPage } from 'next'
 import SignHeader from '@/components/SignHeader'
 import { LoginForm } from '@/types/sign'
@@ -7,10 +7,20 @@ import useSignUpForm from '@/hooks/useSignUpForm'
 import useTogglePassword from '@/hooks/useTogglePassword'
 import Input from '@/components/atomicComponents/Input'
 import { useRouter } from 'next/router'
-
 import { emailPattern, passwordPattern } from '@/utils/regexPatterns'
-import { useSignUpUser } from '@/libs/client/useSignUpUser'
 import { useCheckDuplicateEmail } from '@/libs/client/useCheckDuplicateEmail'
+import { withAuth } from '@/contexts/AuthProvider'
+import {
+  EMAIL_ALREADY_IN_USE_MESSAGE,
+  EMAIL_FORMAT_INVALID,
+  EMAIL_IS_EMPTY,
+  PASSWORD_CHECK_IS_EMPTY,
+  PASSWORD_FORMAT_INVALID,
+  PASSWORD_IS_EMPTY,
+  PASSWORD_IS_NOT_MATCH,
+  SERVER_ERROR,
+} from '@/constants/errorMessage'
+import { useSignUpUser } from '@/libs/client/useSignUpUser'
 
 const SignUp: NextPage = () => {
   const { register, handleSubmit, errors, password, email } = useSignUpForm()
@@ -20,15 +30,11 @@ const SignUp: NextPage = () => {
 
   const onValid = async (data: LoginForm) => {
     try {
-      await useSignUpUser(data)
+      useSignUpUser(data)
       await router.push('/folder')
     } catch (error) {
       console.log(error)
     }
-  }
-  const handleBlur = async () => {
-    console.log('===handleBlur===')
-    //await useCheckDuplicateEmail(email)
   }
 
   return (
@@ -37,7 +43,7 @@ const SignUp: NextPage = () => {
       <div className={styles.sign_box}>
         <form
           id="sign_form"
-          className={styles.signForm}
+          className={styles.sign_form}
           onSubmit={handleSubmit(onValid)}
         >
           <div className={styles.sign_box_inputs}>
@@ -47,10 +53,10 @@ const SignUp: NextPage = () => {
               name="email"
               register={register}
               validationRules={{
-                required: '이메일을 입력해주세요.',
+                required: EMAIL_IS_EMPTY,
                 pattern: {
                   value: emailPattern,
-                  message: '올바른 이메일 형식이 아닙니다.',
+                  message: EMAIL_FORMAT_INVALID,
                 },
                 validate: {
                   asyncValidation: async (value: string) => {
@@ -59,10 +65,10 @@ const SignUp: NextPage = () => {
                       return true
                     }
                     if (response.status === 409) {
-                      return '이메일이 이미 사용 중입니다.'
+                      return EMAIL_ALREADY_IN_USE_MESSAGE
                     }
                     if (response.status === 500) {
-                      return '서버 오류가 발생했습니다. 나중에 다시 시도해주세요.'
+                      return SERVER_ERROR
                     }
                     return `${response.status}: ${response.message}`
                   },
@@ -76,10 +82,10 @@ const SignUp: NextPage = () => {
               type={showPassword.password ? 'text' : 'password'}
               register={register}
               validationRules={{
-                required: '패스워드를 입력해주세요.',
+                required: PASSWORD_IS_EMPTY,
                 pattern: {
                   value: passwordPattern,
-                  message: '영문, 숫자 조합 8자 이상 입력해주세요.',
+                  message: PASSWORD_FORMAT_INVALID,
                 },
               }}
               error={errors.password?.message}
@@ -92,9 +98,9 @@ const SignUp: NextPage = () => {
               name="passwordCheck"
               register={register}
               validationRules={{
-                required: '패스워드 확인을 입력해주세요.',
+                required: PASSWORD_CHECK_IS_EMPTY,
                 validate: (value: string) =>
-                  value === password || '비밀번호가 일치하지 않습니다.',
+                  value === password || PASSWORD_IS_NOT_MATCH,
               }}
               error={errors.passwordCheck?.message}
               toggleShowPassword={() => toggleShowPassword('passwordCheck')}
@@ -107,5 +113,12 @@ const SignUp: NextPage = () => {
     </main>
   )
 }
+
+export const getServerSideProps = withAuth(
+  async (context, user) => {
+    return { props: {} }
+  },
+  { reverseRedirect: true },
+)
 
 export default SignUp

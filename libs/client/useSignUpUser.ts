@@ -1,12 +1,9 @@
-import axios from 'axios'
 import { LoginForm } from '@/types/sign'
+import axiosInstance from '@/libs/axiosInstance'
 
 export const useSignUpUser = async (data: LoginForm) => {
   try {
-    const response = await axios.post(
-      'https://bootcamp-api.codeit.kr/api/sign-up',
-      data,
-    )
+    const response = await axiosInstance.post('/auth/sign-up', data)
     const { accessToken, refreshToken } = response.data.data
 
     const expires = new Date()
