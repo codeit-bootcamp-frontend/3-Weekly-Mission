@@ -1,18 +1,20 @@
 import React from "react";
-import { getFolderData } from "../../apis/api";
-import { VoidFunc } from "../../types/functionType";
-import { FolderData } from "./../../types/dataTypes";
+import { getFolderData, getLinkList } from "../../apis/api";
+import { ApiFunc } from "../../types/functionType";
+import { FolderData, FolderNameType } from "./../../types/dataTypes";
 import styled from "styled-components";
 import { ModalButtonClickType } from "../../types/types";
 import Image from "next/image";
 import { plusIcon } from "@/public/img";
+import { useRouter } from "next/router";
 
 interface Props {
   handleModalButtonClick: ModalButtonClickType;
   itemList?: FolderData[];
-  setFolderName: React.Dispatch<React.SetStateAction<string>>;
-  setCardListItem: (callback?: VoidFunc) => void;
-  folderName: string;
+  setFolderName: React.Dispatch<React.SetStateAction<FolderNameType>>;
+  setCardListItem: (callback?: ApiFunc) => void;
+  folderName: FolderNameType;
+  userId?: string;
 }
 
 export default function FolderListButton({
@@ -21,24 +23,29 @@ export default function FolderListButton({
   setFolderName,
   setCardListItem,
   folderName,
+  userId,
 }: Props) {
+  const router = useRouter();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const { target } = event;
     if (target instanceof HTMLButtonElement) {
-      setFolderName(target.name);
-      setCardListItem(() => getFolderData(target.id));
+      const nextFolderName = { name: target.name, id: target.id };
+      setFolderName(nextFolderName);
+      setCardListItem(() => getFolderData(target.id, userId));
+      router.push(`/folder`, `/folder/${target.id}`);
     }
   };
 
   const handleEntireClick = () => {
-    setFolderName("전체");
-    setCardListItem();
+    setFolderName({ name: "전체", id: "전체" });
+    setCardListItem(() => getLinkList(userId));
+    router.push("/folder");
   };
 
   return (
     <Container>
       <Button
-        $same={folderName === "전체"}
+        $same={folderName.name === "전체"}
         type="button"
         onClick={handleEntireClick}
         as="button"
@@ -48,7 +55,7 @@ export default function FolderListButton({
       {itemList?.map((item) => {
         return (
           <Button
-            $same={folderName === item.name}
+            $same={folderName.id === String(item.id)}
             type="button"
             name={item.name}
             id={String(item.id)}

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LinkSearchForm from "@/components/LinkSearchForm/LinkSearchForm";
 import LinkAddForm from "@/components/LinkAddForm/LinkAddForm";
-import { getFolderList, getLinkList } from "@/apis/api";
+import { getFolderData, getFolderList, getLinkList } from "@/apis/api";
 import FolderListButton from "@/components/FolderListButton/FolderListButton";
 import CardList from "@/components/CardList/CardList";
 import useFetchData from "@/hooks/useFetchData";
@@ -12,15 +12,28 @@ import Modal from "@/components/Modal/Modal";
 import styled from "styled-components";
 import { NavbarUserInfo } from "@/types/userType";
 import { ApiFunc, VoidFunc } from "@/types/functionType";
-import { CardItem, FolderData } from "@/types/dataTypes";
+import { CardItem, FolderData, FolderNameType } from "@/types/dataTypes";
 import SearchResult from "@/components/SearchResult/SearchResult";
 import Spinner from "@/components/Spinner/Spinner";
+import { useRouter } from "next/router";
 
 interface Props {
-  user?: NavbarUserInfo;
+  user: NavbarUserInfo;
 }
 
 export default function FolderPage({ user }: Props) {
+  const router = useRouter();
+  if (typeof window !== "undefined") {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      router.push("/signin");
+    }
+  }
+  let getFolderDataFunc = () => getLinkList(user.id);
+  if (router.asPath.length > 7) {
+    const folderId = router.asPath.slice(8);
+    getFolderDataFunc = () => getFolderData(folderId, user.id);
+  }
   const {
     data: cardListItem,
     fetchData: setCardListItem,
@@ -28,13 +41,19 @@ export default function FolderPage({ user }: Props) {
     isLoading: cardLisLoading,
   }: {
     data: CardItem[] | null;
-    fetchData: ApiFunc;
+    fetchData: (callback?: ApiFunc) => void;
     setData: React.Dispatch<React.SetStateAction<CardItem[] | null>>;
     isLoading: boolean;
-  } = useFetchData(() => getLinkList(user?.id));
-  const folderNameList: FolderData[] =
-    useFetchData(() => getFolderList()).data || [];
-  const [folderName, setFolderName] = useState("전체");
+  } = useFetchData(getFolderDataFunc);
+  const {
+    data: folderNameList,
+    fetchData,
+  }: { data: FolderData[]; fetchData: (callback?: ApiFunc) => void } =
+    useFetchData(() => getFolderList(user?.id));
+  const [folderName, setFolderName] = useState<FolderNameType>({
+    name: "전체",
+    id: "전체",
+  });
   const [isModalClicked, setIsModalClicked] = useState(false);
   const [modalId, setModalId] = useState("");
   const [modalUrl, setModalUrl] = useState("");
@@ -52,8 +71,30 @@ export default function FolderPage({ user }: Props) {
     setModalUrl(url);
     toggleModalClick();
   };
+  useEffect(() => {
+    if (router.asPath.length > 7 && folderNameList) {
+      const folderId = router.asPath.slice(8);
+      const findFolder = folderNameList.find(
+        (folder) => folder.id === +folderId
+      );
+      if (!findFolder) {
+        router.push("/404");
+      }
+      const nextName = { name: findFolder?.name, id: folderId };
+      setFolderName((prev) => nextName || prev);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [folderNameList]);
 
-  if (cardLisLoading) {
+  useEffect(() => {
+    if (user) {
+      fetchData();
+      setCardListItem();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  if (cardLisLoading || !user) {
     return (
       <SpinnerContainer>
         <Spinner />
@@ -68,7 +109,7 @@ export default function FolderPage({ user }: Props) {
           user={user}
           itemList={folderNameList}
           modalUrl={modalUrl}
-          folderName={folderName}
+          folderName={folderName.name}
           modalId={modalId}
           toggleModalClick={toggleModalClick}
         />
@@ -92,10 +133,11 @@ export default function FolderPage({ user }: Props) {
             setFolderName={setFolderName}
             setCardListItem={setCardListItem}
             folderName={folderName}
+            userId={user?.id}
           />
           <FolderNameLine
             handleModalButtonClick={handleModalButtonClick}
-            folderName={folderName}
+            folderName={folderName.name}
           />
           {cardListItem ? (
             <CardList

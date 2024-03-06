@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
-import CardList from "../components/CardList/CardList";
-import { getFolderData, getFolderList, getOwner } from "../apis/api";
-import LinkSearchForm from "../components/LinkSearchForm/LinkSearchForm";
-import useFetchData from "../hooks/useFetchData";
+import CardList from "@/components/CardList/CardList";
+import { getFolderData, getFolderList, getOwner } from "@/apis/api";
+import LinkSearchForm from "@/components/LinkSearchForm/LinkSearchForm";
+import useFetchData from "@/hooks/useFetchData";
 import {
   CardItem,
   FolderData,
   FolderOwnerData,
   OwnerData,
-} from "../types/dataTypes";
-import { VoidFunc } from "../types/functionType";
-import SearchResult from "../components/SearchResult/SearchResult";
+} from "@/types/dataTypes";
+import { VoidFunc } from "@/types/functionType";
+import SearchResult from "@/components/SearchResult/SearchResult";
 import Image from "next/image";
 import { GetServerSidePropsContext } from "next";
 import Spinner from "@/components/Spinner/Spinner";
 import { codeitLogo } from "@/public/img";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const userId = context.query?.user;
-  const folderId = context.query?.folder;
+  // 아직 userId가 명확하지 않아 25로 고정
+  const userId = "25";
+  const folderId = context.params?.folderId;
 
   return {
     props: {
@@ -46,7 +47,7 @@ export default function SharedPage({ userId, folderId }: Props) {
     isLoading: boolean;
   } = useFetchData(() => getFolderData(folderId, userId!));
   const folderData: FolderData[] =
-    useFetchData(() => getFolderList(userId!)).data || [];
+    useFetchData(() => getFolderList(userId)).data || [];
 
   const ownerData: OwnerData[] =
     useFetchData(() => getOwner(userId!)).data || [];
@@ -97,11 +98,7 @@ export default function SharedPage({ userId, folderId }: Props) {
         />
         {isSearch ? <SearchResult searchName={searchName} /> : null}
         {cardListItem ? (
-          <CardList
-            itemList={cardListItem}
-            toggle={false}
-            handleModalButtonClick={null}
-          />
+          <CardList itemList={cardListItem} toggle={false} />
         ) : null}
       </div>
     </main>

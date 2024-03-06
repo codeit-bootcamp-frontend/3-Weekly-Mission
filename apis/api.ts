@@ -10,39 +10,39 @@ export async function fetchJson(url: string) {
   return body;
 }
 
-export async function getUser(userId?: string) {
-  if (!userId) {
-    return;
-  }
-  const url = `${BASE_URL}users/${userId}`;
-  const response = await fetchJson(url);
-  return response;
-}
-
 export async function getShredCardList() {
   const url = `${BASE_URL}sample/folder`;
   const response = await fetchJson(url);
   return response;
 }
 
-export async function getOwner(userId: string = "11") {
+export async function getOwner(userId?: string) {
   const url = `${BASE_URL}users/${userId}`;
   const response = await fetchJson(url);
   return response;
 }
 
-export async function getFolderList(userId: string = "11") {
+export async function getFolderList(userId?: string) {
+  if (!userId) {
+    return;
+  }
   const url = `${BASE_URL}users/${userId}/folders`;
   const response = await fetchJson(url);
   return response;
 }
-export async function getLinkList(userId: string = "11") {
+export async function getLinkList(userId?: string) {
+  if (!userId) {
+    return;
+  }
   const url = `${BASE_URL}users/${userId}/links`;
   const response = await fetchJson(url);
   return response;
 }
 
-export async function getFolderData(id?: string | null, userId: string = "11") {
+export async function getFolderData(id: string, userId?: string) {
+  if (!userId) {
+    return;
+  }
   const url = `${BASE_URL}users/${userId}/links?folderId=${id}`;
   const response = await fetchJson(url);
   return response;

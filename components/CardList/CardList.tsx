@@ -6,7 +6,7 @@ import { ModalButtonClickType } from "../../types/types";
 interface Props {
   itemList: CardItem[];
   toggle: boolean;
-  handleModalButtonClick: ModalButtonClickType | null;
+  handleModalButtonClick?: ModalButtonClickType;
 }
 
 export default function CardList({

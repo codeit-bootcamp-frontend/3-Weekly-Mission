@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import styled from "styled-components";
 import { CardItem } from "../../types/dataTypes";
-import { VoidFunc } from "../../types/functionType";
+import { ApiFunc } from "../../types/functionType";
 import Image from "next/image";
 import { closeButton, searchIcon } from "@/public/img";
 
@@ -10,7 +10,7 @@ interface Props {
   setSearchName: React.Dispatch<React.SetStateAction<string>>;
   filterCardList: React.Dispatch<React.SetStateAction<CardItem[] | null>>;
   setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
-  setCardListItem: VoidFunc;
+  setCardListItem: (callback?: ApiFunc) => void;
 }
 
 export default function LinkSearchForm({

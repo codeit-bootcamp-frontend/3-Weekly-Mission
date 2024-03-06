@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import SignInput from "@/components/SignInput/SignInput";
 import { logoImg } from "@/public/img";
-import { NavbarUserInfo } from "@/types/userType";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -16,18 +15,14 @@ import {
   passwordValidator,
 } from "@/utils/signValidator";
 import { ChangeEvent } from "react";
-import axios from "@/apis/axios";
 import { EMAIL, PASSWORD } from "@/constants/sign";
+import { postSignIn } from "@/apis/user";
 
-interface Props {
-  user: NavbarUserInfo;
-}
-
-export default function signIn({ user }: Props) {
+export default function SignInPage() {
   const router = useRouter();
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("accessToken");
-    if (user || token) {
+    if (token) {
       router.push("/folder");
     }
   }
@@ -51,24 +46,19 @@ export default function signIn({ user }: Props) {
   };
 
   const successSubmit = async (data: object) => {
-    try {
-      const res = await axios.post("sign-in", data);
-      console.log(res);
-      if (res.status === 200) {
-        localStorage.setItem("accessToken", res.data.data.accessToken);
-        router.push("/folder");
-        return;
-      }
-    } catch (e) {
-      setError(EMAIL, {
-        type: "custom",
-        message: "이메일을 확인해주세요.",
-      });
-      setError(PASSWORD, {
-        type: "custom",
-        message: "비밀번호를 확인해주세요",
-      });
+    const res = await postSignIn(data);
+    if (res.status === 200) {
+      router.push("/folder");
+      return;
     }
+    setError(EMAIL, {
+      type: "custom",
+      message: "이메일을 확인해주세요.",
+    });
+    setError(PASSWORD, {
+      type: "custom",
+      message: "비밀번호를 확인해주세요",
+    });
   };
 
   return (

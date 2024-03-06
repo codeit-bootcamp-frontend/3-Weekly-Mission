@@ -7,29 +7,15 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import GlobalStyle from "@/styles/GlobalStyled";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavbarUserInfo } from "@/types/userType";
-import { getUser } from "@/apis/api";
 import Script from "next/script";
+import useUserChange from "@/hooks/useUserChange";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState<NavbarUserInfo>();
-  const checkUser = async () => {
-    try {
-      const res = await getUser();
-      const userInfo: NavbarUserInfo = res.data[0];
-      if (!userInfo) {
-        throw new Error("유저 정보가 없습니다!");
-      }
-      setUser(userInfo);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useUserChange(setUser);
 
-  useEffect(() => {
-    checkUser();
-  }, []);
   return (
     <>
       <Head>
@@ -43,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
       />
       <GlobalStyle />
       <Navbar user={user} />
-      <Component user={user} {...pageProps} />
+      <Component user={user} setUser={setUser} {...pageProps} />
       <Footer />
     </>
   );

@@ -17,8 +17,8 @@ interface Props {
 }
 export default function ModalAddLink({ url, itemList }: Props) {
   const [folderChecked, setFolderChecked] = useState("");
-  const handleCheckFolder = (name: string) => {
-    setFolderChecked(name);
+  const handleCheckFolder = (id: string) => {
+    setFolderChecked(id);
   };
   return (
     <ModalWrapper>
@@ -33,6 +33,7 @@ export default function ModalAddLink({ url, itemList }: Props) {
                 <AddFolderListBox
                   key={item.id}
                   name={item.name}
+                  id={String(item.id)}
                   count={item.link.count}
                   folderChecked={folderChecked}
                   onClick={handleCheckFolder}
