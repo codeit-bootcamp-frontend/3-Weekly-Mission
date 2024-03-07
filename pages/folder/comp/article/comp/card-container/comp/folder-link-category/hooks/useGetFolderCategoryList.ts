@@ -6,10 +6,6 @@ export interface FolderCategoryDataWithIdTotal extends Partial<Omit<TFolderCateg
   id: number | 'total';
   name: string;
 }
-/**
- *
- * @todo 이거 state랑 fetch 코드 전부 FolderPageServerSidePropContextProvider로 옮겨도 될 듯.
- */
 const useGetFolderCategoryList = () => {
   const [folderCategoryList, setFolderCategoryList] = useState<FolderCategoryDataWithIdTotal[]>([]);
 

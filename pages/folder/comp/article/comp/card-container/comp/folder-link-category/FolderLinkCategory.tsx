@@ -24,8 +24,8 @@ type TFolderLinkCategoryProps = {
   router: NextRouter;
 };
 
-interface FolderIdQuery extends ParsedUrlQuery {
-  folderId?: string[];
+export interface FolderIdQuery extends ParsedUrlQuery {
+  folderId: string[];
 }
 
 const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName, router }: TFolderLinkCategoryProps) => {
@@ -34,13 +34,14 @@ const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName, router }:
   const { openModal } = useModal();
 
   useEffect(() => {
-    const { folderId } = router.query as FolderIdQuery;
+    const { folderId: fi } = router.query as FolderIdQuery;
+    const folderId = fi?.[0];
+    const foundFolder = folderCategoryList.find((folder) => folder.id === Number(folderId));
+    const foundFolderName = foundFolder?.name ?? '전체';
 
     handleFolderIdAndName({
       folderId: folderId ? Number(folderId) : 'total',
-      folderName: folderId
-        ? (folderCategoryList.find((folderCategory) => folderCategory.id === Number(folderId[0]))?.name as string)
-        : '전체',
+      folderName: foundFolderName,
     });
   }, [folderCategoryList, router]);
 
@@ -51,10 +52,8 @@ const FolderLinkCategory = ({ selectedFolderId, handleFolderIdAndName, router }:
           <div className={styles['folder-link-category-box']}>
             {folderCategoryList.map((folder) => (
               <Link
-                // ? userId에는 현재 로그인 중인 유저 id를 넣기. 가 맞나?
-                // ? 페이지 url path 경로만 바꾸고 페이지 전환은 하지 않는 방법은 없나?
-                // href={{ pathname: `/folder${folder.id === 'total' ? '' : `/${encodeURIComponent(folder.id)}`}` }}
-                href={`/folder${folder.id === 'total' ? '' : `/${encodeURIComponent(folder.id)}`}`}
+                // ? parameter가 있는 route(dynamic route)와 없는 route를 하나의 파일에서 처리하는 방법은 없을까 (Optional Catch-all Segments routes 제외하고...)?
+                href={`/folder${folder.id === 'total' ? '' : `/${String(folder.id)}`}`}
                 type='button'
                 className={`${styles['folder-link-category-btn']} ${
                   selectedFolderId === folder.id ? styles.selected : ''

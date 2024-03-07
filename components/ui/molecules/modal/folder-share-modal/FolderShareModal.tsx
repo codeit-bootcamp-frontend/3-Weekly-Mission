@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+
+import { FolderIdQuery } from '@pages/folder/comp/article/comp/card-container/comp/folder-link-category/FolderLinkCategory';
 
 import { useSNSShare } from '@hooks/useSNSShare';
 import { getUserId } from '@utils/session-storage/getUserId';
@@ -28,14 +30,15 @@ const FolderShareModal = ({ modalName = '폴더 공유', folderName, closeModal 
   }, []);
 
   const router = useRouter();
-  const folderId = useMemo(() => router.query?.folderId?.toString?.() ?? '', [router.query?.folderId]);
+  const { folderId } = router.query as FolderIdQuery;
+  const fi = folderId.length ? folderId[0] : '';
   const userId = getUserId();
 
   const { shareToFacebook, shareToKakaotalk, copyFolderUrl } = useSNSShare({
     title: 'Linkbrary',
     origin,
     userId,
-    folderId,
+    folderId: fi,
   });
 
   const snsShareOptionsArray = [
