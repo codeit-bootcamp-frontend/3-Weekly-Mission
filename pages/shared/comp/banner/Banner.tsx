@@ -16,12 +16,7 @@ const Banner = ({
     <div className={cn('hero-banner')}>
       <div className={cn('avatar-box')}>
         <div className={cn('avatar-img__wrap')}>
-          <Image
-            fill
-            className={cn('avatar')}
-            alt='아바타'
-            src={!image_source ? '/images/shared/shared-avatar.svg' : image_source}
-          />
+          <Image fill className={cn('avatar')} alt='아바타' src={image_source ?? '/images/shared/shared-avatar.svg'} />
         </div>
         <span className={cn('folder-owner')}>{name}</span>
       </div>

@@ -59,12 +59,8 @@ export default SharedPage;
 export const getServerSideProps: GetServerSideProps<SharedPageProps> = async (context) => {
   const { folderId } = context.query as SharedPageQuery;
 
-  try {
-    if (folderId === undefined) {
-      throw new Error('folderId is undefined');
-    }
-  } catch (error) {
-    console.error(getStringTypeError(error));
+  if (folderId === undefined) {
+    console.error('folderId is undefined');
 
     return {
       redirect: {
