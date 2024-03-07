@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import * as S from "./SignForm.style";
 import Link from "next/link";
 import SnsSignForm from "../SnsSignForm/SnsSignForm";
@@ -23,10 +23,7 @@ const SIGNUP = {
 export default function SignForm({
   type = "signin",
   children,
-}: {
-  type: signType;
-  children: ReactNode;
-}) {
+}: PropsWithChildren<{ type: signType }>) {
   const pageType = type === "signin" ? SIGNIN : SIGNUP;
 
   return (

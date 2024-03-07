@@ -9,8 +9,8 @@ import { SharedFolderInterface, SharedUserInterface } from "@/types/types";
 import * as S from "./SharedPage.style";
 
 export async function getServerSideProps() {
-  let sharedUser: SharedUserInterface = await getSharedUser();
-  let sharedFolder: SharedFolderInterface = await getSharedFolder();
+  const sharedUser: SharedUserInterface = await getSharedUser();
+  const sharedFolder: SharedFolderInterface = await getSharedFolder();
   return {
     props: {
       sharedUser,
