@@ -7,7 +7,7 @@ import { useState } from "react";
 
 import { FolderGroupInfo, FolderLink } from "@/api/api";
 import CardList from "@/components/cardList/cardList";
-import FolderGroup, { FolderGroupProps } from "./FolderGroup";
+import FolderGroup from "./FolderGroup";
 import SearchBar from "@/components/searchBar/SearchBar";
 
 import ModalPortal from "@/components/modal/ModalPortal";
@@ -68,7 +68,7 @@ const FolderContents = ({ folderGroup, folderLinks }: FolderContentsProps) => {
           </div>
           <div className="folder_group_title">
             <div className="folder_title"></div>
-            {"전체" !== decodeURIComponent(folderId) && (
+            {"" !== decodeURIComponent(folderId) && (
               <div className="folder_editor">
                 <div onClick={(event) => onShowModal(event, ModalType.SHARE)}>
                   <Image src="/images/share.svg" alt="share" width="16" height="16" />

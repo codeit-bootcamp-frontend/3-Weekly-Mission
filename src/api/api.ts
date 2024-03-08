@@ -1,51 +1,143 @@
 const BASE_URL = "https://bootcamp-api.codeit.kr";
 const LOCAL_URL = "http://localhost:3000";
 const DEV_URL = "http://10.130.100.229:3000";
-const USER_ID = 11; // TODO : login 기능 추가 시 제거
+const VERCEL_URL = "https://3-weekly-mission-beryl.vercel.app"
+const USER_ID = "11"; // TODO : login 기능 추가 시 제거
 
-export const getFolderInfo = async () => {
-  const response = await fetch(
-    `${BASE_URL}/api/sample/folder` // sample api
-  );
-  const rsp = await response.json();
-  const rspFolder = rsp.folder;
+export interface UserInfo {
+  id: number;
+  created_at: string;
+  name: string;
+  image_source: string;
+  email: string;
+  auth_id: string;
+}
 
-  return {
-    name: rspFolder.name,
-    owner: rspFolder.owner,
-    links: rspFolder.links,
-  };
+export interface FolderInfo {
+  id: number;
+  created_at: string;
+  name: string;
+  user_id: number;
+  favorite: boolean;
+}
+
+export const getFolderInfo = async (folderId: string) => {
+  const response = await fetch(`${BASE_URL}/api/folders/${folderId}`)
+    .then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return null;
+    });
+
+  const result: FolderInfo = response.data.find((folder: FolderInfo) => String(folder.id) === folderId);
+  return result;
 };
 
-export const getFolderGroup = async (userId = USER_ID) => {
-  const response = await fetch(`${BASE_URL}/api/users/${userId}/folders`);
-  const rsp = await response.json();
-  return rsp.data;
+export const getFolderGroupAuth = async (accessToken: string) => {
+  const response = await fetch(`${BASE_URL}/api/folders`, {
+    cache: "no-cache",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return null;
+    });
+  return response;
 };
 
-export const getAllFolderLinksOfUser = async (userId = USER_ID) => {
-  const response = await fetch(`${BASE_URL}/api/users/${userId}/links`);
-  const rsp = await response.json();
-  return rsp;
+export const getAllFolderLinksAuth = async (accessToken: string) => {
+  const response = await fetch(`${BASE_URL}/api/links`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return null;
+    });
+
+  return response;
+};
+
+export const getSelectionFolderLinksAuth = async (folderId: string, accessToken: string) => {
+  const response = await fetch(`${BASE_URL}/api/links?folderId=${folderId}`, {
+    cache: "no-cache",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return null;
+    });
+
+  return response;
 };
 
 export const getSelectionFolderLinks = async (folderId: string, userId = USER_ID) => {
-  const response = await fetch(`${BASE_URL}/api/users/${userId}/links?folderId=${folderId}`);
-  const rsp = await response.json();
-  return rsp;
+  const response = await fetch(`${BASE_URL}/api/users/${userId}/links?folderId=${folderId}`)
+    .then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return null;
+    });
+
+  return response;
 };
 
 export const getUserProfile = async (user_id = USER_ID) => {
-  const response = await fetch(`${BASE_URL}/api/users/${user_id}`);
-  const find_user = await response.json().then((result) => {
-    return result.data?.find((user: any) => user.id === user_id);
-  });
+  const response = await fetch(`${BASE_URL}/api/users/${user_id}`)
+    .then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return null;
+    });
 
-  return {
-    name: find_user.name,
-    email: find_user.email,
-    image_source: find_user.image_source,
-  };
+  return response;
+};
+
+export const getUserProfileAuth = async (accessToken: string) => {
+  const response = await fetch(`${BASE_URL}/api/users`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return null;
+    });
+  return response;
 };
 
 export const postUserLogin = async (email: string, password: string) => {
@@ -59,13 +151,12 @@ export const postUserLogin = async (email: string, password: string) => {
     .then((res) => {
       if (res.status === 400) return null;
       else if (!res.ok) throw new Error(res.statusText);
-
       return res.json();
     })
     .catch((error) => {
       console.error("Error:", error);
+      return null;
     });
-
   return response;
 };
 
@@ -83,7 +174,9 @@ export const postUserSignup = async (email: string, password: string) => {
     })
     .catch((error) => {
       console.error("Error:", error);
+      return null;
     });
+  return response;
 };
 
 export const postCheckEmail = async (email: string) => {
@@ -102,8 +195,8 @@ export const postCheckEmail = async (email: string) => {
     })
     .catch((error) => {
       console.error("Error:", error);
+      return null;
     });
-
   return response;
 };
 
@@ -117,14 +210,11 @@ export interface FolderLink {
 }
 
 export interface FolderGroupInfo {
-  id: number | string;
+  id: number;
   created_at: string;
   name: string;
   user_id: number;
   favorite: boolean;
-  link: {
-    count: number;
-  };
 }
 
 export const setFolderLinksFromItems = (links: FolderLink[]): FolderLink[] => {
@@ -143,9 +233,52 @@ export const setFolderLinksFromItems = (links: FolderLink[]): FolderLink[] => {
 };
 
 export const getSharedCurrentFolderLocalURL = (folderId: string, userId = USER_ID) => {
-  return `${LOCAL_URL}/shared?user=${userId}&folder=${folderId}`;
+  return `${LOCAL_URL}/shared/${folderId}?user=${userId}`;
 };
 
 export const getSharedCurrentFolderDevURL = (folderId: string, userId = USER_ID) => {
-  return `${DEV_URL}/shared?user=${userId}&folder=${folderId}`;
+  return `${DEV_URL}/shared/${folderId}?user=${userId}`;
+};
+
+// request router handler
+export const postRequestCookies = async (key: string, value: string) => {
+  const response = await fetch(`${VERCEL_URL}/api/cookies`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      key: key,
+      value: value,
+    }),
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return null;
+    });
+
+  return response;
+};
+
+export const getRequestCookies = async (key: string) => {
+  const response = await fetch(`${VERCEL_URL}/api/cookies?key=${encodeURIComponent(key)}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return null;
+    });
+
+  return response;
 };

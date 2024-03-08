@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { postCheckEmail, postUserLogin, postUserSignup } from "@/api/api";
+import { useForm } from "react-hook-form";
+import { postRequestCookies, postCheckEmail, postUserLogin, postUserSignup } from "@/api/api";
 import { Login } from "@/components/login/Login";
 import { useRouter } from "next/navigation";
 
@@ -27,11 +27,6 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
   const [loginData, setLoginData] = useState<LoginFields>({ email: "", password: "" });
   const router = useRouter();
 
-  const accessToken = localStorage.getItem("accessToken");
-  if (accessToken) {
-    router.push("/folder/전체");
-  }
-
   const onCheckEmail = async (email: string) => {
     const res = await postCheckEmail(email);
     if (res === null) setEmailError(true);
@@ -43,8 +38,11 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
   }, [watchAllFields.email, watchAllFields.password]);
 
   useEffect(() => {
-    if (!errors.email) console.log("update email");
-  }, [!errors]);
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      // router.push("/folder");
+    }
+  }, []);
 
   return (
     <>
@@ -59,10 +57,14 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
           if (res === null) {
             setSubmitError(true);
           } else {
+            const cookiesResponse = await postRequestCookies("accessToken", res.data.accessToken);
+            if (cookiesResponse === null) return;
+
             // TODO : redirect /folder -> /folder/전체
-            localStorage.setItem("accessToken", res.accessToken);
-            localStorage.setItem("refreshToken", res.refreshToken);
-            router.push("/folder/전체");
+            localStorage.setItem("accessToken", res.data.accessToken);
+            localStorage.setItem("refreshToken", res.data.refreshToken);
+
+            router.push("/folder");
           }
         })}>
         {pathname === "signin" ? (
@@ -91,6 +93,7 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
             check={true}
             register={register}
             formState={{ isSubmitting, isSubmitted, errors }}
+            submitError={submitError}
             comparePassword={watchAllFields.password === watchAllFields.passwordCheck}
           />
         )}
