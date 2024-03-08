@@ -1,4 +1,4 @@
-import { fetchWithGet } from '@api/instance/fetchWithGet';
+import { getWithAccessToken } from '@api/instance/getWithAccessToken';
 
 export type TFolderCategoryData = {
   id: number;
@@ -6,17 +6,21 @@ export type TFolderCategoryData = {
   name: string;
   user_id: number;
   favorite: boolean;
-  link: {
-    count: number;
-  };
+  // link: {
+  //   count: number;
+  // };
 };
 
 export interface IFolderCategoryResponse {
-  data: TFolderCategoryData[];
+  data: {
+    folder: TFolderCategoryData[];
+  };
 }
 
-const getFolderCategory = async (userId: string) => {
-  return fetchWithGet<IFolderCategoryResponse>(`/api/users/${userId}/folders`);
+const GET_FOLDERS_DATA_API = '/api/folders';
+
+const getFolderCategory = async () => {
+  return getWithAccessToken<IFolderCategoryResponse>(GET_FOLDERS_DATA_API);
 };
 
 export { getFolderCategory };

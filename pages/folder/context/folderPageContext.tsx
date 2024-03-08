@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext } from 'react';
 
-import { FolderCategoryDataWithIdTotal } from '../index.page';
+import { FolderCategoryDataWithIdTotal } from '../comp/article/comp/card-container/comp/folder-link-category/hooks/useGetFolderCategoryList';
 
 const folderPageServerSidePropContext = createContext<FolderCategoryDataWithIdTotal[]>([]);
 

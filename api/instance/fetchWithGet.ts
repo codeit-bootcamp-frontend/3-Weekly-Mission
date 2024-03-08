@@ -1,28 +1,17 @@
-import { getUrlWithQs } from '@api/util/getURL';
+import { AxiosRequestConfig } from 'axios';
 
-const fetchWithGet = async <T>(
-  endPoint: string,
-  qs?: ConstructorParameters<typeof URLSearchParams>[number],
-): Promise<T | void> => {
-  try {
-    const url = getUrlWithQs(process.env.NEXT_PUBLIC_BASE_URL, endPoint, qs);
+import { axiosInstance } from './axiosInstance';
 
-    const response = await fetch(url.href, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+const fetchWithGet = async <T>(endPoint: string, params?: AxiosRequestConfig['params']): Promise<T> => {
+  const response = await axiosInstance.get<T>(endPoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    params,
+  });
 
-    if (!response.ok) {
-      throw new Error(`${response.status} ${response.statusText}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('🚀 ~ fetchWithGet ~ error:', error);
-    // 에러 때 딱히 뭐 하라는 게 읎음.
-  }
+  return response.data;
 };
 
 export { fetchWithGet };

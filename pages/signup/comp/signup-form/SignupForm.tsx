@@ -8,7 +8,7 @@ import { StErrorMsg } from '@pages/signin/comp/signin-form/SigninForm';
 import { checkEmailDuplication } from '@api/sign/checkEmailDuplication';
 import { signup } from '@api/sign/signup';
 import { useFormOnSubmit } from '@hooks/useFormOnSubmit';
-import { setAccessToken } from '@utils/local-storage/setAccessToken';
+import { setToken } from '@utils/local-storage/setToken';
 
 import { EMAIL_REGEX } from '@/constant/regex';
 import { SIGN, SIGNUP_REGISTER_OPTIONS } from '@/constant/sign/sign';
@@ -36,7 +36,7 @@ const SignupForm = ({ router }: SignupFormProps) => {
     onSubmit: async (inputs) => {
       try {
         const res = await signup({ email: inputs.email, password: inputs.password });
-        setAccessToken(res.data.accessToken);
+        setToken({ accessToken: res.data.accessToken, refreshToken: res.data.refreshToken });
         reset();
         router.push('/folder');
       } catch (error) {

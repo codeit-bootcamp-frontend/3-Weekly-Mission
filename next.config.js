@@ -8,6 +8,7 @@ const nextConfig = {
       displayName: true,
       ssr: true,
     },
+    removeConsole: process.env.NODE_ENV === 'production',
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));

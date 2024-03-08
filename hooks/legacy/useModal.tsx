@@ -5,10 +5,10 @@ import { useCloseModal } from '@hooks/useCloseModal';
 export interface CloseModal {
   closeModal: () => void;
 }
-type Obj = Record<string | number | symbol, unknown>;
+type Obj = Record<string | number | symbol, any>;
 type ModalComponent = ComponentType<CloseModal & Obj>;
 type GenerateModalComponentProps<T> = T extends ModalComponent
-  ? ComponentProps<T> & { closeModalCallback?: () => void }
+  ? ComponentProps<T> & { closeModalCallback?: VoidFunction }
   : never;
 type ModalComponentPropsWithoutCloseModalAndModalRef<T extends ModalComponent> = Omit<
   GenerateModalComponentProps<T>,
@@ -16,17 +16,20 @@ type ModalComponentPropsWithoutCloseModalAndModalRef<T extends ModalComponent> =
 >;
 type DirectModalComponentProps<T extends ModalComponent> = ModalComponentPropsWithoutCloseModalAndModalRef<T>;
 
-const useModal = <MC extends ModalComponent, MCP extends GenerateModalComponentProps<MC>>() => {
+/**
+ * @deprecated use context useModal hook instead
+ */
+const useModal = <MC extends ModalComponent, MCP extends ModalComponentPropsWithoutCloseModalAndModalRef<MC>>() => {
   const [Modal, setModal] = useState<ModalComponent>();
 
   const [ModalInfo, setModalInfo] = useState<MCP>();
   const { isModalOpen, toggleModal, modalRef } = useCloseModal();
 
-  const closeModal = (closeModalCallback?: () => void) => {
+  const closeModal = (closeModalCallback?: VoidFunction) => {
     if (isModalOpen) {
       toggleModal();
 
-      if (typeof closeModalCallback === 'function' && isModalOpen) closeModalCallback();
+      if (typeof closeModalCallback === 'function') closeModalCallback();
     }
   };
 
@@ -36,34 +39,20 @@ const useModal = <MC extends ModalComponent, MCP extends GenerateModalComponentP
   }: { ModalComponent: VMC } & ModalComponentPropsWithoutCloseModalAndModalRef<VMC>) => {
     toggleModal(); // 여는 순간 실행
 
-    setModalInfo(() => {
-      if (!isModalOpen) {
-        return rest as unknown as MCP;
-      }
-    });
-    setModal(() => {
-      if (!isModalOpen) return ModalComponent;
-    });
+    if (!isModalOpen) {
+      setModalInfo(() => rest as unknown as MCP);
+      setModal(() => ModalComponent);
+    }
   };
 
   const ModalComponent = (directProps?: DirectModalComponentProps<MC>) => {
-    const validProps: Obj = {};
-
-    if (ModalInfo) {
-      const keysA = Object.keys(ModalInfo);
-
-      for (let i = 0; i < keysA.length; i++) {
-        if (ModalInfo[keysA[i]]) validProps[keysA[i]] = ModalInfo[keysA[i]];
-      }
-    }
-
     if (!Modal) throw new Error('ModalComponent property should be passed to toggleAndSetModal function');
 
     return (
       <Modal
         modalRef={modalRef}
         closeModal={() => closeModal(ModalInfo?.closeModalCallback)}
-        {...validProps}
+        {...ModalInfo}
         {...directProps}
       />
     );

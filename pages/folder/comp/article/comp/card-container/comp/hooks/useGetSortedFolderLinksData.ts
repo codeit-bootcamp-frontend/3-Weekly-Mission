@@ -2,21 +2,25 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { getSortedFolderLinksData, TFolderLink } from '@api/folder-page/getSortedFolderLinksData';
 
-const useGetSortedFolderLinksData = (folderId: '' | number) => {
-  const [sortedLinks, setSortedLinks] = useState<TFolderLink[] | null>(null);
+const useGetSortedFolderLinksData = (folderIdAndName: { folderId: 'total' | number; folderName: string }) => {
+  const [sortedLinks, setSortedLinks] = useState<TFolderLink[]>([]);
 
-  const fetchAndSetSortedLinks = useCallback(async () => {
-    const res = await getSortedFolderLinksData(folderId);
+  const fetchAndSetSortedLinks = useCallback(async (folderId: '' | number) => {
+    try {
+      const res = await getSortedFolderLinksData(folderId);
 
-    if (!res) return;
-
-    const { data } = res;
-    setSortedLinks(data);
-  }, [folderId]);
+      const {
+        data: { folder },
+      } = res;
+      setSortedLinks(folder);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   useEffect(() => {
-    fetchAndSetSortedLinks();
-  }, [fetchAndSetSortedLinks]);
+    fetchAndSetSortedLinks(folderIdAndName.folderId === 'total' ? '' : folderIdAndName.folderId);
+  }, [fetchAndSetSortedLinks, folderIdAndName]);
 
   return sortedLinks;
 };

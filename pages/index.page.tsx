@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
+const fontSize = { fontSize: 'Large' };
+
 export default function Home() {
   return (
     <>
@@ -14,16 +16,24 @@ export default function Home() {
         <nav>
           <ul>
             <li>
-              <Link href={{ pathname: '/folder' }}>folder page</Link>
+              <Link href={{ pathname: '/folder' }} style={fontSize}>
+                folder page
+              </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/shared' }}>shared page</Link>
+              <Link href={{ pathname: '/shared' }} style={fontSize}>
+                shared page
+              </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/test' }}>test page</Link>
+              <Link href={{ pathname: '/test' }} style={fontSize}>
+                test page
+              </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/signin' }}>signin page</Link>
+              <Link href={{ pathname: '/signin' }} style={fontSize}>
+                signin page
+              </Link>
             </li>
           </ul>
         </nav>

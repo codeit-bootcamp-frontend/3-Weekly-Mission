@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 type TUseSNSShareProps = {
   title: string;
   origin: string;
-  userId: number | null;
-  folderId: number | null;
+  userId: string | number | null;
+  folderId: string | number | null;
 };
 
 const useSNSShare = ({ title, origin, userId, folderId }: TUseSNSShareProps) => {
@@ -16,6 +16,7 @@ const useSNSShare = ({ title, origin, userId, folderId }: TUseSNSShareProps) => 
     };
   }
 
+  // /shared?user=1&folder=307
   const url = `${origin}/shared?user=${userId}&folder=${folderId}`;
 
   /**
