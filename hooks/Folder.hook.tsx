@@ -1,20 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { DEFALUT_MODAL_VALUE } from "@/Constants/Constants";
-import getFetch from "@/utils/getFetch";
-import getFormattedCamelCaseData from "@/utils/getFormattedCamelCaseData";
+import { DEFALUT_MODAL_VALUE } from "@/constants/constants";
+import { LinkInterface, ModalInterface } from "@/interfaces";
 import {
-    CardInterface,
-    FolderDataInterface,
-    UserDataInterface,
-    ModalInterface,
-} from "@/interfaces";
-import { URL_DOMAIN } from "@/Constants/Constants";
-import {
-    getFilteredLinkData,
-    getFolderData,
-    getFolderPageUserData,
-    getLinkData,
-} from "@/data";
+    getRefinedFilteredLinkList,
+    getRefinedLinkList,
+} from "@/apis/services";
 
 // Modal을 사용하기 위한 hook
 export const useModal = () => {
@@ -32,39 +22,21 @@ export const useModal = () => {
     return { modal, showModal, closeModal, setModal };
 };
 
-// 폴더들을 가지고 있는 데이터
-export const useFolder = () => {
-    const [folderCardData, setFolderCardData] = useState<
-        CardInterface[] | undefined
-    >();
-    const [folderData, setFolderData] = useState<
-        FolderDataInterface[] | undefined
-    >();
-    const originalFolderCardData = useRef([]);
+// 링크 리스트와 관련된 훅
+export const useLinkList = () => {
+    const [LinkList, setLinkList] = useState<LinkInterface[] | undefined>();
 
-    // 페이지 로드시 폴더 데이터 가지오기
-    useEffect(() => {
-        try {
-            (async () => {
-                const data = await getFolderData();
-                return setFolderData(() => getFormattedCamelCaseData(data));
-            })();
-        } catch (error) {
-            console.error(error);
-        }
-    }, []);
+    const originalLinkList = useRef<any>([]);
 
     // 페이지 로드시 전체 링크 데이터 가져오기
     useEffect(() => {
         try {
             (async () => {
-                const data = await getLinkData();
-                setFolderCardData(() => {
-                    return getFormattedCamelCaseData(data);
+                const refinedLinkList = await getRefinedLinkList();
+                setLinkList(() => {
+                    return refinedLinkList;
                 });
-                originalFolderCardData.current = getFormattedCamelCaseData([
-                    ...data,
-                ]);
+                originalLinkList.current = [...refinedLinkList];
             })();
         } catch (error) {
             console.error(error);
@@ -72,16 +44,14 @@ export const useFolder = () => {
     }, []);
 
     // 폴더의 전체 버튼을 클릭했을 때 가져올 데이터
-    const handleOverviewCardButtonClick = () => {
+    const handleOverviewFolderButtonClick = () => {
         try {
             (async () => {
-                const data = await getLinkData();
-                setFolderCardData(() => {
-                    return getFormattedCamelCaseData(data);
+                const refinedLinkList = await getRefinedLinkList();
+                setLinkList(() => {
+                    return refinedLinkList;
                 });
-                originalFolderCardData.current = getFormattedCamelCaseData([
-                    ...data,
-                ]);
+                originalLinkList.current = [...refinedLinkList];
             })();
         } catch (error) {
             console.error(error);
@@ -89,12 +59,13 @@ export const useFolder = () => {
     };
 
     // 폴더의 전체 버튼이 아닌 버튼을 클릭했을 때 가져올 데이터
-    const handleFilteredCardButtonClick = (id: number) => {
+    const handleFilteredFolderButtonClick = () => {
         try {
             (async () => {
-                const data = await getFilteredLinkData(id);
-                setFolderCardData(() => {
-                    return getFormattedCamelCaseData(data);
+                const refinedFilteredLinkList =
+                    await getRefinedFilteredLinkList();
+                setLinkList(() => {
+                    return refinedFilteredLinkList;
                 });
             })();
         } catch (error) {
@@ -102,40 +73,15 @@ export const useFolder = () => {
         }
     };
     return {
-        folderData,
-        folderCardData,
-        originalFolderCardData,
-        handleOverviewCardButtonClick,
-        handleFilteredCardButtonClick,
-        setFolderCardData,
+        LinkList,
+        originalLinkList,
+        handleOverviewFolderButtonClick,
+        handleFilteredFolderButtonClick,
+        setLinkList,
     };
 };
 
-// 폴더 페이지의 로그인 로직과 유저 데이터를 가져오는 훅
-export const useFolderPageLogin = () => {
-    // login의 경우 맨처음 false가 들어오는게 명확해서 알아서 타입을 boolean으로 지정해줌
-    // 반면 userData의 경우 확장의 가능성이 있으니 UserDataInterface로 지정해줌
-    const [login, setLogin] = useState(false);
-    const [userData, setUserData] = useState<UserDataInterface>();
-
-    // Header의 유저 프로필 데이터
-    useEffect(() => {
-        try {
-            (async () => {
-                const data = await getFolderPageUserData();
-                setUserData({ ...data[0] });
-                setLogin(true);
-            })();
-        } catch (error) {
-            console.error(error);
-        }
-    }, []);
-
-    return { login, userData };
-};
-
 export const useScrollingSearchBar = () => {
-    // ToDo useRef()들의 타입을 any로 지정한 것 수정하기
     const footerDom = useRef<HTMLDivElement>(null);
     const linkCreatorDom = useRef<HTMLDivElement>(null);
     const linkCreatorWrapperDom = useRef<HTMLDivElement>(null);
@@ -145,9 +91,6 @@ export const useScrollingSearchBar = () => {
     };
 
     useEffect(() => {
-        // 첫 렌더링시 footerDom이 빠르게 참조돼버려서 setTimeout으로 여유를 줌
-
-        // 바깥에다가 linkCreatorDom.current를 해줬는데 왜 안쪽 if문에도 linkCreatorDom.current를 해줘야하는지 모르겠음
         if (
             linkCreatorWrapperDom.current &&
             footerDom.current &&

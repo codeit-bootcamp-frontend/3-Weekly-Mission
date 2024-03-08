@@ -1,13 +1,7 @@
 import { RefObject } from "react";
 import { CloseModal } from "../types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
-
-export interface ModalInterface {
-    type: string;
-    folderName: string;
-    sharingUrl: string;
-    url: string;
-}
+import { ParsedUrlQuery } from "querystring";
 
 export interface UserDataInterface {
     id: number;
@@ -19,7 +13,7 @@ export interface UserDataInterface {
     authId: string;
 }
 
-export interface CardInterface {
+export interface LinkInterface {
     id: number;
     createdAt: string;
     updatedAt: string | null;
@@ -67,12 +61,74 @@ export interface LinkCreatorRefsInterface {
     linkCreatorWrapperDom: RefObject<HTMLDivElement> | null;
 }
 
-export interface ModalProps {
-    modal?: ModalInterface;
-    onCloseModalButtonClick: CloseModal;
-}
-
 export interface signFormDataInterface {
     email: string;
     password: string;
+}
+
+export interface SharedPageFolderInfoInterface {
+    id: number;
+    created_at: string;
+    name: string;
+    user_id: number;
+    favorite: boolean;
+}
+
+// ToDo 정리 예정
+
+export interface UrlQuery extends ParsedUrlQuery {
+    userId?: string;
+    folderId?: string;
+}
+
+export interface SharedPageOwnerInfoInterface {
+    authId: string;
+    createdAt: string;
+    email: string;
+    id: number;
+    imageSource: string;
+    name: string;
+}
+
+export interface UserInterface {
+    authId: string;
+    createdAt: string;
+    email: string;
+    id: number;
+    imageSource: string;
+    name: string;
+}
+
+export interface SharedPageFolderInfoInterface {
+    createdAt: string;
+    favorite: boolean;
+    id: number;
+    name: string;
+    userId: number;
+}
+
+export interface FolderInterface {
+    createdAt: string;
+    favorite: boolean;
+    id: number;
+    name: string;
+    userId: number;
+}
+
+export interface Linkinterface {
+    createdAt: string;
+    description: string;
+    folderId: number;
+    id: number;
+    imageSource: string;
+    title: string;
+    updatedAt: string;
+    url: string;
+}
+
+export interface ModalInterface {
+    type: string;
+    folderName: string;
+    sharingUrl: string;
+    url: string;
 }

@@ -1,21 +1,21 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import LinkCreator from "@/components/FolderPage/LinkCreator";
+
 import { useLinkList, useScrollingSearchBar } from "@/hooks/Folder.hook";
 import { useSearchBar } from "@/hooks/useSearchBar";
 import { getAccessToken } from "@/utils/getAccessToken";
-import Footer from "@/components/Common/Footer/Footer";
+import Header from "@/components/Common/Header/Header";
+import LinkCreator from "@/components/FolderPage/LinkCreator";
 import Contents from "@/components/Common/Contents/Contents";
 import CardSearchBar from "@/components/Common/Contents/CardSearchBar/CardSearchBar";
 import FolderList from "@/components/Common/Contents/FolderList/FolderList";
-import Header from "@/components/Common/Header/Header";
 import CardList from "@/components/Common/Contents/CardList/CardList";
+import Footer from "@/components/Common/Footer/Footer";
 
 export default function Folder() {
     const router = useRouter();
 
-    // 로그인이 되어있지 않다면 로그인 페이지로 이동한다.
     useEffect(() => {
         if (!getAccessToken()) {
             router.push("/signin");

@@ -1,6 +1,5 @@
 import { useSearchBar } from "@/hooks/useSearchBar";
 import { useGetShareLinkList } from "@/hooks/Shared.hook";
-
 import { useRouter } from "next/router";
 import Header from "@/components/Common/Header/Header";
 import Contents from "@/components/Common/Contents/Contents";
