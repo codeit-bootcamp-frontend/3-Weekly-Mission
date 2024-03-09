@@ -4,7 +4,7 @@ import styles from "./SocialLogin.module.css";
 
 const SocialLogin = ({ children = "소셜 로그인" }: { children: string }) => {
   return (
-    <div className={styles.SocialLogin}>
+    <div className={styles["social-login"]}>
       <span className={styles.text}>{children}</span>
       <div className={styles.links}>
         <Link href="https://www.google.com">
