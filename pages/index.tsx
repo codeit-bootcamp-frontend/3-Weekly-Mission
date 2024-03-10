@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export async function getServerSideProps() {
   const response = await fetch(
-    "https://bootcamp-api.codeit.kr/api/linkbrary/v1/users/8/folders"
+    "https://bootcamp-api.codeit.kr/api/linkbrary/v1/users/1/folders"
   );
   const result = await response.json();
   return {

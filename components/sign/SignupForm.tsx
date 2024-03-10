@@ -1,4 +1,4 @@
-import { Input } from "@/components/sign/Input";
+import { Input } from "@/components/sign/SignInput";
 import styles from "@/styles/accountPage.module.css";
 import classNames from "classnames/bind";
 import { Controller, useForm } from "react-hook-form";

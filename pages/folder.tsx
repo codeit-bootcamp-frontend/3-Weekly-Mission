@@ -2,7 +2,7 @@ import AddLinkBar from "@/components/folder/AddLinkBar";
 import Content from "@/components/folder/Content";
 import SearchBar from "@/components/common/SearchBar";
 import Header from "@/components/common/Header";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Footer from "@/components/common/Footer";
 import {
   UserData,
@@ -11,35 +11,38 @@ import {
   getUser,
   getUserFolderList,
   getUserLinkList,
+  getUserFolderLinkList,
+  UserLinkData,
 } from "@/api/api";
 import { USER_ID } from "./shared/[folderId]";
 
 type Props = {
-  linkList: UserFolderLinkData[];
   user: UserData;
   folderList: UserFolder[];
+  folderLinkList: UserFolderLinkData[];
 };
 
 export async function getServerSideProps() {
-  const [linkList, user, folderList] = await Promise.all([
-    getUserLinkList(),
+
+  const [user, folderList, folderLinkList] = await Promise.all([
     getUser(USER_ID),
     getUserFolderList(USER_ID),
+    getUserLinkList(USER_ID),
   ]);
-  return { props: { linkList, user, folderList } };
+  return { props: { user, folderList, folderLinkList } };
 }
 
 export default function Folder({
-  linkList: userFolderLinks,
   user,
   folderList,
+  folderLinkList: userLinks,
 }: Props) {
   const [searchValue, setsearchValue] = useState("");
   const handleInputChange = (value: string) => {
     setsearchValue(value);
   };
   const searchedData = useMemo(() => {
-    return userFolderLinks?.filter((item) => {
+    return userLinks?.filter((item) => {
       if (
         item.description?.includes(searchValue) ||
         item.url?.includes(searchValue) ||
@@ -48,8 +51,7 @@ export default function Folder({
         return item;
       }
     });
-  }, [userFolderLinks, searchValue]);
-
+  }, [userLinks, searchValue]);
   return (
     <>
       <Header
@@ -59,7 +61,7 @@ export default function Folder({
       />
       <AddLinkBar folderList={folderList} />
       <SearchBar handleInputChange={handleInputChange} />
-      <Content folderLinkList={searchedData} folderList={folderList} />
+      <Content searchedLinkList={searchedData} folderList={folderList}/>
       <Footer />
     </>
   );

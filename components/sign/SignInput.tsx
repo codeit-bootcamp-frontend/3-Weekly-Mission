@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./Input.module.css";
+import styles from "./SignInput.module.css";
 import Image from "next/image";
 import { FieldError } from "react-hook-form";
 

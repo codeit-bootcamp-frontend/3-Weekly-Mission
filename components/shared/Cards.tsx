@@ -11,7 +11,7 @@ export default function Cards({
     <div className={styles["card-container"]}>
       {folderLinkList.length ? (
         folderLinkList.map((link) => (
-          <Card key={link.id} data={link} folderList={[]} />
+          <Card key={link.id} data={link} folderList={[]} isFolder={false}/>
         ))
       ) : (
         <div className={styles["no-link"]}>저장된 링크가 없습니다</div>

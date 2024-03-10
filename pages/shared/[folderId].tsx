@@ -7,7 +7,7 @@ import Cards from "@/components/shared/Cards";
 import { getUser, getUserFolder, getUserFolderLinkList } from "@/api/api";
 import type { FolderData, UserData, UserFolderLinkData } from "@/api/api";
 
-export const USER_ID = "8";
+export const USER_ID = "1";
 
 export async function getServerSideProps(context: {
   query: { folderId: string };
@@ -38,9 +38,9 @@ export default function Shared({
   const searchedData = useMemo(() => {
     return folderLinkList?.filter((item) => {
       if (
-        item.description.includes(searchValue) ||
-        item.url.includes(searchValue) ||
-        item.title.includes(searchValue)
+        item.description?.includes(searchValue) ||
+        item.url?.includes(searchValue) ||
+        item.title?.includes(searchValue)
       ) {
         return item;
       }

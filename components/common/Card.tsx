@@ -7,16 +7,18 @@ import Modal from "../modals/Modal";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames/bind";
-import type { UserFolder, UserFolderLinkData } from "@/api/api";
+import type { UserFolder, UserLinkData } from "@/api/api";
 
 const cx = classNames.bind(styles);
 
 export default function Card({
   data: folderLink,
   folderList,
+  isFolder,
 }: {
-  data: UserFolderLinkData;
+  data: UserLinkData;
   folderList: UserFolder[];
+  isFolder: boolean;
 }) {
   const { created_at, url, description, image_source, title } = folderLink;
   const formattedDate = formatDate(created_at);
@@ -57,7 +59,7 @@ export default function Card({
           <div className={cx("mention-wrapper")}>
             <p className={cx("time-and-kebob-wrapper")}>
               <span className={cx("upload-time-ago")}>{timeAgo}</span>
-              {created_at && (
+              {isFolder && (
                 <button
                   className={cx("kebab-btn")}
                   onClick={(e) => {

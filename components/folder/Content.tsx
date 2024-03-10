@@ -1,140 +1,68 @@
-import penIcon from "@/public/pen.svg";
-import shareIcon from "@/public/share.svg";
-import deleteIcon from "@/public/delete.svg";
-import plusImg from "@/public/plus_img.svg";
 import Card from "../common/Card";
 import { useState } from "react";
 import styles from "./Content.module.css";
 import Modal from "../modals/Modal";
 import useModal from "../../hooks/useModal";
-import Image from "next/image";
 import classNames from "classnames/bind";
-import type { UserFolder, UserFolderLinkData } from "@/api/api";
+import { type UserFolder, type UserFolderLinkData } from "@/api/api";
+import { useRouter } from "next/router";
+import TitleBar from "./TitleBar";
+import Category from "./Category";
 
 const cx = classNames.bind(styles);
 
 export default function Content({
-  folderLinkList,
-  folderList: folderList,
+  searchedLinkList,
+  folderList,
 }: {
-  folderLinkList: UserFolderLinkData[];
+  searchedLinkList: UserFolderLinkData[];
   folderList: UserFolder[];
 }) {
+  const router = useRouter();
+  const path = router.asPath;
+  const folderIdAry = path.split("/");
+  const folderId = Number(folderIdAry[folderIdAry.length - 1]) || 0;
   const [targetFolder, setTargetFolder] = useState({
     title: "전체",
-    id: 0,
+    id: folderId,
   });
-
   const [modalState, setModalState, handleModalCancel] = useModal();
+
   const handleClick = (title: string, id: number) => {
-    setTargetFolder({
-      title: title,
-      id: id,
-    });
+    setTargetFolder({ title, id });
+    if (id === 0) {
+      router.push(`/folder`, `/folder`, { shallow: true });
+    } else {
+      router.push(`/folder`, `/folder/${id}`, { shallow: true });
+    }
   };
-  const filteredLinkList = folderLinkList.filter(
+  const filteredFolder = folderList?.filter(
     (data) => data.id === targetFolder["id"] || targetFolder["id"] === 0
   );
-
+  
+  // const data = useMemo(async () => {
+  //   const data = await getUserFolderLinkList(String(targetFolder.id));
+  //   return data;
+  // }, [targetFolder.id]);
   return (
     <section className={cx("content")}>
-      <Modal
-        state={modalState}
-        onClick={handleModalCancel}
+      <Modal state={modalState} onClick={handleModalCancel} />
+      <Category
+        handleClick={handleClick}
+        folderList={folderList}
+        setModalState={setModalState}
+        targetFolder={targetFolder}
       />
-      <div className={cx("folder-title-container")}>
-        <div className={cx("folder-title-wrapper")}>
-          <button
-            className={cx(
-              "button",
-              "folder-title",
-              targetFolder["title"] === "전체" && "selected"
-            )}
-            onClick={() => handleClick("전체", 0)}
-          >
-            전체
-          </button>
-          {folderList?.map((folder) => (
-            <button
-              className={cx(
-                "button",
-                "folder-title",
-                targetFolder["title"] === folder.name && "selected"
-              )}
-              key={folder.id}
-              onClick={() => {
-                handleClick(folder.name, folder.id);
-              }}
-            >
-              {folder.name}
-            </button>
-          ))}
-        </div>
-        <button
-          className={cx("button", "plus-btn", "add-folder-btn-wrapper")}
-          onClick={() =>
-            setModalState({
-              state: true,
-              target: "폴더추가",
-            })
-          }
-        >
-          <span>폴더추가</span>
-          <Image className={cx("plus-svg")} src={plusImg} alt="plus-img" />
-        </button>
-      </div>
-
-      <div className={cx("selected-category")}>
-        <h2 className={cx("h2")}>{targetFolder["title"]}</h2>
-        {targetFolder["title"] === "전체" || (
-          <div className={cx("folder-edits")}>
-            <button
-              className={cx("button", "edit-function")}
-              onClick={() =>
-                setModalState({
-                  state: true,
-                  target: "공유",
-                  folderName: targetFolder["title"],
-                })
-              }
-            >
-              <Image src={shareIcon} alt="shareIcon" />
-              공유
-            </button>
-            <button
-              className={cx("button", "edit-function")}
-              onClick={() =>
-                setModalState({
-                  state: true,
-                  target: "이름 변경",
-                  folderName: targetFolder["title"],
-                })
-              }
-            >
-              <Image src={penIcon} alt="penIcon" />
-              이름 변경
-            </button>
-            <button
-              className={cx("button", "edit-function")}
-              onClick={() =>
-                setModalState({
-                  state: true,
-                  target: "삭제",
-                  folderName: targetFolder["title"],
-                })
-              }
-            >
-              <Image src={deleteIcon} alt="deleteIcon" />
-              삭제
-            </button>
-          </div>
-        )}
-      </div>
-
-      {filteredLinkList?.length ? (
+      <TitleBar setModalState={setModalState} targetFolder={targetFolder} />
+      {filteredFolder[0]?.link_count ? (
         <div className={cx("card-container")}>
-          {filteredLinkList?.map((data) => (
-            <Card key={data.id} data={data} folderList={folderList}/>
+          {searchedLinkList?.map((data) => (
+            <Card
+              key={data.id}
+              data={data}
+              folderList={folderList}
+              isFolder={true}
+            />
           ))}
         </div>
       ) : (

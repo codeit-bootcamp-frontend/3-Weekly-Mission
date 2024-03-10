@@ -1,6 +1,4 @@
-import Error from "next/error";
-import { axiosInstance } from "./axios";
-import { UseFormSetError } from "react-hook-form";
+import axios from "./axios";
 
 //테스트 하려고 임시로 저장해놨습니다.
 const Authorization =
@@ -15,7 +13,7 @@ export interface FolderData {
 }
 // 폴더 정보
 export async function getUserFolder(folderId: string) {
-  const response = await axiosInstance.get(`/folders/${folderId}`, {
+  const response = await axios.get(`/folders/${folderId}`, {
     headers: {
       Authorization,
     },
@@ -33,24 +31,10 @@ export interface UserData {
 }
 // 유저 정보
 export async function getUser(userId: string) {
-  const response = await axiosInstance.get(`/users/${userId}`);
+  const response = await axios.get(`/users/${userId}`);
   return response.data[0];
 }
 
-export interface UserFolderLinkData {
-  id: number;
-  favorite: boolean;
-  created_at: string;
-  url: string;
-  title: string;
-  image_source: string;
-  description: string;
-}
-// 유저가 가진 폴더의 링크리스트
-export async function getUserFolderLinkList(folderId: string) {
-  const response = await axiosInstance.get(`/folders/${folderId}/links`);
-  return response.data;
-}
 export interface UserFolder {
   id: number;
   created_at: string;
@@ -60,12 +44,25 @@ export interface UserFolder {
 }
 // 유저가 가진 폴더 리스트
 export async function getUserFolderList(userId: string) {
-  const { data } = await axiosInstance.get<UserFolder[]>(
-    `/users/${userId}/folders`
-  );
+  const { data } = await axios.get<UserFolder[]>(`/users/${userId}/folders`);
   return data;
 }
 
+export interface UserFolderLinkData {
+  id: number;
+  favorite?: boolean;
+  created_at: string;
+  url: string;
+  title: string;
+  image_source: string;
+  description: string;
+}
+
+// 유저가 가진 폴더의 링크리스트
+export async function getUserFolderLinkList(folderId: string) {
+  const response = await axios.get(`/folders/${folderId}/links`);
+  return response.data;
+}
 export interface UserLinkData {
   id: number;
   created_at: string;
@@ -75,21 +72,21 @@ export interface UserLinkData {
   description: string;
 }
 // 유저가 가진 링크 리스트
-export async function getUserLinkList() {
-  const { data } = await axiosInstance.get<UserLinkData[]>("/links", {
+export async function getUserLinkList(userId: string) {
+  const response = await axios.get(`/users/${userId}/links`, {
     headers: { Authorization },
   });
-  return data;
+  return response.data;
 }
 
 interface PostSignData {
   email: string;
   password: string;
-  setError: (email: string, object: {type: string, message: string} ) => void;
+  setError: (email: string, object: { type: string; message: string }) => void;
 }
 export async function postSignIn({ email, password, setError }: PostSignData) {
   try {
-    const response = await axiosInstance.post("/auth/sign-in", {
+    const response = await axios.post("/auth/sign-in", {
       email,
       password,
     });
@@ -113,7 +110,7 @@ export async function postSignIn({ email, password, setError }: PostSignData) {
 }
 
 export async function postSignUp({ email, password }: PostSignData) {
-  const response = await axiosInstance.post("/auth/sign-up", {
+  const response = await axios.post("/auth/sign-up", {
     email,
     password,
   });
@@ -122,7 +119,7 @@ export async function postSignUp({ email, password }: PostSignData) {
 
 export async function checkEmail({ email, setError }: PostSignData) {
   try {
-    const response = await axiosInstance.post("/users/check-email", { email });
+    const response = await axios.post("/users/check-email", { email });
     if (response.status === 200) {
       return true;
     }
