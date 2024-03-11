@@ -8,6 +8,7 @@ import { type UserFolder, type UserFolderLinkData } from "@/api/api";
 import { useRouter } from "next/router";
 import TitleBar from "./TitleBar";
 import Category from "./Category";
+import Cards from "../common/Cards";
 
 const cx = classNames.bind(styles);
 
@@ -54,20 +55,7 @@ export default function Content({
         targetFolder={targetFolder}
       />
       <TitleBar setModalState={setModalState} targetFolder={targetFolder} />
-      {filteredFolder[0]?.link_count ? (
-        <div className={cx("card-container")}>
-          {searchedLinkList?.map((data) => (
-            <Card
-              key={data.id}
-              data={data}
-              folderList={folderList}
-              isFolder={true}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className={cx("no-link")}>저장된 링크가 없습니다</div>
-      )}
+      <Cards data={searchedLinkList} isFolder={true}/>
     </section>
   );
 }

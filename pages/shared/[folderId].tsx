@@ -3,7 +3,7 @@ import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
 import Banner from "@/components/shared/Banner";
 import SearchBar from "@/components/common/SearchBar";
-import Cards from "@/components/shared/Cards";
+import Cards from "@/components/common/Cards";
 import { getUser, getUserFolder, getUserFolderLinkList } from "@/api/api";
 import type { FolderData, UserData, UserFolderLinkData } from "@/api/api";
 
@@ -51,7 +51,7 @@ export default function Shared({
       <Header profileImageSource={user.image_source} email={user.email} />
       <Banner folder={folderData} user={user} />
       <SearchBar handleInputChange={handleInputChange} />
-      <Cards data={searchedData} />
+      <Cards data={searchedData} isFolder={false} />
       <Footer />
     </>
   );
