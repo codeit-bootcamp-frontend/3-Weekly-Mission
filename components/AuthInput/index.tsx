@@ -129,6 +129,7 @@ const AuthInput = ({ type = "email", register, watch, errors, isSubmit }: AuthIn
                   id="password"
                   name="password"
                   type={isEyeIcon ? "text" : "password"}
+                  autoComplete="off"
                 />
                 {isSubmit ? (
                   <p className={styles["error-message"]}>{ERROR_MESSAGE.password.check}</p>
@@ -149,6 +150,7 @@ const AuthInput = ({ type = "email", register, watch, errors, isSubmit }: AuthIn
                   id="password"
                   name="password"
                   type={isEyeIcon ? "text" : "password"}
+                  autoComplete="off"
                 />
                 {(errors?.password?.type === "minLength" || errors?.password?.type === "pattern") && (
                   <p className={styles["error-message"]}>{ERROR_MESSAGE.password.vaild}</p>
@@ -165,6 +167,7 @@ const AuthInput = ({ type = "email", register, watch, errors, isSubmit }: AuthIn
                   id="passwordConfirm"
                   name="passwordConfirm"
                   type={isEyeIcon ? "text" : "password"}
+                  autoComplete="off"
                 />
                 {errors?.passwordConfirm?.type === "validate" && (
                   <p className={styles["error-message"]}>{ERROR_MESSAGE["passwordConfirm"].vaild}</p>

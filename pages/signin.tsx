@@ -30,7 +30,6 @@ const Signin = () => {
       accessToken && router.push("/folder");
     } catch {
       setIsSubmit(true);
-      alert("알수없는 오류가 발생했습니다");
     }
   };
 
