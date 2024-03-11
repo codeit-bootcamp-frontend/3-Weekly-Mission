@@ -30,9 +30,10 @@ const SignUp = () => {
       const accessToken = result.data.accessToken;
       localStorage.setItem("accessToken", accessToken);
 
-      result && router.push("/folder");
+      accessToken && router.push("/folder");
     } catch {
       setIsSubmit(true);
+      alert("알수없는 오류가 발생했습니다");
     }
   };
 

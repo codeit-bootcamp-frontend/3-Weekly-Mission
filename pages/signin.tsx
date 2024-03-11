@@ -22,15 +22,15 @@ const Signin = () => {
 
   const onSubmit = async (data: FormInput) => {
     const { email, password } = data;
-    let result;
     try {
-      result = await postSignin(email, password);
+      const result = await postSignin(email, password);
       const accessToken = result.data.accessToken;
       localStorage.setItem("accessToken", accessToken);
 
-      result && router.push("/folder");
+      accessToken && router.push("/folder");
     } catch {
       setIsSubmit(true);
+      alert("알수없는 오류가 발생했습니다");
     }
   };
 
