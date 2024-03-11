@@ -18,7 +18,10 @@ export async function getUserFolder(folderId: string) {
       Authorization,
     },
   });
-  return response.data[0];
+  if (typeof response.data == "object" && response.data[0])
+    return response.data[0];
+
+  return;
 }
 
 export interface UserData {
