@@ -1,10 +1,11 @@
+import { Modal } from "@/hooks/useModal";
 import styles from "./Modal.module.css";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
 interface Props {
-  state: { folderName: string };
+  state: Modal;
 }
 
 export default function FolderDeleteModal({ state }: Props) {

@@ -7,11 +7,11 @@ import { UserFolder } from "@/api/api";
 
 const cx = classNames.bind(styles);
 
-export default function AddLinkBar({
-  folderList,
-}: {
+interface Props {
   folderList: UserFolder[];
-}) {
+}
+
+export default function AddLinkBar({ folderList }: Props) {
   const [modalState, setModalState, handleModalCancel] = useModal();
   const [inputValue, setInputValue] = useState("");
 

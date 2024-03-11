@@ -1,11 +1,12 @@
 import { UserFolder } from "@/api/api";
 import styles from "./Modal.module.css";
 import classNames from "classnames/bind";
+import { Modal } from "@/hooks/useModal";
 
 const cx = classNames.bind(styles);
 
 interface Props {
-  state: { url: string };
+  state: Modal;
   data: UserFolder[];
   link: string;
 }

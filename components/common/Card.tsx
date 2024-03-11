@@ -11,15 +11,17 @@ import type { UserFolder, UserLinkData } from "@/api/api";
 
 const cx = classNames.bind(styles);
 
+interface Props {
+  data: UserLinkData;
+  folderList: UserFolder[];
+  isFolder: boolean;
+}
+
 export default function Card({
   data: folderLink,
   folderList,
   isFolder,
-}: {
-  data: UserLinkData;
-  folderList: UserFolder[];
-  isFolder: boolean;
-}) {
+}: Props) {
   const { created_at, url, description, image_source, title } = folderLink;
   const formattedDate = formatDate(created_at);
   const timeAgo = calculateElapsedTimeSinceCreation(created_at);
@@ -43,6 +45,7 @@ export default function Card({
       >
         <>
           <Modal
+            link=""
             state={modalState}
             onClick={handleModalCancel}
             folderList={folderList}

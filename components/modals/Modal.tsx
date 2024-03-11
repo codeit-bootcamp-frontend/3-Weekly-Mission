@@ -9,6 +9,8 @@ import AddLinkModal from "./AddLinkModal";
 import FolderDeleteModal from "./FolderDeleteModal";
 import LinkDeleteModal from "./LinkDeleteModal";
 import classNames from "classnames/bind";
+import { Modal } from "@/hooks/useModal";
+import { UserFolder } from "@/api/api";
 
 const cx = classNames.bind(styles);
 enum FOLDER_NAME {
@@ -21,10 +23,17 @@ enum FOLDER_NAME {
   LINK_ADD2 = "추가하기",
 }
 
-export default function Modal({ state, onClick, link, folderList }: any) {
+interface Props {
+  state: Modal;
+  onClick: () => void;
+  link: string;
+  folderList: UserFolder[];
+}
+
+export default function Modal({ state, onClick, link, folderList }: Props) {
   if (typeof window === "undefined") return <></>;
 
-  const cancelModal = (e: any) => {
+  const cancelModal = (e: React.MouseEvent) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();

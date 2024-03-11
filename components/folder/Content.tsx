@@ -12,13 +12,12 @@ import Cards from "../common/Cards";
 
 const cx = classNames.bind(styles);
 
-export default function Content({
-  searchedLinkList,
-  folderList,
-}: {
+interface Props {
   searchedLinkList: UserFolderLinkData[];
   folderList: UserFolder[];
-}) {
+}
+
+export default function Content({ searchedLinkList, folderList }: Props) {
   const router = useRouter();
   const path = router.asPath;
   const folderIdAry = path.split("/");
@@ -40,14 +39,14 @@ export default function Content({
   const filteredFolder = folderList?.filter(
     (data) => data.id === targetFolder["id"] || targetFolder["id"] === 0
   );
-  
+
   // const data = useMemo(async () => {
   //   const data = await getUserFolderLinkList(String(targetFolder.id));
   //   return data;
   // }, [targetFolder.id]);
   return (
     <section className={cx("content")}>
-      <Modal state={modalState} onClick={handleModalCancel} />
+      <Modal state={modalState} onClick={handleModalCancel} folderList={[]} link=""/>
       <Category
         handleClick={handleClick}
         folderList={folderList}
@@ -55,7 +54,7 @@ export default function Content({
         targetFolder={targetFolder}
       />
       <TitleBar setModalState={setModalState} targetFolder={targetFolder} />
-      <Cards data={searchedLinkList} isFolder={true}/>
+      <Cards data={searchedLinkList} isFolder={true} />
     </section>
   );
 }

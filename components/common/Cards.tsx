@@ -2,13 +2,12 @@ import styles from "./Cards.module.css";
 import Card from "./Card";
 import type { UserFolderLinkData } from "@/api/api";
 
-export default function Cards({
-  isFolder,
-  data: folderLinkList,
-}: {
+interface Props {
   isFolder: boolean;
   data: UserFolderLinkData[];
-}) {
+}
+
+export default function Cards({ isFolder, data: folderLinkList }: Props) {
   return (
     <div className={styles["card-container"]}>
       {folderLinkList.length ? (

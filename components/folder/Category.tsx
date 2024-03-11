@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction } from "react";
 import { UserFolder } from "@/api/api";
 
 const cx = classNames.bind(styles);
+
 interface Props {
   targetFolder: {
     title: string;

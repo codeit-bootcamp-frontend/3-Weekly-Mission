@@ -1,9 +1,10 @@
+import { Modal } from "@/hooks/useModal";
 import styles from "./Modal.module.css";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 interface Props {
-  state: { url: string };
+  state: Modal;
 }
 export default function LinkDeleteModal({ state }: Props) {
   return (
