@@ -12,31 +12,30 @@ const PASSWD_REG = /(?=.*[0-9])(?=.*[A-Za-z])^.{8,}$/;
 
 const cx = classNames.bind(styles);
 export default function SignUpForm() {
-  const { handleSubmit, watch, setError, control } = useForm<FormData>({
-    mode: "onBlur",
-  });
+  const { handleSubmit, setError, control, getValues } =
+    useForm<FormData>({
+      mode: "onBlur",
+    });
 
   const router = useRouter();
 
-  const inputValue = watch();
-
-  const onSubmit = async () => {
-    const emailCheck = await checkEmail({ email: inputValue.email, setError });
-
+  const onSubmit = async (data: { email: string; password: string }) => {
+    const emailCheck = await checkEmail({ email: data.email, setError });
     if (emailCheck) {
-      postSignUp({
-        email: inputValue.email,
-        password: inputValue.password,
-      }).then((result) => {
-        localStorage.setItem("accessToken", result.accessToken);
-        router.push("/folder");
+      const result = await postSignUp({
+        email: data.email,
+        password: data.password,
       });
+
+      localStorage.setItem("accessToken", result.accessToken);
+      router.push("/folder");
     }
   };
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) router.push("/folder");
   }, [router]);
+
   return (
     <form
       className={cx("email-passwd-wrapper")}
@@ -92,11 +91,11 @@ export default function SignUpForm() {
         <label htmlFor="passwd-check">비밀번호 확인</label>
         <Controller
           control={control}
-          name="passwordCheck"
+          name="password-check"
           rules={{
             required: "비밀번호와 일치하는 값을 입력해 주세요.",
             validate: (value) => {
-              if (value !== inputValue.password)
+              if (value !== getValues("password"))
                 return "비밀번호가 일치하지 않아요";
             },
           }}

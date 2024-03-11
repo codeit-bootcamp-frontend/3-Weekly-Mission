@@ -19,7 +19,7 @@ export async function getUserFolder(folderId: string) {
       Authorization,
     },
   });
-  if (typeof response.data == "object" && response.data[0])
+  if (typeof response.data === "object" && response.data[0])
     return response.data[0];
 
   return;
@@ -36,7 +36,10 @@ export interface UserData {
 // 유저 정보
 export async function getUser(userId: string) {
   const response = await axios.get(`/users/${userId}`);
-  return response.data[0];
+  if (typeof response.data === "object" && response.data[0]) {
+    return response.data[0];
+  }
+  return;
 }
 
 export interface UserFolder {
@@ -48,8 +51,8 @@ export interface UserFolder {
 }
 // 유저가 가진 폴더 리스트
 export async function getUserFolderList(userId: string) {
-  const { data } = await axios.get<UserFolder[]>(`/users/${userId}/folders`);
-  return data;
+  const response = await axios.get(`/users/${userId}/folders`);
+  return response.data;
 }
 
 export interface UserFolderLinkData {

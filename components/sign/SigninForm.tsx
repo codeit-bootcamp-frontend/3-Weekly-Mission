@@ -12,22 +12,20 @@ const cx = classNames.bind(styles);
 export interface FormData {
   email: string;
   password: string;
-  passwordCheck?: string;
+  ["password-check"]: string;
 }
 
 export default function SigninForm() {
-  const { handleSubmit, watch, setError, control } = useForm<FormData>({
+  const { handleSubmit, setError, control } = useForm<FormData>({
     mode: "onBlur",
   });
 
   const router = useRouter();
 
-  const inputValue = watch();
-
-  const onSubmit = async () => {
+  const onSubmit = async (data: { email: string; password: string }) => {
     const result = await postSignIn({
-      email: inputValue.email,
-      password: inputValue.password,
+      email: data.email,
+      password: data.password,
       setError,
     });
     if (result) {

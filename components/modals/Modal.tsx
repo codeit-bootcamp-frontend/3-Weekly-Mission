@@ -11,6 +11,7 @@ import LinkDeleteModal from "./LinkDeleteModal";
 import classNames from "classnames/bind";
 import { Modal } from "@/hooks/useModal";
 import { UserFolder } from "@/api/api";
+import { Case, Switch } from "react-if";
 
 const cx = classNames.bind(styles);
 enum FOLDER_NAME {
@@ -54,25 +55,32 @@ export default function Modal({ state, onClick, link, folderList }: Props) {
                 alt="modal-close-Image"
               />
             </button>
-            {(state["target"] === FOLDER_NAME.FOLDER_SHARE && (
-              <ShareModal state={state} />
-            )) ||
-              (state["target"] === FOLDER_NAME.FOLDER_UPDATE && (
+            <Switch>
+              <Case condition={state["target"] === FOLDER_NAME.FOLDER_SHARE}>
+                <ShareModal state={state} />
+              </Case>
+              <Case condition={state["target"] === FOLDER_NAME.FOLDER_UPDATE}>
                 <NameChangeModal state={state} />
-              )) ||
-              (state["target"] === FOLDER_NAME.FOLDER_DELETE && (
+              </Case>
+              <Case condition={state["target"] === FOLDER_NAME.FOLDER_DELETE}>
                 <FolderDeleteModal state={state} />
-              )) ||
-              (state["target"] === FOLDER_NAME.FOLDER_ADD && (
+              </Case>
+              <Case condition={state["target"] === FOLDER_NAME.FOLDER_ADD}>
+                {" "}
                 <AddFolderModal />
-              )) ||
-              (state["target"] === FOLDER_NAME.LINK_DELETE && (
+              </Case>
+              <Case condition={state["target"] === FOLDER_NAME.LINK_DELETE}>
                 <LinkDeleteModal state={state} />
-              )) ||
-              ((state["target"] === FOLDER_NAME.LINK_ADD ||
-                FOLDER_NAME.LINK_ADD2) && (
+              </Case>
+              <Case
+                condition={
+                  state["target"] === FOLDER_NAME.LINK_ADD ||
+                  FOLDER_NAME.LINK_ADD2
+                }
+              >
                 <AddLinkModal state={state} data={folderList} link={link} />
-              ))}
+              </Case>
+            </Switch>
           </div>
         </>
       )}
