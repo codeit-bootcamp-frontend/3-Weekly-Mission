@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import axios from "./axios";
 
 //테스트 하려고 임시로 저장해놨습니다.
@@ -96,17 +97,20 @@ export async function postSignIn({ email, password, setError }: PostSignData) {
     if (response.status === 200) {
       return response.data;
     }
-  } catch (e: any) {
-    console.error(e);
-    if (e.response.status === 400) {
-      setError("email", {
-        type: "custom",
-        message: "이메일을 확인해 주세요.",
-      });
-      setError("password", {
-        type: "custom",
-        message: "비밀번호를 확인해 주세요.",
-      });
+  } catch (e) {
+    if (e instanceof AxiosError) {
+      console.error(e.message);
+
+      if (e.response?.status === 400) {
+        setError("email", {
+          type: "custom",
+          message: "이메일을 확인해 주세요.",
+        });
+        setError("password", {
+          type: "custom",
+          message: "비밀번호를 확인해 주세요.",
+        });
+      }
     }
     return;
   }
@@ -126,13 +130,15 @@ export async function checkEmail({ email, setError }: PostSignData) {
     if (response.status === 200) {
       return true;
     }
-  } catch (e: any) {
-    console.error(e.message);
-    if (e.response.status === 409)
-      setError("email", {
-        type: "custom",
-        message: "이미 사용중인 이메일입니다.",
-      });
+  } catch (e) {
+    if (e instanceof AxiosError) {
+      console.error(e.message);
+      if (e.response?.status === 409)
+        setError("email", {
+          type: "custom",
+          message: "이미 사용중인 이메일입니다.",
+        });
+    }
     return;
   }
 }
