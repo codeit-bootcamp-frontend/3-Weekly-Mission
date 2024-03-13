@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import AddLinkBar from "@/components/AddLinkBar";
@@ -19,7 +19,7 @@ export async function getStaticProps() {
     const resfolder = await getFolder();
     const resfolderLinks = await getFolderLinks();
     user = resUser.data[0];
-    folder = resfolder.data;
+    folder = resfolder.data[0];
     folderLinks = resfolderLinks.data;
   } catch {
     return {

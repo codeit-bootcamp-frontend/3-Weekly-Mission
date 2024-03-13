@@ -50,3 +50,20 @@ export interface SampleFolder {
   owner: Owner;
   links: SampleFolderLink[];
 }
+
+export interface Token {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface FormInput {
+  email: string;
+  emailSignup: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+export interface CheckEmail {
+  isUsableNickname: boolean;
+  error: string;
+}
