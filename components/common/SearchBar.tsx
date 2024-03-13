@@ -1,9 +1,15 @@
 import Image from "next/image";
-import close from "../public/close.svg";
+import close from "@/public/close.svg";
 import styles from "./SearchBar.module.css";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
+import classNames from "classnames/bind";
 
-export default function SearchBar({ handleInputChange }: any) {
+const cx = classNames.bind(styles);
+
+interface Props {
+  handleInputChange: (value: string) => void;
+}
+export default function SearchBar({ handleInputChange }: Props) {
   const [inputValue, setInputValue] = useState("");
 
   const clear = () => {
@@ -18,9 +24,9 @@ export default function SearchBar({ handleInputChange }: any) {
   };
   return (
     <>
-      <div className={styles["search-bar"]}>
+      <div className={cx("search-bar")}>
         <input
-          className={styles["search"]}
+          className={cx("search")}
           type="text"
           placeholder="링크를 검색해 보세요."
           onChange={inputChange}
@@ -29,9 +35,9 @@ export default function SearchBar({ handleInputChange }: any) {
         {inputValue && <Image src={close} alt="close-icon" onClick={clear} />}
       </div>
       {inputValue && (
-        <h2 className={styles["search-result-bar"]}>
+        <h2 className={cx("search-result-bar")}>
           {inputValue}
-          <span className={styles["search-result-highlight"]}>
+          <span className={cx("search-result-highlight")}>
             으로 검색한 결과입니다.
           </span>
         </h2>

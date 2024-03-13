@@ -1,10 +1,9 @@
 .login-page {
-  max-width: 144rem;
-  height: 98.2rem;
-  margin: 0 auto;
-  padding: 23.8rem 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 3.2rem;
   background-color: var(--Linkbrary-bg);
 }

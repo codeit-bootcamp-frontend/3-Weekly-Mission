@@ -1,13 +1,19 @@
+import { Modal } from "@/hooks/useModal";
 import styles from "./Modal.module.css";
-export default function NameChangeModal({ state }: any) {
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
+
+interface Props {
+  state: Modal;
+}
+
+export default function NameChangeModal({ state }: Props) {
   return (
     <>
-      <h2 className={styles["modal-title"]}>폴더 이름 변경</h2>
-      <input
-        className={styles["modal-input"]}
-        placeholder={state["folderName"]}
-      />
-      <button className={styles["modal-submit-btn"]}>변경하기</button>
+      <h2 className={cx("modal-title")}>폴더 이름 변경</h2>
+      <input className={cx("modal-input")} placeholder={state["folderName"]} />
+      <button className={cx("modal-submit-btn")}>변경하기</button>
     </>
   );
 }

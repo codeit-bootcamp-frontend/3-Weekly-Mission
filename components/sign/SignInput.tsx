@@ -1,19 +1,26 @@
 import { useState } from "react";
-import styles from "./Input.module.css";
+import styles from "./SignInput.module.css";
 import Image from "next/image";
+import { FieldError } from "react-hook-form";
+
+interface SignInputData {
+  id: string;
+  type: string;
+  error: FieldError | undefined;
+  placeholder: string;
+  value?: string;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 export function Input({
   id,
   type,
-  register,
   error,
   placeholder,
-}: {
-  id: string;
-  type: string;
-  register: any;
-  error: any;
-  placeholder: string;
-}) {
+  value,
+  onBlur,
+  onChange,
+}: SignInputData) {
   const [typeValue, setTypeValue] = useState<"password" | "text">("password");
 
   const handleEyeIconClick = () => {
@@ -23,7 +30,6 @@ export function Input({
       setTypeValue("password");
     }
   };
-
   return (
     <div className={styles["input-container"]}>
       <div className={styles["input-box"]}>
@@ -32,7 +38,9 @@ export function Input({
           className={`${styles.input} ${error && styles.error}`}
           type={type === "password" ? typeValue : type}
           placeholder={placeholder}
-          {...register}
+          value={value}
+          onBlur={onBlur}
+          onChange={onChange}
         ></input>
         {type === "password" && (
           <Image

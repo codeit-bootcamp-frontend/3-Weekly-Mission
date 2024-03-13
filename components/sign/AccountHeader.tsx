@@ -13,7 +13,7 @@ export default function AccountHeader({ signin }: { signin: boolean }) {
           width={210}
           height={38}
           className={cx("logo")}
-          src="/logo.svg"
+          src="/main-logo.svg"
           alt="logo"
         />
       </Link>

@@ -1,34 +1,31 @@
-import useModal from "../hooks/useModal";
-import calculateElapsedTimeSinceCreation from "../utils/calculateElapsedTimeSinceCreation";
-import formatDate from "../utils/formatDate";
+import useModal from "../../hooks/useModal";
+import calculateElapsedTimeSinceCreation from "../../utils/calculateElapsedTimeSinceCreation";
+import formatDate from "../../utils/formatDate";
 import styles from "./Card.module.css";
 import { useState } from "react";
-import Modal from "./modals/Modal";
-import { Links } from "@/hooks/useGetFolder";
-import { UserFolderData } from "@/hooks/useGetUserFolder";
+import Modal from "../modals/Modal";
 import Link from "next/link";
 import Image from "next/image";
 import classNames from "classnames/bind";
-
-interface Props {
-  data: UserFolderData & Links;
-}
+import type { UserFolder, UserLinkData } from "@/api/api";
 
 const cx = classNames.bind(styles);
 
-export default function Card({ data: folderLink }: Props) {
-  const {
-    createdAt,
-    created_at,
-    url,
-    description,
-    imageSource,
-    image_source,
-    title,
-  } = folderLink;
-  const formattedDate = formatDate(createdAt || created_at);
-  const timeAgo = calculateElapsedTimeSinceCreation(createdAt || created_at);
-  const imageUrl = imageSource || image_source || null;
+interface Props {
+  data: UserLinkData;
+  folderList: UserFolder[];
+  isFolder: boolean;
+}
+
+export default function Card({
+  data: folderLink,
+  folderList,
+  isFolder,
+}: Props) {
+  const { created_at, url, description, image_source, title } = folderLink;
+  const formattedDate = formatDate(created_at);
+  const timeAgo = calculateElapsedTimeSinceCreation(created_at);
+  const imageUrl = image_source || null;
   const [popoverState, setPopoverState] = useState(false);
   const [modalState, setModalState, handleModalCancel] = useModal();
   const [isHover, setIsHover] = useState(false);
@@ -47,22 +44,27 @@ export default function Card({ data: folderLink }: Props) {
         }}
       >
         <>
-          <Modal state={modalState} onClick={handleModalCancel} />
-          <div className={styles["card-img-container"]}>
+          <Modal
+            link=""
+            state={modalState}
+            onClick={handleModalCancel}
+            folderList={folderList}
+          />
+          <div className={cx("card-img-container")}>
             <div className={cx("card-img", { "no-img": !imageUrl })}>
               <Image
                 fill
-                src={imageSource || image_source || "/no-img-logo.svg"}
+                src={image_source || "/no-img-logo.svg"}
                 alt={title}
               />
             </div>
           </div>
-          <div className={styles["mention-wrapper"]}>
-            <p className={styles["time-and-kebob-wrapper"]}>
-              <span className={styles["upload-time-ago"]}>{timeAgo}</span>
-              {created_at && (
+          <div className={cx("mention-wrapper")}>
+            <p className={cx("time-and-kebob-wrapper")}>
+              <span className={cx("upload-time-ago")}>{timeAgo}</span>
+              {isFolder && (
                 <button
-                  className={styles["kebab-btn"]}
+                  className={cx("kebab-btn")}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -73,14 +75,14 @@ export default function Card({ data: folderLink }: Props) {
             </p>
             {popoverState ? (
               <div
-                className={styles["popover"]}
+                className={cx("popover")}
                 onMouseEnter={(e) => {
                   e.stopPropagation();
                   setIsHover(false);
                 }}
               >
                 <button
-                  className={styles["popover-btn"]}
+                  className={cx("popover-btn")}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -90,7 +92,7 @@ export default function Card({ data: folderLink }: Props) {
                   삭제하기
                 </button>
                 <button
-                  className={styles["popover-btn"]}
+                  className={cx("popover-btn")}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -103,8 +105,8 @@ export default function Card({ data: folderLink }: Props) {
             ) : (
               ""
             )}
-            <p className={styles["description"]}>{description}</p>
-            <p className={styles["upload-date"]}>{formattedDate}</p>
+            <p className={cx("description")}>{description}</p>
+            <p className={cx("upload-date")}>{formattedDate}</p>
           </div>
         </>
       </Link>

@@ -1,3 +1,4 @@
+import classNames from "classnames/bind";
 import styles from "./Footer.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,19 +26,21 @@ const SNS = [
   },
 ];
 
+const cx = classNames.bind(styles);
+
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
-      <div className={styles["brand-year"]}>ⓒcodeit - 2023</div>
-      <div className={styles["policy-and-faq"]}>
-        <Link className={styles["privacy"]} href="documents/privacy.html">
+    <footer className={cx('footer')}>
+      <div className={cx("brand-year")}>ⓒcodeit - 2023</div>
+      <div className={cx("policy-and-faq")}>
+        <Link className={cx("privacy")} href="documents/privacy.html">
           Privacy Policy
         </Link>
-        <Link className={styles.faq} href="documents/faq.html">
+        <Link className={cx("faq")} href="documents/faq.html">
           FAQ
         </Link>
       </div>
-      <div className={styles["sns-link"]}>
+      <div className={cx("sns-link")}>
         {SNS.map((sns, idx) => (
           <Link
             key={idx}
